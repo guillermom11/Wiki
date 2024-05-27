@@ -1,4 +1,7 @@
-export type AllowedTypes = 'function' | 'class' | 'interface' | 'method' | 'enum' | 'struct' | 'namespace' | 'mod' | 'export' | 'type' | 'assignment' | 'file' | 'folder';
+export type AllowedTypes = 'function' | 'class' | 'interface' | 'method' | 'enum' | 'struct' | 'namespace' | 'mod' | 'export' | 'type' | 'assignment' | 'file' | 'folder'; 
+
+export const excludedFolders = ['.git', '.vscode', 'venv', 'node_modules', 'dist', '__pycache__']
+export const excludedExtensions = ['min.js', 'min.css', 'min.css.map', 'min.js.map', 'd.ts']
 
 export const languageExtensionMap: Record<string, string> = {
   'py': 'python',

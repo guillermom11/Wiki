@@ -1,5 +1,6 @@
 import { AllowedTypes } from "./consts"
 
+
 interface ImportName {
     name: string
     alias?: string
@@ -17,7 +18,7 @@ export interface ImportStatement {
 
 }
 
-export interface Node {
+interface INode {
     id: string
     type: AllowedTypes
     name?: string
@@ -37,7 +38,7 @@ export interface Node {
     outDegree?: number
 }
 
-export interface Link {
+export interface ILink {
     source: Node
     target: Node
     label?: string
