@@ -108,7 +108,7 @@ const constructorDefinitions = `
 (function_declaration) @function
 
 ; arrow functions
-{ARROW_FUNCTION_CONSTRUCTOR} @function
+${arrowFunctionConstructor} @function
 
 ; classes
 (method_definition)? @function
