@@ -78,7 +78,6 @@ export function getRequiredDefinitions(language: string): { parser: Parser, quer
 export function captureQuery(language: string, queryName: keyof treeSitterQueries, code: string, queryArg?: string) : Parser.QueryCapture[] {
     const { parser, queries } = getRequiredDefinitions(language)
     const treeSitterQuery = (queryName === 'extraAssignmentCode') ? queries[queryName](queryArg || '') : queries[queryName] as string
-    if (['assignments'].includes(queryName)) console.log({ language, treeSitterQuery, code})
     const query = new Parser.Query(parser.getLanguage(), treeSitterQuery)
     const tree = parser.parse(code)
     const captures = query.captures(tree.rootNode)
@@ -139,4 +138,30 @@ export function renameSource(filePath: string, sourceName: string, language: str
 function firstConsecutiveDots(s: string): number {
     const match = s.match(/^\.{1,}/);
     return match ? match[0].length : 0;
+}
+
+export const validateContent = (content: string) => {
+
+    // Remove parentheses and their contents
+    content = content.replace(/\(.*?\)/gs, '')
+  
+    // Replace newlines, double spaces, and colons
+    content = content.replace(/\n/g, '')
+                     .replace(/  /g, '')
+                     .replace(/:/g, ',')
+                     .replace(/\|/g, ',')
+                     .trim();
+  
+    // Split the content by commas
+    let content_split = content.split(',');
+  
+    // Remove brackets and braces from each split part
+    content = content_split.map(item => 
+      item.trim().replace(/^.*?([\[\{])/, '$1')
+    ).join(',');
+  
+    // Remove all remaining brackets and braces
+    content = content.replace(/[\[\]\{\}]/g, '');
+  
+    return content.split(',');
 }

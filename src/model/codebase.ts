@@ -161,7 +161,6 @@ export class Node {
     generateImports() {
         if (this.type !== 'file') return
         const captures = captureQuery(this.language, 'importStatements', this.code)
-        // obtener captures unicos!
         captures.sort((a, b) => b.node.startPosition.row - a.node.startPosition.row || b.node.startPosition.column - a.node.startPosition.column)
         // console.log({ captures: captures.map(c => {return {name : c.name, text : c.node.text}}) })
         const importStatements: ImportStatement[] = []
