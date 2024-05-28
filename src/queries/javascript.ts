@@ -111,7 +111,7 @@ const constructorDefinitions = `
 ${arrowFunctionConstructor} @function
 
 ; classes
-(method_definition)? @function
+(method_definition)? @method
 (class_declaration) @class
 `
 
@@ -130,11 +130,11 @@ const exportClauses = `
 
 // ASSIGNMENT SPECIAL CASE
 // We need to know the assignment name
-const extraAssignmentCode = `
+const extraAssignmentCode = (name: string) => `
 ( program
     (expression_statement
         (call_expression function: (_) @identifier.name
-            (#match? @identifier.name "^{}")
+            (#match? @identifier.name "^${name}")
         ) @code
     )
 ) 

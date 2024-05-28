@@ -18,15 +18,15 @@ export class ImportStatement {
     code: string = ''
     path: string = ''
     startPosition: Point = {row: 0, column: 0}
-    endPosition: Point = {row: 9999, column: 0}
+    endPosition: Point = {row: 99999, column: 0}
 }
 
 export class Node {
     id: string = '' // id is like /home/user/repo/file.extension::nodeName
     type: AllowedTypes = 'function'
-    name?: string
-    alias?: string
-    language?: string
+    name: string = ''
+    alias: string = ''
+    language: string = ''
     importStatements: ImportStatement[] = [] // only for files
     totalTokens: number = 0
     documentation: string = ''
@@ -36,13 +36,21 @@ export class Node {
     parent?: Node
     children: Node[] = []
     startPosition: Point = {row: 0, column: 0}
-    endPosition: Point = {row: 9999, column: 0}
+    endPosition: Point = {row: 99999, column: 0}
     inDegree: number = 0
     outDegree: number = 0
 
+    constructor(id: string, code?: string, type?: AllowedTypes, language?: string) {
+        this.id  = id
+        this.code  = code || ''
+        this.type  = type || 'function'
+        this.language  = language || 'js'
+    }
 
     addChild(child: Node) {
         this.children.push(child)
+        this.inDegree++
+        child.outDegree++
     }
 
     addImportStatement(importStatement: ImportStatement) {
@@ -50,11 +58,13 @@ export class Node {
     }
 
     isWithin(node: Node): boolean {
-       return this.startPosition <= node.startPosition && this.endPosition >= node.endPosition
+        return this.startPosition.row >= node.startPosition.row && this.endPosition.row <= node.endPosition.row
+        // return this.startPosition >= node.startPosition && this.endPosition <= node.endPosition
     }
 
     addNodeRelationship(node: Node) {
         if (this.isWithin(node) && (!this.parent || this.parent.type === 'file')) {
+            console.log(`Relation found between parent ${this.id} and child ${node.id}`)
             if (node.type === 'export') {
                 this.exportable = true
                 if (!this.documentation) this.documentation = node.documentation
@@ -64,10 +74,12 @@ export class Node {
             const parentCode = node.code.replace(node.body, '')
             this.code = parentCode + this.code
             node.addChild(this)
+            this.parent = node
             // Case for py, js and ts
             if (['class', 'interface'].includes(node.type) && this.type === 'function') {
                 this.type = 'method'
                 this.name = `${node.name}.${this.name}`
+                this.id = `${this.id.split('::')[0]}::${this.name}`
                 this.alias = this.name // methods has no alias
                 return
             }
@@ -88,9 +100,8 @@ export class Node {
 
         if (this.body) {
             if (this.children) {
-                const extension = this.id.split('::')[0].split('.').pop() || '';
-                const language = languageExtensionMap[extension]
-                const classMethodInit = newClassMethodsMap[language]
+                // const extension = this.id.split('::')[0].split('.').pop() || '';
+                const classMethodInit = newClassMethodsMap[this.language]
                 this.children.forEach(child  => {
                     if (classMethodInit && this.type === 'class') {
                         // do not remove init methods

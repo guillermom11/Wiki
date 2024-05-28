@@ -14,7 +14,7 @@ export interface treeSitterQueries {
     constructorDefinitions: string
     definitionTemplate: string
     exportClauses: string
-    extraAssignmentCode: string
+    extraAssignmentCode: (name: string) => string
     calls: string
     assignments: string
 }

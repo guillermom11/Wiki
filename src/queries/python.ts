@@ -81,11 +81,11 @@ const constructorDefinitions = `
 
 //// ASSIGNMENT SPECIAL CASE
 // We need to know the assignment name
-const extraAssignmentCode = `
+const extraAssignmentCode = (name: string) => `
 ( module
   (expression_statement
 	(call function: (_) @identifier.name
-    	(//match? @identifier.name "^{}")
+    	(//match? @identifier.name "^${name}")
      ) @code
   )
 )
