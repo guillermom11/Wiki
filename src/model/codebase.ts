@@ -1,7 +1,27 @@
 import { AllowedTypes, languageExtensionMap, newClassMethodsMap } from "./consts"
-import { ImportStatement } from "./interfaces"
+import { Point } from 'tree-sitter'
 
-class Node {
+export class ImportName {
+    name: string = ''
+    alias: string = ''
+    subpath: string = ''
+
+    constructor(name: string, alias?: string) {
+        this.name = name
+        this.alias  = alias || name
+    }
+}
+export class ImportStatement {
+    module: string = ''
+    names: ImportName[] = []
+    moduleAlias: string = ''
+    code: string = ''
+    path: string = ''
+    startPosition: Point = {row: 0, column: 0}
+    endPosition: Point = {row: 9999, column: 0}
+}
+
+export class Node {
     id: string = '' // id is like /home/user/repo/file.extension::nodeName
     type: AllowedTypes = 'function'
     name?: string
@@ -15,8 +35,8 @@ class Node {
     exportable: boolean = false
     parent?: Node
     children: Node[] = []
-    startPoint: [number, number] = [0, 0]
-    endPoint: [number, number] = [9999, 9999]
+    startPosition: Point = {row: 0, column: 0}
+    endPosition: Point = {row: 9999, column: 0}
     inDegree: number = 0
     outDegree: number = 0
 
@@ -30,7 +50,7 @@ class Node {
     }
 
     isWithin(node: Node): boolean {
-       return this.startPoint <= node.startPoint && this.endPoint >= node.endPoint
+       return this.startPosition <= node.startPosition && this.endPosition >= node.endPosition
     }
 
     addNodeRelationship(node: Node) {
@@ -79,7 +99,7 @@ class Node {
                         if (child.body) {
                             let bodyToRemove = child.body
                             bodyToRemove = bodyToRemove.replace(child.documentation, '')
-                            const spaces = ' '.repeat(child.startPoint[1])
+                            const spaces = ' '.repeat(child.startPosition.column)
                             code = code.replace(bodyToRemove, `\n${spaces}    ...`)
                         }
                     }
@@ -94,7 +114,7 @@ class Node {
 }
 
 
-class Codebase {
+export class Codebase {
     rootFolderPath: string = ''
     nodesMap: { [id: string]: Node } = {}
 

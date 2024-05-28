@@ -1,7 +1,24 @@
+// const C = require("tree-sitter-c");
+// const Java = require("tree-sitter-java");
+// const Ruby = require("tree-sitter-ruby");
+// const Rust = require("tree-sitter-rust");
+const JavaScript = require("tree-sitter-javascript");
+const Python = require("tree-sitter-python");
+const TypeScript  = require('tree-sitter-typescript').typescript;
+const TSX = require("tree-sitter-typescript").tsx;
+
 export type AllowedTypes = 'function' | 'class' | 'interface' | 'method' | 'enum' | 'struct' | 'namespace' | 'mod' | 'export' | 'type' | 'assignment' | 'file' | 'folder'; 
 
 export const excludedFolders = ['.git', '.vscode', 'venv', 'node_modules', 'dist', '__pycache__']
 export const excludedExtensions = ['min.js', 'min.css', 'min.css.map', 'min.js.map', 'd.ts']
+
+export const languages = {
+    JavaScript,
+    Python,
+    TypeScript,
+    TSX,
+}
+
 
 export const languageExtensionMap: Record<string, string> = {
   'py': 'python',
