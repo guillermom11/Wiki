@@ -31,6 +31,12 @@ export class ImportStatement {
     endPosition: Point = {row: 99999, column: 0}
 }
 
+interface Link {
+    source: string
+    target: string
+    label: string
+}
+
 export class Node {
     id: string = '' // id is like /home/user/repo/file.extension::nodeName
     type: AllowedTypes = 'function'
@@ -45,6 +51,7 @@ export class Node {
     exportable: boolean = false
     parent?: Node
     children: Node[] = []
+    calls: Node[] = []
     startPosition: Point = {row: 0, column: 0}
     endPosition: Point = {row: 99999, column: 0}
     inDegree: number = 0
@@ -58,7 +65,9 @@ export class Node {
     }
 
     addChild(child: Node) {
+        // child -> this
         this.children.push(child)
+        child.parent = this
         this.inDegree++
         child.outDegree++
     }
@@ -66,10 +75,18 @@ export class Node {
     removeChild(child: Node)  {
         const idx = this.children.indexOf(child)
         if (idx !== -1) {
+            child.parent = undefined
             this.children.splice(idx, 1)
             this.inDegree--
             child.outDegree--
         }
+    }
+
+    addCall(node: Node){
+        // this -> node
+        this.calls.push(node)
+        node.inDegree++
+        this.outDegree++
     }
 
     addImportStatement(importStatement: ImportStatement) {
@@ -93,7 +110,6 @@ export class Node {
             this.code = parentCode + this.code
             if (this.parent) this.parent.removeChild(this) // remove connection from file
             node.addChild(this)
-            this.parent = node
             // Case for py, js and ts
             if (['class', 'interface'].includes(node.type) && this.type === 'function') {
                 this.type = 'method'
@@ -343,7 +359,7 @@ export class Codebase {
         if (!this.rootFolderPath) return
         const fileNodeMap: {[id: string]: Node} = {}
         const allFiles = await getAllFiles(this.rootFolderPath)
-        for (const filePath of allFiles) {
+        for (const filePath of allFiles) { // can't be forEach
             const nodeMap = await this.GenerateNodesFromFilePath(filePath)
             this.addNodeMap(nodeMap)
             const fileNode = nodeMap[filePath]
