@@ -1,5 +1,6 @@
 import { validateContent, captureQuery } from "./utils"
 import { ImportStatement } from "./codebase"
+import { itselfClassMap } from "./consts"
 
 class VariableAssignment {
     left: string = ''
@@ -28,7 +29,7 @@ class Call {
     constructor(importFrom: string, name: string, lines: number[] = []) {
         this.importFrom = importFrom
         this.name = name
-        this.lines = []
+        this.lines = lines
     }
 }
 export class CallsCapturer {
@@ -50,17 +51,18 @@ export class CallsCapturer {
         captures.forEach(c => {
             let content = c.node.text
             const startLine = c.node.startPosition.row
-            if (Object.keys(results).includes(content) && c.name === 'left') {
-                results[content].slice(-1)[0].endLine = startLine - 1
-            }
             switch (c.name) {
                 case 'assignment':
                     varAssignment = new VariableAssignment()
                     varAssignment.startLine = startLine
+                    // varAssignment.endLine = c.node.parent?.endPosition.row || 99999
                     break
                 case 'left':
                     varAssignmentIdentifier = content
                     varAssignment.left = varAssignmentIdentifier
+                    if (Object.keys(results).includes(content) && c.name === 'left') {
+                        results[content].slice(-1)[0].endLine = startLine - 1
+                    }
                     break
                 case 'right':
                     if (content.startsWith('(') && content.endsWith(')')) content = content.slice(1, -1)
@@ -76,6 +78,7 @@ export class CallsCapturer {
                     varAssignment.right = content
                     if (!Object.keys(results).includes(varAssignmentIdentifier)) results[varAssignmentIdentifier] = [] 
                     results[varAssignmentIdentifier].push(varAssignment)
+                    break
             }
         })
         const resultsArray: VariableAssignment[] = []
@@ -90,6 +93,7 @@ export class CallsCapturer {
         captures.sort((a, b) => a.node.startPosition.row - b.node.startPosition.row || a.node.startPosition.column - b.node.startPosition.column)
         const results: CallIdentifier[]  = []
         const nodesSeen: Set<string> = new Set()
+        const forbiddenRegex = /['"\?\\\/()\[\]{}\$]/g
         captures.forEach(c => {
             let content = c.node.text
             const startLine = c.node.startPosition.row
@@ -97,25 +101,29 @@ export class CallsCapturer {
             const nodeIdenfier = `${c.name}#L${startLine}.${endLine}`
             if (nodesSeen.has(nodeIdenfier)) return
             nodesSeen.add(nodeIdenfier)
-            console.log(c.name, content)
+            // console.log(c.name, content)
+            
             if (["identifier.name", "parameter_type", "return_type"].includes(c.name)) {
                 for ( const c of validateContent(content)) {
-                    console.log({ c })
-                    let importFrom
+                    let importFrom = ''
                     const contentSplit = c.split('____')
                     if (contentSplit.length > 1) {
                         importFrom  = contentSplit.slice(0, -1).join('/')
                         importFrom = importFrom.replace(/__SPACE__/g, ' ').replace(/__DASH__/g, '-')
                     }
                     let callName = contentSplit.slice(-1)[0]
-                    results.push(new CallIdentifier(callName, startLine, importFrom ?? ''))
+                    // heuristic
+                    if (!forbiddenRegex.test(importFrom) && !forbiddenRegex.test(callName))
+                        results.push(new CallIdentifier(callName, startLine, importFrom))
 
                     if (callName.includes('.')) {
                         const callNameSplit = callName.split('.')
                         const _importFrom = callNameSplit[0]
                         callName = callNameSplit.slice(1).join('.')
                         importFrom = importFrom? `${importFrom}/${_importFrom}` : _importFrom
-                        results.push(new CallIdentifier(callName, startLine, importFrom))
+                        // heuristic
+                        if ((!forbiddenRegex.test(importFrom) && !forbiddenRegex.test(callName)))
+                            results.push(new CallIdentifier(callName, startLine, importFrom))
                     }
                 }
             }
@@ -137,7 +145,7 @@ export class CallsCapturer {
             const leftPattern = new RegExp(`\\b${k.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}\\b`, 'g');
             code = code.replace(leftPattern, v);
         });
-    
+
         // 2. Get Assignments
         const varReplacements = this.captureAssignments(code)
         const codeLines = code.split('\n')
@@ -161,12 +169,18 @@ export class CallsCapturer {
 
         })
         code = codeLines.join('\n')
-        console.log(code)
+        // console.log(code)
         const capturedCalls = this.captureCalls(code)
-        console.log(capturedCalls)
+        // console.log(capturedCalls)
         const results: {[key: string]: Call} = {}
+        const importStatementPaths = this.importStatements.map(i => i.path)
         capturedCalls.forEach(c  =>  {
+            // Exclude calls to the node itself if it is in the first lines since that is likely a mistake
             if (nodeName == c.name && c.line <= 1) return
+            // Exclude names with spaces
+            else if (c.name.includes(' ')) return
+            // Exclude if importFrom is not in the import statement paths
+            else if (!c.importFrom.includes('/') && !importStatementPaths.includes(c.importFrom)) return
             if (!Object.keys(results).includes(`${c.importFrom}::${c.name}`)) {
                 results[`${c.importFrom}::${c.name}`] = new Call(c.importFrom, c.name)
             } 

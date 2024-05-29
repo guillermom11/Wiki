@@ -103,7 +103,7 @@ const anyAssignments = jsQueries.assignments + `
         	(identifier) @left
         	(type_annotation (type_identifier) @right)
         ) @assignment) 
-)      
+)
 `
 
 export const tsQueries : treeSitterQueries = {

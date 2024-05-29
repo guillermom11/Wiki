@@ -84,7 +84,7 @@ export function captureQuery(language: string, queryName: keyof treeSitterQuerie
     const captures = query.captures(tree.rootNode)
     const uniqueMap = new Map();
     captures.forEach(c => {
-        const key = `${c.name}|${c.node.text}`; // Create a unique key based on `name` and `text`
+        const key = `${c.name}|${c.node.text}|${c.node.startPosition.row}|${c.node.startPosition.column}`; // Create a unique key based on `name` and `text`
         if (!uniqueMap.has(key)) {
             uniqueMap.set(key, c);
         }
@@ -173,6 +173,7 @@ export const validateContent = (content: string) => {
                      .replace(/  /g, '')
                      .replace(/:/g, ',')
                      .replace(/\|/g, ',')
+                     .replace(/\?/g, '')
                      .trim();
   
     // Split the content by commas
@@ -190,24 +191,29 @@ export const validateContent = (content: string) => {
 }
 
 
-export function getCalledNode(callName: string, importFrom: string, importedFileNodes: {[key: string]: Node},
-    importSeparator: string = '/', fileNode?: Node ) {
-        let importedFile: Node, calledNode: Node
-        let newCallName = callName
-        if (importFrom) {
-            if (Object.keys(importedFileNodes).includes(importFrom)) {
-                importedFile = importedFileNodes[importFrom]
-            } else if (callName.includes(importSeparator)) {
-                const callNameSplit = callName.split(importSeparator)
-                for (let i = 1; i < callNameSplit.length+1; i++) {
-                    const possibleImport = `${importFrom}${importSeparator}${callNameSplit.slice(0, i).join(importSeparator)}`
-                    if (Object.keys(importedFileNodes).includes(possibleImport)){
-                        newCallName = callNameSplit.slice(i).join(importSeparator)
-                        importedFile = importedFileNodes[importFrom]
-                        break
-                    }
+export function getCalledNode(callName: string, importFrom: string, importedFileNodes: {[key: string]: Node}, fileNode?: Node ): Node | undefined {
+    let importedFile: Node | undefined  // empty,
+    let calledNode: Node | undefined  // empty,
+    let newCallName = callName
+    if (importFrom) {
+        if (Object.keys(importedFileNodes).includes(importFrom)) {
+            importedFile = importedFileNodes[importFrom]
+        } else if (callName.includes('/')) {
+            const callNameSplit = callName.split('/')
+            
+            for (let i = 1; i < callNameSplit.length+1; i++) {
+                const possibleImport = `${importFrom}/${callNameSplit.slice(0, i).join('/')}`
+                if (Object.keys(importedFileNodes).includes(possibleImport)){
+                    newCallName = callNameSplit.slice(i).join('/')
+                    importedFile = importedFileNodes[importFrom]
+                    break
                 }
             }
-            // if (importedFile) calledNode = importedFile.get
-        } 
+        }
+        if (importedFile) calledNode = importedFile.children[`${importedFile.id}::${newCallName}`]
+    }
+    if (!calledNode) {
+        calledNode = fileNode?.children[`${fileNode.id}::${newCallName}`]
+    }
+    return calledNode
 }

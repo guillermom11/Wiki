@@ -1,7 +1,7 @@
 import fs from 'node:fs/promises';
 import path from 'path';
 import { Point } from 'tree-sitter'
-import { captureQuery, cleanDefCaptures, getAllFiles, renameSource } from "./utils"
+import { captureQuery, cleanDefCaptures, getAllFiles, renameSource, getCalledNode } from "./utils"
 import {
     languageExtensionMap,
     AllowedTypesArray,
@@ -10,9 +10,7 @@ import {
     treeSitterCommentTypes,
     indexSuffixesMap
 } from "./consts"
-import { runInThisContext } from 'node:vm';
-import { language } from 'tree-sitter-javascript';
-import node from 'tree-sitter-typescript';
+import { CallsCapturer } from './calls';
 
 export class ImportName {
     name: string = ''
@@ -107,7 +105,7 @@ export class Node {
                 if (!this.documentation) this.documentation = node.documentation
                 return
             }
-
+            console.log(`${this.name} isWithin ${node.name}`)
             const parentCode = node.code.replace(node.body, '')
             this.code = `${parentCode}\n${this.code}`
             if (this.parent?.type === 'file') {
@@ -141,20 +139,27 @@ export class Node {
             if (Object.keys(this.children).length > 0) {
                 // const extension = this.id.split('::')[0].split('.').pop() || '';
                 const classMethodInit = newClassMethodsMap[this.language]
-                Object.keys(this.children).forEach(id  => {
+                Object.values(this.children).forEach(n  => {
                     if (classMethodInit && this.type === 'class') {
                         // do not remove init methods
-                        if (this.children[id].name?.endsWith(classMethodInit)) return
+                        if (n.name?.endsWith(classMethodInit)) return
 
-                        if (this.children[id].body) {
-                            let bodyToRemove = this.children[id].body
-                            bodyToRemove = bodyToRemove.replace(this.children[id].documentation, '')
-                            const spaces = ' '.repeat(this.children[id].startPosition.column)
+                        if (n.body) {
+                            let bodyToRemove = n.body
+                            bodyToRemove = bodyToRemove.replace(n.documentation, '')
+                            const spaces = ' '.repeat(n.startPosition.column)
+                            code = code.replace(bodyToRemove, `\n${spaces}    ...`)
+                        }
+                    } else if (this.type === 'file' && !['assignment', 'type', 'enum'].includes(n.name)) {
+                        if (n.body) {
+                            let bodyToRemove = n.body
+                            bodyToRemove = bodyToRemove.replace(n.documentation, '')
+                            const spaces = ' '.repeat(n.startPosition.column)
                             code = code.replace(bodyToRemove, `\n${spaces}    ...`)
                         }
                     }
-
                 })
+
             } else {
                 code = code.replace(this.body, "\n ...")
             }
@@ -245,16 +250,17 @@ export class Codebase {
     getNode(id: string): Node | undefined { return this.nodesMap[id];  }
     addNodeMap(nodeMap: {[id: string]: Node})  { this.nodesMap  = {...this.nodesMap, ...nodeMap} }
 
-    async GenerateNodesFromFilePath(filePath: string): Promise<{[id: string]: Node}> {
+    async generateNodesFromFilePath(filePath: string): Promise<{[id: string]: Node}> {
     
         const fileExtension  = filePath.split('.').pop()
         if (!fileExtension) return {}
         const data = await fs.readFile(filePath)
         const dataString = Buffer.from(data).toString()
         // Nodes are created using id, code, type, language
-        const fileNode = new Node(filePath, dataString, 'file', languageExtensionMap[fileExtension])
-        fileNode.name = filePath.split('/').pop()?.split('.').slice(-2)[0] || ''
-        fileNode.alias = fileNode.name
+        const filePathNoExtension = filePath.split('.').slice(0, -1).join('.')
+        const fileNode = new Node(filePathNoExtension, dataString, 'file', languageExtensionMap[fileExtension])
+        fileNode.name = filePath
+        fileNode.alias = filePathNoExtension.split('/').pop() || ''
         const unnecessaryNodeTypes = ['export'] // exclude it from the analysis
         const captures = captureQuery(fileNode.language, 'constructorDefinitions', fileNode.code)
         captures.sort((a, b) => b.node.startPosition.row - a.node.startPosition.row || b.node.startPosition.column - a.node.startPosition.column)
@@ -263,7 +269,7 @@ export class Codebase {
     
         captures.forEach((c)  => {
             if (AllowedTypesArray.includes(c.name as AllowedTypes)) {
-                const newNode  = new Node(filePath, c.node.text, c.name as AllowedTypes, fileNode.language)
+                const newNode  = new Node(filePathNoExtension, c.node.text, c.name as AllowedTypes, fileNode.language)
     
                 newNode.startPosition  = c.node.startPosition
                 newNode.endPosition  = c.node.endPosition
@@ -353,15 +359,16 @@ export class Codebase {
     }
     
 
-    async parseFolder() {
-        if (!this.rootFolderPath) return
+    async parseFolder(): Promise<{[id: string]: Node}> {
+        if (!this.rootFolderPath) return {}
         const fileNodeMap: {[id: string]: Node} = {}
         const allFiles = await getAllFiles(this.rootFolderPath)
         for (const filePath of allFiles) { // can't be forEach
-            const nodeMap = await this.GenerateNodesFromFilePath(filePath)
+            const nodeMap = await this.generateNodesFromFilePath(filePath)
             this.addNodeMap(nodeMap)
-            const fileNode = nodeMap[filePath]
-            fileNodeMap[filePath] = fileNode
+            const filePathNoExtension = filePath.split('.').slice(0, -1).join('.')
+            const fileNode = nodeMap[filePathNoExtension]
+            fileNodeMap[filePathNoExtension] = fileNode
             const suffix = indexSuffixesMap[fileNode.language]
             fileNode.importStatements.forEach((i)  =>  {
                 for (const p in allFiles) {
@@ -388,9 +395,62 @@ export class Codebase {
                 if (i.path.startsWith('@/')) i.path = path.join(this.rootFolderPath, i.path.slice(2))
             })
         }
+        return fileNodeMap 
     }
 
-    simplyfy() {
+    getCalls(fileNodeMap: {[id: string]: Node}, verbose: boolean = false) {
+        const allFilePaths = Object.keys(fileNodeMap).sort()
+        Object.keys(fileNodeMap).forEach(fileId => {
+            const fileNode = fileNodeMap[fileId]
+            if (Object.values(fileNode.children).length === 0) {
+                if (verbose) console.log(`File ${fileId} has no children`)
+                return
+            }
+            const callsCapturer = new CallsCapturer(fileNode.language, fileNode.importStatements, verbose)
+            const importedFiles: {[key: string]: Node} = {} 
+
+            // Point import statements to their respective File objects
+            fileNode.importStatements.forEach(i => {
+                for (const filePath of allFilePaths) {
+                    let fileFound = false
+                    if (i.names) {
+                        for (const importName of i.names) {
+                            if (filePath.endsWith(`${i.path}/${importName.alias}`)) {
+                                importedFiles[`${i.path}/${importName.alias}`] = fileNodeMap[filePath]
+                                fileFound = true
+                                break
+                            }
+                        }
+                    }
+                    if (fileFound) break
+
+                    if (filePath.endsWith(i.path)) {
+                        importedFiles[i.path] = fileNodeMap[filePath]
+                        break
+                    }
+                }
+            })
+            Object.values(this.nodesMap).forEach(n => {
+                const code = Object.keys(n.children).length > 0 ? n.getCodeWithoutBody() : n.code
+                const calls = callsCapturer.getCallsFromCode(code, n.name)
+                const importFromFailed: Set<string> = new Set()
+                calls.forEach(c => {
+                    if (importFromFailed.has(c.importFrom)) return
+                    const calledNode = getCalledNode(c.name, c.importFrom, importedFiles, fileNode)
+                    if (calledNode) {
+                        n.calls.push(calledNode)
+                        n.outDegree++
+                        calledNode.inDegree++
+                    } else {
+                        if (verbose && c.importFrom) console.log(`Failed to add call for node ${n.id}: ${c.name} not found in ${c.importFrom}`)
+                        importFromFailed.add(c.importFrom)
+                    }
+                })
+            })
+        })
+    }
+
+    simplify() {
         return Object.values(this.nodesMap).map( n => {
             return {
                 id: n.id,
