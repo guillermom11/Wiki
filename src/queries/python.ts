@@ -61,12 +61,12 @@ const assignments = `
 const definitionTemplate = `
 ( _
       name: (identifier) @name
-      parameters: (parameters (_)? @param)?
+      parameters: (parameters (_)? @param)
       return_type: _? @return_type
       body: (block . (expression_statement (string) @documentation)? .
           _ ) @body )
 
-; For global assignments          
+; For global assignments   
 (expression_statement
 	(assignment left: (identifier) @name)
       )

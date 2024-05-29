@@ -10,6 +10,9 @@ import {
     treeSitterCommentTypes,
     indexSuffixesMap
 } from "./consts"
+import { runInThisContext } from 'node:vm';
+import { language } from 'tree-sitter-javascript';
+import node from 'tree-sitter-typescript';
 
 export class ImportName {
     name: string = ''
@@ -50,7 +53,7 @@ export class Node {
     body: string = ''
     exportable: boolean = false
     parent?: Node
-    children: Node[] = []
+    children: {[key: string]: Node} = {}
     calls: Node[] = []
     startPosition: Point = {row: 0, column: 0}
     endPosition: Point = {row: 99999, column: 0}
@@ -66,21 +69,20 @@ export class Node {
 
     addChild(child: Node) {
         // child -> this
-        this.children.push(child)
+        this.children[child.id] = child
         child.parent = this
         this.inDegree++
         child.outDegree++
     }
 
     removeChild(child: Node)  {
-        const idx = this.children.indexOf(child)
-        if (idx !== -1) {
-            child.parent = undefined
-            this.children.splice(idx, 1)
+        if (Object.keys(this.children).includes(child.id)) {
+            // child.parent = undefined
+            delete this.children[child.id]
             this.inDegree--
             child.outDegree--
         }
-    }
+     }
 
     addCall(node: Node){
         // this -> node
@@ -99,7 +101,7 @@ export class Node {
     }
 
     addNodeRelationship(node: Node) {
-        if (this.isWithin(node) && (!this.parent || this.parent.type === 'file')) {
+        if (this.isWithin(node) && (!this.parent ||  this.parent.type === 'file')) {
             if (node.type === 'export') {
                 this.exportable = true
                 if (!this.documentation) this.documentation = node.documentation
@@ -107,9 +109,11 @@ export class Node {
             }
 
             const parentCode = node.code.replace(node.body, '')
-            this.code = parentCode + this.code
-            if (this.parent) this.parent.removeChild(this) // remove connection from file
+            this.code = `${parentCode}\n${this.code}`
+            if (this.parent?.type === 'file') {
+            this.parent?.removeChild(this) // remove connection from previous parent
             node.addChild(this)
+            }
             // Case for py, js and ts
             if (['class', 'interface'].includes(node.type) && this.type === 'function') {
                 this.type = 'method'
@@ -123,9 +127,9 @@ export class Node {
 
     propagateExportable() {
         if (this.exportable) {
-            this.children.forEach(child => {
-                child.exportable = true
-                child.propagateExportable()
+            Object.keys(this.children).forEach(id => {
+                this.children[id].exportable = true
+                this.children[id].propagateExportable()
             })
         }
     }
@@ -134,25 +138,25 @@ export class Node {
         let code = this.code
 
         if (this.body) {
-            if (this.children) {
+            if (Object.keys(this.children).length > 0) {
                 // const extension = this.id.split('::')[0].split('.').pop() || '';
                 const classMethodInit = newClassMethodsMap[this.language]
-                this.children.forEach(child  => {
+                Object.keys(this.children).forEach(id  => {
                     if (classMethodInit && this.type === 'class') {
                         // do not remove init methods
-                        if (child.name?.endsWith(classMethodInit)) return
+                        if (this.children[id].name?.endsWith(classMethodInit)) return
 
-                        if (child.body) {
-                            let bodyToRemove = child.body
-                            bodyToRemove = bodyToRemove.replace(child.documentation, '')
-                            const spaces = ' '.repeat(child.startPosition.column)
+                        if (this.children[id].body) {
+                            let bodyToRemove = this.children[id].body
+                            bodyToRemove = bodyToRemove.replace(this.children[id].documentation, '')
+                            const spaces = ' '.repeat(this.children[id].startPosition.column)
                             code = code.replace(bodyToRemove, `\n${spaces}    ...`)
                         }
                     }
 
                 })
             } else {
-                code = code.replace(this.body, "...")
+                code = code.replace(this.body, "\n ...")
             }
         }
         return code.trim()
@@ -204,10 +208,6 @@ export class Node {
     parseExportClauses() {
         if (this.type !== 'file') return
         if (['javascript', 'typescript', 'tsx'].includes(this.language)) return
-        const nodesMap = this.children.reduce<{[id: string]: Node}>((map, n)  =>  {
-            map[n.id]  = n
-            return map
-        }, {})
         const captures = captureQuery(this.language, 'exportClauses', this.code) 
         captures.sort((a, b) => b.node.startPosition.row - a.node.startPosition.row || b.node.startPosition.column - a.node.startPosition.column)
         let name = ''
@@ -216,7 +216,7 @@ export class Node {
             switch (c.node.type) {
                 case 'name':
                     name = c.node.text ?? ''
-                    const node = nodesMap[`${this.id}::${name}`]
+                    const node = this.children[`${this.id}::${name}`]
                     node.exportable = true
                     node.alias = alias? alias : name
                     name = ''
@@ -228,7 +228,7 @@ export class Node {
         })
     
         if (name) {
-            const node = nodesMap[`${this.id}::${name}`]
+            const node = this.children[`${this.id}::${name}`]
             node.exportable  = true
             node.alias  = alias? alias  : name
         }
@@ -263,7 +263,6 @@ export class Codebase {
     
         captures.forEach((c)  => {
             if (AllowedTypesArray.includes(c.name as AllowedTypes)) {
-                if (unnecessaryNodeTypes.includes(c.name)) return
                 const newNode  = new Node(filePath, c.node.text, c.name as AllowedTypes, fileNode.language)
     
                 newNode.startPosition  = c.node.startPosition
@@ -271,11 +270,11 @@ export class Codebase {
                 newNode.exportable = exportable
                 
                 // In many languages the documentation is the prev sibling
-                const prevTreeSitterNode = c.node.previousSibling
+                let prevTreeSitterNode = c.node.previousNamedSibling
                 if (prevTreeSitterNode) { 
                     // if the previous node is a comment and it's in the previous line
                     if (treeSitterCommentTypes.includes(prevTreeSitterNode.type) &&
-                    prevTreeSitterNode.startPosition.row === c.node.startPosition.row - 1) {
+                    prevTreeSitterNode.endPosition.row === newNode.startPosition.row - 1) {
                         newNode.documentation  = prevTreeSitterNode.text
                     }
     
@@ -285,7 +284,7 @@ export class Codebase {
         })
     
         childrenNodes.forEach((n, i) => {
-            // if (unnecessaryNodeTypes.includes(n.type)) return
+            if (unnecessaryNodeTypes.includes(n.type)) return
             let code = n.code
             if (['javascript', 'typescript', 'tsx'].includes(fileNode.language)) {
                 if (n.type === 'method' ) {
@@ -299,8 +298,9 @@ export class Codebase {
             // console.log(`/////${n.type}, ${fileNode.language}/////`)
             // console.log(`${n.code}`)
             // console.log('--------------')
-            captures = cleanDefCaptures(captures, 'name')
-            // console.log(captures.map(c => { return {name: c.name, text: c.node.text} }))
+            // console.log(captures.map(c => { return {name: c.name, text: c.node.text?.slice(0, 30)} }))
+            captures = cleanDefCaptures(captures, 'name', 'body')
+            // console.log(captures.map(c => { return {name: c.name, text: c.node.text?.slice(0, 30)} }))
             captures.forEach((c)  =>  {
                 switch (c.name) {
                     case 'name':
@@ -334,8 +334,7 @@ export class Codebase {
         })
     
         childrenNodes.forEach((n, i) => {
-            fileNode.addChild(n)
-            n.parent = fileNode
+            if (!unnecessaryNodeTypes.includes(n.type)) fileNode.addChild(n)
             for (let j = i+1; j < childrenNodes.length; j++) {
                 n.addNodeRelationship(childrenNodes[j])
                 childrenNodes[j].addNodeRelationship(n)
@@ -344,7 +343,7 @@ export class Codebase {
         
         // childrenNodes.sort((a,b) => a.startPosition.row - b.startPosition.row || a.startPosition.column  - b.startPosition.column)
         const nodesMap = childrenNodes.reduce<{[id: string]: Node}>((map, n)  =>  {
-            map[n.id]  = n
+            if (!unnecessaryNodeTypes.includes(n.type)) map[n.id]  = n
             return map
         }, {})
         nodesMap[fileNode.id] = fileNode
@@ -389,6 +388,30 @@ export class Codebase {
                 if (i.path.startsWith('@/')) i.path = path.join(this.rootFolderPath, i.path.slice(2))
             })
         }
+    }
+
+    simplyfy() {
+        return Object.values(this.nodesMap).map( n => {
+            return {
+                id: n.id,
+                type: n.type,
+                name: n.name,
+                alias: n.alias,
+                language: n.language,
+                exportable: n.exportable,
+                totalTokens: n.totalTokens,
+                documentation: n.documentation,
+                code: n.code,
+                // body: n.body,
+                codeNoBody: n.getCodeWithoutBody(),
+                parent: n.parent?.id,
+                children: Object.keys(n.children),
+                calls: n.calls.map(c => c.id),
+                inDegree: n.inDegree,
+                outDegree: n.outDegree
+            }
+        })
+
     }
 }
 

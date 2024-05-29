@@ -10,6 +10,7 @@ import { glob } from 'glob'
 import fs from 'node:fs/promises';
 import path from 'path'
 import Parser from 'tree-sitter';
+import { Node } from './codebase'
 
 /**
  * Get a list of all files in a given folder, including only files with the given extensions
@@ -81,7 +82,16 @@ export function captureQuery(language: string, queryName: keyof treeSitterQuerie
     const query = new Parser.Query(parser.getLanguage(), treeSitterQuery)
     const tree = parser.parse(code)
     const captures = query.captures(tree.rootNode)
-    return captures
+    const uniqueMap = new Map();
+    captures.forEach(c => {
+        const key = `${c.name}|${c.node.text}`; // Create a unique key based on `name` and `text`
+        if (!uniqueMap.has(key)) {
+            uniqueMap.set(key, c);
+        }
+    });
+
+    const uniqueCaptures = Array.from(uniqueMap.values());
+    return uniqueCaptures
 }
 
 /**
@@ -89,16 +99,29 @@ export function captureQuery(language: string, queryName: keyof treeSitterQuerie
  * @param captures - The captures to clean
  * @param keyword - The keyword to stop at
  */
-export function cleanDefCaptures(captures: Parser.QueryCapture[], keyword: string = 'name') : Parser.QueryCapture[] {
+export function cleanDefCaptures(captures: Parser.QueryCapture[], keyword1: string = 'name', keyword2: string = 'body') : Parser.QueryCapture[] {
     captures.sort((a, b) => a.node.startPosition.row - b.node.startPosition.row || a.node.startPosition.column - b.node.startPosition.column)
-    let keywordCount = 0
+    let keyword1Seen = false
+    let skipKeyword2 = false
+    
+    const updatedCaptures = []
     for (let i = 0; i < captures.length; i++) {
-        if (captures[i].name === keyword) {
-            keywordCount++
+        if (captures[i].name === keyword1) {
+            if (!keyword1Seen) updatedCaptures.push(captures[i])
+            else skipKeyword2 = true
+            keyword1Seen = true
+        } else if (captures[i].name === keyword2) {
+            if (!skipKeyword2) {
+                updatedCaptures.push(captures[i])
+                return updatedCaptures
+            }
+            skipKeyword2 = false
+            
+        } else {
+            updatedCaptures.push(captures[i])
         }
-        if (keywordCount > 1) {
-            return captures.slice(0, i)
-        }
+
+        
     }
     return captures
 }
@@ -164,4 +187,27 @@ export const validateContent = (content: string) => {
     content = content.replace(/[\[\]\{\}]/g, '');
   
     return content.split(',');
+}
+
+
+export function getCalledNode(callName: string, importFrom: string, importedFileNodes: {[key: string]: Node},
+    importSeparator: string = '/', fileNode?: Node ) {
+        let importedFile: Node, calledNode: Node
+        let newCallName = callName
+        if (importFrom) {
+            if (Object.keys(importedFileNodes).includes(importFrom)) {
+                importedFile = importedFileNodes[importFrom]
+            } else if (callName.includes(importSeparator)) {
+                const callNameSplit = callName.split(importSeparator)
+                for (let i = 1; i < callNameSplit.length+1; i++) {
+                    const possibleImport = `${importFrom}${importSeparator}${callNameSplit.slice(0, i).join(importSeparator)}`
+                    if (Object.keys(importedFileNodes).includes(possibleImport)){
+                        newCallName = callNameSplit.slice(i).join(importSeparator)
+                        importedFile = importedFileNodes[importFrom]
+                        break
+                    }
+                }
+            }
+            // if (importedFile) calledNode = importedFile.get
+        } 
 }

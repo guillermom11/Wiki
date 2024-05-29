@@ -28,9 +28,9 @@ const definitionTemplate = `
     parameters: (formal_parameters (_) @param)?
     return_type: (type_annotation)? @return_type
     ; method signatures has no body
-    body: (_)? @body
+    [body: (_)
     ; for types
-    value: (_)? @body
+    value: (_)] @body
 )?
 
 ; arrow function

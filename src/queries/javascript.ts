@@ -58,7 +58,7 @@ const assignments = `
     (_
         (variable_declarator
             name: (identifier)
-            value: (_ !body)
+            value: (_ !body) ; to exclude arrow functions
         ) @assignment
     )
 ) 
@@ -84,7 +84,9 @@ const definitionTemplate = `
 ( _
     name: (_) @name
     parameters: (formal_parameters (_) @param)?
-    body: (_)? @body
+    [body: (_)
+    ; for types
+    value: (_)] @body
 )?
 
 ; arrow function
