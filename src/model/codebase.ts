@@ -68,6 +68,19 @@ export class Node {
         this.language  = language || 'js'
     }
 
+    getChild(childId: string): Node | undefined {
+        // recursive search over children, only if is a file
+        if (this.children[childId]) {
+            return this.children[childId]
+        } else if ( this.type === 'file') {
+            for(const child of Object.values(this.children)) {
+                const result = child.getChild(childId)
+                if (result) return result
+            }
+        }
+        return
+    }
+
     addChild(child: Node) {
         // child -> this
         this.children[child.id] = child
@@ -110,17 +123,16 @@ export class Node {
             }
             const parentCode = node.code.replace(node.body, '')
             this.code = `${parentCode}\n${this.code}`
-            if (this.parent?.type === 'file') {
-            this.parent?.removeChild(this) // remove connection from previous parent
-            node.addChild(this)
-            }
             // Case for py, js and ts
             if (['class', 'interface'].includes(node.type) && this.type === 'function') {
                 this.type = 'method'
                 this.name = `${node.name}.${this.name}`
                 this.id = `${this.id.split('::')[0]}::${this.name}`
                 this.alias = this.name // methods has no alias
-                return
+            }
+            if (this.parent?.type === 'file') {
+                this.parent?.removeChild(this) // remove connection from previous parent
+                node.addChild(this)
             }
         }
     }
@@ -276,23 +288,22 @@ export class Codebase {
 
     async parseFolder(): Promise<{[id: string]: Node}> {
         if (!this.rootFolderPath) return {}
-        const fileNodeMap: {[id: string]: Node} = {}
+        const fileNodesMap: {[id: string]: Node} = {}
         const allFiles = await getAllFiles(this.rootFolderPath)
         for (const filePath of allFiles) { // can't be forEach
             const nodeMap = await this.generateNodesFromFilePath(filePath)
             this.addNodeMap(nodeMap)
             const filePathNoExtension = filePath.split('.').slice(0, -1).join('.')
             const fileNode = nodeMap[filePathNoExtension]
-            fileNodeMap[filePathNoExtension] = fileNode
+            fileNodesMap[filePathNoExtension] = fileNode
             resolveImportStatementsPath(fileNode, this.rootFolderPath, allFiles)
         }
-        return fileNodeMap 
+        return fileNodesMap 
     }
 
-    getCalls(fileNodeMap: {[id: string]: Node}, verbose: boolean = false) {
-        const allFilePaths = Object.keys(fileNodeMap).sort()
-        Object.keys(fileNodeMap).forEach(fileId => {
-            const fileNode = fileNodeMap[fileId]
+    getCalls(fileNodesMap: {[id: string]: Node}, verbose: boolean = false) {
+        Object.keys(fileNodesMap).forEach(fileId => {
+            const fileNode = fileNodesMap[fileId]
             if (Object.values(fileNode.children).length === 0) {
                 if (verbose) console.log(`File ${fileId} has no children`)
                 return
@@ -301,30 +312,20 @@ export class Codebase {
             const importedFiles: {[key: string]: Node} = {} 
 
             // Point import statements to their respective File objects
+            console.log(`---- ${fileNode.id} ----`)
             fileNode.importStatements.forEach(i => {
-                for (const filePath of allFilePaths) {
-                    let fileFound = false
-                    if (i.names) {
-                        for (const importName of i.names) {
-                            if (filePath.endsWith(`${i.path}/${importName.alias}`)) {
-                                importedFiles[`${i.path}/${importName.alias}`] = fileNodeMap[filePath]
-                                fileFound = true
-                                break
-                            }
-                        }
-                    }
-                    if (fileFound) break
-
-                    if (filePath.endsWith(i.path)) {
-                        importedFiles[i.path] = fileNodeMap[filePath]
-                        break
-                    }
+                if (Object.keys(fileNodesMap).includes(i.path)) {
+                    importedFiles[i.path]  = fileNodesMap[i.path]
                 }
             })
-            Object.values(this.nodesMap).forEach(n => {
+
+            const nodes: Node[] = [fileNode ,...Object.values(fileNode.children)]
+            nodes.forEach((n: Node) => {
                 const code = Object.keys(n.children).length > 0 ? n.getCodeWithoutBody() : n.code
                 const calls = callsCapturer.getCallsFromCode(code, n.name)
                 const importFromFailed: Set<string> = new Set()
+                console.log( `${n.id}`)
+                console.log(calls)
                 calls.forEach(c => {
                     if (importFromFailed.has(c.importFrom)) return
                     const calledNode = getCalledNode(c.name, c.importFrom, importedFiles, fileNode)
@@ -332,8 +333,9 @@ export class Codebase {
                         n.calls.push(calledNode)
                         n.outDegree++
                         calledNode.inDegree++
+                        console.log(`Added call from ${n.id} to ${calledNode.id}`)
                     } else {
-                        if (verbose && c.importFrom) console.log(`Failed to add call for node ${n.id}: ${c.name} not found in ${c.importFrom}`)
+                        if (verbose) console.log(`Failed to add call for node ${n.id}: ${c.name} not found in ${c.importFrom}`)
                         importFromFailed.add(c.importFrom)
                     }
                 })
@@ -352,10 +354,10 @@ export class Codebase {
                 exportable: n.exportable,
                 totalTokens: n.totalTokens,
                 documentation: n.documentation,
-                code: n.code,
-                body: n.body,
+                // code: n.code,
+                // body: n.body,
                 ImportStatements: n.importStatements.map(i => i.path),
-                codeNoBody: n.getCodeWithoutBody(),
+                // codeNoBody: n.getCodeWithoutBody(),
                 parent: n.parent?.id,
                 children: Object.keys(n.children),
                 calls: n.calls.map(c => c.id),

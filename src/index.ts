@@ -1,21 +1,24 @@
 import { serve } from '@hono/node-server'
 import { Hono } from 'hono'
-import { Codebase, Node } from './model/codebase'
-import { CallsCapturer } from './model/calls'
-import node from 'tree-sitter-typescript'
-import fs from 'node:fs/promises';
+import {
+  Codebase,
+  // Node
+} from './model/codebase'
+// import { CallsCapturer } from './model/calls'
+// import node from 'tree-sitter-typescript'
+// import fs from 'node:fs/promises';
 
 // const 
 const app = new Hono()
 
 app.get('/', async (c) => {
   console.time('codebase')
-  const codebase = new Codebase('/home/pudu/MISC/judini/judini-python')
+  const codebase = new Codebase('/home/pudu/MISC/judini/codebase-index-ts') //
   const fileNodesMap = await codebase.parseFolder()
-  codebase.getCalls(fileNodesMap, false)
+  codebase.getCalls(fileNodesMap, true)
   console.timeEnd('codebase')
-  const codebaseSimplified = codebase.simplify()
-  
+  const codebaseSimplified = codebase.simplify().filter(c => ['file', 'class'].includes(c.type))
+
   // console.log(codebaseSimplified)
   return c.text(JSON.stringify(codebaseSimplified, null, 2))
 })

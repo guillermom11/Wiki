@@ -181,29 +181,10 @@ export const cleanAndSplitContent = (content: string): string[] => {
 
 
 export function getCalledNode(callName: string, importFrom: string, importedFileNodes: {[key: string]: Node}, fileNode?: Node ): Node | undefined {
-    let importedFile: Node | undefined  // empty,
+    let importedFile = importedFileNodes[importFrom]
     let calledNode: Node | undefined  // empty,
-    let newCallName = callName
-    if (importFrom) {
-        if (Object.keys(importedFileNodes).includes(importFrom)) {
-            importedFile = importedFileNodes[importFrom]
-        } else if (callName.includes('/')) {
-            const callNameSplit = callName.split('/')
-            
-            for (let i = 1; i < callNameSplit.length+1; i++) {
-                const possibleImport = `${importFrom}/${callNameSplit.slice(0, i).join('/')}`
-                if (Object.keys(importedFileNodes).includes(possibleImport)){
-                    newCallName = callNameSplit.slice(i).join('/')
-                    importedFile = importedFileNodes[importFrom]
-                    break
-                }
-            }
-        }
-        if (importedFile) calledNode = importedFile.children[`${importedFile.id}::${newCallName}`]
-    }
-    if (!calledNode) {
-        calledNode = fileNode?.children[`${fileNode.id}::${newCallName}`]
-    }
+    calledNode = importedFile?.getChild(`${importedFile.id}::${callName}`)
+    if (!calledNode) calledNode = fileNode?.getChild(`${fileNode.id}::${callName}`)
     return calledNode
 }
 

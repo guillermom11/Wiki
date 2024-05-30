@@ -1,6 +1,5 @@
 import { cleanAndSplitContent, captureQuery } from "./utils"
 import { ImportStatement } from "./codebase"
-import { itselfClassMap } from "./consts"
 
 class VariableAssignment {
     left: string = ''
@@ -177,10 +176,10 @@ export class CallsCapturer {
         capturedCalls.forEach(c  =>  {
             // Exclude calls to the node itself if it is in the first lines since that is likely a mistake
             if (nodeName == c.name && c.line <= 1) return
-            // Exclude names with spaces
-            else if (c.name.includes(' ')) return
+            // Exclude if importFrom is not a path
+            else if (!c.importFrom.includes('/')) return
             // Exclude if importFrom is not in the import statement paths
-            else if (!c.importFrom.includes('/') && !importStatementPaths.includes(c.importFrom)) return
+            else if (!importStatementPaths.includes(c.importFrom)) return
             if (!Object.keys(results).includes(`${c.importFrom}::${c.name}`)) {
                 results[`${c.importFrom}::${c.name}`] = new Call(c.importFrom, c.name)
             } 
