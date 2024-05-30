@@ -312,8 +312,8 @@ export function resolveImportStatementsPath(fileNode: Node, rootFolderPath: stri
 
     fileNode.importStatements.forEach((importStatement) => {
         const possiblePaths = [
-            ...importStatement.names.map(name => path.resolve(`${importStatement.path}/${name.name}`)),
             ...importStatement.names.map(name => path.resolve(`${importStatement.path}/${name.name}${suffix}`)),
+            ...importStatement.names.map(name => path.resolve(`${importStatement.path}/${name.name}`)),
             `${importStatement.path}${suffix}`,
             importStatement.path
         ];

@@ -137,7 +137,7 @@ export class Node {
     getCodeWithoutBody() {
         let code = this.code
 
-        if (this.body) {
+        if (this.body || this.type === 'file') {
             if (Object.keys(this.children).length > 0) {
                 // const extension = this.id.split('::')[0].split('.').pop() || '';
                 const classMethodInit = newClassMethodsMap[this.language]
@@ -152,7 +152,7 @@ export class Node {
                             const spaces = ' '.repeat(n.startPosition.column)
                             code = code.replace(bodyToRemove, `\n${spaces}    ...`)
                         }
-                    } else if (this.type === 'file' && !['assignment', 'type', 'enum'].includes(n.name)) {
+                    } else if (this.type === 'file' && !['assignment', 'type', 'enum'].includes(n.type)) {
                         if (n.body) {
                             let bodyToRemove = n.body
                             bodyToRemove = bodyToRemove.replace(n.documentation, '')
@@ -352,10 +352,10 @@ export class Codebase {
                 exportable: n.exportable,
                 totalTokens: n.totalTokens,
                 documentation: n.documentation,
-                // code: n.code,
-                // body: n.body,
-                ImportStatements: n.importStatements,
-                // codeNoBody: n.getCodeWithoutBody(),
+                code: n.code,
+                body: n.body,
+                ImportStatements: n.importStatements.map(i => i.path),
+                codeNoBody: n.getCodeWithoutBody(),
                 parent: n.parent?.id,
                 children: Object.keys(n.children),
                 calls: n.calls.map(c => c.id),
