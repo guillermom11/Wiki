@@ -135,21 +135,22 @@ export class CallsCapturer {
             nameAliasReplacements[i.moduleAlias] = path
         })
 
-        // 1. Replace import names with aliases
-        Object.entries(nameAliasReplacements).forEach(([k, v]) => {
-            const leftPattern = new RegExp(`\\b${k.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}\\b`, 'g');
-            code = code.replace(leftPattern, v);
-        });
-
         // Replace itself calls by the parent if its a method
         if (node.type === 'method') {
             const itself = itselfClassMap[node.language]
             const parentFileId = node.parent?.parent?.id.replace(/\//g, '____').replace(/ /g, '__SPACE__').replace(/-/g, '__DASH__') || ''
             const parentName = node.parent?.name || itself
-            const leftPattern = new RegExp(`\\b${itself}\\b`, 'g');
-            code = code.replace(leftPattern, `${parentFileId}____${parentName}`);
+            nameAliasReplacements[itself] = `${parentFileId}____${parentName}`
+            if (['javascript', 'typescript', 'tsx'].includes(node.language)) {
+                code = `function ${code}`
+            }
         }
 
+        // 1. Replace import names with aliases
+        Object.entries(nameAliasReplacements).forEach(([k, v]) => {
+            const leftPattern = new RegExp(`\\b${k.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}\\b`, 'g');
+            code = code.replace(leftPattern, v);
+        });
 
         // 2. Get Assignments
         const varReplacements = this.captureAssignments(code)
@@ -177,7 +178,7 @@ export class CallsCapturer {
         const capturedCalls = this.captureCalls(code)
         const results: {[key: string]: Call} = {}
         const importStatementPaths = [this.fileNode.id, ...this.fileNode.importStatements.map(i => i.path)]
-        if (node.name.includes('addNodeRelationship')) console.log(code)
+        // if (node.name.includes('getChild')) console.log(code)
         capturedCalls.forEach(c  =>  {
             const callName = c.name.replace(/\?/g, '')
             // Exclude calls to the node itself if it is in the first lines since that is likely a mistake

@@ -121,8 +121,8 @@ export class Node {
                 if (!this.documentation) this.documentation = node.documentation
                 return
             }
-            const parentCode = node.code.replace(node.body, '')
-            this.code = `${parentCode}\n${this.code}`
+            // const parentCode = node.code.replace(node.body, '')
+            // this.code = `${parentCode}\n${this.code}`
             
             // Case for py, js and ts
             if (['class', 'interface'].includes(node.type) && this.type === 'function') {
@@ -334,7 +334,7 @@ export class Codebase {
                         n.calls.push(calledNode)
                         n.outDegree++
                         calledNode.inDegree++
-                        console.log(`Added call from ${n.id} to ${calledNode.id}`)
+                        // console.log(`Added call from ${n.id} to ${calledNode.id}`)
                     } else {
                         if (verbose) console.log(`Failed to add call for node ${n.id}: ${c.name} (line ${c.lines}) not found in ${c.importFrom}`)
                         // importFromFailed.add(c.importFrom)
@@ -355,7 +355,7 @@ export class Codebase {
                 exportable: n.exportable,
                 totalTokens: n.totalTokens,
                 documentation: n.documentation,
-                // code: n.code,
+                code: n.parent?.type !== 'file' ? `${n.parent?.code.replace(n.parent.code, '')}\n${n.code}` : n.code,
                 // body: n.body,
                 ImportStatements: n.importStatements.map(i => i.path),
                 // codeNoBody: n.getCodeWithoutBody(),

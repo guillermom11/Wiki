@@ -13,9 +13,9 @@ const app = new Hono()
 
 app.get('/', async (c) => {
   console.time('codebase')
-  const codebase = new Codebase('/home/pudu/MISC/judini/codebase-index-ts') //
+  const codebase = new Codebase('.') //
   const fileNodesMap = await codebase.parseFolder()
-  codebase.getCalls(fileNodesMap, true)
+  codebase.getCalls(fileNodesMap, false)
   console.timeEnd('codebase')
   const codebaseSimplified = codebase.simplify().filter(c => !['file', 'class'].includes(c.type))
 
