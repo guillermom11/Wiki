@@ -17,7 +17,7 @@ app.get('/', async (c) => {
   const fileNodesMap = await codebase.parseFolder()
   codebase.getCalls(fileNodesMap, true)
   console.timeEnd('codebase')
-  const codebaseSimplified = codebase.simplify().filter(c => ['file', 'class'].includes(c.type))
+  const codebaseSimplified = codebase.simplify().filter(c => !['file', 'class'].includes(c.type))
 
   // console.log(codebaseSimplified)
   return c.text(JSON.stringify(codebaseSimplified, null, 2))

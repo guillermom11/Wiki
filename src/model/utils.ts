@@ -180,11 +180,10 @@ export const cleanAndSplitContent = (content: string): string[] => {
   
 
 
-export function getCalledNode(callName: string, importFrom: string, importedFileNodes: {[key: string]: Node}, fileNode?: Node ): Node | undefined {
+export function getCalledNode(callName: string, importFrom: string, importedFileNodes: {[key: string]: Node}): Node | undefined {
     let importedFile = importedFileNodes[importFrom]
     let calledNode: Node | undefined  // empty,
     calledNode = importedFile?.getChild(`${importedFile.id}::${callName}`)
-    if (!calledNode) calledNode = fileNode?.getChild(`${fileNode.id}::${callName}`)
     return calledNode
 }
 

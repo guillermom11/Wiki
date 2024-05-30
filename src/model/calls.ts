@@ -1,5 +1,7 @@
 import { cleanAndSplitContent, captureQuery } from "./utils"
-import { ImportStatement } from "./codebase"
+import { ImportStatement, Node } from "./codebase"
+import { itselfClassMap } from "./consts"
+import path from "path"
 
 class VariableAssignment {
     left: string = ''
@@ -32,18 +34,16 @@ class Call {
     }
 }
 export class CallsCapturer {
-    language: string = ''
-    importStatements: ImportStatement[] = []
+    fileNode: Node
     verbose: boolean = true
 
-    constructor(language: string, importStatements: ImportStatement[] = [], verbose: boolean = false) {
-        this.language = language
-        this.importStatements = importStatements
+    constructor(fileNode: Node, verbose: boolean = false) {
+        this.fileNode = fileNode
         this.verbose = verbose
     }
 
     captureAssignments(code: string): VariableAssignment[] {
-        const captures = captureQuery(this.language, 'assignments', code)
+        const captures = captureQuery(this.fileNode.language, 'assignments', code)
         const results: { [key: string]: VariableAssignment[] } = {}
         let varAssignment = new VariableAssignment()
         let varAssignmentIdentifier = ''
@@ -88,11 +88,10 @@ export class CallsCapturer {
     }
 
     captureCalls(code: string): CallIdentifier[]  {
-        const captures  = captureQuery(this.language, 'calls', code)
+        const captures  = captureQuery(this.fileNode.language, 'calls', code)
         captures.sort((a, b) => a.node.startPosition.row - b.node.startPosition.row || a.node.startPosition.column - b.node.startPosition.column)
         const results: CallIdentifier[]  = []
         const nodesSeen: Set<string> = new Set()
-        const forbiddenRegex = /['"\?\\\/()\[\]{}\$]/g
         captures.forEach(c => {
             let content = c.node.text
             const startLine = c.node.startPosition.row
@@ -110,19 +109,16 @@ export class CallsCapturer {
                         importFrom  = contentSplit.slice(0, -1).join('/')
                         importFrom = importFrom.replace(/__SPACE__/g, ' ').replace(/__DASH__/g, '-')
                     }
-                    let callName = contentSplit.slice(-1)[0]
-                    // heuristic
-                    if (!forbiddenRegex.test(importFrom) && !forbiddenRegex.test(callName))
+                    if (importFrom) {
+                        let callName = contentSplit.slice(-1)[0]
                         results.push(new CallIdentifier(callName, startLine, importFrom))
-
-                    if (callName.includes('.')) {
-                        const callNameSplit = callName.split('.')
-                        const _importFrom = callNameSplit[0]
-                        callName = callNameSplit.slice(1).join('.')
-                        importFrom = importFrom? `${importFrom}/${_importFrom}` : _importFrom
-                        // heuristic
-                        if ((!forbiddenRegex.test(importFrom) && !forbiddenRegex.test(callName)))
-                            results.push(new CallIdentifier(callName, startLine, importFrom))
+                        if (callName.includes('.')) {
+                            const callNameSplit = callName.split('.')
+                            for ( let i = 2; i < callNameSplit.length; i++) {
+                                callName = callNameSplit.slice(0, i).join('.')
+                                results.push(new CallIdentifier(callName, startLine, importFrom))
+                            }
+                        }
                     }
                 }
             }
@@ -130,10 +126,10 @@ export class CallsCapturer {
         return results
     }
 
-    getCallsFromCode(code: string, nodeName?: string) : Call[] {
-        
+    getCallsFromCode(node: Node) : Call[] {
+        let code  = Object.keys(node.children).length > 0 ? node.getCodeWithoutBody() : node.code
         const nameAliasReplacements: { [key: string]: string }  = {}
-        this.importStatements.forEach(i  =>  {
+        this.fileNode.importStatements.forEach(i  =>  {
             const path = i.path.replace(/\//g, '____').replace(/ /g, '__SPACE__').replace(/-/g, '__DASH__')
             for (const importName of i.names) nameAliasReplacements[importName.name] = `${path}____${importName.alias}`
             nameAliasReplacements[i.moduleAlias] = path
@@ -144,6 +140,16 @@ export class CallsCapturer {
             const leftPattern = new RegExp(`\\b${k.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}\\b`, 'g');
             code = code.replace(leftPattern, v);
         });
+
+        // Replace itself calls by the parent if its a method
+        if (node.type === 'method') {
+            const itself = itselfClassMap[node.language]
+            const parentFileId = node.parent?.parent?.id.replace(/\//g, '____').replace(/ /g, '__SPACE__').replace(/-/g, '__DASH__') || ''
+            const parentName = node.parent?.name || itself
+            const leftPattern = new RegExp(`\\b${itself}\\b`, 'g');
+            code = code.replace(leftPattern, `${parentFileId}____${parentName}`);
+        }
+
 
         // 2. Get Assignments
         const varReplacements = this.captureAssignments(code)
@@ -168,22 +174,22 @@ export class CallsCapturer {
 
         })
         code = codeLines.join('\n')
-        // console.log(code)
         const capturedCalls = this.captureCalls(code)
-        // console.log(capturedCalls)
         const results: {[key: string]: Call} = {}
-        const importStatementPaths = this.importStatements.map(i => i.path)
+        const importStatementPaths = [this.fileNode.id, ...this.fileNode.importStatements.map(i => i.path)]
+        if (node.name.includes('addNodeRelationship')) console.log(code)
         capturedCalls.forEach(c  =>  {
+            const callName = c.name.replace(/\?/g, '')
             // Exclude calls to the node itself if it is in the first lines since that is likely a mistake
-            if (nodeName == c.name && c.line <= 1) return
+            if (node.name == callName && c.line <= 1) return
             // Exclude if importFrom is not a path
             else if (!c.importFrom.includes('/')) return
             // Exclude if importFrom is not in the import statement paths
             else if (!importStatementPaths.includes(c.importFrom)) return
-            if (!Object.keys(results).includes(`${c.importFrom}::${c.name}`)) {
-                results[`${c.importFrom}::${c.name}`] = new Call(c.importFrom, c.name)
+            if (!Object.keys(results).includes(`${c.importFrom}::${callName}`)) {
+                results[`${c.importFrom}::${callName}`] = new Call(c.importFrom, callName)
             } 
-            results[`${c.importFrom}::${c.name}`].lines.push(c.line)
+            results[`${c.importFrom}::${callName}`].lines.push(c.line)
         })
         return Object.values(results)
     }

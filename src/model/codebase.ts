@@ -123,6 +123,7 @@ export class Node {
             }
             const parentCode = node.code.replace(node.body, '')
             this.code = `${parentCode}\n${this.code}`
+            
             // Case for py, js and ts
             if (['class', 'interface'].includes(node.type) && this.type === 'function') {
                 this.type = 'method'
@@ -308,35 +309,35 @@ export class Codebase {
                 if (verbose) console.log(`File ${fileId} has no children`)
                 return
             }
-            const callsCapturer = new CallsCapturer(fileNode.language, fileNode.importStatements, verbose)
+            const callsCapturer = new CallsCapturer(fileNode, verbose)
             const importedFiles: {[key: string]: Node} = {} 
 
             // Point import statements to their respective File objects
-            console.log(`---- ${fileNode.id} ----`)
+            // console.log(`---- ${fileNode.id} ----`)
             fileNode.importStatements.forEach(i => {
                 if (Object.keys(fileNodesMap).includes(i.path)) {
                     importedFiles[i.path]  = fileNodesMap[i.path]
                 }
             })
+            importedFiles[fileNode.id] = fileNode
 
             const nodes: Node[] = [fileNode ,...Object.values(fileNode.children)]
             nodes.forEach((n: Node) => {
-                const code = Object.keys(n.children).length > 0 ? n.getCodeWithoutBody() : n.code
-                const calls = callsCapturer.getCallsFromCode(code, n.name)
-                const importFromFailed: Set<string> = new Set()
-                console.log( `${n.id}`)
-                console.log(calls)
+                const calls = callsCapturer.getCallsFromCode(n)
+                // const importFromFailed: Set<string> = new Set()
+                // console.log( `${n.id}`)
+                // console.log(calls)
                 calls.forEach(c => {
-                    if (importFromFailed.has(c.importFrom)) return
-                    const calledNode = getCalledNode(c.name, c.importFrom, importedFiles, fileNode)
+                    // if (importFromFailed.has(c.importFrom)) return
+                    const calledNode = getCalledNode(c.name, c.importFrom, importedFiles)
                     if (calledNode) {
                         n.calls.push(calledNode)
                         n.outDegree++
                         calledNode.inDegree++
                         console.log(`Added call from ${n.id} to ${calledNode.id}`)
                     } else {
-                        if (verbose) console.log(`Failed to add call for node ${n.id}: ${c.name} not found in ${c.importFrom}`)
-                        importFromFailed.add(c.importFrom)
+                        if (verbose) console.log(`Failed to add call for node ${n.id}: ${c.name} (line ${c.lines}) not found in ${c.importFrom}`)
+                        // importFromFailed.add(c.importFrom)
                     }
                 })
             })
