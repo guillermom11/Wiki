@@ -32,18 +32,26 @@ const importStatements = `
 
 
 (lexical_declaration
- (variable_declarator
- 	name: [
-    	(identifier) @name
-    	(object_pattern (_) @name)
-    ]
- 	value: (call_expression
-    			function: _ @function
-          arguments: (arguments (string (string_fragment) @module))
-    		)
-    		(#eq? @function "require")) 
-            
-) @import_statement
+    (variable_declarator
+      name: [
+          (identifier) @name
+          (object_pattern (_) @name)
+      ]
+      value: [(call_expression
+                  function: _ @function
+                  arguments: (arguments (string (string_fragment) @module))
+                  (#eq? @function "require"))
+              ( member_expression
+                (call_expression
+                    function: _ @function
+                    arguments: (arguments (string (string_fragment) @module))
+                    (#eq? @function "require")
+                )
+                (property_identifier) @submodule
+               )
+              ]
+    )           
+  ) @import_statement
 `
 
 /////////////////

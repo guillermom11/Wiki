@@ -15,8 +15,8 @@ export const AllowedTypesArray: AllowedTypes[] = [
     'assignment', 'file'
   ]
 
-export const excludedFolders = ['.git', '.vscode', 'venv', 'node_modules', 'dist', '__pycache__']
-export const excludedExtensions = ['min.js', 'min.css', 'min.css.map', 'min.js.map', 'd.ts']
+export const excludedFolders = ['.git', '.vscode', 'venv', 'node_modules', 'dist', '__pycache__', 'tests', 'build']
+export const excludedExtensions = ['min.js', 'min.css', 'min.css.map', 'min.js.map', 'd.ts', '.config.js']
 
 export const languages = {
     JavaScript,
@@ -28,7 +28,7 @@ export const languages = {
 
 export const languageExtensionMap: Record<string, string> = {
   'py': 'python',
-  'ipynb': 'python',
+  // 'ipynb': 'python',
   'js': 'javascript',
   'ts': 'typescript',
   'tsx': 'tsx',

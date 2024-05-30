@@ -1,21 +1,24 @@
 import fs from 'node:fs/promises';
-import path from 'path';
 import { Point } from 'tree-sitter'
-import { captureQuery, cleanDefCaptures, getAllFiles, renameSource, getCalledNode } from "./utils"
+import {
+    captureQuery,
+    getAllFiles,
+    renameSource,
+    getCalledNode,
+    getNodesDefinitionsFromFileNode,
+    resolveImportStatementsPath
+} from "./utils"
 import {
     languageExtensionMap,
-    AllowedTypesArray,
     AllowedTypes,
     newClassMethodsMap,
-    treeSitterCommentTypes,
-    indexSuffixesMap
 } from "./consts"
 import { CallsCapturer } from './calls';
 
 export class ImportName {
     name: string = ''
     alias: string = ''
-    subpath: string = ''
+    // subpath: string = ''
     
     constructor(name: string, alias?: string) {
         this.name = name
@@ -26,10 +29,10 @@ export class ImportStatement {
     module: string = ''
     names: ImportName[] = []
     moduleAlias: string = ''
-    code: string = ''
     path: string = ''
-    startPosition: Point = {row: 0, column: 0}
-    endPosition: Point = {row: 99999, column: 0}
+    // code: string = ''
+    // startPosition: Point = {row: 0, column: 0}
+    // endPosition: Point = {row: 99999, column: 0}
 }
 
 interface Link {
@@ -105,7 +108,6 @@ export class Node {
                 if (!this.documentation) this.documentation = node.documentation
                 return
             }
-            console.log(`${this.name} isWithin ${node.name}`)
             const parentCode = node.code.replace(node.body, '')
             this.code = `${parentCode}\n${this.code}`
             if (this.parent?.type === 'file') {
@@ -190,6 +192,10 @@ export class Node {
                     newImportStatement.names.push(newImportName)
                     alias = ''
                     break
+                // case 'submodule':
+                //     break
+                // case 'wildcard':
+                //     break
                 case 'import_statement':
                     if (alias && !newImportStatement.names) {
                         newImportStatement.moduleAlias = alias
@@ -199,9 +205,9 @@ export class Node {
                     }
     
                     newImportStatement.path = renameSource(this.id, newImportStatement.module, this.language)
-                    newImportStatement.code = c.node.text
-                    newImportStatement.startPosition = c.node.startPosition
-                    newImportStatement.endPosition = c.node.endPosition
+                    // newImportStatement.code = c.node.text
+                    // newImportStatement.startPosition = c.node.startPosition
+                    // newImportStatement.endPosition = c.node.endPosition
                     importStatements.push(newImportStatement)
                     newImportStatement = new ImportStatement()
                     break;
@@ -251,7 +257,6 @@ export class Codebase {
     addNodeMap(nodeMap: {[id: string]: Node})  { this.nodesMap  = {...this.nodesMap, ...nodeMap} }
 
     async generateNodesFromFilePath(filePath: string): Promise<{[id: string]: Node}> {
-    
         const fileExtension  = filePath.split('.').pop()
         if (!fileExtension) return {}
         const data = await fs.readFile(filePath)
@@ -261,100 +266,10 @@ export class Codebase {
         const fileNode = new Node(filePathNoExtension, dataString, 'file', languageExtensionMap[fileExtension])
         fileNode.name = filePath
         fileNode.alias = filePathNoExtension.split('/').pop() || ''
-        const unnecessaryNodeTypes = ['export'] // exclude it from the analysis
-        const captures = captureQuery(fileNode.language, 'constructorDefinitions', fileNode.code)
-        captures.sort((a, b) => b.node.startPosition.row - a.node.startPosition.row || b.node.startPosition.column - a.node.startPosition.column)
-        let exportable = ['python'].includes(fileNode.language) ? true : false
-        const childrenNodes: Node[] = []
-    
-        captures.forEach((c)  => {
-            if (AllowedTypesArray.includes(c.name as AllowedTypes)) {
-                const newNode  = new Node(filePathNoExtension, c.node.text, c.name as AllowedTypes, fileNode.language)
-    
-                newNode.startPosition  = c.node.startPosition
-                newNode.endPosition  = c.node.endPosition
-                newNode.exportable = exportable
-                
-                // In many languages the documentation is the prev sibling
-                let prevTreeSitterNode = c.node.previousNamedSibling
-                if (prevTreeSitterNode) { 
-                    // if the previous node is a comment and it's in the previous line
-                    if (treeSitterCommentTypes.includes(prevTreeSitterNode.type) &&
-                    prevTreeSitterNode.endPosition.row === newNode.startPosition.row - 1) {
-                        newNode.documentation  = prevTreeSitterNode.text
-                    }
-    
-                }
-                childrenNodes.push(newNode)
-            }
-        })
-    
-        childrenNodes.forEach((n, i) => {
-            if (unnecessaryNodeTypes.includes(n.type)) return
-            let code = n.code
-            if (['javascript', 'typescript', 'tsx'].includes(fileNode.language)) {
-                if (n.type === 'method' ) {
-                    // Fix bug with methods
-                    code = `function ${n.code}`
-                    n.type = 'function'
-                } else if (n.type === 'assignment') code = `const ${n.code}`
-            }
-            
-            let captures = captureQuery(fileNode.language, 'definitionTemplate', code)
-            // console.log(`/////${n.type}, ${fileNode.language}/////`)
-            // console.log(`${n.code}`)
-            // console.log('--------------')
-            // console.log(captures.map(c => { return {name: c.name, text: c.node.text?.slice(0, 30)} }))
-            captures = cleanDefCaptures(captures, 'name', 'body')
-            // console.log(captures.map(c => { return {name: c.name, text: c.node.text?.slice(0, 30)} }))
-            captures.forEach((c)  =>  {
-                switch (c.name) {
-                    case 'name':
-                        n.name = c.node.text ?? ''
-                        n.id = `${n.id}::${n.name}`
-                        break
-                    case 'alias':
-                        n.alias  = c.node.text  ?? ''
-                        break
-                    case 'documentation':
-                        n.documentation  = c.node.text  ?? ''
-                        if (n.language === 'python') {
-                            // remove doc from code
-                            n.code = n.code.replace(n.documentation, '')
-                        }
-                        break
-                    case 'body':
-                        n.body  = c.node.text  ?? ''
-                        break
-                }
-            })
-            if (!n.alias) n.alias = n.name
-    
-            if (n.type === 'assignment') {
-                // console.log(n)
-                const assignmentCaptures = captureQuery(fileNode.language, 'extraAssignmentCode', n.code, n.name)
-                assignmentCaptures.forEach((c)  =>  {
-                    if (c.node.type === 'code') n.code += '\n\n' + c.node.text
-                })
-            }
-        })
-    
-        childrenNodes.forEach((n, i) => {
-            if (!unnecessaryNodeTypes.includes(n.type)) fileNode.addChild(n)
-            for (let j = i+1; j < childrenNodes.length; j++) {
-                n.addNodeRelationship(childrenNodes[j])
-                childrenNodes[j].addNodeRelationship(n)
-            }
-        })
-        
-        // childrenNodes.sort((a,b) => a.startPosition.row - b.startPosition.row || a.startPosition.column  - b.startPosition.column)
-        const nodesMap = childrenNodes.reduce<{[id: string]: Node}>((map, n)  =>  {
-            if (!unnecessaryNodeTypes.includes(n.type)) map[n.id]  = n
-            return map
-        }, {})
-        nodesMap[fileNode.id] = fileNode
+        const nodesMap = getNodesDefinitionsFromFileNode(fileNode)
         fileNode.parseExportClauses()
         fileNode.generateImports()
+        nodesMap[fileNode.id] = fileNode
         return nodesMap
     }
     
@@ -369,31 +284,7 @@ export class Codebase {
             const filePathNoExtension = filePath.split('.').slice(0, -1).join('.')
             const fileNode = nodeMap[filePathNoExtension]
             fileNodeMap[filePathNoExtension] = fileNode
-            const suffix = indexSuffixesMap[fileNode.language]
-            fileNode.importStatements.forEach((i)  =>  {
-                for (const p in allFiles) {
-                    const pathNoExtension = p.split('.').slice(0, -1).join('.')
-                    if (pathNoExtension.endsWith(`${i.path}${suffix}`) || pathNoExtension.endsWith(i.path)) {
-                        i.path = pathNoExtension
-                        break
-                    }
-                    for (const importName of i.names) {
-                        if (pathNoExtension.endsWith(`${i.path}/${importName.name}`)) {
-                            const pathSplit =  pathNoExtension.split('/')
-                            i.path = pathSplit.slice(0, -1).join('/')
-                            importName.subpath = pathSplit.slice(-1)[0]
-                            break
-                        }
-                        if (pathNoExtension.endsWith(`${i.path}/${importName.name}${suffix}`)) {
-                            const pathSplit =  pathNoExtension.split('/')
-                            i.path = pathSplit.slice(0, -2).join('/')
-                            importName.subpath = pathSplit.slice(-2).join('/')
-                            break
-                        }
-                    }
-                }
-                if (i.path.startsWith('@/')) i.path = path.join(this.rootFolderPath, i.path.slice(2))
-            })
+            resolveImportStatementsPath(fileNode, this.rootFolderPath, allFiles)
         }
         return fileNodeMap 
     }
@@ -461,9 +352,10 @@ export class Codebase {
                 exportable: n.exportable,
                 totalTokens: n.totalTokens,
                 documentation: n.documentation,
-                code: n.code,
+                // code: n.code,
                 // body: n.body,
-                codeNoBody: n.getCodeWithoutBody(),
+                ImportStatements: n.importStatements,
+                // codeNoBody: n.getCodeWithoutBody(),
                 parent: n.parent?.id,
                 children: Object.keys(n.children),
                 calls: n.calls.map(c => c.id),

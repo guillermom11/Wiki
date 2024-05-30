@@ -1,4 +1,4 @@
-import { validateContent, captureQuery } from "./utils"
+import { cleanAndSplitContent, captureQuery } from "./utils"
 import { ImportStatement } from "./codebase"
 import { itselfClassMap } from "./consts"
 
@@ -104,7 +104,7 @@ export class CallsCapturer {
             // console.log(c.name, content)
             
             if (["identifier.name", "parameter_type", "return_type"].includes(c.name)) {
-                for ( const c of validateContent(content)) {
+                for ( const c of cleanAndSplitContent(content)) {
                     let importFrom = ''
                     const contentSplit = c.split('____')
                     if (contentSplit.length > 1) {

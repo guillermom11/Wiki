@@ -32,7 +32,7 @@ const importStatements = `
       (dotted_name) @name
       (aliased_import name: _ @name alias: _ @alias)
     ]?
-    (wildcard_import _ @name)?
+    (wildcard_import _ @wildcard)?
     ) @import_statement
     
 (future_import_statement 
