@@ -123,7 +123,7 @@ export function cleanDefCaptures(captures: Parser.QueryCapture[], keyword1: stri
 
         
     }
-    return captures
+    return updatedCaptures
 }
 
 /**
@@ -144,6 +144,7 @@ export function renameSource(filePath: string, sourceName: string, language: str
         newSourceName = path.normalize(path.join(fileDirectory, newSourceName))
     } else if ( language == 'python') {
         const dotCount = firstConsecutiveDots(newSourceName)
+        newSourceName = newSourceName.replace(/\./g, '/')
         if (dotCount) {
             if (dotCount == 1) {
                 newSourceName = path.normalize(path.join(fileDirectory, newSourceName))
@@ -153,7 +154,6 @@ export function renameSource(filePath: string, sourceName: string, language: str
                 newSourceName = path.normalize(path.join(newDirectory, newSourceName))
             }
         }
-        newSourceName.replace('.', '/')
     }
     return newSourceName
 }
