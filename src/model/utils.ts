@@ -3,10 +3,6 @@ import {
     excludedFolders,
     excludedExtensions,
     languages,
-    AllowedTypes,
-    AllowedTypesArray,
-    treeSitterCommentTypes,
-    indexSuffixesMap
 } from "./consts"
 import { treeSitterQueries, languageQueries } from "../queries"
 import { glob } from 'glob'
@@ -174,139 +170,12 @@ export const cleanAndSplitContent = (content: string): string[] => {
                      .trim();
   
     // Split the content by commas, remove surrounding brackets/braces, and trim each part
-    return content.split(',')
-                  .map(item => item.replace(/[\[\]\{\}]/g, '').trim());
+    return content.split(',').map(item => item.replace(/[\[\]\{\}]/g, '').trim());
   }
   
 
-
 export function getCalledNode(callName: string, importFrom: string, importedFileNodes: {[key: string]: Node}): Node | undefined {
-    let importedFile = importedFileNodes[importFrom]
-    let calledNode: Node | undefined  // empty,
-    calledNode = importedFile?.getChild(`${importedFile.id}::${callName}`)
+    const importedFile = importedFileNodes[importFrom]
+    const calledNode = importedFile?.getChild(`${importedFile.id}::${callName}`)
     return calledNode
-}
-
-
-export function getNodesDefinitionsFromFileNode(fileNode: Node): {[id: string]: Node}{
-    const unnecessaryNodeTypes = ['export'] // exclude it from the analysis
-    const captures = captureQuery(fileNode.language, 'constructorDefinitions', fileNode.code)
-    captures.sort((a, b) => b.node.startPosition.row - a.node.startPosition.row || b.node.startPosition.column - a.node.startPosition.column)
-    let exportable = ['python'].includes(fileNode.language) ? true : false
-    let childrenNodes: Node[] = []
-
-    captures.forEach((c)  => {
-        if (AllowedTypesArray.includes(c.name as AllowedTypes)) {
-            const newNode  = new Node(fileNode.id, c.node.text, c.name as AllowedTypes, fileNode.language)
-
-            newNode.startPosition  = c.node.startPosition
-            newNode.endPosition  = c.node.endPosition
-            newNode.exportable = exportable
-            
-            // In many languages the documentation is the prev sibling
-            let prevTreeSitterNode = c.node.previousNamedSibling
-            if (prevTreeSitterNode) { 
-                // if the previous node is a comment and it's in the previous line
-                if (treeSitterCommentTypes.includes(prevTreeSitterNode.type) &&
-                prevTreeSitterNode.endPosition.row === newNode.startPosition.row - 1) {
-                    newNode.documentation  = prevTreeSitterNode.text
-                }
-
-            }
-            childrenNodes.push(newNode)
-        }
-    })
-
-    childrenNodes.forEach(n => {
-        if (unnecessaryNodeTypes.includes(n.type)) return
-        let code = n.code
-        if (['javascript', 'typescript', 'tsx'].includes(fileNode.language)) {
-            if (n.type === 'method' ) {
-                // Fix bug with methods
-                code = `function ${n.code}`
-                n.type = 'function'
-            } else if (n.type === 'assignment') code = `const ${n.code}`
-        }
-        
-        let captures = captureQuery(fileNode.language, 'definitionTemplate', code)
-        // console.log(`/////${n.type}, ${fileNode.language}/////`)
-        // console.log(`${n.code}`)
-        // console.log('--------------')
-        // console.log(captures.map(c => { return {name: c.name, text: c.node.text?.slice(0, 30)} }))
-        captures = cleanDefCaptures(captures, 'name', 'body')
-        // console.log(captures.map(c => { return {name: c.name, text: c.node.text?.slice(0, 30)} }))
-        captures.forEach((c)  =>  {
-            switch (c.name) {
-                case 'name':
-                    n.name = c.node.text ?? ''
-                    n.id = `${n.id}::${n.name}`
-                    break
-                case 'alias':
-                    n.alias  = c.node.text  ?? ''
-                    break
-                case 'documentation':
-                    n.documentation  = c.node.text  ?? ''
-                    if (n.language === 'python') {
-                        // remove doc from code
-                        n.code = n.code.replace(n.documentation, '')
-                    }
-                    break
-                case 'body':
-                    n.body  = c.node.text  ?? ''
-                    break
-            }
-        })
-        if (!n.alias) n.alias = n.name
-
-        if (n.type === 'assignment') {
-            // console.log(n)
-            const assignmentCaptures = captureQuery(fileNode.language, 'extraAssignmentCode', n.code, n.name)
-            assignmentCaptures.forEach((c)  =>  {
-                if (c.node.type === 'code') n.code += '\n\n' + c.node.text
-            })
-        }
-    })
-
-    // must have a name
-    childrenNodes = childrenNodes.filter(c => c.name)
-
-    childrenNodes.forEach((n, i) => {
-        if (!unnecessaryNodeTypes.includes(n.type)) fileNode.addChild(n)
-        for (let j = i+1; j < childrenNodes.length; j++) {
-            n.addNodeRelationship(childrenNodes[j])
-            childrenNodes[j].addNodeRelationship(n)
-        }
-    })
-
-    // childrenNodes.sort((a,b) => a.startPosition.row - b.startPosition.row || a.startPosition.column  - b.startPosition.column)
-    const nodesMap = childrenNodes.reduce<{[id: string]: Node}>((map, n)  =>  {
-        if (!unnecessaryNodeTypes.includes(n.type)) map[n.id]  = n
-        return map
-    }, {})
-    return nodesMap
-}
-
-export function resolveImportStatementsPath(fileNode: Node, rootFolderPath: string, allFiles: string[]) {
-    const suffix = indexSuffixesMap[fileNode.language];
-    const fileSet = new Set(allFiles.map(p => p.split('.').slice(0, -1).join('.')));
-
-    fileNode.importStatements.forEach((importStatement) => {
-        const possiblePaths = [
-            ...importStatement.names.map(name => path.resolve(`${importStatement.path}/${name.name}${suffix}`)),
-            ...importStatement.names.map(name => path.resolve(`${importStatement.path}/${name.name}`)),
-            `${importStatement.path}${suffix}`,
-            importStatement.path
-        ];
-
-        for (const possiblePath of possiblePaths) {
-            if (fileSet.has(possiblePath)) {
-                importStatement.path = possiblePath.endsWith(suffix) ? possiblePath.split('/').slice(-1).join('/') : possiblePath
-                break;
-            }
-        }
-
-        if (importStatement.path.startsWith('@/')) {
-            importStatement.path = path.join(rootFolderPath, importStatement.path.slice(2));
-        }
-    });
 }

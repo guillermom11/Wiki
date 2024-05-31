@@ -141,9 +141,8 @@ export class CallsCapturer {
             const parentFileId = node.parent?.parent?.id.replace(/\//g, '____').replace(/ /g, '__SPACE__').replace(/-/g, '__DASH__') || ''
             const parentName = node.parent?.name || itself
             nameAliasReplacements[itself] = `${parentFileId}____${parentName}`
-            if (['javascript', 'typescript', 'tsx'].includes(node.language)) {
-                code = `function ${code}`
-            }
+            // this solves a bug
+            if (['javascript', 'typescript', 'tsx'].includes(node.language)) code = `function ${code}`
         }
 
         // 1. Replace import names with aliases
