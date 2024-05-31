@@ -394,6 +394,7 @@ export class Node {
 
 
 export class Codebase {
+     // NOTE: rootFolderPath should be an absolute path
     rootFolderPath: string = ''
     nodesMap: { [id: string]: Node } = {}
 
@@ -435,6 +436,8 @@ export class Codebase {
                 fileNode.resolveImportStatementsPath(this.rootFolderPath, allFiles)
             } catch (error: any) {
                 console.log(`Cannot parse file ${filePath}`)
+                console.log(error.message)
+                throw error
             }
         }
         return fileNodesMap 
@@ -493,9 +496,9 @@ export class Codebase {
                 exportable: n.exportable,
                 totalTokens: n.totalTokens,
                 documentation: n.documentation,
-                code: n.parent && n.parent?.type !== 'file' ? `${n.parent.code.replace(n.parent.body, '')}\n${n.code}` : n.code,
+                code: n.parent && n.parent?.type === 'class' ? `${n.parent.code.replace(n.parent.body, '')}\n${n.code}` : n.code,
                 // body: n.body,
-                ImportStatements: n.importStatements.map(i => i.path),
+                ImportStatements: n.importStatements.map(i => { return {path: i.path, names: i.names }}),
                 // codeNoBody: n.getCodeWithoutBody(),
                 parent: n.parent?.id,
                 children: Object.keys(n.children),

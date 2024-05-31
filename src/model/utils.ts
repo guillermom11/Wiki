@@ -141,9 +141,10 @@ export function cleanDefCaptures(captures: Parser.QueryCapture[], keyword1: stri
  */
 export function renameSource(filePath: string, sourceName: string, language: string): string {
     let newSourceName = sourceName
-    const sourceNameExtension = path.extname(sourceName)
+    const sourceNameSplit = sourceName.split('.')
+    const sourceNameExtension = sourceNameSplit.slice(-1)[0]
     // remove extension if is in languageExtensionMap
-    if (Object.keys(languageExtensionMap).includes(sourceNameExtension)) newSourceName = sourceName.split('.').slice(0, -1).join('.')
+    if (Object.keys(languageExtensionMap).includes(sourceNameExtension)) newSourceName = sourceNameSplit.slice(0, -1).join('.')
     const fileDirectory = filePath.split('/').slice(0, -1).join('/')
     
     if (['javascript', 'typescript', 'tsx', 'cpp'].includes(language) && newSourceName.startsWith('.') ) {
