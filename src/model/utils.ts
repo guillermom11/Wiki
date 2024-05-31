@@ -78,18 +78,25 @@ export function getRequiredDefinitions(language: string): { parser: Parser, quer
 export function captureQuery(language: string, queryName: keyof treeSitterQueries, code: string, queryArg?: string) : Parser.QueryCapture[] {
     const { parser, queries } = getRequiredDefinitions(language)
     const treeSitterQuery = (queryName === 'extraAssignmentCode') ? queries[queryName](queryArg || '') : queries[queryName] as string
-    const query = new Parser.Query(parser.getLanguage(), treeSitterQuery)
-    const tree = parser.parse(code)
-    const captures = query.captures(tree.rootNode)
-    const uniqueMap = new Map();
-    captures.forEach(c => {
-        const key = `${c.name}|${c.node.text}|${c.node.startPosition.row}|${c.node.startPosition.column}`; // Create a unique key based on `name` and `text`
-        if (!uniqueMap.has(key)) {
-            uniqueMap.set(key, c);
-        }
-    });
+    let uniqueCaptures = []
+    try {
+        const query = new Parser.Query(parser.getLanguage(), treeSitterQuery)
+        const tree = parser.parse(code, undefined, { bufferSize: 128 * 1024})
+        const captures = query.captures(tree.rootNode)
+        const uniqueMap = new Map();
+        captures.forEach(c => {
+            const key = `${c.name}|${c.node.text}|${c.node.startPosition.row}|${c.node.startPosition.column}`; // Create a unique key based on `name` and `text`
+            if (!uniqueMap.has(key)) {
+                uniqueMap.set(key, c);
+            }
+        });
 
-    const uniqueCaptures = Array.from(uniqueMap.values());
+        uniqueCaptures = Array.from(uniqueMap.values());
+        
+    } catch (error: any) {
+        const errorMessage = `${language} captureQuery ${queryName}${queryArg ? '(' + queryArg + ')' : ''}: ${error.message}`
+        throw Error(errorMessage)
+    }
     return uniqueCaptures
 }
 
@@ -138,19 +145,19 @@ export function renameSource(filePath: string, sourceName: string, language: str
     // remove extension if is in languageExtensionMap
     if (Object.keys(languageExtensionMap).includes(sourceNameExtension)) newSourceName = sourceName.split('.').slice(0, -1).join('.')
     const fileDirectory = filePath.split('/').slice(0, -1).join('/')
-
-    if (['javascript', 'typescript', 'tsx', 'cpp'].includes(language) && newSourceName.includes('.') ) {
-        newSourceName = path.normalize(path.join(fileDirectory, newSourceName))
+    
+    if (['javascript', 'typescript', 'tsx', 'cpp'].includes(language) && newSourceName.startsWith('.') ) {
+        newSourceName = path.join(fileDirectory, newSourceName)
     } else if ( language == 'python') {
         const dotCount = firstConsecutiveDots(newSourceName)
         newSourceName = newSourceName.replace(/\./g, '/')
         if (dotCount) {
             if (dotCount == 1) {
-                newSourceName = path.normalize(path.join(fileDirectory, newSourceName))
+                newSourceName = path.join(fileDirectory, newSourceName)
             } else {
                 const moveUpCount = dotCount - 1
                 const newDirectory = fileDirectory.split('/').slice(0, -moveUpCount).join('/')
-                newSourceName = path.normalize(path.join(newDirectory, newSourceName))
+                newSourceName = path.join(newDirectory, newSourceName)
             }
         }
     }
