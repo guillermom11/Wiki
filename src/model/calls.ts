@@ -87,16 +87,19 @@ export class CallsCapturer {
         return resultsArray
     }
 
-    captureCalls(code: string): CallIdentifier[]  {
+    captureCalls(code: string, nodeRef: Node): CallIdentifier[]  {
         const captures  = captureQuery(this.fileNode.language, 'calls', code)
         captures.sort((a, b) => a.node.startPosition.row - b.node.startPosition.row || a.node.startPosition.column - b.node.startPosition.column)
         const results: CallIdentifier[]  = []
         const nodesSeen: Set<string> = new Set()
+        let childrenNames: string[] = []
+        if (nodeRef.parent && nodeRef.parent.children) childrenNames = Object.values(nodeRef.parent.children).map( c => c.name)
         captures.forEach(c => {
             let content = c.node.text
             const startLine = c.node.startPosition.row
-            const endLine = c.node.endPosition.row
-            const nodeIdenfier = `${c.name}#L${startLine}.${endLine}`
+            const endLine =  c.node.endPosition.row
+            // const nodeIdenfier = `${c.name}#L${startLine}.${c.node.startPosition.column}|${endLine}.${c.node.endPosition.column}`
+            const nodeIdenfier = `${c.name}#L${startLine}.${c.node.startPosition.column}|${endLine}.${c.node.endPosition.column}`
             if (nodesSeen.has(nodeIdenfier)) return
             nodesSeen.add(nodeIdenfier)
             // console.log(c.name, content)
@@ -109,8 +112,9 @@ export class CallsCapturer {
                         importFrom  = contentSplit.slice(0, -1).join('/')
                         importFrom = importFrom.replace(/__SPACE__/g, ' ').replace(/__DASH__/g, '-')
                     }
+                    let callName = contentSplit.slice(-1)[0]
+                    if (!importFrom && childrenNames.includes(callName)) importFrom = nodeRef.parent?.id || ''
                     if (importFrom) {
-                        let callName = contentSplit.slice(-1)[0]
                         results.push(new CallIdentifier(callName, startLine, importFrom))
                         if (callName.includes('.')) {
                             const callNameSplit = callName.split('.')
@@ -174,12 +178,19 @@ export class CallsCapturer {
 
         })
         code = codeLines.join('\n')
-        const capturedCalls = this.captureCalls(code)
+        const capturedCalls = this.captureCalls(code, node)
         const results: {[key: string]: Call} = {}
         const importStatementPaths = [this.fileNode.id, ...this.fileNode.importStatements.map(i => i.path)]
-        // if (node.name.includes('getChild')) console.log(code)
+        if (node.name.includes('getRequiredDefinitions')) console.log(code)
         capturedCalls.forEach(c  =>  {
-            const callName = c.name.replace(/\?/g, '')
+            let importFrom = c.importFrom
+            let callName = c.name.replace(/\?/g, '')
+            // This solve a bug with python, when one can import a module instead of a component
+            let callNameSplit = callName.split('.')
+            if (importFrom.endsWith('/'+callNameSplit[0])) {
+                importFrom = importFrom.replace('/'+callNameSplit[0], '')
+                callName = callNameSplit.slice(-1)[0]
+            }
             // Exclude calls to the node itself if it is in the first lines since that is likely a mistake
             if (node.name == callName && c.line <= 1) return
             // Exclude if importFrom is not a path

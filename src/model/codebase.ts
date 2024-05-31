@@ -220,7 +220,7 @@ export class Node {
                     } else {
                         newImportStatement.moduleAlias = newImportStatement.module
                     }
-    
+                    
                     newImportStatement.path = renameSource(this.id, newImportStatement.module, this.language)
                     // newImportStatement.code = c.node.text
                     // newImportStatement.startPosition = c.node.startPosition
@@ -281,7 +281,7 @@ export class Node {
     
             for (const possiblePath of possiblePaths) {
                 if (fileSet.has(possiblePath)) {
-                    importStatement.path = possiblePath.endsWith(suffix) ? possiblePath.split('/').slice(-1).join('/') : possiblePath
+                    importStatement.path = possiblePath
                     break;
                 }
             }
@@ -493,7 +493,7 @@ export class Codebase {
                 exportable: n.exportable,
                 totalTokens: n.totalTokens,
                 documentation: n.documentation,
-                code: n.parent?.type !== 'file' ? `${n.parent?.code.replace(n.parent.body, '')}\n${n.code}` : n.code,
+                code: n.parent && n.parent?.type !== 'file' ? `${n.parent.code.replace(n.parent.body, '')}\n${n.code}` : n.code,
                 // body: n.body,
                 ImportStatements: n.importStatements.map(i => i.path),
                 // codeNoBody: n.getCodeWithoutBody(),
