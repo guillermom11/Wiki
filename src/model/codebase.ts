@@ -17,6 +17,7 @@ import {
 } from "./consts"
 import { CallsCapturer } from './calls';
 import path from 'path'
+import node from 'tree-sitter-typescript';
 
 export class ImportName {
     name: string = ''
@@ -265,13 +266,17 @@ export class Node {
         if (this.type !== 'file') return
         const suffix = indexSuffixesMap[this.language];
         const fileSet = new Set(allFiles.map(p => p.split('.').slice(0, -1).join('.')));
-    
+        
         this.importStatements.forEach((importStatement) => {
             const possiblePaths = [
+                ...importStatement.names.map(name => path.resolve(`${rootFolderPath}/${importStatement.path}/${name.name}${suffix}`)),
+                ...importStatement.names.map(name => path.resolve(`${rootFolderPath}/${importStatement.path}/${name.name}`)),
                 ...importStatement.names.map(name => path.resolve(`${importStatement.path}/${name.name}${suffix}`)),
                 ...importStatement.names.map(name => path.resolve(`${importStatement.path}/${name.name}`)),
-                `${importStatement.path}${suffix}`,
-                importStatement.path
+                path.resolve(`${rootFolderPath}/${importStatement.path}${suffix}`),
+                path.resolve(`${rootFolderPath}/${importStatement.path}`),
+                path.resolve(`${importStatement.path}${suffix}`),
+                path.resolve(importStatement.path)
             ];
     
             for (const possiblePath of possiblePaths) {
@@ -404,9 +409,10 @@ export class Codebase {
         const dataString = Buffer.from(data).toString()
         // Nodes are created using id, code, type, language
         const filePathNoExtension = filePath.split('.').slice(0, -1).join('.')
+         // The id does not include the extension
         const fileNode = new Node(filePathNoExtension, dataString, 'file', languageExtensionMap[fileExtension])
         fileNode.name = filePath
-        fileNode.alias = filePathNoExtension.split('/').pop() || ''
+        fileNode.alias = filePath.split('/').pop() || ''
         const nodesMap = fileNode.getChildrenDefinitions()
         fileNode.parseExportClauses()
         fileNode.generateImports()
@@ -420,12 +426,16 @@ export class Codebase {
         const fileNodesMap: {[id: string]: Node} = {}
         const allFiles = await getAllFiles(this.rootFolderPath)
         for (const filePath of allFiles) { // can't be forEach
-            const nodeMap = await this.generateNodesFromFilePath(filePath)
-            this.addNodeMap(nodeMap)
-            const filePathNoExtension = filePath.split('.').slice(0, -1).join('.')
-            const fileNode = nodeMap[filePathNoExtension]
-            fileNodesMap[filePathNoExtension] = fileNode
-            fileNode.resolveImportStatementsPath(this.rootFolderPath, allFiles)
+            try {
+                const nodeMap = await this.generateNodesFromFilePath(filePath)
+                this.addNodeMap(nodeMap)
+                const filePathNoExtension = filePath.split('.').slice(0, -1).join('.')
+                const fileNode = nodeMap[filePathNoExtension]
+                fileNodesMap[filePathNoExtension] = fileNode
+                fileNode.resolveImportStatementsPath(this.rootFolderPath, allFiles)
+            } catch (error: any) {
+                console.log(`Cannot parse file ${filePath}`)
+            }
         }
         return fileNodesMap 
     }
@@ -478,7 +488,7 @@ export class Codebase {
                 id: n.id,
                 type: n.type,
                 name: n.name,
-                alias: n.alias,
+                label: n.alias,
                 language: n.language,
                 exportable: n.exportable,
                 totalTokens: n.totalTokens,
@@ -495,6 +505,19 @@ export class Codebase {
             }
         })
 
+    }
+
+    getLinks(): Link[] {
+        const links: Link[] = []
+        const nodes = Object.values(this.nodesMap)
+        for (const n of nodes){
+            if (n.parent) {
+                const label = n.parent.type === 'file' ? `defined in`: `from ${n.parent.type}`
+                links.push({source: n.id, target: n.parent.id, label })
+            }
+            if (n.calls.length > 0) n.calls.forEach(c => links.push({source: n.id, target: c.id, label: 'calls'}))
+        }
+        return links
     }
 }
 
