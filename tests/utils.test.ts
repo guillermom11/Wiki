@@ -1,6 +1,13 @@
 import * as utils from '../src/model/utils'
 // import Parser from 'tree-sitter'
 
+// cleanAndSplitContent
+describe('Common', () => {
+    test('cleanAndSplitContent: Get each element', () => {
+        const content = '[first, [second: third], (fourth)]'
+        const result = utils.cleanAndSplitContent(content)
+        expect(result).toStrictEqual(['first', 'second', 'third', 'fourth'])})
+})
 
 // // renameSource
 // describe('JS/TS/TSX', () => {
@@ -74,13 +81,7 @@ import * as utils from '../src/model/utils'
 // })
 
 
-// cleanAndSplitContent
-describe('Common', () => {
-    test('cleanAndSplitContent: Get each element', () => {
-        const content = '[first, [second: third], (fourth)]'
-        const result = utils.cleanAndSplitContent(content)
-        expect(result).toStrictEqual(['first', 'second', 'third', 'fourth'])})
-})
+
 
 
 // captureQuery:

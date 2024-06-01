@@ -76,12 +76,13 @@ def foo():
 
 def bar():
     def baz():
+        '''The baz documentation'''
         return 1
     return baz()
 `
     const fileNode = new Node(`${rootFolderPath}/file`, fileContent, 'file', 'python')
     fileNode.getChildrenDefinitions()
-    const firstNodeChildren = Object.values(fileNode.children)[0].children[`${rootFolderPath}/file::baz`].simplify(['id', 'parent', 'code'])
+    const firstNodeChildren = Object.values(fileNode.children)[0].children[`${rootFolderPath}/file::baz`].simplify(['id', 'parent', 'code', 'documentation'])
     const fileNodeChildrenSimplified = Object.values(fileNode.children).map(n => n.simplify([...nodeAttributes, 'codeNoBody', 'children']))
     const expectedChildren = [
         {
@@ -92,11 +93,11 @@ def bar():
             language: 'python',
             exportable: true,
             documentation: '',
-            code: 'def bar():\n    def baz():\n        return 1\n    return baz()',
+            code: "def bar():\n    def baz():\n        '''The baz documentation'''\n        return 1\n    return baz()",
             parent: fileNode.id,
             inDegree: 1,
             outDegree: 1,
-            codeNoBody: 'def bar():\n    def baz():\n        return 1\n    return baz()', // functions with children remain unchanged?
+            codeNoBody: "def bar():\n    def baz():\n        '''The baz documentation'''\n        return 1\n    return baz()", // functions with children remain unchanged?
             children: [`${fileNode.id}::baz`]
         },
         {
@@ -117,5 +118,10 @@ def bar():
     ]
     expect(fileNodeChildrenSimplified).toStrictEqual(expectedChildren)
     expect(fileNode.inDegree).toBe(2)
-    expect(firstNodeChildren).toStrictEqual({id: `${rootFolderPath}/file::baz`, parent: `${fileNode.id}::bar`, code: 'def baz():\n        return 1'})
+    expect(firstNodeChildren).toStrictEqual({
+        id: `${rootFolderPath}/file::baz`,
+        parent: `${fileNode.id}::bar`,
+        code: 'def baz():\n        \n        return 1',
+        documentation: "'''The baz documentation'''"
+    })
 })
