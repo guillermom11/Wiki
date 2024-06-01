@@ -105,24 +105,18 @@ export function captureQuery(language: string, queryName: keyof treeSitterQuerie
  * @param captures - The captures to clean
  * @param keyword - The keyword to stop at
  */
-export function cleanDefCaptures(captures: Parser.QueryCapture[], keyword1: string = 'name', keyword2: string = 'body') : Parser.QueryCapture[] {
-    captures.sort((a, b) => a.node.endPosition.row - b.node.endPosition.row || a.node.startPosition.row - b.node.startPosition.row )
-    let keyword1Seen = false
-    let skipKeyword2 = false
+export function cleanDefCaptures(captures: Parser.QueryCapture[], keyword: string = 'name') : Parser.QueryCapture[] {
+    captures.sort((a, b) => a.node.startPosition.row - b.node.startPosition.row || a.node.startPosition.column - b.node.startPosition.column)
+    let keywordSeen = false
     
     const updatedCaptures = []
     for (let i = 0; i < captures.length; i++) {
-        if (captures[i].name === keyword1) {
-            if (!keyword1Seen) updatedCaptures.push(captures[i])
-            else skipKeyword2 = true
-            keyword1Seen = true
-        } else if (captures[i].name === keyword2) {
-            if (!skipKeyword2) {
+        if (captures[i].name === keyword) {
+            if (!keywordSeen) {
                 updatedCaptures.push(captures[i])
-                return updatedCaptures
+                keywordSeen = true
             }
-            skipKeyword2 = false
-            
+            else break
         } else {
             updatedCaptures.push(captures[i])
         }

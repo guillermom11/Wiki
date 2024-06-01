@@ -345,30 +345,27 @@ export class Node {
             // console.log(`/////${n.type}, ${fileNode.language}/////`)
             // console.log(`${n.code}`)
             // console.log('--------------')
-            // console.log(captures.map(c => { return {name: c.name, text: c.node.text?.slice(0, 30), start: c.node.startPosition, end: c.node.endPosition } }))
-            captures = cleanDefCaptures(captures, 'name', 'body')
-            // console.log(captures.map(c => { return {name: c.name, text: c.node.text?.slice(0, 60)} }))
+            //console.log(captures.map(c => { return {name: c.name, text: c.node.text?.slice(0, 30), start: c.node.startPosition, end: c.node.endPosition } }))
+            captures = cleanDefCaptures(captures, 'name')
+            // console.log(captures.map(c => { return {name: c.name, text: c.node.text?.slice(0, 60), start: c.node.startPosition, end: c.node.endPosition } }))
             captures.forEach((c)  =>  {
                 switch (c.name) {
                     case 'name':
-                        n.name = c.node.text ?? ''
+                        n.name = c.node.text
                         n.id = `${n.id}::${n.name}`
                         break
                     case 'alias':
-                        n.alias  = c.node.text  ?? ''
+                        n.alias  = c.node.text
                         break
                     case 'documentation':
-                        n.documentation  = c.node.text  ?? ''
                         if (n.language === 'python') {
-                            // remove doc from code
+                            n.documentation = c.node.text
                             n.code = n.code.replace(n.documentation, '')
+                            n.body = n.body.replace(n.documentation, '')
                         }
                         break
                     case 'body':
-                        n.body  = c.node.text  ?? ''
-                        if (n.language === 'python' && n.documentation) {
-                            n.body = n.body.replace(n.documentation, '')
-                        }
+                        n.body  = c.node.text
                         break
                 }
             })
