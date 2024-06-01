@@ -36,7 +36,7 @@ bar = baz
     fileNode.getChildrenDefinitions()
     
     const fileNodeChildrenSimplified = Object.values(fileNode.children).map(n => n.simplify(nodeAttributes))
-    const expectedChildren = [
+    const expectedFileChildren = [
         {
             id: `${fileNode.id}::bar`,
             type: 'assignment',
@@ -64,9 +64,10 @@ bar = baz
             outDegree: 1
         },
     ]
-    expect(fileNodeChildrenSimplified).toStrictEqual(expectedChildren)
+    expect(fileNodeChildrenSimplified).toStrictEqual(expectedFileChildren)
     expect(fileNode.inDegree).toBe(2)
 })
+
 
 test('Function definition',  () => {
     const fileContent = `
@@ -124,4 +125,81 @@ def bar():
         code: 'def baz():\n        \n        return 1',
         documentation: "'''The baz documentation'''"
     })
+})
+
+test('Class definition',  () => {
+    const fileContent = `
+class Foo:
+    '''The foo class'''
+    foo: int = 1
+
+    def __init__(self):
+        self.foo=1
+
+    def bar(self):
+        return 1
+`
+    const fileNode = new Node(`${rootFolderPath}/file`, fileContent, 'file', 'python')
+    fileNode.getChildrenDefinitions()
+    const classNodeChildren = Object.values(fileNode.children)[0].children
+    const fileNodeChildrenSimplified = Object.values(fileNode.children).map(n => n.simplify([...nodeAttributes, 'codeNoBody', 'children']))
+    const classNodeMethodsSimplified = Object.values(classNodeChildren).map(n => n.simplify([...nodeAttributes, 'codeNoBody']))
+    const expectedFileChildren = [
+        {
+            id: `${fileNode.id}::Foo`,
+            type: 'class',
+            name: 'Foo',
+            label: 'Foo',
+            language: 'python',
+            exportable: true,
+            documentation: "'''The foo class'''",
+            code: "class Foo:\n    \n    foo: int = 1\n\n    def __init__(self):\n        self.foo=1\n\n    def bar(self):\n        return 1",
+            parent: fileNode.id,
+            inDegree: 2,
+            outDegree: 1,
+            codeNoBody: "class Foo:\n    \n    foo: int = 1\n\n    def __init__(self):\n        self.foo=1\n\n    def bar(self):\n        \n        ...", // functions with children remain unchanged?
+            children: [`${fileNode.id}::Foo.bar`, `${fileNode.id}::Foo.__init__`]
+        },
+    ]
+
+    const expectedMethods = [
+        {
+            id: `${fileNode.id}::Foo.bar`,
+            type: 'method',
+            name: 'Foo.bar',
+            label: 'Foo.bar',
+            language: 'python',
+            exportable: true,
+            documentation: '',
+            code: "class Foo:\n    ...\n    def bar(self):\n        return 1",
+            parent: `${fileNode.id}::Foo`,
+            inDegree: 0,
+            outDegree: 1,
+            codeNoBody: "def bar(self):\n        ...",
+        },
+        {
+            id: `${fileNode.id}::Foo.__init__`,
+            type: 'method',
+            name: 'Foo.__init__',
+            label: 'Foo.__init__',
+            language: 'python',
+            exportable: true,
+            documentation: '',
+            code: "class Foo:\n    ...\n    def __init__(self):\n        self.foo=1",
+            parent: `${fileNode.id}::Foo`,
+            inDegree: 0,
+            outDegree: 1,
+            codeNoBody: "def __init__(self):\n        ...",
+        },
+
+    ]
+    expect(fileNodeChildrenSimplified).toStrictEqual(expectedFileChildren)
+    expect(fileNode.inDegree).toBe(1)
+    expect(classNodeMethodsSimplified).toStrictEqual(expectedMethods)
+    // expect(firstNodeChildren).toStrictEqual({
+    //     id: `${rootFolderPath}/file::baz`,
+    //     parent: `${fileNode.id}::bar`,
+    //     code: 'def baz():\n        \n        return 1',
+    //     documentation: "'''The baz documentation'''"
+    // })
 })
