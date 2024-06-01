@@ -30,13 +30,20 @@ export class ImportName {
     }
 }
 export class ImportStatement {
-    module: string = ''
-    names: ImportName[] = []
-    moduleAlias: string = ''
-    path: string = ''
+    module: string
+    names: ImportName[]
+    moduleAlias: string
+    path: string
     // code: string = ''
     // startPosition: Point = {row: 0, column: 0}
     // endPosition: Point = {row: 99999, column: 0}
+
+    constructor(module: string = '', names: ImportName[] = [], path: string = '', moduleAlias?: string) {
+        this.module = module
+        this.names = names
+        this.moduleAlias = moduleAlias || module
+        this.path = path
+    }
 }
 
 interface Link {
@@ -174,13 +181,14 @@ export class Node {
                             let bodyToRemove = n.body
                             bodyToRemove = bodyToRemove.replace(n.documentation, '')
                             const spaces = ' '.repeat(n.startPosition.column)
-                            code = code.replace(bodyToRemove, `\n${spaces}    ...`)
+                            code = code.replace(bodyToRemove, `${spaces}...`)
                         }
                     }
                 })
 
             } else {
-                code = code.replace(this.body, "\n ...")
+                const spaces = ' '.repeat(this.startPosition.column)
+                code = code.replace(this.body, `${spaces}...`)
             }
         }
         return code.trim()
@@ -205,7 +213,7 @@ export class Node {
                 case 'name':
                     const name = c.node.text
                     if (!alias) alias = name
-                    const newImportName = new ImportName(name)
+                    const newImportName = new ImportName(name, alias)
                     newImportStatement.names.push(newImportName)
                     alias = ''
                     break
@@ -214,7 +222,7 @@ export class Node {
                 // case 'wildcard':
                 //     break
                 case 'import_statement':
-                    if (alias && !newImportStatement.names) {
+                    if (alias && newImportStatement.names.length === 0) {
                         newImportStatement.moduleAlias = alias
                         alias = ''
                     } else {
@@ -337,9 +345,9 @@ export class Node {
             // console.log(`/////${n.type}, ${fileNode.language}/////`)
             // console.log(`${n.code}`)
             // console.log('--------------')
-            // console.log(captures.map(c => { return {name: c.name, text: c.node.text?.slice(0, 30)} }))
+            // console.log(captures.map(c => { return {name: c.name, text: c.node.text?.slice(0, 30), start: c.node.startPosition, end: c.node.endPosition } }))
             captures = cleanDefCaptures(captures, 'name', 'body')
-            // console.log(captures.map(c => { return {name: c.name, text: c.node.text?.slice(0, 30)} }))
+            // console.log(captures.map(c => { return {name: c.name, text: c.node.text?.slice(0, 60)} }))
             captures.forEach((c)  =>  {
                 switch (c.name) {
                     case 'name':
@@ -358,6 +366,9 @@ export class Node {
                         break
                     case 'body':
                         n.body  = c.node.text  ?? ''
+                        if (n.language === 'python' && n.documentation) {
+                            n.body = n.body.replace(n.documentation, '')
+                        }
                         break
                 }
             })
@@ -389,6 +400,38 @@ export class Node {
             return map
         }, {})
         return nodesMap
+    }
+
+    simplify(attributes: string[] = []) {
+        const allAttributes: { [key: string]: any } = {
+            id: this.id,
+            type: this.type,
+            name: this.name,
+            label: this.alias,
+            language: this.language,
+            exportable: this.exportable,
+            totalTokens: this.totalTokens,
+            documentation: this.documentation,
+            code: this.parent && this.parent?.type === 'class' ? `${this.parent.code.replace(this.parent.body, '')}\n${this.code}` : this.code,
+            codeNoBody: this.getCodeWithoutBody(),
+            ImportStatements: this.importStatements.map(i => ({ path: i.path, names: i.names })),
+            parent: this.parent?.id,
+            children: Object.keys(this.children),
+            calls: this.calls.map(c => c.id),
+            inDegree: this.inDegree,
+            outDegree: this.outDegree
+        };
+    
+        if (attributes.length === 0) {
+            return allAttributes;
+        }
+    
+        return attributes.reduce((acc: { [key: string]: any }, attr: string) => {
+            if (allAttributes.hasOwnProperty(attr)) {
+                acc[attr] = allAttributes[attr];
+            }
+            return acc;
+        }, {});
     }
 }
 
@@ -485,28 +528,8 @@ export class Codebase {
         })
     }
 
-    simplify() {
-        return Object.values(this.nodesMap).map( n => {
-            return {
-                id: n.id,
-                type: n.type,
-                name: n.name,
-                label: n.alias,
-                language: n.language,
-                exportable: n.exportable,
-                totalTokens: n.totalTokens,
-                documentation: n.documentation,
-                code: n.parent && n.parent?.type === 'class' ? `${n.parent.code.replace(n.parent.body, '')}\n${n.code}` : n.code,
-                // body: n.body,
-                ImportStatements: n.importStatements.map(i => { return {path: i.path, names: i.names }}),
-                // codeNoBody: n.getCodeWithoutBody(),
-                parent: n.parent?.id,
-                children: Object.keys(n.children),
-                calls: n.calls.map(c => c.id),
-                inDegree: n.inDegree,
-                outDegree: n.outDegree
-            }
-        })
+    simplify(attributes: string[] = []) {
+        return Object.values(this.nodesMap).map( n => n.simplify(attributes))
 
     }
 
