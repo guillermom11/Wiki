@@ -135,8 +135,8 @@ export class CallsCapturer {
         const nameAliasReplacements: { [key: string]: string }  = {}
         this.fileNode.importStatements.forEach(i  =>  {
             const path = i.path.replace(/\//g, '____').replace(/ /g, '__SPACE__').replace(/-/g, '__DASH__')
-            for (const importName of i.names) nameAliasReplacements[importName.name] = `${path}____${importName.alias}`
-            nameAliasReplacements[i.moduleAlias] = path
+            if (i.names.length === 0) nameAliasReplacements[i.moduleAlias] = path
+            for (const importName of i.names) nameAliasReplacements[importName.alias] = `${path}____${importName.name}`
         })
 
         // Replace itself calls by the parent if its a method
