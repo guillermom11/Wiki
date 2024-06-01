@@ -17,8 +17,6 @@ import {
 } from "./consts"
 import { CallsCapturer } from './calls';
 import path from 'path'
-import node from 'tree-sitter-typescript';
-
 export class ImportName {
     name: string = ''
     alias: string = ''
@@ -139,11 +137,12 @@ export class Node {
             if (['class', 'interface'].includes(node.type) && this.type === 'function') {
                 this.type = 'method'
                 this.name = `${node.name}.${this.name}`
-                this.id = `${this.id.split('::')[0]}::${this.name}`
                 this.alias = this.name // methods has no alias
             }
             if (this.parent?.type === 'file') {
                 this.parent?.removeChild(this) // remove connection from previous parent
+                 // change id AFTER removing from previous parent
+                this.id = `${this.id.split('::')[0]}::${this.name}`
                 node.addChild(this)
             }
         }
@@ -188,10 +187,10 @@ export class Node {
 
             } else {
                 const spaces = ' '.repeat(this.startPosition.column)
-                code = code.replace(this.body, `${spaces}...`)
+                code = code.replace(this.body, '').trim() + `\n${spaces}    ...`
             }
         }
-        return code.trim()
+        return code.trim().replace('/\n\s*\n/', '\n')
     }
 
     generateImports() {
@@ -409,7 +408,7 @@ export class Node {
             exportable: this.exportable,
             totalTokens: this.totalTokens,
             documentation: this.documentation,
-            code: this.parent && this.parent?.type === 'class' ? `${this.parent.code.replace(this.parent.body, '')}\n${this.code}` : this.code,
+            code: this.parent && ['class', 'interface'].includes(this.parent?.type)  ? `${this.parent.code.replace(this.parent.body, '').trim()}\n    ...\n    ${this.code}` : this.code,
             codeNoBody: this.getCodeWithoutBody(),
             ImportStatements: this.importStatements.map(i => ({ path: i.path, names: i.names })),
             parent: this.parent?.id,
