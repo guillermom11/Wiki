@@ -84,7 +84,7 @@ def bar():
     const fileNode = new Node(`${rootFolderPath}/file`, fileContent, 'file', 'python')
     fileNode.getChildrenDefinitions()
     const firstNodeChildren = Object.values(fileNode.children)[0].children[`${rootFolderPath}/file::baz`].simplify(['id', 'parent', 'code', 'documentation'])
-    const fileNodeChildrenSimplified = Object.values(fileNode.children).map(n => n.simplify([...nodeAttributes, 'codeNoBody', 'children']))
+    const fileNodeChildrenSimplified = Object.values(fileNode.children).map(n => n.simplify([...nodeAttributes, 'children']))
     const expectedChildren = [
         {
             id: `${fileNode.id}::bar`,
@@ -98,7 +98,6 @@ def bar():
             parent: fileNode.id,
             inDegree: 1,
             outDegree: 1,
-            codeNoBody: "def bar():\n    def baz():\n        '''The baz documentation'''\n        return 1\n    return baz()", // functions with children remain unchanged?
             children: [`${fileNode.id}::baz`]
         },
         {
@@ -113,7 +112,6 @@ def bar():
             parent: fileNode.id,
             inDegree: 0,
             outDegree: 1,
-            codeNoBody: 'def foo():\n    ...',
             children: []
         },
     ]
@@ -142,8 +140,8 @@ class Foo:
     const fileNode = new Node(`${rootFolderPath}/file`, fileContent, 'file', 'python')
     fileNode.getChildrenDefinitions()
     const classNodeChildren = Object.values(fileNode.children)[0].children
-    const fileNodeChildrenSimplified = Object.values(fileNode.children).map(n => n.simplify([...nodeAttributes, 'codeNoBody', 'children']))
-    const classNodeMethodsSimplified = Object.values(classNodeChildren).map(n => n.simplify([...nodeAttributes, 'codeNoBody']))
+    const fileNodeChildrenSimplified = Object.values(fileNode.children).map(n => n.simplify([...nodeAttributes, 'children']))
+    const classNodeMethodsSimplified = Object.values(classNodeChildren).map(n => n.simplify(nodeAttributes))
     const expectedFileChildren = [
         {
             id: `${fileNode.id}::Foo`,
@@ -157,7 +155,6 @@ class Foo:
             parent: fileNode.id,
             inDegree: 2,
             outDegree: 1,
-            codeNoBody: "class Foo:\n    \n    foo: int = 1\n\n    def __init__(self):\n        self.foo=1\n\n    def bar(self):\n        \n        ...", // functions with children remain unchanged?
             children: [`${fileNode.id}::Foo.bar`, `${fileNode.id}::Foo.__init__`]
         },
     ]
@@ -174,8 +171,7 @@ class Foo:
             code: "class Foo:\n    ...\n    def bar(self):\n        return 1",
             parent: `${fileNode.id}::Foo`,
             inDegree: 0,
-            outDegree: 1,
-            codeNoBody: "def bar(self):\n        ...",
+            outDegree: 1
         },
         {
             id: `${fileNode.id}::Foo.__init__`,
@@ -188,18 +184,44 @@ class Foo:
             code: "class Foo:\n    ...\n    def __init__(self):\n        self.foo=1",
             parent: `${fileNode.id}::Foo`,
             inDegree: 0,
-            outDegree: 1,
-            codeNoBody: "def __init__(self):\n        ...",
+            outDegree: 1
         },
 
     ]
     expect(fileNodeChildrenSimplified).toStrictEqual(expectedFileChildren)
     expect(fileNode.inDegree).toBe(1)
     expect(classNodeMethodsSimplified).toStrictEqual(expectedMethods)
-    // expect(firstNodeChildren).toStrictEqual({
-    //     id: `${rootFolderPath}/file::baz`,
-    //     parent: `${fileNode.id}::bar`,
-    //     code: 'def baz():\n        \n        return 1',
-    //     documentation: "'''The baz documentation'''"
-    // })
+})
+
+
+
+test('Code without body',  () => {
+    const fileContent = `
+    class Foo:
+    '''The foo class'''
+    foo: int = 1
+
+    def __init__(self):
+        self.foo=1
+
+    def bar(self):
+        return 1
+        
+def foo():
+    def baz():
+        '''The baz documentation'''
+        return 1
+    return baz()
+`
+    const fileNode = new Node(`${rootFolderPath}/file`, fileContent, 'file', 'python')
+    fileNode.getChildrenDefinitions()
+
+    const fooClass = fileNode.children[`${rootFolderPath}/file::Foo`]
+    const barMethod = fooClass.children[`${rootFolderPath}/file::Foo.bar`]
+    const fooFunction = fileNode.children[`${rootFolderPath}/file::foo`]
+
+    expect(fooClass.getCodeWithoutBody()).toBe("class Foo:\n    foo: int = 1\n\n    def __init__(self):\n        self.foo=1\n\n    def bar(self):\n        \n        ...")
+    expect(barMethod.getCodeWithoutBody()).toBe("class Foo:\n    ...\n    def bar(self):\n        ...")
+    // functions with children remain unchanged?
+    expect(fooFunction.getCodeWithoutBody()).toBe("def foo():\n    def baz():\n        '''The baz documentation'''\n        return 1\n    return baz()")
 })

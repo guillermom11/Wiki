@@ -190,7 +190,10 @@ export class Node {
                 code = code.replace(this.body, '').trim() + `\n${spaces}    ...`
             }
         }
-        return code.trim().replace('/\n\s*\n/', '\n')
+        code = code.trim().replace(/\n\s*\n/, '\n')
+        if (this.parent && ['class', 'interface'].includes(this.parent?.type))
+            code = `${this.parent.code.replace(this.parent.body, '').trim()}\n    ...\n    ${code}`
+        return code
     }
 
     generateImports() {
