@@ -1,4 +1,4 @@
-import { Node, ImportStatement, ImportName } from "../../src/model/codebase";
+import { Codebase, Node, ImportStatement, ImportName } from "../src/model/codebase";
 const rootFolderPath = '/my/path'
 
 const nodeAttributes = ['id', 'type', 'name', 'label', 'language', 'exportable', 'documentation', 'code', 'parent', 'inDegree', 'outDegree']
@@ -223,4 +223,44 @@ def foo():
     expect(barMethod.getCodeWithoutBody()).toBe("class Foo:\n    ...\n    def bar(self):\n        ...")
     // functions with children remain unchanged?
     expect(fooFunction.getCodeWithoutBody()).toBe("def foo():\n    def baz():\n        '''The baz documentation'''\n        return 1\n    return baz()")
+})
+
+
+test('Calls',  () => {
+    const fileContent = `
+class Foo:
+    def __init__(self):
+        self.baz = 1
+    
+    def method(self):
+        pass
+
+    def method2(self):
+        self.method()
+
+foo_var = Foo()
+foo_var.method()
+
+def foo(param: Foo):
+    return param.method2()
+`
+    const fileNode = new Node(`${rootFolderPath}/file`, fileContent, 'file', 'python')
+    fileNode.generateImports()
+    const nodesMap = fileNode.getChildrenDefinitions()
+    
+    const fileNodesMap: {[id: string]: Node} = {}
+    fileNodesMap[fileNode.id] = fileNode
+    nodesMap[fileNode.id] = fileNode
+    const codebase = new Codebase(rootFolderPath)
+    codebase.nodesMap = nodesMap
+    codebase.getCalls(fileNodesMap)
+    const fileCalls = codebase.getNode(`${rootFolderPath}/file`)?.simplify(['calls'])
+    const fooVarCalls = codebase.getNode(`${rootFolderPath}/file::foo_var`)?.simplify(['calls']) 
+    const method2Calls = codebase.getNode(`${rootFolderPath}/file::Foo.method2`)?.simplify(['calls'])
+    const fooCalls = codebase.getNode(`${rootFolderPath}/file::foo`)?.simplify(['calls'])
+    
+    expect(fileCalls?.calls).toStrictEqual([`${rootFolderPath}/file::Foo`, `${rootFolderPath}/file::Foo.method`])
+    expect(fooVarCalls?.calls).toStrictEqual([`${rootFolderPath}/file::Foo`])
+    expect(method2Calls?.calls).toStrictEqual([`${rootFolderPath}/file::Foo.method`])
+    expect(fooCalls?.calls).toStrictEqual([`${rootFolderPath}/file::Foo`, `${rootFolderPath}/file::Foo.method2`])
 })
