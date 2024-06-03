@@ -3,18 +3,18 @@ import { Hono } from 'hono'
 import { cors } from 'hono/cors'
 import { z } from 'zod'
 import { zValidator } from '@hono/zod-validator'
-import { Codebase} from './model/codebase'
-import { tursoClient } from './db/client'
+import { Codebase } from './model/codebase'
+// import { tursoClient } from './db/client'
 import { downloadAndExtractRepo } from './gitutils'
 import path from 'path'
-// const 
+// const
 const app = new Hono()
 app.use('/v1/*', cors())
 
 const repoRequestValidator = zValidator(
   'json',
   z.object({
-    gitService: z.string().optional().default('github'),
+    gitService: z.enum(['github', 'gitlab', 'bitbucket']),
     user: z.string(),
     repo: z.string(),
     branch: z.string(),
@@ -25,17 +25,17 @@ const repoRequestValidator = zValidator(
 
 app.get('/', async (c) => {
   console.time('codebase')
-  const codebasePath = path.join(__dirname, '../../api-vicuna-deno') 
-  const codebase = new Codebase(codebasePath) // 
+  const codebasePath = path.join(__dirname, '../../api-vicuna-deno')
+  const codebase = new Codebase(codebasePath) //
   const fileNodesMap = await codebase.parseFolder()
   codebase.getCalls(fileNodesMap, true)
   console.timeEnd('codebase')
-  const codebaseSimplified = codebase.simplify()//.filter(c => ['file'].includes(c.type))
+  const codebaseSimplified = codebase.simplify() //.filter(c => ['file'].includes(c.type))
 
   // console.log(codebaseSimplified)
   return c.text(JSON.stringify(codebaseSimplified, null, 2))
 
-  return c.text(JSON.stringify(codebase.getLinks(), null, 2))
+  // return c.text(JSON.stringify(codebase.getLinks(), null, 2))
 })
 
 app.post('/v1/repo', repoRequestValidator, async (c) => {
@@ -44,31 +44,49 @@ app.post('/v1/repo', repoRequestValidator, async (c) => {
   // console.log(request)
   console.time(repo)
   const codebasePath = await downloadAndExtractRepo(gitService, user, repo, branch, token)
-//   tursoClient.execute({
-//     sql: `INSERT INTO git_repositories (git_service, user, repo, branch, token, update) VALUES ( ?, ?, ?, ?, ?, ?)`,
-//     args: [gitService, user, repo, branch, token, update]}
-// )
+  // tursoClient.execute({
+  //   sql: `INSERT INTO git_repositories (git_service, user, repo, branch, token, update) VALUES (:gitService, :user, :repo, :branch, :token, :update)`,
+  //   args: {
+  //     gitService,
+  //     user,
+  //     repo,
+  //     branch,
+  //     token,
+  //     update
+  //   }
+  // })
   if (!codebasePath) return c.json({ message: 'Failed to download repo' }, 400)
-  const codebase = new Codebase(codebasePath) // 
+  const codebase = new Codebase(codebasePath) //
   const fileNodesMap = await codebase.parseFolder()
   codebase.getCalls(fileNodesMap, false)
   const nodes = codebase.simplify()
   const links = codebase.getLinks()
   console.timeEnd(repo)
   return c.json({ graph: { nodes, links } })
-
 })
 
-
 app.get('v1/test', async (c) => {
-  const codebasePath = await downloadAndExtractRepo('github', 'JudiniLabs', 'judini-python', 'main', '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')
-  console.log(codebasePath)
-  return c.text('codebase path: ' + codebasePath)
+  const codebasePath = await downloadAndExtractRepo(
+    'github',
+    'JudiniLabs',
+    'judini-python',
+    'main',
+    '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'
+  )
+
+  if (!codebasePath) return c.json({ message: 'Failed to download repo' }, 400)
+
+  const codebase = new Codebase(codebasePath)
+  const fileNodesMap = await codebase.parseFolder()
+  codebase.getCalls(fileNodesMap, false)
+  const nodes = codebase.simplify()
+  const links = codebase.getLinks()
+  return c.json({ graph: { nodes, links } })
 })
 
 // /**
 //  * CREATE TURSO DATABASE
-//  * 
+//  *
 //  */
 // import { createClient } from "@libsql/client";
 // export const turso = createClient({
@@ -91,7 +109,6 @@ app.get('v1/test', async (c) => {
 //     status TEXT CHECK(status IN ('pending', 'success', 'failure')) DEFAULT 'pending'
 // )
 // `)
-
 
 // await turso.execute(`
 // CREATE TABLE IF NOT EXISTS nodes (
@@ -127,7 +144,6 @@ app.get('v1/test', async (c) => {
 // )
 // `)
 // })()
-
 
 const port = 8001
 console.log(`Server is running on port ${port}`)
