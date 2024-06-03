@@ -124,12 +124,15 @@ export class Node {
     }
 
     addNodeRelationship(node: Node) {
-        if (this.isWithin(node) && (!this.parent ||  this.parent.type === 'file')) {
-            if (node.type === 'export') {
+        // if (node.type === this.type && node.name === this.name) return
+        if (this.isWithin(node) && !this.parent) {
+            if (node.type === 'export') { // in js, ts the export clause is parent
                 this.exportable = true
                 if (!this.documentation) this.documentation = node.documentation
                 return
             }
+            if (this.type === 'export') return // export are not added as nodes
+
             // const parentCode = node.code.replace(node.body, '')
             // this.code = `${parentCode}\n${this.code}`
             
@@ -139,12 +142,8 @@ export class Node {
                 this.name = `${node.name}.${this.name}`
                 this.alias = this.name // methods has no alias
             }
-            if (this.parent?.type === 'file') {
-                this.parent?.removeChild(this) // remove connection from previous parent
-                 // change id AFTER removing from previous parent
-                this.id = `${this.id.split('::')[0]}::${this.name}`
-                node.addChild(this)
-            }
+            this.id = `${this.id.split('::')[0]}::${this.name}`
+            node.addChild(this)
         }
     }
 
@@ -163,7 +162,7 @@ export class Node {
         if (this.body || this.type === 'file') {
             if (Object.keys(this.children).length > 0) {
                 // const extension = this.id.split('::')[0].split('.').pop() || '';
-                const classMethodInit = newClassMethodsMap[this.language]
+                const classMethodInit = this.language !== 'java' ? newClassMethodsMap[this.language] : this.name
                 Object.values(this.children).forEach(n  => {
                     if (classMethodInit && this.type === 'class') {
                         // do not remove init methods
@@ -347,17 +346,30 @@ export class Node {
                     code = `function ${n.code}`
                     n.type = 'function'
                 } else if (n.type === 'assignment') code = `const ${n.code}`
+            } else if (['java'].includes(this.language)) {
+                if (n.type == 'function') {
+                    const firstLine = code.split('(')[0]
+                    const firstLineSplit = firstLine.split(' ')
+                    // if has no return type, add void between modifier and name
+                    if (firstLineSplit.length !== 3) {
+                        code = code.replace(firstLine, `${firstLineSplit[0]} void ${firstLineSplit[1]}`)
+                    }
+
+                }
             }
             
             let captures = captureQuery(this.language, 'definitionTemplate', code)
-            // console.log(`/////${n.type}, ${fileNode.language}/////`)
-            // console.log(`${n.code}`)
+            // console.log(`/////${n.type}, ${n.language}/////`)
+            // console.log(`${code}`)
             // console.log('--------------')
-            //console.log(captures.map(c => { return {name: c.name, text: c.node.text?.slice(0, 30), start: c.node.startPosition, end: c.node.endPosition } }))
-            captures = cleanDefCaptures(captures, 'name')
+            // console.log(captures.map(c => { return {name: c.name, text: c.node.text?.slice(0, 30), start: c.node.startPosition, end: c.node.endPosition } }))
+            captures = cleanDefCaptures(captures, n.language === 'java' ? 'modifier' : 'name')
             // console.log(captures.map(c => { return {name: c.name, text: c.node.text?.slice(0, 60), start: c.node.startPosition, end: c.node.endPosition } }))
             captures.forEach((c)  =>  {
                 switch (c.name) {
+                    case 'modifier': // java only
+                        if (n.language == 'java' && c.node.text === 'public') n.exportable = true
+                        break
                     case 'name':
                         n.name = c.node.text
                         n.id = `${n.id}::${n.name}`
@@ -392,11 +404,11 @@ export class Node {
         childrenNodes = childrenNodes.filter(c => c.name)
     
         childrenNodes.forEach((n, i) => {
-            if (!unnecessaryNodeTypes.includes(n.type)) this.addChild(n)
             for (let j = i+1; j < childrenNodes.length; j++) {
                 n.addNodeRelationship(childrenNodes[j])
                 childrenNodes[j].addNodeRelationship(n)
             }
+            if (!unnecessaryNodeTypes.includes(n.type) && !n.parent) this.addChild(n)
         })
     
         // childrenNodes.sort((a,b) => a.startPosition.row - b.startPosition.row || a.startPosition.column  - b.startPosition.column)

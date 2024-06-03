@@ -60,6 +60,10 @@ export function getRequiredDefinitions(language: string): { parser: Parser, quer
             parser.setLanguage(languages.TSX)
             queries = languageQueries.Typescript
             break
+        case 'java':
+            parser.setLanguage(languages.Java)
+            queries = languageQueries.Java
+            break
         default:
             throw new Error(`Language ${language} not supported.`)
     }
@@ -141,7 +145,7 @@ export function renameSource(filePath: string, sourceName: string, language: str
     if (Object.keys(languageExtensionMap).includes(sourceNameExtension)) newSourceName = sourceNameSplit.slice(0, -1).join('.')
     const fileDirectory = filePath.split('/').slice(0, -1).join('/')
     
-    if (['javascript', 'typescript', 'tsx', 'cpp'].includes(language) && newSourceName.startsWith('.') ) {
+    if (['javascript', 'typescript', 'tsx', 'cpp', 'java'].includes(language) && newSourceName.startsWith('.') ) {
         newSourceName = path.join(fileDirectory, newSourceName)
     } else if ( language == 'python') {
         const dotCount = firstConsecutiveDots(newSourceName)

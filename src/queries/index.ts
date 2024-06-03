@@ -1,11 +1,13 @@
 import { jsQueries } from "./javascript"
 import { tsQueries } from "./typescript"
 import { pyQueries } from "./python"
+import { javaQueries } from "./java"
 
 export const languageQueries = {
     Javascript: jsQueries,
     Typescript: tsQueries,
-    Python: pyQueries
+    Python: pyQueries,
+    Java: javaQueries
 }
 
 
