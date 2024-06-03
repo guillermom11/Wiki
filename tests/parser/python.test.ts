@@ -1,5 +1,4 @@
-import { Codebase, Node, ImportStatement, ImportName } from "../src/model/codebase";
-import path from "path"
+import { Node, ImportStatement, ImportName } from "../../src/model/codebase";
 const rootFolderPath = '/my/path'
 
 const nodeAttributes = ['id', 'type', 'name', 'label', 'language', 'exportable', 'documentation', 'code', 'parent', 'inDegree', 'outDegree']

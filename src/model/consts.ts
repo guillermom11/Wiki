@@ -1,11 +1,11 @@
 // const C = require("tree-sitter-c");
-// const Java = require("tree-sitter-java");
 // const Ruby = require("tree-sitter-ruby");
 // const Rust = require("tree-sitter-rust");
 const JavaScript = require("tree-sitter-javascript");
 const Python = require("tree-sitter-python");
 const TypeScript  = require('tree-sitter-typescript').typescript;
 const TSX = require("tree-sitter-typescript").tsx;
+const Java = require("tree-sitter-java");
 
 export type AllowedTypes = 'function' | 'class' | 'interface' | 'method' | 'enum' | 'struct' | 'namespace' | 'mod' | 'export' | 'type' | 'assignment' | 'file'; 
 
@@ -23,6 +23,7 @@ export const languages = {
     Python,
     TypeScript,
     TSX,
+    Java
 }
 
 
@@ -32,6 +33,7 @@ export const languageExtensionMap: Record<string, string> = {
   'js': 'javascript',
   'ts': 'typescript',
   'tsx': 'tsx',
+  'java': 'java',
 }
 
 export const newClassMethodsMap: Record<string, string> = {
@@ -39,6 +41,7 @@ export const newClassMethodsMap: Record<string, string> = {
     'javascript': 'constructor',
     'typescript': 'constructor',
     'tsx': 'constructor',
+    'java': '', // java constructor has the same name as the class
     'rust': 'new'
 }
 
@@ -47,14 +50,15 @@ export const itselfClassMap: Record<string, string> = {
     'javascript': 'this',
     'typescript': 'this',
     'tsx': 'this',
-    'rust': 'self'
+    'java': 'this'
 }
 
 export const indexSuffixesMap: Record<string, string> = {
     'python': '/__init__',
     'javascript': '/index',
     'typescript': '/index',
-    'tsx': '/index'
+    'tsx': '/index',
+    'java': '' // java has no index
 }
 
 export const treeSitterCommentTypes = ['comment', 'line_comment', 'block_comment']

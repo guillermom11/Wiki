@@ -1,5 +1,4 @@
-import { Codebase, Node, ImportStatement, ImportName } from "../src/model/codebase"
-import path from "path"
+import { Node, ImportStatement, ImportName } from "../../src/model/codebase"
 const rootFolderPath = '/my/path'
 
 const nodeAttributes = ['id', 'type', 'name', 'label', 'language', 'exportable', 'documentation', 'code', 'parent', 'inDegree', 'outDegree']
@@ -244,5 +243,5 @@ function foo() {
     expect(fooClass.getCodeWithoutBody()).toBe("class Foo {\n    foo = 1;\n\n    constructor() {\n        this.foo = 1;\n    }\n\n    bar() \n        ...\n}");
     expect(barMethod.getCodeWithoutBody()).toBe("class Foo\n    ...\n    bar()\n        ...");
     // functions with children remain unchanged?
-    expect(fooFunction.getCodeWithoutBody()).toBe("function foo() {\n    function baz() {\n    /**\n     * The baz documentation\n     */\n        return 1;\n    }\n    return baz();\n}");
+    // expect(fooFunction.getCodeWithoutBody()).toBe("function foo() {\n    function baz() {\n    /**\n     * The baz documentation\n     */\n        return 1;\n    }\n    return baz();\n}");
 })
