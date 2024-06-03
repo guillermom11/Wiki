@@ -82,12 +82,22 @@ export class Node {
         if (this.children[childId]) {
             return this.children[childId]
         } else if ( this.type === 'file') {
-            for(const child of Object.values(this.children)) {
+            for (const child of Object.values(this.children)) {
                 const result = child.getChild(childId)
                 if (result) return result
             }
         }
         return
+    }
+
+    getAllChildren(): Node[] {
+        // get childrens recursively
+        const children: Node[] = []
+        for (const child of Object.values(this.children)) {
+            children.push(child)
+            children.push(...child.getAllChildren())
+        }
+        return children
     }
 
     addChild(child: Node) {
@@ -522,9 +532,9 @@ export class Codebase {
             })
             importedFiles[fileNode.id] = fileNode
 
-            const nodes: Node[] = [fileNode ,...Object.values(fileNode.children)]
+            const nodes: Node[] = [fileNode , ...fileNode.getAllChildren()]
             nodes.forEach((n: Node) => {
-                const calls = callsCapturer.getCallsFromCode(n)
+                const calls = callsCapturer.getCallsFromNode(n)
                 // const importFromFailed: Set<string> = new Set()
                 // console.log( `${n.id}`)
                 // console.log(calls)
