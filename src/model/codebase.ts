@@ -244,32 +244,38 @@ export class Node {
     }
 
     parseExportClauses() {
-        if (this.type !== 'file') return
-        if (['javascript', 'typescript', 'tsx'].includes(this.language)) return
+        // only js, ts have the "export { ... }" clause
+        if (!['javascript', 'typescript', 'tsx'].includes(this.language)) return
         const captures = captureQuery(this.language, 'exportClauses', this.code) 
         captures.sort((a, b) => b.node.startPosition.row - a.node.startPosition.row || b.node.startPosition.column - a.node.startPosition.column)
         let name = ''
         let alias = ''
         captures.forEach(c => {
-            switch (c.node.type) {
+            switch (c.name) {
+                case 'alias':
+                    alias = c.node.text
+                    break
                 case 'name':
-                    name = c.node.text ?? ''
+                    name = c.node.text
                     const node = this.children[`${this.id}::${name}`]
                     node.exportable = true
                     node.alias = alias? alias : name
+                    // if the export clause includes an alias, then we have to update the id
+                    // since this is used to resolve imports and get calls 
+                    node.id = `${this.id}::${node.alias}`
+                    delete this.children[`${this.id}::${name}`]
+                    this.children[node.id] = node
+                    const childrenNodes = Object.values(node.children)
+                    childrenNodes.forEach(n => {
+                        n.alias = n.name.replace(name, alias)
+                        delete node.children[n.id]
+                        n.id = `${this.id}::${n.alias}`
+                        node.children[n.id] = n
+                    })
                     name = ''
                     alias = ''
-                    break
-                case 'alias':
-                    alias = c.node.text   
             }
         })
-    
-        if (name) {
-            const node = this.children[`${this.id}::${name}`]
-            node.exportable  = true
-            node.alias  = alias? alias  : name
-        }
     }
 
     resolveImportStatementsPath(rootFolderPath: string, allFiles: string[]) {
@@ -333,7 +339,7 @@ export class Node {
         })
     
         childrenNodes.forEach(n => {
-            if (unnecessaryNodeTypes.includes(n.type)) return
+            // if (unnecessaryNodeTypes.includes(n.type)) return
             let code = n.code
             if (['javascript', 'typescript', 'tsx'].includes(this.language)) {
                 if (n.type === 'method' ) {
@@ -360,8 +366,8 @@ export class Node {
                         n.alias  = c.node.text
                         break
                     case 'documentation':
+                        n.documentation = c.node.text
                         if (n.language === 'python') {
-                            n.documentation = c.node.text
                             n.code = n.code.replace(n.documentation, '')
                             n.body = n.body.replace(n.documentation, '')
                         }
