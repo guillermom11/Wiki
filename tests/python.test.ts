@@ -261,6 +261,6 @@ def foo(param: Foo):
     
     expect(fileCalls?.calls).toStrictEqual([`${rootFolderPath}/file::Foo`, `${rootFolderPath}/file::Foo.method`])
     expect(fooVarCalls?.calls).toStrictEqual([`${rootFolderPath}/file::Foo`])
-    expect(method2Calls?.calls).toStrictEqual([`${rootFolderPath}/file::Foo.method`])
+    expect(method2Calls?.calls).toStrictEqual([`${rootFolderPath}/file::Foo.method`, `${rootFolderPath}/file::Foo`])
     expect(fooCalls?.calls).toStrictEqual([`${rootFolderPath}/file::Foo`, `${rootFolderPath}/file::Foo.method2`])
 })

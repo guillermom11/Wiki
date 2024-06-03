@@ -1,4 +1,4 @@
-import { Node, ImportStatement, ImportName } from "../src/model/codebase"
+import { Codebase, Node, ImportStatement, ImportName } from "../src/model/codebase"
 const rootFolderPath = '/my/path'
 
 const nodeAttributes = ['id', 'type', 'name', 'label', 'language', 'exportable', 'documentation', 'code', 'parent', 'inDegree', 'outDegree']
@@ -245,3 +245,43 @@ function foo() {
     // functions with children remain unchanged?
     // expect(fooFunction.getCodeWithoutBody()).toBe("function foo() {\n    function baz() {\n    /**\n     * The baz documentation\n     */\n        return 1;\n    }\n    return baz();\n}");
 })
+
+test('Calls', () => {
+    const fileContent = `
+class Foo {
+    constructor() {
+        this.baz = 1;
+    }
+
+    method() {
+        return 1;
+    }
+
+    method2() {
+        return this.method();
+    }
+}
+
+const fooVar = new Foo();
+fooVar.method();
+
+`;
+    const fileNode = new Node(`${rootFolderPath}/file`, fileContent, 'file', 'javascript');
+    fileNode.generateImports();
+    const nodesMap = fileNode.getChildrenDefinitions();
+
+    const fileNodesMap: { [id: string]: Node } = {};
+    fileNodesMap[fileNode.id] = fileNode;
+    nodesMap[fileNode.id] = fileNode;
+    const codebase = new Codebase(rootFolderPath);
+    codebase.nodesMap = nodesMap;
+    codebase.getCalls(fileNodesMap);
+    const fileCalls = codebase.getNode(`${rootFolderPath}/file`)?.simplify(['calls']);
+    const fooVarCalls = codebase.getNode(`${rootFolderPath}/file::fooVar`)?.simplify(['calls']);
+    const method2Calls = codebase.getNode(`${rootFolderPath}/file::Foo.method2`)?.simplify(['calls']);
+    const fooCalls = codebase.getNode(`${rootFolderPath}/file::foo`)?.simplify(['calls']);
+
+    expect(fileCalls?.calls).toStrictEqual([`${rootFolderPath}/file::Foo`, `${rootFolderPath}/file::Foo.method`]);
+    expect(fooVarCalls?.calls).toStrictEqual([`${rootFolderPath}/file::Foo`]);
+    expect(method2Calls?.calls).toStrictEqual([`${rootFolderPath}/file::Foo.method`, `${rootFolderPath}/file::Foo`]);
+});

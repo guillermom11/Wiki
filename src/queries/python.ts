@@ -137,6 +137,9 @@ const calls = `
 
 ; arguments (identifier only)
 (argument_list (identifier) @identifier.name)
+
+; any object name
+( _ object: _ @identifier.name)
 `
 
 /////////////
