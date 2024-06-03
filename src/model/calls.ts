@@ -93,7 +93,22 @@ export class CallsCapturer {
         const results: CallIdentifier[]  = []
         const nodesSeen: Set<string> = new Set()
         let childrenNames: string[] = []
-        if (nodeRef.parent && nodeRef.parent.children) childrenNames = Object.values(nodeRef.parent.children).map( c => c.name)
+        let possibleImportFrom = ''
+        if (nodeRef.parent && nodeRef.parent.children) {
+            childrenNames = Object.values(nodeRef.parent.children).map( c => c.name) // siblings
+            // include methods as childrenNames
+            Object.values(nodeRef.parent.children).forEach(c => {
+                if (['class'].includes(c.type)) Object.values(c.children).forEach(c => childrenNames.push(c.name))
+            })
+            possibleImportFrom = nodeRef.parent.id
+        } else if (nodeRef.type === 'file') {
+            childrenNames = Object.values(nodeRef.children).map( c => c.name)
+            // include methods as childrenNames
+            Object.values(nodeRef.children).forEach(c => {
+                if (['class'].includes(c.type)) Object.values(c.children).forEach(c => childrenNames.push(c.name))
+            })
+            possibleImportFrom = nodeRef.id
+        }
         captures.forEach(c => {
             let content = c.node.text
             const startLine = c.node.startPosition.row
@@ -103,7 +118,6 @@ export class CallsCapturer {
             if (nodesSeen.has(nodeIdenfier)) return
             nodesSeen.add(nodeIdenfier)
             // console.log(c.name, content)
-            
             if (["identifier.name", "parameter_type", "return_type"].includes(c.name)) {
                 for ( const c of cleanAndSplitContent(content)) {
                     let importFrom = ''
@@ -113,7 +127,7 @@ export class CallsCapturer {
                         importFrom = importFrom.replace(/__SPACE__/g, ' ').replace(/__DASH__/g, '-')
                     }
                     let callName = contentSplit.slice(-1)[0]
-                    if (!importFrom && childrenNames.includes(callName)) importFrom = nodeRef.parent?.id || ''
+                    if (!importFrom && childrenNames.includes(callName)) importFrom = possibleImportFrom
                     if (importFrom) {
                         results.push(new CallIdentifier(callName, startLine, importFrom))
                         if (callName.includes('.')) {
@@ -130,7 +144,7 @@ export class CallsCapturer {
         return results
     }
 
-    getCallsFromCode(node: Node) : Call[] {
+    getCallsFromNode(node: Node) : Call[] {
         let code  = Object.keys(node.children).length > 0 ? node.getCodeWithoutBody() : node.code
         const nameAliasReplacements: { [key: string]: string }  = {}
         this.fileNode.importStatements.forEach(i  =>  {
