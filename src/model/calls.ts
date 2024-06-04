@@ -195,8 +195,7 @@ export class CallsCapturer {
         const capturedCalls = this.captureCalls(code, node)
         const results: {[key: string]: Call} = {}
         const importStatementPaths = [this.fileNode.id, ...this.fileNode.importStatements.map(i => i.path)]
-        if (node.name.includes('method2')) console.log(capturedCalls)
-            
+        // if (node.name.includes('method2')) console.log(capturedCalls)
         capturedCalls.forEach(c  =>  {
             let importFrom = c.importFrom
             let callName = c.name.replace(/\?/g, '')
