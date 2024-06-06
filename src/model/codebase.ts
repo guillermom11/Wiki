@@ -440,7 +440,7 @@ export class Node {
             documentation: this.documentation,
             code: this.parent && ['class', 'interface'].includes(this.parent?.type)  ? `${this.parent.code.replace(this.parent.body, '').trim()}\n    ...\n    ${this.code}` : this.code,
             codeNoBody: this.getCodeWithoutBody(),
-            ImportStatements: this.importStatements.map(i => ({ path: i.path, names: i.names })),
+            importStatements: this.importStatements.map(i => i.path),
             parent: this.parent?.id,
             children: Object.keys(this.children),
             calls: this.calls.map(c => c.id),
