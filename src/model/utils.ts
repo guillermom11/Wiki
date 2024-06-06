@@ -85,7 +85,7 @@ export function captureQuery(language: string, queryName: keyof treeSitterQuerie
     let uniqueCaptures = []
     try {
         const query = new Parser.Query(parser.getLanguage(), treeSitterQuery)
-        const tree = parser.parse(code, undefined, { bufferSize: 128 * 1024})
+        const tree = parser.parse(code, undefined, { bufferSize: 256 * 1024})
         const captures = query.captures(tree.rootNode)
         const uniqueMap = new Map();
         captures.forEach(c => {
