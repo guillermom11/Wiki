@@ -362,9 +362,8 @@ export class Node {
                     const firstLineSplit = firstLine.split(' ')
                     // if has no return type, add void between modifier and name
                     if (firstLineSplit.length !== 3) {
-                        code = code.replace(firstLine, `${firstLineSplit[0]} void ${firstLineSplit[1]}`)
+                        code = code.replace(firstLine, `${firstLineSplit[0]} void ${firstLineSplit.slice(-1)[0]}`)
                     }
-
                 }
             }
             
@@ -378,7 +377,7 @@ export class Node {
             captures.forEach((c)  =>  {
                 switch (c.name) {
                     case 'modifier': // java only
-                        if (n.language == 'java' && c.node.text === 'public') n.exportable = true
+                        if (n.language == 'java' && c.node.text.includes('public')) n.exportable = true
                         break
                     case 'name':
                         n.name = c.node.text

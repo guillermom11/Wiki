@@ -246,7 +246,7 @@ function foo() {
     // expect(fooFunction.getCodeWithoutBody()).toBe("function foo() {\n    function baz() {\n    /**\n     * The baz documentation\n     */\n        return 1;\n    }\n    return baz();\n}");
 })
 
-test('Calls', () => {
+test('Calls (TS)', () => {
     const fileContent = `
 class Foo {
     constructor() {
@@ -265,8 +265,11 @@ class Foo {
 const fooVar = new Foo();
 fooVar.method();
 
+function foo(param: Foo) {
+    return param.method2()
+}
 `;
-    const fileNode = new Node(`${rootFolderPath}/file`, fileContent, 'file', 'javascript');
+    const fileNode = new Node(`${rootFolderPath}/file`, fileContent, 'file', 'typescript');
     fileNode.generateImports();
     const nodesMap = fileNode.getChildrenDefinitions();
 
@@ -284,4 +287,5 @@ fooVar.method();
     expect(fileCalls?.calls).toStrictEqual([`${rootFolderPath}/file::Foo`, `${rootFolderPath}/file::Foo.method`]);
     expect(fooVarCalls?.calls).toStrictEqual([`${rootFolderPath}/file::Foo`]);
     expect(method2Calls?.calls).toStrictEqual([`${rootFolderPath}/file::Foo.method`, `${rootFolderPath}/file::Foo`]);
+    expect(fooCalls?.calls).toStrictEqual([`${rootFolderPath}/file::Foo`, `${rootFolderPath}/file::Foo.method2`])
 });

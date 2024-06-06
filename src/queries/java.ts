@@ -63,14 +63,26 @@ const exportClauses = ``
 const extraAssignmentCode = (name: string) => `` 
 
 // TODO
-const calls = ``
+const calls = `
+(method_invocation) @identifier.name
+(type_identifier) @parameter_type
+( _ object: _ @identifier.name)
+`
 
 ///////////
 // Assignments are necessary to get the correct calls. For example:
 // > my_class = MyClass()
 // > my_class.my_method()
 // TODO
-const anyAssignments = ``
+const anyAssignments = `
+(variable_declarator
+	name: (identifier) @left
+    value: [
+    (identifier) @right
+    (object_creation_expression type: _ @right) 
+    ] 
+) @assignment
+`
 
 export const javaQueries: treeSitterQueries = {
     importStatements,

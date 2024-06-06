@@ -2,6 +2,7 @@ import { cleanAndSplitContent, captureQuery } from "./utils"
 import { ImportStatement, Node } from "./codebase"
 import { itselfClassMap } from "./consts"
 import path from "path"
+import { name } from "tree-sitter-java"
 
 class VariableAssignment {
     left: string = ''
@@ -145,6 +146,7 @@ export class CallsCapturer {
     }
 
     getCallsFromNode(node: Node) : Call[] {
+        // console.log(`///${node.name}///`)
         let code  = Object.keys(node.children).length > 0 ? node.getCodeWithoutBody() : node.code
         const nameAliasReplacements: { [key: string]: string }  = {}
         this.fileNode.importStatements.forEach(i  =>  {
@@ -152,7 +154,6 @@ export class CallsCapturer {
             if (i.names.length === 0) nameAliasReplacements[i.moduleAlias] = path
             for (const importName of i.names) nameAliasReplacements[importName.alias] = `${path}____${importName.name}`
         })
-
         // Replace itself calls by the parent if its a method
         if (node.type === 'method') {
             const itself = itselfClassMap[node.language]
@@ -162,6 +163,12 @@ export class CallsCapturer {
             // this solves a bug
             if (['javascript', 'typescript', 'tsx'].includes(node.language)) code = `function ${code}`
         }
+
+        // include all children only if its parent is the file or a class/interface
+        this.fileNode.getAllChildren().forEach(c => {
+            if (c.parent?.type === 'file' || c.parent?.type === 'class' || c.parent?.type === 'interface')
+                nameAliasReplacements[c.name] = c.id.replace(/::/g, '____').replace(/\//g, '____').replace(/ /g, '__SPACE__').replace(/-/g, '__DASH__')
+        })
 
         // 1. Replace import names with aliases
         Object.entries(nameAliasReplacements).forEach(([k, v]) => {

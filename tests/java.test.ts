@@ -130,3 +130,47 @@ public class FooClass {
     expect(fooClass.getCodeWithoutBody()).toBe("public class FooClass {\n    private int foo = 1;\n\n    public FooClass() {\n        this.foo = 1;\n    }\n\n    public int bar() \n        ...\n}");
     expect(barMethod.getCodeWithoutBody()).toBe("public class FooClass\n    ...\n    public int bar()\n        ...");
 });
+
+test('Calls', () => {
+    const fileContent = `
+class Foo {
+    private int baz = 1;
+
+    public Foo() {
+        this.baz = 1;
+    }
+
+    public int method() {
+        return 1;
+    }
+
+    public int method2() {
+        return this.method();
+    }
+}
+
+public class Test {
+	public static void main(String[] args){
+		Foo fooVar = new Foo();
+        fooVar.method();
+	}
+}
+
+`;
+    const fileNode = new Node(`${rootFolderPath}/file`, fileContent, 'file', 'java');
+    fileNode.generateImports();
+    const nodesMap = fileNode.getChildrenDefinitions();
+
+    const fileNodesMap: { [id: string]: Node } = {};
+    fileNodesMap[fileNode.id] = fileNode;
+    nodesMap[fileNode.id] = fileNode;
+    const codebase = new Codebase(rootFolderPath);
+    codebase.nodesMap = nodesMap;
+    codebase.getCalls(fileNodesMap);
+    
+    const mainCalls = codebase.getNode(`${rootFolderPath}/file::Test.main`)?.simplify(['calls']);
+    const method2Calls = codebase.getNode(`${rootFolderPath}/file::Foo.method2`)?.simplify(['calls']);
+
+    expect(mainCalls?.calls).toStrictEqual([`${rootFolderPath}/file::Foo`, `${rootFolderPath}/file::Foo.method`]);
+    expect(method2Calls?.calls).toStrictEqual([`${rootFolderPath}/file::Foo.method`, `${rootFolderPath}/file::Foo`]);
+});
