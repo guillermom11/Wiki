@@ -6,6 +6,8 @@ import { downloadAndExtractRepo, getAccessToken } from '../utils/git'
 import { Codebase } from '../model/codebase'
 import {v4 as uuidv4} from 'uuid';
 import { streamSSE } from 'hono/streaming'
+import { jwtVerify } from 'jose'
+import { getEnv } from '../utils/utils'
 
 const repoRequestValidator = zValidator(
     'json',
@@ -15,8 +17,6 @@ const repoRequestValidator = zValidator(
       repo_name: z.string(),
       branch: z.string(),
       connection_id: z.number(),
-      user_org_id: z.string(),
-      user_id: z.string(),
     })
   )
 
@@ -24,9 +24,23 @@ const createGraph = new Hono()
 
 createGraph.post('/', repoRequestValidator, async (c) => {
   const request = c.req.valid('json')
-  const { git_provider: gitProvider, repo_org: repoOrg, repo_name: repoName, branch, connection_id: connectionId, user_org_id: userOrgId, user_id: userId  } = request
+  const { git_provider: gitProvider, repo_org: repoOrg, repo_name: repoName, branch, connection_id: connectionId  } = request
   console.log({gitProvider, repoOrg, repoName, branch})
 
+  const accessToken = c.req.header('Authorization')?.split('Bearer ')[1]
+  if(!accessToken) {
+    return c.json('Unauthorized', 401)
+  }
+  const { payload } = await jwtVerify(
+          accessToken,
+          new TextEncoder().encode(getEnv("SUPABASE_JWT")),
+        )
+  const userId = payload.sub
+
+  if (!userId) {
+    return c.json('Unauthorized', 401)
+  }
+        
   return streamSSE(c, async (stream) => {
     
     // check if repo exists
@@ -56,6 +70,9 @@ createGraph.post('/', repoRequestValidator, async (c) => {
     } else {
       repoId = rows[0].id
     }
+
+    const resOrg = await sql`SELECT org_sel_id FROM profiles WHERE id = ${userId}`
+    const userOrgId = resOrg[0].org_sel_id
 
     const accessToken = await getAccessToken(gitProvider, connectionId, userOrgId)
     if (!accessToken){

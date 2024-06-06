@@ -13,6 +13,7 @@
     "axios": "1.7.2",
     "glob": "10.4.1",
     "hono": "4.4.3",
+    "jose": "^5.4.0",
     "postgres": "^3.4.4",
     "tree-sitter": "0.21.1",
     "tree-sitter-java": "0.21.0",

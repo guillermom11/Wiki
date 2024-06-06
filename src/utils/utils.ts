@@ -5,7 +5,8 @@ export const ENV_VARS = {
     DATABASE_HOST: process.env.DATABASE_HOST,
     DATABASE_PORT: process.env.DATABASE_PORT,
     DATABASE_NAME: process.env.DATABASE_NAME,
-    SUPABASE_CA_CERTIFICATE: process.env.SUPABASE_CA_CERTIFICATE
+    SUPABASE_CA_CERTIFICATE: process.env.SUPABASE_CA_CERTIFICATE,
+    SUPABASE_JWT: process.env.SUPABASE_JWT
   }
   //
   export function getEnv(envKey: keyof typeof ENV_VARS) {
