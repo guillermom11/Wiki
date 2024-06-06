@@ -70,6 +70,7 @@ bar = baz
 
 test('Function definition',  () => {
     const fileContent = `
+@decorator
 def foo():
     '''The foo documentation'''
     return bar
@@ -107,7 +108,7 @@ def bar():
             language: 'python',
             exportable: true,
             documentation: `'''The foo documentation'''`,
-            code: 'def foo():\n    \n    return bar',
+            code: '@decorator\ndef foo():\n    \n    return bar',
             parent: fileNode.id,
             inDegree: 0,
             outDegree: 1,
@@ -239,7 +240,8 @@ class Foo:
         self.method()
 
 foo_var = Foo()
-foo_var.method()
+if True:
+    foo_var.method()
 
 def foo(param: Foo):
     return param.method2()
