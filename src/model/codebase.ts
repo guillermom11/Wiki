@@ -344,6 +344,18 @@ export class Node {
     
                 }
                 childrenNodes.push(newNode)
+
+                // In python the decorator is the prev sibling
+                if (this.language === 'python') {
+                    prevTreeSitterNode = c.node.previousSibling
+                    if (prevTreeSitterNode) { 
+                        if (['decorator'].includes(prevTreeSitterNode.type) &&
+                        prevTreeSitterNode.endPosition.row === newNode.startPosition.row - 1) {
+                            // include the decorator
+                            newNode.code = prevTreeSitterNode.text + '\n' + newNode.code
+                        }
+                    }
+                }
             }
         })
     
@@ -401,7 +413,6 @@ export class Node {
             if (!n.alias) n.alias = n.name
     
             if (n.type === 'assignment') {
-                // console.log(n)
                 const assignmentCaptures = captureQuery(this.language, 'extraAssignmentCode', this.code, n.name)
                 // console.log(assignmentCaptures.map(c => { return {name: c.name, text: c.node.text?.slice(0, 60), start: c.node.startPosition, end: c.node.endPosition } }))
                 assignmentCaptures.forEach((c)  =>  {
