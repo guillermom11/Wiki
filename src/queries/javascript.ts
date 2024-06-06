@@ -148,8 +148,11 @@ const exportClauses = `
 const extraAssignmentCode = (name: string) => `
 ( program
     (expression_statement
-        (call_expression function: (_) @identifier.name
-            (#match? @identifier.name "^${name}")
+        (call_expression function:
+        	[(identifier) @identifier.name
+             (member_expression object: (identifier) @identifier.name  ) 
+            ]
+        (#eq? @identifier.name "${name}")
         ) @code
     )
 ) 

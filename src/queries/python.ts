@@ -84,11 +84,25 @@ const constructorDefinitions = `
 const extraAssignmentCode = (name: string) => `
 ( module
   (expression_statement
-	(call function: (_) @identifier.name
-    	(#match? @identifier.name "^${name}")
-     ) @code
+      (call function:
+        [(identifier) @identifier.name
+           (attribute object: (identifier) @identifier.name  ) 
+          ]
+      (#eq? @identifier.name "${name}")
+      ) @code
   )
-)
+) 
+
+; not used
+;( module
+;  ( decorated_definition
+;	(decorator [
+;    	( call (attribute object: _ @identifier.name)) 
+;        (attribute object: _ @identifier.name)
+;    	]) @code
+;    (#eq? @identifier.name "${name}")
+;  )
+;)
 `
 
 const calls = `
