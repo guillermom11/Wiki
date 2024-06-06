@@ -139,7 +139,12 @@ const exportClauses = `
 `
 
 // ASSIGNMENT SPECIAL CASE
-// We need to know the assignment name
+// this is for example if I use something like
+// ```
+// const myEndpoint = new Hono()
+// myEndpoint.get('/', (c) => c.text('Hello World'))
+// ```
+// It will include the myEndpoint.get to the code of the assignment
 const extraAssignmentCode = (name: string) => `
 ( program
     (expression_statement

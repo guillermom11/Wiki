@@ -402,9 +402,10 @@ export class Node {
     
             if (n.type === 'assignment') {
                 // console.log(n)
-                const assignmentCaptures = captureQuery(this.language, 'extraAssignmentCode', n.code, n.name)
+                const assignmentCaptures = captureQuery(this.language, 'extraAssignmentCode', this.code, n.name)
+                // console.log(assignmentCaptures.map(c => { return {name: c.name, text: c.node.text?.slice(0, 60), start: c.node.startPosition, end: c.node.endPosition } }))
                 assignmentCaptures.forEach((c)  =>  {
-                    if (c.node.type === 'code') n.code += '\n\n' + c.node.text
+                    if (c.name === 'code') n.code += '\n' + c.node.text
                 })
             }
         })

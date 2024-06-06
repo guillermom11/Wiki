@@ -26,7 +26,11 @@ import { myFunction as myFunctionAlias } from 'initFile';
 test('Assignments', () => {
     const fileContent = `
 export const foo = 1
-const bar = baz
+
+const bar = new Hono()
+bar.get('/', async (c) => {
+    return c.text('Hello, World!')
+})
 
 export { bar as cbar }
 `;
@@ -56,7 +60,7 @@ export { bar as cbar }
             language: 'javascript',
             exportable: true,
             documentation: '',
-            code: 'bar = baz',
+            code: "bar = new Hono()\nbar.get('/', async (c) => {\n    return c.text('Hello, World!')\n})",
             parent: fileNode.id,
             inDegree: 0,
             outDegree: 1
@@ -263,7 +267,7 @@ class Foo {
 }
 
 const fooVar = new Foo();
-fooVar.method();
+() => fooVar.method()
 
 function foo(param: Foo) {
     return param.method2()
