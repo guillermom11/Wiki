@@ -2,39 +2,40 @@ const axios = require('axios')
 import fs from 'node:fs/promises'
 const AdmZip = require('adm-zip')
 import path from 'node:path'
+import { sql } from './db'
 
 type GitServiceType = 'github' | 'gitlab' | 'bitbucket'
 
 export async function downloadAndExtractRepo(
   gitService: GitServiceType,
-  user: string,
-  repo: string,
+  repoOrg: string,
+  repoName: string,
   branch: string,
-  token: string
+  accessToken: string
 ) {
   let url, commitUrl, headers
   switch (gitService) {
     case 'github':
-      url = `https://api.github.com/repos/${user}/${repo}/zipball/${branch}`
-      commitUrl = `https://api.github.com/repos/${user}/${repo}/commits?sha=${branch}&per_page=1`
+      url = `https://api.github.com/repos/${repoOrg}/${repoName}/zipball/${branch}`
+      commitUrl = `https://api.github.com/repos/${repoOrg}/${repoName}/commits?sha=${branch}&per_page=1`
       headers = {
         Accept: 'application/vnd.github+json',
-        Authorization: `Bearer ${token}`,
+        Authorization: `Bearer ${accessToken}`,
         'X-GitHub-Api-Version': '2022-11-28'
       }
       break
     case 'gitlab':
-      url = `https://gitlab.com/api/v4/projects/${user}/${repo}/repository/archive.zip?sha=${branch}`
-      commitUrl = `https://gitlab.com/api/v4/projects/${user}%2F${repo}/repository/commits/${branch}`
+      url = `https://gitlab.com/api/v4/projects/${repoOrg}/${repoName}/repository/archive.zip?sha=${branch}`
+      commitUrl = `https://gitlab.com/api/v4/projects/${repoOrg}%2F${repoName}/repository/commits/${branch}`
       headers = {
-        Authorization: `Bearer ${token}`
+        Authorization: `Bearer ${accessToken}`
       }
       break
     case 'bitbucket':
-      url = `https://api.bitbucket.org/2.0/repositories/${user}/${repo}/get?at=${branch}`
-      commitUrl = `https://api.bitbucket.org/2.0/repositories/${user}/${repo}/commits/${branch}`
+      url = `https://api.bitbucket.org/2.0/repositories/${repoOrg}/${repoName}/get?at=${branch}`
+      commitUrl = `https://api.bitbucket.org/2.0/repositories/${repoOrg}/${repoName}/commits/${branch}`
       headers = {
-        Authorization: `Bearer ${token}`
+        Authorization: `Bearer ${accessToken}`
       }
       break
   }
@@ -57,7 +58,7 @@ export async function downloadAndExtractRepo(
       const tmpFolderPath = `${process.cwd()}/tmp`
       await fs.mkdir(tmpFolderPath, { recursive: true })
 
-      const extractPath = `${tmpFolderPath}/${commitSha}_${user}_${repo}_${branch}`
+      const extractPath = `${tmpFolderPath}/${commitSha}_${repoOrg}_${repoName}_${branch}`
       // Save zip
       const zipPath = `${extractPath}.zip`
       await fs.writeFile(zipPath, response.data)
@@ -75,7 +76,8 @@ export async function downloadAndExtractRepo(
 
       // Delete zip
       await fs.unlink(zipPath)
-      return path.join(extractPath, mainFolderPath)
+      return {commitSha, codebasePath: path.join(extractPath, mainFolderPath)}
+      
     } catch (error) {
       console.log(error)
       throw error
@@ -83,4 +85,24 @@ export async function downloadAndExtractRepo(
   } catch (error) {
     console.log(error)
   }
+}
+
+
+export async function getAccessToken(gitProvider: GitServiceType, connectionId: number, UserOrgId: string): Promise<string | null> {
+
+  if (connectionId = -1) {
+    return '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'
+  }
+  const connections = `${gitProvider}_connections`
+  const rows = await sql`
+    SELECT 
+      access_token
+    FROM ${connections}
+    WHERE 
+      id = ${connectionId}
+      AND org_id = ${UserOrgId}
+  `
+
+  if (rows.length === 0) return null
+  return rows[0].access_token
 }
