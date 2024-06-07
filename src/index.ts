@@ -3,14 +3,12 @@ import { Hono } from 'hono'
 import { cors } from 'hono/cors'
 import { prettyJSON } from 'hono/pretty-json'
 import { createGraph } from './routes/create_graph'
-import { zValidator } from '@hono/zod-validator'
 
 // const
 const app = new Hono()
 
 app.use('*', prettyJSON())
 app.use('/v1/*', cors())
-
 
 // app.get('/', async (c) => {
 //   console.time('codebase')
@@ -28,7 +26,6 @@ app.use('/v1/*', cors())
 // })
 
 app.route('/v1/repo', createGraph)
-
 
 const port = 8001
 console.log(`Server is running on port ${port}`)

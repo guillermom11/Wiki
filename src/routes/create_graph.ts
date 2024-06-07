@@ -9,6 +9,8 @@ import { streamSSE } from 'hono/streaming'
 import { jwtVerify } from 'jose'
 import { getEnv } from '../utils/utils'
 
+const secret = getEnv('SUPABASE_JWT')
+
 const repoRequestValidator = zValidator(
   'json',
   z.object({
@@ -34,14 +36,26 @@ createGraph.post('/', repoRequestValidator, async (c) => {
   console.log({ gitProvider, repoOrg, repoName, branch })
 
   const accessToken = c.req.header('Authorization')?.split('Bearer ')[1]
+
   if (!accessToken) {
-    return c.json('Unauthorized', 401)
+    return c.json(
+      {
+        message: 'Unauthorized'
+      },
+      401
+    )
   }
-  const { payload } = await jwtVerify(accessToken, new TextEncoder().encode(getEnv('SUPABASE_JWT')))
+
+  const { payload } = await jwtVerify(accessToken, new TextEncoder().encode(secret))
   const userId = payload.sub
 
   if (!userId) {
-    return c.json('Unauthorized', 401)
+    return c.json(
+      {
+        message: 'Unauthorized'
+      },
+      401
+    )
   }
 
   return streamSSE(c, async (stream) => {
@@ -65,7 +79,13 @@ createGraph.post('/', repoRequestValidator, async (c) => {
       VALUES (${repoId}, ${gitProvider}, ${repoOrg}, ${repoName}, ${branch})`
 
       if (!res) {
-        await stream.writeSSE({ data: '', event: 'graphFailed', id: crypto.randomUUID() })
+        await stream.writeSSE({
+          data: JSON.stringify({
+            message: 'Failed to create repo'
+          }),
+          event: 'graphFailed',
+          id: crypto.randomUUID()
+        })
         await stream.close()
         return
       }
@@ -79,7 +99,13 @@ createGraph.post('/', repoRequestValidator, async (c) => {
     const accessToken = await getAccessToken(gitProvider, connectionId, userOrgId)
 
     if (!accessToken) {
-      await stream.writeSSE({ data: '', event: 'graphFailed', id: crypto.randomUUID() })
+      await stream.writeSSE({
+        data: JSON.stringify({
+          message: 'Failed to get access token'
+        }),
+        event: 'graphFailed',
+        id: crypto.randomUUID()
+      })
       await stream.close()
       return
     }
