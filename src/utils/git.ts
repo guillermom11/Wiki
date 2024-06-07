@@ -96,11 +96,11 @@ export async function getAccessToken(
   }
 
   try {
-    const connections = `${gitProvider}_connections`
+    const table = `${gitProvider}_connections`
     const rows = await sql`
       SELECT 
         access_token
-      FROM ${connections}
+      FROM ${sql(table)}
       WHERE 
         id = ${connectionId}
         AND org_id = ${UserOrgId}
