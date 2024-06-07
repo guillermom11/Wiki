@@ -76,8 +76,7 @@ export async function downloadAndExtractRepo(
 
       // Delete zip
       await fs.unlink(zipPath)
-      return {commitSha, codebasePath: path.join(extractPath, mainFolderPath)}
-      
+      return { commitSha, codebasePath: path.join(extractPath, mainFolderPath) }
     } catch (error) {
       console.log(error)
       throw error
@@ -87,22 +86,30 @@ export async function downloadAndExtractRepo(
   }
 }
 
-
-export async function getAccessToken(gitProvider: GitServiceType, connectionId: number, UserOrgId: string): Promise<string | null> {
-
-  if (connectionId = -1) {
+export async function getAccessToken(
+  gitProvider: GitServiceType,
+  connectionId: string,
+  UserOrgId: string
+): Promise<string | null> {
+  if (connectionId === '-1') {
     return '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'
   }
-  const connections = `${gitProvider}_connections`
-  const rows = await sql`
-    SELECT 
-      access_token
-    FROM ${connections}
-    WHERE 
-      id = ${connectionId}
-      AND org_id = ${UserOrgId}
-  `
 
-  if (rows.length === 0) return null
-  return rows[0].access_token
+  try {
+    const connections = `${gitProvider}_connections`
+    const rows = await sql`
+      SELECT 
+        access_token
+      FROM ${connections}
+      WHERE 
+        id = ${connectionId}
+        AND org_id = ${UserOrgId}
+    `
+
+    if (rows.length === 0) return null
+    return rows[0].access_token
+  } catch (error) {
+    console.log(error)
+    return null
+  }
 }
