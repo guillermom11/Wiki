@@ -117,14 +117,18 @@ createGraph.post('/', repoRequestValidator, async (c) => {
       VALUES (${graphId}, ${repoId}, 'pending', ${userOrgId}, ${userId})
     `
 
-    await stream.writeSSE({ data: JSON.stringify(graphId), event: 'graphCreated', id: graphId })
+    await stream.writeSSE({ data: JSON.stringify({ graphId }), event: 'graphCreated', id: graphId })
 
     const repo = await downloadAndExtractRepo(gitProvider, repoOrg, repoName, branch, accessToken)
     if (!repo?.codebasePath) {
       console.log('Failed to download repo')
       await sql`
       UPDATE graphs SET status = 'failed' WHERE id = ${graphId}`
-      await stream.writeSSE({ data: JSON.stringify(graphId), event: 'graphFailed', id: graphId })
+      await stream.writeSSE({
+        data: JSON.stringify({ graphId }),
+        event: 'graphFailed',
+        id: graphId
+      })
       await stream.close()
       return
     }
@@ -167,7 +171,11 @@ createGraph.post('/', repoRequestValidator, async (c) => {
 
     await sql`UPDATE graphs SET status = 'completed' WHERE id = ${graphId}`
     await sql`UPDATE repositories SET commit_hash = ${repo.commitSha} WHERE id = ${repoId}`
-    await stream.writeSSE({ data: JSON.stringify(graphId), event: 'graphCompleted', id: graphId })
+    await stream.writeSSE({
+      data: JSON.stringify({ graphId }),
+      event: 'graphCompleted',
+      id: graphId
+    })
     await stream.close()
   })
 })
