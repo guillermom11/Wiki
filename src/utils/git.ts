@@ -4,7 +4,7 @@ const AdmZip = require('adm-zip')
 import path from 'node:path'
 import { sql } from './db'
 
-type GitServiceType = 'github' | 'gitlab' | 'bitbucket'
+export type GitServiceType = 'github' | 'gitlab' | 'bitbucket'
 
 export async function downloadAndExtractRepo(
   gitService: GitServiceType,

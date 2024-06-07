@@ -5,10 +5,9 @@ import { sql } from '../utils/db'
 import { downloadAndExtractRepo, getAccessToken } from '../utils/git'
 import { Codebase } from '../model/codebase'
 import { v4 as uuidv4 } from 'uuid'
-import { streamSSE } from 'hono/streaming'
 import { jwtVerify } from 'jose'
 import { getEnv } from '../utils/utils'
-
+import { GitServiceType } from '../utils/git'
 const secret = getEnv('SUPABASE_JWT')
 
 const repoRequestValidator = zValidator(
@@ -58,7 +57,7 @@ createGraph.post('/', repoRequestValidator, async (c) => {
     )
   }
 
-  return streamSSE(c, async (stream) => {
+
     // check if repo exists
     const rows = await sql`
       SELECT 
@@ -79,36 +78,39 @@ createGraph.post('/', repoRequestValidator, async (c) => {
       VALUES (${repoId}, ${gitProvider}, ${repoOrg}, ${repoName}, ${branch})`
 
       if (!res) {
-        await stream.writeSSE({
-          data: JSON.stringify({
-            message: 'Failed to create repo'
-          }),
-          event: 'graphFailed',
-          id: crypto.randomUUID()
-        })
-        await stream.close()
-        return
+        console.log('Failed to create repository')
+        return c.json({ message: 'Failed to create repository' }, 500)
       }
     } else {
       repoId = rows[0].id
     }
 
+  // Perform background task
+  processGraphCreation({ gitProvider, repoId, repoOrg, repoName, branch, connectionId, userId })
+
+  return c.json({ message: 'Graph creation started' })
+})
+
+async function processGraphCreation({
+  gitProvider,
+  repoId,
+  repoOrg,
+  repoName,
+  branch,
+  connectionId,
+  userId }
+  : {
+    gitProvider: GitServiceType,
+    repoId: string,
+    repoOrg: string,
+    repoName: string,
+    branch: string,
+    connectionId: string,
+    userId: string}) {
+  try {
     const resOrg = await sql`SELECT org_sel_id FROM profiles WHERE id = ${userId}`
     const userOrgId = resOrg[0].org_sel_id
 
-    const accessToken = await getAccessToken(gitProvider, connectionId, userOrgId)
-
-    if (!accessToken) {
-      await stream.writeSSE({
-        data: JSON.stringify({
-          message: 'Failed to get access token'
-        }),
-        event: 'graphFailed',
-        id: crypto.randomUUID()
-      })
-      await stream.close()
-      return
-    }
 
     const graphId = uuidv4()
 
@@ -116,20 +118,18 @@ createGraph.post('/', repoRequestValidator, async (c) => {
       INSERT INTO graphs (id, repo_id, status, org_id, user_id)
       VALUES (${graphId}, ${repoId}, 'pending', ${userOrgId}, ${userId})
     `
+    const accessToken = await getAccessToken(gitProvider, connectionId, userOrgId)
 
-    await stream.writeSSE({ data: JSON.stringify({ graphId }), event: 'graphCreated', id: graphId })
+    if (!accessToken) {
+      console.log('Failed to get access token')
+      await sql`UPDATE graphs SET status = 'failed' WHERE id = ${graphId}`
+      return
+    }
 
     const repo = await downloadAndExtractRepo(gitProvider, repoOrg, repoName, branch, accessToken)
     if (!repo?.codebasePath) {
       console.log('Failed to download repo')
-      await sql`
-      UPDATE graphs SET status = 'failed' WHERE id = ${graphId}`
-      await stream.writeSSE({
-        data: JSON.stringify({ graphId }),
-        event: 'graphFailed',
-        id: graphId
-      })
-      await stream.close()
+      await sql`UPDATE graphs SET status = 'failed' WHERE id = ${graphId}`
       return
     }
 
@@ -139,7 +139,7 @@ createGraph.post('/', repoRequestValidator, async (c) => {
     const nodes = codebase.simplify()
 
     // create a uuid for each node
-    const nodeDBIds: { [id: string]: string } = {}
+    const nodeDBIds: {[key: string]: string} = {}
     for (const node of nodes) {
       nodeDBIds[node.id] = uuidv4()
     }
@@ -147,13 +147,8 @@ createGraph.post('/', repoRequestValidator, async (c) => {
     // Insert nodes into the database, note that the node.id is now the full_name
     const insertNodePromises = nodes.map((node) => {
       return sql`
-    INSERT INTO nodes (id, repo_id, type, language, total_tokens, documentation, code, code_no_body, in_degree, out_degree, full_name, label)
-    VALUES (${nodeDBIds[node.id]}, ${repoId}, ${node.type}, ${node.language}, ${
-        node.totalTokens
-      }, ${node.documentation},
-            ${node.code}, ${node.codeNoBody}, ${node.inDegree}, ${node.outDegree}, ${node.id}, ${
-        node.label
-      })
+    INSERT INTO nodes (id, graph_id, type, language, total_tokens, documentation, code, code_no_body, in_degree, out_degree, full_name, label)
+    VALUES (${nodeDBIds[node.id]}, ${graphId}, ${node.type}, ${node.language}, ${node.totalTokens}, ${node.documentation}, ${node.code}, ${node.codeNoBody}, ${node.inDegree}, ${node.outDegree}, ${node.id}, ${node.label})
     `
     })
 
@@ -161,8 +156,8 @@ createGraph.post('/', repoRequestValidator, async (c) => {
     // Insert links into the database
     const insertLinkPromises = links.map((link) => {
       return sql`
-    INSERT INTO links (node_source_id, node_target_id, repo_id, label)
-    VALUES (${nodeDBIds[link.source]}, ${nodeDBIds[link.target]}, ${repoId}, ${link.label})
+    INSERT INTO links (node_source_id, node_target_id, graph_id, label)
+    VALUES (${nodeDBIds[link.source]}, ${nodeDBIds[link.target]}, ${graphId}, ${link.label})
     `
     })
 
@@ -171,13 +166,10 @@ createGraph.post('/', repoRequestValidator, async (c) => {
 
     await sql`UPDATE graphs SET status = 'completed' WHERE id = ${graphId}`
     await sql`UPDATE repositories SET commit_hash = ${repo.commitSha} WHERE id = ${repoId}`
-    await stream.writeSSE({
-      data: JSON.stringify({ graphId }),
-      event: 'graphCompleted',
-      id: graphId
-    })
-    await stream.close()
-  })
-})
+    console.log('Graph creation completed:', graphId)
+  } catch (error) {
+    console.error('Error in background processing:', error)
+  }
+}
 
 export { createGraph }
