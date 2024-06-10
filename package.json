@@ -15,6 +15,7 @@
     "hono": "4.4.3",
     "jose": "^5.4.0",
     "postgres": "^3.4.4",
+    "tiktoken": "^1.0.15",
     "tree-sitter": "0.21.1",
     "tree-sitter-java": "0.21.0",
     "tree-sitter-javascript": "0.21.3",

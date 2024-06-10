@@ -17,6 +17,9 @@ import {
 } from "./consts"
 import { CallsCapturer } from './calls';
 import path from 'path'
+import {  encoding_for_model } from "tiktoken";
+const enc = encoding_for_model("gpt-4-turbo");
+
 export class ImportName {
     name: string = ''
     alias: string = ''
@@ -499,6 +502,10 @@ export class Codebase {
         fileNode.parseExportClauses()
         fileNode.generateImports()
         nodesMap[fileNode.id] = fileNode
+
+        // get tokens
+        Object.values(nodesMap).forEach(n => n.totalTokens = enc.encode(n.code, 'all', []).length)
+
         return nodesMap
     }
     
