@@ -103,13 +103,13 @@ createGraph.post('/', repoRequestValidator, async (c) => {
 
     const graphUsersData = await sql`
     SELECT g.org_id, g.user_id
-    FROM repositories r
-    LEFT JOIN nodes n -- must have at least one node
+    FROM nodes n -- must have at least one node
+    LEFT JOIN repositories r 
       ON n.repo_id = r.id
-      LEFT JOIN graphs g
-        ON g.repo_id = r.id
+    LEFT JOIN graphs g
+      ON g.repo_id = n.repo_id
     WHERE
-      r.id = ${repoId}
+      n.repo_id = ${repoId}
       AND r.git_provider = ${gitProvider}
       AND r.commit_hash = ${commitHash}`
   
