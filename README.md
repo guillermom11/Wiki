@@ -7,18 +7,16 @@ npm run dev
 open  http://localhost:3000
 ```
 
+## Lenguages soportados actualmente
+- Python
+- Javascript / JSX
+- Typescript / TSX
+- Java (beta)
+- C (beta)
+
 ## TO DO
-- [ ] Java: agregar query para calls
-- [ ] Agregar tests para calls
-- [ ] Ver caso multiples anidaciones
-    ```java
-    public class Foo {
-        public void foo() {
-            public class Bar {
-                public void bar() {
-                    ...
-                }
-            }
-        }
-    }
-    ```
+- [ ] Agregar PHP
+- [ ] Agregar C+
+- [ ] Agregar C#
+- [ ] Agregar Go
+- [ ] Agregar Rust
