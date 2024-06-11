@@ -24,14 +24,14 @@ export async function getAllFiles(rootFolderPath: string): Promise<string[]> {
     const regex = new RegExp(extensionsPattern);
     const excludedPattern = excludedExtensions.map(ext  => `\\${ext}$`).join('|');
     const excludedRegex = new RegExp(excludedPattern)
+    const excludedFolderPattern = new RegExp(excludedFolders.map(f => `${f}/?.*`).join('|'))
     const files = await glob(`**/*`, {
         cwd: rootFolderPath,
-        ignore: excludedFolders.map(f => `${f}/**`),
         absolute: true
     })
     // no sync
     const validFiles = await Promise.all(files.map(async (file) => (await fs.lstat(file)).isFile()))
-    const matchingFiles  = files.filter((file, i)  => regex.test(file) && validFiles[i] && !excludedRegex.test(file))
+    const matchingFiles  = files.filter((file, i)  => regex.test(file) && validFiles[i] && !excludedRegex.test(file) && !excludedFolderPattern.test(file))
     matchingFiles.sort() // sorted
     return matchingFiles;
 }

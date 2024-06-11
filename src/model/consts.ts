@@ -15,7 +15,7 @@ export const AllowedTypesArray: AllowedTypes[] = [
     'assignment', 'file', 'union'
   ]
 
-export const excludedFolders = ['.git', '.vscode', 'venv', 'node_modules', 'dist', '__pycache__', 'tests', 'build']
+export const excludedFolders = ['.git', '.vscode', 'venv', 'node_modules', 'dist', '__pycache__', 'tests', 'build', '_static']
 export const excludedExtensions = ['min.js', 'min.css', 'min.css.map', 'min.js.map', 'd.ts', '.config.js', '.h']
 
 export const languages = {
