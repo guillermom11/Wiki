@@ -10,7 +10,7 @@ test('Import Statements', () => {
     #include "../otherFolder/otherHeader.h"
     `
 
-    const fileNode = new Node(`${rootFolderPath}/file.c`, fileContent, 'file', 'c')
+    const fileNode = new Node(`${rootFolderPath}/file`, fileContent, 'file', 'c')
     fileNode.generateImports()
 
     const expectedImports = [
@@ -28,7 +28,7 @@ float y = 3.14;
 int* p = &x;
 
 `;
-    const fileNode = new Node(`${rootFolderPath}/file.c`, fileContent, 'file', 'c');
+    const fileNode = new Node(`${rootFolderPath}/file`, fileContent, 'file', 'c');
     fileNode.getChildrenDefinitions();
 
     const expectedFileChildren = [
@@ -41,7 +41,7 @@ int* p = &x;
             exportable: false,
             documentation: '',
             code: 'int* p = &x;',
-            parent: fileNode.id,
+            parent: '/my/path/file',
             inDegree: 0,
             outDegree: 1
         },
@@ -54,7 +54,7 @@ int* p = &x;
             exportable: false,
             documentation: '',
             code: 'float y = 3.14;',
-            parent: fileNode.id,
+            parent: '/my/path/file',
             inDegree: 0,
             outDegree: 1
         },
@@ -67,7 +67,7 @@ int* p = &x;
             exportable: false,
             documentation: '',
             code: 'int x = 10;',
-            parent: fileNode.id,
+            parent: '/my/path/file',
             inDegree: 0,
             outDegree: 1
         }
@@ -90,7 +90,7 @@ int add(int a, int b) {
     return a + b;
 }
 `;
-  const fileNode = new Node(`${rootFolderPath}/file.c`, fileContent, "file", "c");
+  const fileNode = new Node(`${rootFolderPath}/file`, fileContent, "file", "c");
   fileNode.getChildrenDefinitions();
 
   const expectedChildren = [
@@ -129,7 +129,7 @@ struct Point {
     int y;
 }
 `;
-  const fileNode = new Node(`${rootFolderPath}/file.c`, fileContent, "file", "c");
+  const fileNode = new Node(`${rootFolderPath}/file`, fileContent, "file", "c");
   fileNode.getChildrenDefinitions();
 
   const expectedChildren = [
@@ -168,7 +168,7 @@ union Value {
     double floatValue;
 };
 `;
-  const fileNode = new Node(`${rootFolderPath}/file.c`, fileContent, "file", "c");
+  const fileNode = new Node(`${rootFolderPath}/file`, fileContent, "file", "c");
   fileNode.getChildrenDefinitions();
 
   const expectedChildren = [
@@ -194,4 +194,36 @@ union Value {
 
   expect(fileNodeChildrenSimplified).toStrictEqual(expectedChildren);
   expect(fileNode.inDegree).toBe(1);
+});
+
+test('Calls', () => {
+    const fileContent = `
+
+int x = 10;
+int y = 20;
+
+int add(int a, int b) {
+    return a + b;
+}
+
+int main() {
+    int sum = add(x, y);
+    printf("The sum of %d and %d is %d", x, y, sum);
+    return 0;
+}
+`;
+    const fileNode = new Node(`${rootFolderPath}/file`, fileContent, 'file', 'c');
+    fileNode.generateImports();
+    const nodesMap = fileNode.getChildrenDefinitions();
+
+    const fileNodesMap: { [id: string]: Node } = {};
+    fileNodesMap[fileNode.id] = fileNode;
+    nodesMap[fileNode.id] = fileNode;
+    const codebase = new Codebase(rootFolderPath);
+    codebase.nodesMap = nodesMap;
+    codebase.getCalls(fileNodesMap);
+
+    const mainCalls = codebase.getNode(`${rootFolderPath}/file::main`)?.simplify(['calls']);
+    const expectedMainCalls = [`${rootFolderPath}/file::add`, `${rootFolderPath}/file::x`, `${rootFolderPath}/file::y`];
+    expect(mainCalls?.calls).toStrictEqual(expectedMainCalls);
 });

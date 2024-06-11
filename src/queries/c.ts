@@ -94,9 +94,8 @@ const extraAssignmentCode = (name: string) => `
 
 // TODO
 const calls = `
-(method_invocation) @identifier.name
-(type_identifier) @parameter_type
-( _ object: _ @identifier.name)
+(call_expression function: _ @identifier.name)
+( _ arguments: (argument_list (identifier) @identifier.name) )
 `
 
 ///////////
@@ -105,12 +104,15 @@ const calls = `
 // > my_class.my_method()
 // TODO
 const anyAssignments = `
-(variable_declarator
-	name: (identifier) @left
-    value: [
-    (identifier) @right
-    (object_creation_expression type: _ @right) 
-    ] 
+(declaration
+    declarator: (
+        init_declarator
+            declarator: [
+                (identifier) @left
+                (pointer_declarator declarator: (identifier) @left)
+                ]
+            value: (_) @right
+        ) 
 ) @assignment
 `
 
