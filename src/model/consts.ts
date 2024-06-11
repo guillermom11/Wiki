@@ -31,7 +31,7 @@ export const languages = {
 export const languageExtensionMap: Record<string, string> = {
   'py': 'python',
   'c': 'c',
-  'h': 'c',
+  // 'h': 'c', // may be we don't require the header file
   // 'ipynb': 'python',
   'js': 'javascript',
   'ts': 'typescript',
