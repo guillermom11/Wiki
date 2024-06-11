@@ -77,3 +77,121 @@ int* p = &x;
     expect(fileNodeChildrenSimplified).toStrictEqual(expectedFileChildren);
     expect(fileNode.inDegree).toBe(3);
 });
+
+test("Function Definition", () => {
+  const fileContent = `
+/**
+ * Calculates the sum of two integers.
+ * @param a The first integer.
+ * @param b The second integer.
+ * @return The sum of a and b.
+ */
+int add(int a, int b) {
+    return a + b;
+}
+`;
+  const fileNode = new Node(`${rootFolderPath}/file.c`, fileContent, "file", "c");
+  fileNode.getChildrenDefinitions();
+
+  const expectedChildren = [
+    {
+      id: `${fileNode.id}::add`,
+      type: "function",
+      name: "add",
+      label: "add",
+      language: "c",
+      exportable: false,
+      documentation: `/**\n * Calculates the sum of two integers.\n * @param a The first integer.\n * @param b The second integer.\n * @return The sum of a and b.\n */`,
+      code: "int add(int a, int b) {\n    return a + b;\n}",
+      parent: fileNode.id,
+      inDegree: 0,
+      outDegree: 1,
+      children: [],
+    },
+  ];
+
+  const fileNodeChildrenSimplified = Object.values(fileNode.children).map((n) =>
+    n.simplify(["id", "type", "name", "label", "language", "exportable", "documentation", "code", "parent", "inDegree", "outDegree", "children"])
+  );
+
+  expect(fileNodeChildrenSimplified).toStrictEqual(expectedChildren);
+  expect(fileNode.inDegree).toBe(1);
+});
+
+
+test("Struct Definition", () => {
+  const fileContent = `
+/**
+ * Represents a point in a 2D plane.
+ */
+struct Point {
+    int x;
+    int y;
+}
+`;
+  const fileNode = new Node(`${rootFolderPath}/file.c`, fileContent, "file", "c");
+  fileNode.getChildrenDefinitions();
+
+  const expectedChildren = [
+    {
+      id: `${fileNode.id}::Point`,
+      type: "struct",
+      name: "Point",
+      label: "Point",
+      language: "c",
+      exportable: false,
+      documentation: `/**\n * Represents a point in a 2D plane.\n */`,
+      code: "struct Point {\n    int x;\n    int y;\n}",
+      parent: fileNode.id,
+      inDegree: 0,
+      outDegree: 1,
+      children: []
+    }
+  ];
+
+  const fileNodeChildrenSimplified = Object.values(fileNode.children).map((n) =>
+    n.simplify(["id", "type", "name", "label", "language", "exportable", "documentation", "code", "parent", "inDegree", "outDegree", "children"])
+  );
+
+  expect(fileNodeChildrenSimplified).toStrictEqual(expectedChildren);
+  expect(fileNode.inDegree).toBe(1);
+});
+
+
+test("Union Definition", () => {
+  const fileContent = `
+/**
+ * Represents a value that can be either an integer or a floating-point number.
+ */
+union Value {
+    int intValue;
+    double floatValue;
+};
+`;
+  const fileNode = new Node(`${rootFolderPath}/file.c`, fileContent, "file", "c");
+  fileNode.getChildrenDefinitions();
+
+  const expectedChildren = [
+    {
+      id: `${fileNode.id}::Value`,
+      type: "union",
+      name: "Value",
+      label: "Value",
+      language: "c",
+      exportable: false,
+      documentation: `/**\n * Represents a value that can be either an integer or a floating-point number.\n */`,
+      code: "union Value {\n    int intValue;\n    double floatValue;\n}",
+      parent: fileNode.id,
+      inDegree: 0,
+      outDegree: 1,
+      children: []
+    }
+  ];
+
+  const fileNodeChildrenSimplified = Object.values(fileNode.children).map((n) =>
+    n.simplify(["id", "type", "name", "label", "language", "exportable", "documentation", "code", "parent", "inDegree", "outDegree", "children"])
+  );
+
+  expect(fileNodeChildrenSimplified).toStrictEqual(expectedChildren);
+  expect(fileNode.inDegree).toBe(1);
+});
