@@ -7,12 +7,12 @@ const TSX = require("tree-sitter-typescript").tsx;
 const Java = require("tree-sitter-java");
 const C = require("tree-sitter-c");
 
-export type AllowedTypes = 'function' | 'class' | 'interface' | 'method' | 'enum' | 'struct' | 'namespace' | 'mod' | 'export' | 'type' | 'assignment' | 'file'; 
+export type AllowedTypes = 'function' | 'class' | 'interface' | 'method' | 'enum' | 'struct' | 'namespace' | 'mod' | 'export' | 'type' | 'assignment' | 'file' | 'union'; 
 
 export const AllowedTypesArray: AllowedTypes[] = [
     'function', 'class', 'interface', 'method', 'enum', 
     'struct', 'namespace', 'mod', 'export', 'type', 
-    'assignment', 'file'
+    'assignment', 'file', 'union'
   ]
 
 export const excludedFolders = ['.git', '.vscode', 'venv', 'node_modules', 'dist', '__pycache__', 'tests', 'build']
