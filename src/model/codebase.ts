@@ -185,21 +185,36 @@ export class Node {
                             let bodyToRemove = n.body
                             bodyToRemove = bodyToRemove.replace(n.documentation, '')
                             const spaces = ' '.repeat(n.startPosition.column)
-                            code = code.replace(bodyToRemove, `\n${spaces}    ...`)
+                            if (this.language === 'python') {
+                                code = code.replace(bodyToRemove, `\n${spaces}    #...`)
+                            } else {
+                                code = code.replace(bodyToRemove, `{\n${spaces}    \\\\...\n${spaces}}`)
+                            }
                         }
                     } else if (this.type === 'file' && !['assignment', 'type', 'enum'].includes(n.type)) {
                         if (n.body) {
                             let bodyToRemove = n.body
                             bodyToRemove = bodyToRemove.replace(n.documentation, '')
                             const spaces = ' '.repeat(n.startPosition.column)
-                            code = code.replace(bodyToRemove, `${spaces}...`)
+                            if (this.language === 'python') {
+                                code = code.replace(bodyToRemove, `${spaces}#...`)
+                            } else {
+                                code = code.replace(bodyToRemove, `{\n${spaces}\\\\...\n${spaces}}`)
+                            }
+
                         }
                     }
                 })
 
             } else {
                 const spaces = ' '.repeat(this.startPosition.column)
-                code = code.replace(this.body, '').trim() + `\n${spaces}    ...`
+                if (this.language === 'python') {
+                    code = code.replace(this.body, '').trim() + `\n${spaces}    ...`
+                } else {
+                    code = code.replace(this.body, '').trim() + `{\n${spaces}    \\\\...\n${spaces}}`
+                }
+
+                
             }
         }
         code = code.trim().replace(/\n\s*\n/, '\n')
