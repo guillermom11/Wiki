@@ -20,3 +20,60 @@ test('Import Statements', () => {
       ];
       expect(fileNode.importStatements).toStrictEqual(expectedImports);
 })
+
+test('Assignments', () => {
+    const fileContent = `
+int x = 10;
+float y = 3.14;
+int* p = &x;
+
+`;
+    const fileNode = new Node(`${rootFolderPath}/file.c`, fileContent, 'file', 'c');
+    fileNode.getChildrenDefinitions();
+
+    const expectedFileChildren = [
+        {
+            id: `${fileNode.id}::p`,
+            type: 'assignment',
+            name: 'p',
+            label: 'p',
+            language: 'c',
+            exportable: false,
+            documentation: '',
+            code: 'int* p = &x;',
+            parent: fileNode.id,
+            inDegree: 0,
+            outDegree: 1
+        },
+        {
+            id: `${fileNode.id}::y`,
+            type: 'assignment',
+            name: 'y',
+            label: 'y',
+            language: 'c',
+            exportable: false,
+            documentation: '',
+            code: 'float y = 3.14;',
+            parent: fileNode.id,
+            inDegree: 0,
+            outDegree: 1
+        },
+        {
+            id: `${fileNode.id}::x`,
+            type: 'assignment',
+            name: 'x',
+            label: 'x',
+            language: 'c',
+            exportable: false,
+            documentation: '',
+            code: 'int x = 10;',
+            parent: fileNode.id,
+            inDegree: 0,
+            outDegree: 1
+        }
+    ];
+
+    const fileNodeChildrenSimplified = Object.values(fileNode.children).map(n => n.simplify(nodeAttributes));
+    expect(fileNodeChildrenSimplified).toStrictEqual(expectedFileChildren);
+    expect(fileNode.inDegree).toBe(3);
+});
