@@ -16,7 +16,7 @@ export const AllowedTypesArray: AllowedTypes[] = [
   ]
 
 export const excludedFolders = ['.git', '.vscode', 'venv', 'node_modules', 'dist', '__pycache__', 'tests', 'build']
-export const excludedExtensions = ['min.js', 'min.css', 'min.css.map', 'min.js.map', 'd.ts', '.config.js']
+export const excludedExtensions = ['min.js', 'min.css', 'min.css.map', 'min.js.map', 'd.ts', '.config.js', '.h']
 
 export const languages = {
     JavaScript,
@@ -31,7 +31,7 @@ export const languages = {
 export const languageExtensionMap: Record<string, string> = {
   'py': 'python',
   'c': 'c',
-  // 'h': 'c', // may be we don't require the header file
+  'h': 'c', // may be we don't require the header file
   // 'ipynb': 'python',
   'js': 'javascript',
   'ts': 'typescript',
