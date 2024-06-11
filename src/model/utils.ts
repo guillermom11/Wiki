@@ -10,6 +10,7 @@ import fs from 'node:fs/promises';
 import path from 'path'
 import Parser from 'tree-sitter';
 import { Node } from './codebase'
+import { parse } from "node:path";
 
 /**
  * Get a list of all files in a given folder, including only files with the given extensions
@@ -64,6 +65,11 @@ export function getRequiredDefinitions(language: string): { parser: Parser, quer
             parser.setLanguage(languages.Java)
             queries = languageQueries.Java
             break
+        case 'c':
+            parser.setLanguage(languages.C)
+            queries = languageQueries.C
+            break
+
         default:
             throw new Error(`Language ${language} not supported.`)
     }
@@ -145,7 +151,8 @@ export function renameSource(filePath: string, sourceName: string, language: str
     if (Object.keys(languageExtensionMap).includes(sourceNameExtension)) newSourceName = sourceNameSplit.slice(0, -1).join('.')
     const fileDirectory = filePath.split('/').slice(0, -1).join('/')
     
-    if (['javascript', 'typescript', 'tsx', 'cpp', 'java'].includes(language) && newSourceName.startsWith('.') ) {
+    if ((['javascript', 'typescript', 'tsx', 'java', 'c', 'cpp', 'csharp'].includes(language) && newSourceName.startsWith('.') ||
+        (['c', 'cpp', 'csharp'].includes(language) && !newSourceName.startsWith('<'))) ) {
         newSourceName = path.join(fileDirectory, newSourceName)
     } else if ( language == 'python') {
         const dotCount = firstConsecutiveDots(newSourceName)

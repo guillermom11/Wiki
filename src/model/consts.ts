@@ -1,4 +1,3 @@
-// const C = require("tree-sitter-c");
 // const Ruby = require("tree-sitter-ruby");
 // const Rust = require("tree-sitter-rust");
 const JavaScript = require("tree-sitter-javascript");
@@ -6,6 +5,7 @@ const Python = require("tree-sitter-python");
 const TypeScript  = require('tree-sitter-typescript').typescript;
 const TSX = require("tree-sitter-typescript").tsx;
 const Java = require("tree-sitter-java");
+const C = require("tree-sitter-c");
 
 export type AllowedTypes = 'function' | 'class' | 'interface' | 'method' | 'enum' | 'struct' | 'namespace' | 'mod' | 'export' | 'type' | 'assignment' | 'file'; 
 
@@ -23,12 +23,15 @@ export const languages = {
     Python,
     TypeScript,
     TSX,
-    Java
+    Java,
+    C
 }
 
 
 export const languageExtensionMap: Record<string, string> = {
   'py': 'python',
+  'c': 'c',
+  'h': 'c',
   // 'ipynb': 'python',
   'js': 'javascript',
   'ts': 'typescript',
