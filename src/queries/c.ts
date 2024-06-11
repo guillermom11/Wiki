@@ -43,7 +43,7 @@ const definitionTemplate = `
     type: (_)? @return_type
     [
      name: (_) @name
-     declarator: (function_declarator) @name
+     declarator: (function_declarator declarator: (identifier) @name) 
     ]
     parameters: (parameter_list (_) @param)?
     body: (_) @body
