@@ -528,6 +528,8 @@ export class Codebase {
                 throw error
             }
         }
+        // python special case
+        this.resolvePythonInitImportStatements()
         return fileNodesMap 
     }
 
@@ -548,6 +550,7 @@ export class Codebase {
                     importedFiles[i.path]  = fileNodesMap[i.path]
                 }
             })
+
             importedFiles[fileNode.id] = fileNode
 
             const nodes: Node[] = [fileNode , ...fileNode.getAllChildren()]
@@ -590,6 +593,24 @@ export class Codebase {
         }
         return links
     }
+
+    resolvePythonInitImportStatements() {
+        // THIS IS A TEMPORARY FIX
+        // In many cases, the __init__.py file just contains the import statements for the other files
+        const nodes = Object.values(this.nodesMap)
+        nodes.forEach(n => {
+            if (n.type !== 'file' || n.language !== 'python') return
+            let newImportStatements: ImportStatement[] = [...n.importStatements]
+            n.importStatements.forEach(i => {
+                if (i.path.endsWith('__init__')) {
+                    newImportStatements = newImportStatements.filter(s => s.path != i.path)
+                    newImportStatements = [...this.nodesMap[i.path].importStatements, ...newImportStatements]
+                }
+            })
+            n.importStatements = newImportStatements
+        })
+    }
+
 }
 
 
