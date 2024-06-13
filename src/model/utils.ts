@@ -9,8 +9,7 @@ import { glob } from 'glob'
 import fs from 'node:fs/promises';
 import path from 'path'
 import Parser from 'tree-sitter';
-import { Node } from './codebase'
-import { parse } from "node:path";
+import { Node, ImportStatement } from './codebase'
 
 /**
  * Get a list of all files in a given folder, including only files with the given extensions
@@ -187,8 +186,8 @@ export const cleanAndSplitContent = (content: string): string[] => {
   }
   
 
-export function getCalledNode(callName: string, importFrom: string, importedFileNodes: {[key: string]: Node}): Node | undefined {
-    const importedFile = importedFileNodes[importFrom]
+export function getCalledNode(callName: string, importFrom: string, importedFileNodes: Record<string, {fileNode: Node, importStatement: ImportStatement}>) {
+    const importedFile = importedFileNodes[importFrom].fileNode
     const calledNode = importedFile?.getChild(`${importedFile.id}::${callName}`)
     return calledNode
 }

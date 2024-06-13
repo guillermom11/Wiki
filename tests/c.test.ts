@@ -197,14 +197,17 @@ union Value {
 });
 
 test('Calls', () => {
-    const fileContent = `
-
-int x = 10;
-int y = 20;
-
+    const fileContent1 = `
 int add(int a, int b) {
     return a + b;
 }
+`;
+
+    const fileContent2 = `
+#include "file1.h"
+
+int x = 10;
+int y = 20;
 
 int main() {
     int sum = add(x, y);
@@ -212,18 +215,30 @@ int main() {
     return 0;
 }
 `;
-    const fileNode = new Node(`${rootFolderPath}/file`, fileContent, 'file', 'c');
-    fileNode.generateImports();
-    const nodesMap = fileNode.getChildrenDefinitions();
+
+    const fileNode1 = new Node(`${rootFolderPath}/file1`, fileContent1, 'file', 'c');
+    const fileNode2 = new Node(`${rootFolderPath}/file2`, fileContent2, 'file', 'c');
+    const allFiles = [`${rootFolderPath}/file1.c`, `${rootFolderPath}/file2.c`];
+
+    fileNode1.generateImports()
+    fileNode2.generateImports()
+    fileNode1.resolveImportStatementsPath(rootFolderPath, allFiles)
+    fileNode2.resolveImportStatementsPath(rootFolderPath, allFiles)
+    
+    const nodesMap1 = fileNode1.getChildrenDefinitions();
+    const nodesMap2 = fileNode2.getChildrenDefinitions();
 
     const fileNodesMap: { [id: string]: Node } = {};
-    fileNodesMap[fileNode.id] = fileNode;
-    nodesMap[fileNode.id] = fileNode;
+    fileNodesMap[fileNode1.id] = fileNode1;
+    fileNodesMap[fileNode2.id] = fileNode2;
+
+    const nodesMap = { ...nodesMap1, ...nodesMap2 };
     const codebase = new Codebase(rootFolderPath);
     codebase.nodesMap = nodesMap;
     codebase.getCalls(fileNodesMap);
 
-    const mainCalls = codebase.getNode(`${rootFolderPath}/file::main`)?.simplify(['calls']);
-    const expectedMainCalls = [`${rootFolderPath}/file::add`, `${rootFolderPath}/file::x`, `${rootFolderPath}/file::y`];
+    
+    const mainCalls = codebase.getNode(`${rootFolderPath}/file2::main`)?.simplify(['calls']);
+    const expectedMainCalls = [`${rootFolderPath}/file1::add`, `${rootFolderPath}/file2::x`, `${rootFolderPath}/file2::y`];
     expect(mainCalls?.calls).toStrictEqual(expectedMainCalls);
 });
