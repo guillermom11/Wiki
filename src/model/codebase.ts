@@ -186,9 +186,9 @@ export class Node {
                             bodyToRemove = bodyToRemove.replace(n.documentation, '')
                             const spaces = ' '.repeat(n.startPosition.column)
                             if (this.language === 'python') {
-                                code = code.replace(bodyToRemove, `\n${spaces}    #...`)
+                                code = code.replace(bodyToRemove, `\n${spaces}    ...`)
                             } else {
-                                code = code.replace(bodyToRemove, `{\n${spaces}    \\\\...\n${spaces}}`)
+                                code = code.replace(bodyToRemove, `{\n${spaces}    //...\n${spaces}}`)
                             }
                         }
                     } else if (this.type === 'file' && !['assignment', 'type', 'enum'].includes(n.type)) {
@@ -197,9 +197,9 @@ export class Node {
                             bodyToRemove = bodyToRemove.replace(n.documentation, '')
                             const spaces = ' '.repeat(n.startPosition.column)
                             if (this.language === 'python') {
-                                code = code.replace(bodyToRemove, `${spaces}#...`)
+                                code = code.replace(bodyToRemove, `${spaces}...`)
                             } else {
-                                code = code.replace(bodyToRemove, `{\n${spaces}\\\\...\n${spaces}}`)
+                                code = code.replace(bodyToRemove, `{\n${spaces}//...\n${spaces}}`)
                             }
 
                         }
@@ -211,7 +211,7 @@ export class Node {
                 if (this.language === 'python') {
                     code = code.replace(this.body, '').trim() + `\n${spaces}    ...`
                 } else {
-                    code = code.replace(this.body, '').trim() + `{\n${spaces}    \\\\...\n${spaces}}`
+                    code = code.replace(this.body, '').trim() + `{\n${spaces}    //...\n${spaces}}`
                 }
 
                 
@@ -572,7 +572,7 @@ export class Codebase {
             nodes.forEach((n: Node) => {
                 const calls = callsCapturer.getCallsFromNode(n)
                 // const importFromFailed: Set<string> = new Set()
-                // console.log( `${n.id}`)
+                // console.log( `### ${n.id}`)
                 // console.log(calls)
                 calls.forEach(c => {
                     // if (importFromFailed.has(c.importFrom)) return
