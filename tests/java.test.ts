@@ -123,17 +123,20 @@ public class FooClass {
 }
 `;
     const fileNode = new Node(`${rootFolderPath}/file`, fileContent, 'file', 'java');
+    
     fileNode.getChildrenDefinitions();
 
     const fooClass = fileNode.children[`${rootFolderPath}/file::FooClass`];
     const barMethod = fooClass.children[`${rootFolderPath}/file::FooClass.bar`];
-    expect(fooClass.getCodeWithoutBody()).toBe("public class FooClass {\n    private int foo = 1;\n\n    public FooClass() {\n        this.foo = 1;\n    }\n\n    public int bar() \n        ...\n}");
-    expect(barMethod.getCodeWithoutBody()).toBe("public class FooClass\n    ...\n    public int bar()\n        ...");
+    expect(fooClass.getCodeWithoutBody()).toBe("public class FooClass {\n    private int foo = 1;\n\n    public FooClass() {\n        this.foo = 1;\n    }\n\n    public int bar() {\n        //...\n    }\n}");
+    expect(barMethod.getCodeWithoutBody()).toBe("public class FooClass\n    ...\n    public int bar(){\n        //...\n    }");
 });
 
 test('Calls', () => {
-    const fileContent = `
-class Foo {
+    const fileContent1 = `
+package file1;
+
+public class Foo {
     private int baz = 1;
 
     public Foo() {
@@ -147,30 +150,42 @@ class Foo {
     public int method2() {
         return this.method();
     }
-}
+}`;
+
+    const fileContent2 = `
+import file1.Foo;
 
 public class Test {
-	public static void main(String[] args){
-		Foo fooVar = new Foo();
+    public static void main(String[] args){
+        Foo fooVar = new Foo();
         fooVar.method();
-	}
-}
+    }
+}`;
 
-`;
-    const fileNode = new Node(`${rootFolderPath}/file`, fileContent, 'file', 'java');
-    fileNode.generateImports();
-    const nodesMap = fileNode.getChildrenDefinitions();
+    const fileNode1 = new Node(`${rootFolderPath}/file1`, fileContent1, 'file', 'java');
+    const fileNode2 = new Node(`${rootFolderPath}/file2`, fileContent2, 'file', 'java');
+    const allFiles = [`${rootFolderPath}/file1.java`, `${rootFolderPath}/file2.java`];
+
+
+    fileNode1.generateImports()
+    fileNode2.generateImports()
+    fileNode1.resolveImportStatementsPath(rootFolderPath, allFiles)
+    fileNode2.resolveImportStatementsPath(rootFolderPath, allFiles)
+    const nodesMap1 = fileNode1.getChildrenDefinitions();
+    const nodesMap2 = fileNode2.getChildrenDefinitions();
 
     const fileNodesMap: { [id: string]: Node } = {};
-    fileNodesMap[fileNode.id] = fileNode;
-    nodesMap[fileNode.id] = fileNode;
+    fileNodesMap[fileNode1.id] = fileNode1;
+    fileNodesMap[fileNode2.id] = fileNode2;
+
+    const nodesMap = { ...nodesMap1, ...nodesMap2 };
     const codebase = new Codebase(rootFolderPath);
     codebase.nodesMap = nodesMap;
     codebase.getCalls(fileNodesMap);
-    
-    const mainCalls = codebase.getNode(`${rootFolderPath}/file::Test.main`)?.simplify(['calls']);
-    const method2Calls = codebase.getNode(`${rootFolderPath}/file::Foo.method2`)?.simplify(['calls']);
 
-    expect(mainCalls?.calls).toStrictEqual([`${rootFolderPath}/file::Foo`, `${rootFolderPath}/file::Foo.method`]);
-    expect(method2Calls?.calls).toStrictEqual([`${rootFolderPath}/file::Foo.method`, `${rootFolderPath}/file::Foo`]);
+    const method2Calls = codebase.getNode(`${rootFolderPath}/file1::Foo.method2`)?.simplify(['calls']);
+    const mainCalls = codebase.getNode(`${rootFolderPath}/file2::Test.main`)?.simplify(['calls']);
+
+    expect(method2Calls?.calls).toStrictEqual([`${rootFolderPath}/file1::Foo.method`, `${rootFolderPath}/file1::Foo`]);
+    expect(mainCalls?.calls).toStrictEqual([`${rootFolderPath}/file1::Foo`, `${rootFolderPath}/file1::Foo.method`]);
 });

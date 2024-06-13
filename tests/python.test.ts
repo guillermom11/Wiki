@@ -228,7 +228,7 @@ def foo():
 
 
 test('Calls',  () => {
-    const fileContent = `
+    const fileContent1 = `
 class Foo:
     def __init__(self):
         self.baz = 1
@@ -238,6 +238,9 @@ class Foo:
 
     def method2(self):
         self.method()
+    `
+    const fileContent2 = `
+from .file1 import Foo
 
 foo_var = Foo()
 if True:
@@ -246,23 +249,31 @@ if True:
 def foo(param: Foo):
     return param.method2()
 `
-    const fileNode = new Node(`${rootFolderPath}/file`, fileContent, 'file', 'python')
-    fileNode.generateImports()
-    const nodesMap = fileNode.getChildrenDefinitions()
+    const fileNode1 = new Node(`${rootFolderPath}/file1`, fileContent1, 'file', 'python')
+    const fileNode2 = new Node(`${rootFolderPath}/file2`, fileContent2, 'file', 'python')
+    fileNode1.generateImports()
+    fileNode2.generateImports()
+    const nodesMap1 = fileNode1.getChildrenDefinitions()
+    const nodesMap2 = fileNode2.getChildrenDefinitions()
     
     const fileNodesMap: {[id: string]: Node} = {}
-    fileNodesMap[fileNode.id] = fileNode
-    nodesMap[fileNode.id] = fileNode
+    fileNodesMap[fileNode1.id] = fileNode1
+    fileNodesMap[fileNode2.id] = fileNode2
+
+    nodesMap1[fileNode1.id] = fileNode1
+    nodesMap2[fileNode2.id] = fileNode2
+
+    const nodesMap = {...nodesMap1, ...nodesMap2}
     const codebase = new Codebase(rootFolderPath)
     codebase.nodesMap = nodesMap
     codebase.getCalls(fileNodesMap)
-    const fileCalls = codebase.getNode(`${rootFolderPath}/file`)?.simplify(['calls'])
-    const fooVarCalls = codebase.getNode(`${rootFolderPath}/file::foo_var`)?.simplify(['calls']) 
-    const method2Calls = codebase.getNode(`${rootFolderPath}/file::Foo.method2`)?.simplify(['calls'])
-    const fooCalls = codebase.getNode(`${rootFolderPath}/file::foo`)?.simplify(['calls'])
+    const method2Calls = codebase.getNode(`${rootFolderPath}/file1::Foo.method2`)?.simplify(['calls'])
+    const file2Calls = codebase.getNode(`${rootFolderPath}/file2`)?.simplify(['calls'])
+    const fooVarCalls = codebase.getNode(`${rootFolderPath}/file2::foo_var`)?.simplify(['calls']) 
+    const fooCalls = codebase.getNode(`${rootFolderPath}/file2::foo`)?.simplify(['calls'])
     
-    expect(fileCalls?.calls).toStrictEqual([`${rootFolderPath}/file::Foo`, `${rootFolderPath}/file::Foo.method`])
-    expect(fooVarCalls?.calls).toStrictEqual([`${rootFolderPath}/file::Foo`])
-    expect(method2Calls?.calls).toStrictEqual([`${rootFolderPath}/file::Foo.method`, `${rootFolderPath}/file::Foo`])
-    expect(fooCalls?.calls).toStrictEqual([`${rootFolderPath}/file::Foo`, `${rootFolderPath}/file::Foo.method2`])
+    expect(file2Calls?.calls).toStrictEqual([`${rootFolderPath}/file1::Foo`, `${rootFolderPath}/file1::Foo.method`])
+    expect(fooVarCalls?.calls).toStrictEqual([`${rootFolderPath}/file1::Foo`])
+    expect(method2Calls?.calls).toStrictEqual([`${rootFolderPath}/file1::Foo.method`, `${rootFolderPath}/file1::Foo`])
+    expect(fooCalls?.calls).toStrictEqual([`${rootFolderPath}/file1::Foo`, `${rootFolderPath}/file1::Foo.method2`])
 })
