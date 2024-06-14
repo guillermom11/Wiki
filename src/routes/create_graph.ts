@@ -32,7 +32,6 @@ createGraph.post('/', repoRequestValidator, async (c) => {
     branch,
     connection_id: connectionId
   } = request
-  console.log({ gitProvider, repoOrg, repoName, branch })
 
   const accessToken = c.req.header('Authorization')?.split('Bearer ')[1]
 
@@ -60,7 +59,6 @@ createGraph.post('/', repoRequestValidator, async (c) => {
   const resOrg = await sql`SELECT org_sel_id FROM profiles WHERE id = ${userId}`
   const userOrgId = resOrg[0].org_sel_id
 
-
   const gitAccessToken = await getAccessToken(gitProvider, connectionId, userOrgId)
   if (!gitAccessToken) {
     console.log('Failed to get access token')
@@ -72,9 +70,9 @@ createGraph.post('/', repoRequestValidator, async (c) => {
     console.log('Failed to get commit')
     return c.json({ message: 'Failed to get commit' }, 500)
   }
-  
-    // check if repo exists
-    const rows = await sql`
+
+  // check if repo exists
+  const rows = await sql`
       SELECT 
         id
       FROM repositories
@@ -86,22 +84,22 @@ createGraph.post('/', repoRequestValidator, async (c) => {
         AND commit_hash = ${commitHash}
     `
 
-    let repoId = uuidv4()
+  let repoId = uuidv4()
 
-    if (rows.length == 0) {
-      const res = await sql`
+  if (rows.length == 0) {
+    const res = await sql`
       INSERT INTO repositories (id, git_provider, repo_org, repo_name, branch, commit_hash)
       VALUES (${repoId}, ${gitProvider}, ${repoOrg}, ${repoName}, ${branch}, ${commitHash})`
 
-      if (!res) {
-        console.log('Failed to create repository')
-        return c.json({ message: 'Failed to create repository' }, 500)
-      }
-    } else {
-      repoId = rows[0].id
+    if (!res) {
+      console.log('Failed to create repository')
+      return c.json({ message: 'Failed to create repository' }, 500)
     }
+  } else {
+    repoId = rows[0].id
+  }
 
-    const graphUsersData = await sql`
+  const graphUsersData = await sql`
     SELECT g.org_id, g.user_id
     FROM nodes n -- must have at least one node
     LEFT JOIN repositories r 
@@ -112,23 +110,34 @@ createGraph.post('/', repoRequestValidator, async (c) => {
       n.repo_id = ${repoId}
       AND r.git_provider = ${gitProvider}
       AND r.commit_hash = ${commitHash}`
-  
-    let graphExists = false
 
-    // graph already exists with that commit
-    if (graphUsersData.length > 0) {
-      const orgIds = graphUsersData.map(row => row.org_id)
-      const userIds = graphUsersData.map(row => row.user_id)
-      // the user and org already have this graph
-      if (orgIds.includes(userOrgId) && userIds.includes(userId)) {
-        console.log('Graph already exists')
-        return c.json({ message: 'Graph already exists' }, 500)
-      }
-      graphExists = true
+  let graphExists = false
+
+  // graph already exists with that commit
+  if (graphUsersData.length > 0) {
+    const orgIds = graphUsersData.map((row) => row.org_id)
+    const userIds = graphUsersData.map((row) => row.user_id)
+    // the user and org already have this graph
+    if (orgIds.includes(userOrgId) && userIds.includes(userId)) {
+      console.log('Graph already exists')
+      return c.json({ message: 'Graph already exists' }, 500)
     }
+    graphExists = true
+  }
 
   // Perform background task
-  processGraphCreation({ gitProvider, repoId, repoOrg, repoName, branch, gitAccessToken, commitHash, userOrgId, userId, graphExists })
+  processGraphCreation({
+    gitProvider,
+    repoId,
+    repoOrg,
+    repoName,
+    branch,
+    gitAccessToken,
+    commitHash,
+    userOrgId,
+    userId,
+    graphExists
+  })
 
   return c.json({ message: 'Graph creation started' })
 })
@@ -143,22 +152,21 @@ async function processGraphCreation({
   commitHash,
   userOrgId,
   userId,
-  graphExists}
-  : {
-    gitProvider: GitServiceType,
-    repoId: string,
-    repoOrg: string,
-    repoName: string,
-    branch: string,
-    gitAccessToken: string,
-    commitHash: string,
-    userOrgId: string,
-    userId: string,
-    graphExists: boolean}) {
-
-    let graphId = uuidv4()
+  graphExists
+}: {
+  gitProvider: GitServiceType
+  repoId: string
+  repoOrg: string
+  repoName: string
+  branch: string
+  gitAccessToken: string
+  commitHash: string
+  userOrgId: string
+  userId: string
+  graphExists: boolean
+}) {
+  let graphId = uuidv4()
   try {
-  
     const status = graphExists ? 'completed' : 'pending'
     await sql`
     INSERT INTO graphs (id, repo_id, status, org_id, user_id)
@@ -168,9 +176,16 @@ async function processGraphCreation({
       console.log('Graph creation completed:', graphId)
       return
     }
-    
+
     // graph does not exist
-    const codebasePath = await downloadAndExtractRepo(gitProvider, repoOrg, repoName, branch, gitAccessToken, commitHash)
+    const codebasePath = await downloadAndExtractRepo(
+      gitProvider,
+      repoOrg,
+      repoName,
+      branch,
+      gitAccessToken,
+      commitHash
+    )
     if (!codebasePath) {
       console.log('Failed to download repo')
       await sql`UPDATE graphs SET status = 'failed' WHERE id = ${graphId}`
@@ -183,7 +198,7 @@ async function processGraphCreation({
     const nodes = codebase.simplify()
 
     // create a uuid for each node
-    const nodeDBIds: {[key: string]: string} = {}
+    const nodeDBIds: { [key: string]: string } = {}
     for (const node of nodes) {
       nodeDBIds[node.id] = uuidv4()
     }
@@ -193,7 +208,11 @@ async function processGraphCreation({
       const fullName = node.id.replace(codebasePath, '')
       return sql`
     INSERT INTO nodes (id, repo_id, type, language, total_tokens, documentation, code, code_no_body, in_degree, out_degree, full_name, label)
-    VALUES (${nodeDBIds[node.id]}, ${repoId}, ${node.type}, ${node.language}, ${node.totalTokens}, ${node.documentation}, ${node.code}, ${node.codeNoBody}, ${node.inDegree}, ${node.outDegree}, ${fullName}, ${node.label})
+    VALUES (${nodeDBIds[node.id]}, ${repoId}, ${node.type}, ${node.language}, ${
+        node.totalTokens
+      }, ${node.documentation}, ${node.code}, ${node.codeNoBody}, ${node.inDegree}, ${
+        node.outDegree
+      }, ${fullName}, ${node.label})
     `
     })
 

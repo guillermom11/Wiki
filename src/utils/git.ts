@@ -80,43 +80,58 @@ export async function getCommitRepo(
   branch: string,
   accessToken: string
 ): Promise<string> {
-  let commitUrl, headers
+  let commitUrl
+
+  const headers: Record<string, string> = {
+    Authorization: `Bearer ${accessToken}`
+  }
+
   switch (gitService) {
     case 'github':
       commitUrl = `https://api.github.com/repos/${repoOrg}/${repoName}/commits?sha=${branch}&per_page=1`
-      headers = {
-        Accept: 'application/vnd.github+json',
-        Authorization: `Bearer ${accessToken}`,
-        'X-GitHub-Api-Version': '2022-11-28'
-      }
+
+      headers['X-GitHub-Api-Version'] = '2022-11-28'
+      headers['Accept'] = 'application/vnd.github+json'
+
       break
     case 'gitlab':
-      commitUrl = `https://gitlab.com/api/v4/projects/${repoOrg}%2F${repoName}/repository/commits/${branch}`
-      headers = {
-        Authorization: `Bearer ${accessToken}`
-      }
+      commitUrl = `https://gitlab.com/api/v4/projects/${repoName}/repository/commits?ref_name=${branch}`
       break
     case 'bitbucket':
       commitUrl = `https://api.bitbucket.org/2.0/repositories/${repoOrg}/${repoName}/commits/${branch}`
-      headers = {
-        Authorization: `Bearer ${accessToken}`
-      }
       break
   }
   try {
-    const commitResponse = await axios({
-      method: 'GET',
-      url: commitUrl,
+    const res = await fetch(commitUrl, {
       headers
     })
-    const commitSha = commitResponse.data[0].sha
-    console.log(commitSha)
-    return commitSha 
 
+    if (!res.ok) {
+      const error = await res.json()
+      console.log({ error })
+      throw new Error('Error fetching commit')
+    }
+
+    const data = await res.json()
+
+    const commitSha = getCommitHash(gitService, data)
+    return commitSha
   } catch (error) {
     console.log(error)
     throw error
   }
+}
+
+function getCommitHash(provider: 'github' | 'gitlab' | 'bitbucket', data: any): string {
+  if (provider === 'github') {
+    return data[0].sha
+  } else if (provider === 'gitlab') {
+    return data[0].id
+  } else if (provider === 'bitbucket') {
+    return data.values[0].hash
+  }
+
+  return ''
 }
 
 export async function getAccessToken(
