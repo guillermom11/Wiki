@@ -14,27 +14,26 @@ export async function downloadAndExtractRepo(
   accessToken: string,
   commitSha: string
 ): Promise<string> {
-  let url, headers
+  let url
+
+  const headers: Record<string, string> = {
+    Authorization: `Bearer ${accessToken}`
+  }
+
   switch (gitService) {
     case 'github':
       url = `https://api.github.com/repos/${repoOrg}/${repoName}/zipball/${branch}`
-      headers = {
-        Accept: 'application/vnd.github+json',
-        Authorization: `Bearer ${accessToken}`,
-        'X-GitHub-Api-Version': '2022-11-28'
-      }
+
+      headers['Accept'] = 'application/vnd.github+json'
+      headers['X-GitHub-Api-Version'] = '2022-11-28'
       break
     case 'gitlab':
       url = `https://gitlab.com/api/v4/projects/${repoName}/repository/archive.zip?sha=${branch}`
-      headers = {
-        Authorization: `Bearer ${accessToken}`
-      }
+
       break
     case 'bitbucket':
-      url = `https://api.bitbucket.org/2.0/repositories/${repoOrg}/${repoName}/get?at=${branch}`
-      headers = {
-        Authorization: `Bearer ${accessToken}`
-      }
+      url = `https://bitbucket.org/${repoOrg}/${repoName}/get/${branch}.zip`
+
       break
   }
   try {
