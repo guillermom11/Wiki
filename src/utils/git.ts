@@ -1,6 +1,6 @@
-const axios = require('axios')
+import axios from 'axios'
 import fs from 'node:fs/promises'
-const AdmZip = require('adm-zip')
+import AdmZip from 'adm-zip'
 import path from 'node:path'
 import { sql } from './db'
 
@@ -25,7 +25,7 @@ export async function downloadAndExtractRepo(
       }
       break
     case 'gitlab':
-      url = `https://gitlab.com/api/v4/projects/${repoOrg}/${repoName}/repository/archive.zip?sha=${branch}`
+      url = `https://gitlab.com/api/v4/projects/${repoName}/repository/archive.zip?sha=${branch}`
       headers = {
         Authorization: `Bearer ${accessToken}`
       }
@@ -48,25 +48,28 @@ export async function downloadAndExtractRepo(
     const tmpFolderPath = `${process.cwd()}/tmp`
     await fs.mkdir(tmpFolderPath, { recursive: true })
 
-    const extractPath = `${tmpFolderPath}/${commitSha}_${repoOrg}_${repoName}_${branch}`
+    const extractPath = path.join(tmpFolderPath, `${commitSha}_${repoOrg}_${repoName}_${branch}`)
+
     // Save zip
     const zipPath = `${extractPath}.zip`
     await fs.writeFile(zipPath, response.data)
 
     // Extract zip
     const zip = new AdmZip(zipPath)
+
     const zipEntries = zip.getEntries()
+
     const mainFolderPath = zipEntries.find(
       (entry: any) =>
         entry.isDirectory &&
         entry.entryName.endsWith('/') &&
         (entry.entryName.match(/\//g) || []).length == 1
-    ).entryName
+    )?.entryName
     zip.extractAllTo(extractPath, true)
 
     // Delete zip
     await fs.unlink(zipPath)
-    return path.join(extractPath, mainFolderPath)
+    return path.join(extractPath, mainFolderPath ?? '')
   } catch (error) {
     console.log(error)
     throw error
