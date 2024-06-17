@@ -136,7 +136,8 @@ createGraph.post('/', repoRequestValidator, async (c) => {
     commitHash,
     userOrgId,
     userId,
-    graphExists
+    graphExists,
+    connectionId
   })
 
   return c.json({ message: 'Graph creation started' })
@@ -152,7 +153,8 @@ async function processGraphCreation({
   commitHash,
   userOrgId,
   userId,
-  graphExists
+  graphExists,
+  connectionId
 }: {
   gitProvider: GitServiceType
   repoId: string
@@ -163,15 +165,27 @@ async function processGraphCreation({
   commitHash: string
   userOrgId: string
   userId: string
-  graphExists: boolean
+  graphExists: boolean,
+  connectionId: string
 }) {
   let graphId = uuidv4()
   try {
     const status = graphExists ? 'completed' : 'pending'
-    await sql`
-    INSERT INTO graphs (id, repo_id, status, org_id, user_id)
-    VALUES (${graphId}, ${repoId}, ${status}, ${userOrgId}, ${userId})
-    `
+
+    const graph: Record<string, string | number> = {
+      id: graphId,
+      repo_id: repoId,
+      status,
+      org_id: userOrgId,
+      user_id: userId
+    }
+
+    if(gitProvider === 'github') graph.github_connection_id = Number(connectionId)
+    else if(gitProvider === 'gitlab') graph.gitlab_connection_id = Number(connectionId)
+    else if(gitProvider === 'bitbucket') graph.bitbucket_connection_id = connectionId
+
+    await sql`INSERT INTO graphs ${sql([graph])}`
+    
     if (graphExists) {
       console.log('Graph creation completed:', graphId)
       return
