@@ -270,37 +270,60 @@ export class Node {
         this.importStatements = importStatements.reverse()
     }
 
-    parseExportClauses() {
+    parseExportClauses(nodesMap: {[id: string]: Node} = {}) {
         // only js, ts have the "export { ... }" clause
         if (!['javascript', 'typescript', 'tsx'].includes(this.language)) return
         const captures = captureQuery(this.language, 'exportClauses', this.code) 
         captures.sort((a, b) => b.node.startPosition.row - a.node.startPosition.row || b.node.startPosition.column - a.node.startPosition.column)
         let name = ''
         let alias = ''
+        let moduleName = this.id
         captures.forEach(c => {
             switch (c.name) {
+                case 'module':
+                    moduleName = path.join(this.id.split('/').slice(0, -1).join('/'), c.node.text)
                 case 'alias':
                     alias = c.node.text
                     break
                 case 'name':
                     name = c.node.text
-                    const node = this.children[`${this.id}::${name}`]
-                    node.exportable = true
-                    node.alias = alias? alias : name
-                    // if the export clause includes an alias, then we have to update the id
-                    // since this is used to resolve imports and get calls 
-                    node.id = `${this.id}::${node.alias}`
-                    delete this.children[`${this.id}::${name}`]
-                    this.children[node.id] = node
-                    const childrenNodes = Object.values(node.children)
-                    childrenNodes.forEach(n => {
-                        n.alias = n.name.replace(name, alias)
-                        delete node.children[n.id]
-                        n.id = `${this.id}::${n.alias}`
-                        node.children[n.id] = n
-                    })
-                    name = ''
-                    alias = ''
+                    // the name is imported
+                    const importedName = this.importStatements.filter(i => i.names.map(n => n.alias).includes(name))[0]
+                    if (importedName) moduleName = importedName.path
+                    const node = this.children[`${this.id}::${name}`] || nodesMap[`${moduleName}::${name}`]
+                    if (node) {
+                        node.exportable = true
+                        node.alias = alias? alias : name
+                        // if the export clause includes an alias, then we have to update the id
+                        // since this is used to resolve imports and get calls 
+                        node.id = `${this.id}::${node.alias}`
+
+                        // the node is exported from the same file 
+                        if (moduleName === this.id) {
+                            delete this.children[`${this.id}::${name}`]
+                            this.children[node.id] = node
+                            const childrenNodes = Object.values(node.children)
+                            childrenNodes.forEach(n => {
+                                n.alias = n.name.replace(name, alias)
+                                delete node.children[n.id]
+                                n.id = `${this.id}::${n.alias}`
+                                node.children[n.id] = n
+                            })
+                        
+                        // it's using export { ... } from 'file'
+                        }
+                        // } else {
+                        //     node.exportable = true
+                        //     node.alias = alias? alias : name
+                        //     // add the node to the file node
+                        //     node.id = `${this.id}::${node.alias}`
+                        //     this.children[node.id] = node
+                        // }
+
+                    } 
+                    // else {
+                    //     console.log(`Export clause ${name} not found in ${this.id}`)
+                    // }
             }
         })
     }
@@ -514,8 +537,8 @@ export class Codebase {
         fileNode.name = filePath
         fileNode.alias = filePath.split('/').pop() || ''
         const nodesMap = fileNode.getChildrenDefinitions()
-        fileNode.parseExportClauses()
         fileNode.generateImports()
+        fileNode.parseExportClauses(this.nodesMap)
         nodesMap[fileNode.id] = fileNode
 
         // get tokens
@@ -601,8 +624,8 @@ export class Codebase {
         const nodes = Object.values(this.nodesMap)
         for (const n of nodes){
             if (n.parent) {
-                const label = n.parent.type === 'file' ? `defined in`: `from ${n.parent.type}`
-                links.push({source: n.id, target: n.parent.id, label })
+                const label = n.parent.type === 'file' ? `defines`: `from ${n.parent.type}`
+                links.push({source: n.parent.id, target: n.id, label })
             }
             if (n.calls.length > 0) n.calls.forEach(c => links.push({source: n.id, target: c.id, label: 'calls'}))
         }

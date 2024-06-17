@@ -22,16 +22,15 @@ import { parse } from "node:path";
 export async function getAllFiles(rootFolderPath: string): Promise<string[]> {
     const extensionsPattern =  Object.keys(languageExtensionMap).map(ext => `\\.${ext}$`).join('|');
     const regex = new RegExp(extensionsPattern);
-    const excludedPattern = excludedExtensions.map(ext  => `\\${ext}$`).join('|');
-    const excludedRegex = new RegExp(excludedPattern)
-    const excludedFolderPattern = new RegExp(excludedFolders.map(f => `${f}/?.*`).join('|'))
+    const excludedExtensionPattern = new RegExp(excludedExtensions.map(ext  => `\\.${ext}$`).join('|'));
+    const excludedFolderPattern = new RegExp(excludedFolders.map(f => `${f}/`).join('|'))
     const files = await glob(`**/*`, {
         cwd: rootFolderPath,
         absolute: true
     })
     // no sync
     const validFiles = await Promise.all(files.map(async (file) => (await fs.lstat(file)).isFile()))
-    const matchingFiles  = files.filter((file, i)  => regex.test(file) && validFiles[i] && !excludedRegex.test(file) && !excludedFolderPattern.test(file))
+    const matchingFiles  = files.filter((file, i)  => regex.test(file) && validFiles[i] && !excludedExtensionPattern.test(file) && !excludedFolderPattern.test(file) && !file.includes('@'))
     matchingFiles.sort() // sorted
     return matchingFiles;
 }

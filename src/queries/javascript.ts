@@ -130,12 +130,15 @@ ${arrowFunctionConstructor} @function
 ////////////////////
 // Export clauses can contain an alias
 const exportClauses = `
-(export_clause (
+( export_statement 
+ (export_clause (
     export_specifier
         name: (_) @name
           alias: (_)? @alias
           )
     )
+  (string (string_fragment) @module)?
+)
 `
 
 // ASSIGNMENT SPECIAL CASE
