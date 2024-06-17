@@ -17,7 +17,8 @@ const repoRequestValidator = zValidator(
     repo_org: z.string(),
     repo_name: z.string(),
     branch: z.string(),
-    connection_id: z.string()
+    connection_id: z.string(),
+    gitlab_repo_id: z.number().optional()
   })
 )
 
@@ -30,7 +31,8 @@ createGraph.post('/', repoRequestValidator, async (c) => {
     repo_org: repoOrg,
     repo_name: repoName,
     branch,
-    connection_id: connectionId
+    connection_id: connectionId,
+    gitlab_repo_id: gitlabRepoId
   } = request
 
   const accessToken = c.req.header('Authorization')?.split('Bearer ')[1]
@@ -65,11 +67,12 @@ createGraph.post('/', repoRequestValidator, async (c) => {
     return c.json({ message: 'Failed to get access token' }, 500)
   }
 
-  const commitHash = await getCommitRepo(gitProvider, repoOrg, repoName, branch, gitAccessToken)
+  const commitHash = await getCommitRepo(gitProvider, repoOrg, repoName, branch, gitAccessToken, gitlabRepoId)
   if (!commitHash) {
     console.log('Failed to get commit')
     return c.json({ message: 'Failed to get commit' }, 500)
   }
+
 
   // check if repo exists
   const rows = await sql`
@@ -87,9 +90,19 @@ createGraph.post('/', repoRequestValidator, async (c) => {
   let repoId = uuidv4()
 
   if (rows.length == 0) {
-    const res = await sql`
-      INSERT INTO repositories (id, git_provider, repo_org, repo_name, branch, commit_hash)
-      VALUES (${repoId}, ${gitProvider}, ${repoOrg}, ${repoName}, ${branch}, ${commitHash})`
+
+    const respository: Record<string, string | number> = {
+      id: repoId,
+      git_provider: gitProvider,
+      repo_org: repoOrg,
+      repo_name: repoName,
+      branch: branch,
+      commit_hash: commitHash
+    }
+
+    if(gitProvider === 'gitlab' && gitlabRepoId) respository.gitlab_repo_id = gitlabRepoId
+
+    const res = await sql`INSERT INTO repositories ${sql([respository])}`
 
     if (!res) {
       console.log('Failed to create repository')
@@ -137,7 +150,8 @@ createGraph.post('/', repoRequestValidator, async (c) => {
     userOrgId,
     userId,
     graphExists,
-    connectionId
+    connectionId,
+    gitlabRepoId
   })
 
   return c.json({ message: 'Graph creation started' })
@@ -154,7 +168,8 @@ async function processGraphCreation({
   userOrgId,
   userId,
   graphExists,
-  connectionId
+  connectionId,
+  gitlabRepoId
 }: {
   gitProvider: GitServiceType
   repoId: string
@@ -166,7 +181,8 @@ async function processGraphCreation({
   userOrgId: string
   userId: string
   graphExists: boolean,
-  connectionId: string
+  connectionId: string,
+  gitlabRepoId?: number
 }) {
   let graphId = uuidv4()
   try {
@@ -185,7 +201,7 @@ async function processGraphCreation({
     else if(gitProvider === 'bitbucket') graph.bitbucket_connection_id = connectionId
 
     await sql`INSERT INTO graphs ${sql([graph])}`
-    
+
     if (graphExists) {
       console.log('Graph creation completed:', graphId)
       return
@@ -198,7 +214,8 @@ async function processGraphCreation({
       repoName,
       branch,
       gitAccessToken,
-      commitHash
+      commitHash,
+      gitlabRepoId
     )
     if (!codebasePath) {
       console.log('Failed to download repo')

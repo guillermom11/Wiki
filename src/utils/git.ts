@@ -12,7 +12,8 @@ export async function downloadAndExtractRepo(
   repoName: string,
   branch: string,
   accessToken: string,
-  commitSha: string
+  commitSha: string,
+  gitlabRepoId?: number
 ): Promise<string> {
   let url
 
@@ -28,7 +29,7 @@ export async function downloadAndExtractRepo(
       headers['X-GitHub-Api-Version'] = '2022-11-28'
       break
     case 'gitlab':
-      url = `https://gitlab.com/api/v4/projects/${repoName}/repository/archive.zip?sha=${branch}`
+      url = `https://gitlab.com/api/v4/projects/${gitlabRepoId}/repository/archive.zip?sha=${branch}`
 
       break
     case 'bitbucket':
@@ -36,6 +37,7 @@ export async function downloadAndExtractRepo(
 
       break
   }
+  
   try {
     const response = await axios({
       method: 'GET',
@@ -80,7 +82,8 @@ export async function getCommitRepo(
   repoOrg: string,
   repoName: string,
   branch: string,
-  accessToken: string
+  accessToken: string,
+  gitlabRepoId?: number 
 ): Promise<string> {
   let commitUrl
 
@@ -97,7 +100,7 @@ export async function getCommitRepo(
 
       break
     case 'gitlab':
-      commitUrl = `https://gitlab.com/api/v4/projects/${repoName}/repository/commits?ref_name=${branch}`
+      commitUrl = `https://gitlab.com/api/v4/projects/${gitlabRepoId}/repository/commits?ref_name=${branch}`
       break
     case 'bitbucket':
       commitUrl = `https://api.bitbucket.org/2.0/repositories/${repoOrg}/${repoName}/commits/${branch}`
