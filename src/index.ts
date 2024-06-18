@@ -4,6 +4,7 @@ import { cors } from 'hono/cors'
 import { prettyJSON } from 'hono/pretty-json'
 import { createGraph } from './routes/create_graph'
 import { createGraphTest } from './routes/create_graph-test'
+import { graphs } from './routes/graphs'
 
 // const
 const app = new Hono()
@@ -27,6 +28,7 @@ app.use('/v1/*', cors())
 // })
 
 app.route('/v1/repo', createGraph)
+app.route('/v1/graphs', graphs)
 app.route('v1/repo-test', createGraphTest)
 
 const port = 8001

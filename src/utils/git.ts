@@ -3,6 +3,8 @@ import fs from 'node:fs/promises'
 import AdmZip from 'adm-zip'
 import path from 'node:path'
 import { sql } from './db'
+import { refreshAccessToken as refreshAccessTokenGitlab } from './gitlab/refresh-token'
+import { refreshAccessToken as refreshAccessTokenBitbucket } from './bitbucket/refresh-token'
 
 export type GitServiceType = 'github' | 'gitlab' | 'bitbucket'
 
@@ -37,7 +39,7 @@ export async function downloadAndExtractRepo(
 
       break
   }
-  
+
   try {
     const response = await axios({
       method: 'GET',
@@ -83,7 +85,9 @@ export async function getCommitRepo(
   repoName: string,
   branch: string,
   accessToken: string,
-  gitlabRepoId?: number 
+  refreshToken: string,
+  connectionId: string,
+  gitlabRepoId?: number,
 ): Promise<string> {
   let commitUrl
 
@@ -111,13 +115,60 @@ export async function getCommitRepo(
       headers
     })
 
+    let data
+
     if (!res.ok) {
       const error = await res.json()
-      console.log({ error })
-      throw new Error('Error fetching commit')
+
+      if (gitService === 'gitlab' && error.error === 'invalid_token') {
+        const { newAccessToken, newRefreshToken } = await refreshAccessTokenGitlab(refreshToken)
+        if (newAccessToken && newRefreshToken) {
+          await sql`
+            UPDATE gitlab_connections
+            SET 
+              access_token = ${newAccessToken}, 
+              refresh_token = ${newRefreshToken}
+            WHERE id = ${Number(connectionId)}
+          `
+        }
+
+        const res = await fetch(commitUrl, {
+          headers: {
+            Authorization: `Bearer ${newAccessToken}`
+          }
+        })
+        data = await res.json()
+      } else if (gitService === 'bitbucket' && res.status === 401) {
+        const { newAccessToken, newRefreshToken } = await refreshAccessTokenBitbucket(refreshToken)
+
+        if (newAccessToken && newRefreshToken) {
+          await sql`
+            UPDATE bitbucket_connections
+            SET 
+              access_token = ${newAccessToken}, 
+              refresh_token = ${newRefreshToken}
+            WHERE id = ${connectionId}
+          `
+        }
+
+        const res = await fetch(commitUrl, {
+          headers: {
+            Authorization: `Bearer ${newAccessToken}`
+          }
+        })
+
+        data = await res.json()
+
+      } else {
+        console.log({ error })
+        throw new Error('Error fetching commit')
+
+      }
+
+    } else {
+      data = await res.json()
     }
 
-    const data = await res.json()
 
     const commitSha = getCommitHash(gitService, data)
     return commitSha
@@ -143,16 +194,23 @@ export async function getAccessToken(
   gitProvider: GitServiceType,
   connectionId: string,
   UserOrgId: string
-): Promise<string | null> {
+): Promise<{
+  accessToken: string,
+  refreshToken: string
+} | null> {
   if (connectionId === '-1') {
-    return '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'
+    return {
+      accessToken: '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',
+      refreshToken: ''
+    }
   }
 
   try {
     const table = `${gitProvider}_connections`
     const rows = await sql`
       SELECT 
-        access_token
+        access_token,
+        refresh_token
       FROM ${sql(table)}
       WHERE 
         id = ${connectionId}
@@ -160,7 +218,11 @@ export async function getAccessToken(
     `
 
     if (rows.length === 0) return null
-    return rows[0].access_token
+
+    return {
+      accessToken: rows[0].access_token,
+      refreshToken: rows[0].refresh_token
+    }
   } catch (error) {
     console.log(error)
     return null
