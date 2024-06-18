@@ -160,15 +160,6 @@ export class Node {
         }
     }
 
-    propagateExportable() {
-        if (this.exportable) {
-            Object.keys(this.children).forEach(id => {
-                this.children[id].exportable = true
-                this.children[id].propagateExportable()
-            })
-        }
-    }
-
     getCodeWithoutBody() {
         let code = this.code
 
@@ -523,7 +514,22 @@ export class Codebase {
     constructor(rootFolderPath: string)  { this.rootFolderPath  = rootFolderPath }
     addNode(node: Node) { this.nodesMap[node.id] = node; }
     getNode(id: string): Node | undefined { return this.nodesMap[id];  }
-    addNodeMap(nodeMap: {[id: string]: Node})  { this.nodesMap  = {...this.nodesMap, ...nodeMap} }
+
+    addNodeMap(nodeMap: {[id: string]: Node})  { 
+
+        // a C project contains .h and .c files with the same name
+        Object.entries(nodeMap).forEach(([id, node]) => {       
+            if (Object.keys(this.nodesMap).includes(id)) {
+                Object.values(node.children).forEach(c => {
+                    this.nodesMap[id].addChild(c)
+                }) 
+                
+                if (this.nodesMap[id].alias.endsWith('.h')) this.nodesMap[id].alias = this.nodesMap[id].alias.replace('.h', '.c')
+            } else {
+                this.nodesMap[id] = node
+            }
+        })
+    }
 
     async generateNodesFromFilePath(filePath: string): Promise<{[id: string]: Node}> {
         const fileExtension  = filePath.split('.').pop()
