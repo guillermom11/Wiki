@@ -36,6 +36,22 @@ export async function getAllFiles(rootFolderPath: string): Promise<string[]> {
 }
 
 /**
+ * Get the total size of all files returned by getAllFiles
+ * 
+ * @param rootFolderPath - The root folder to search in
+ * @returns - The total size in bytes of the matching files
+ */
+export async function getTotalSize(rootFolderPath: string): Promise<number> {
+    const matchingFiles = await getAllFiles(rootFolderPath);
+    const sizes = await Promise.all(matchingFiles.map(async (file) => {
+        const { size } = await fs.stat(file);
+        return size;
+    }));
+    const totalSize = sizes.reduce((acc, size) => acc + size, 0);
+    return totalSize;
+}
+
+/**
  * Returns the Tree-Sitter parser and queries for a given language
  * @param language - The language to use
  * @returns - The parser and queries for the given language
