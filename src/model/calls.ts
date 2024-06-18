@@ -183,7 +183,7 @@ export class CallsCapturer {
         });
 
         // 2. Get Assignments
-        if (node.id.includes('main')) console.log(code)
+        // if (node.id.includes('main')) console.log(code)
         const varReplacements = this.captureAssignments(code, node.language)
         const codeLines = code.split('\n')
         const lenCodeLines = codeLines.length
