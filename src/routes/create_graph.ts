@@ -142,55 +142,61 @@ createGraph.post('/', repoRequestValidator, async (c) => {
     graphExists = true
   }
 
-  // Perform background task
-  processGraphCreation({
-    gitProvider,
-    repoId,
-    repoOrg,
-    repoName,
-    branch,
-    accessToken,
-    commitHash,
-    userOrgId,
-    userId,
-    graphExists,
-    connectionId,
-    gitlabRepoId
-  })
+  try {
+    const codebasePath = await downloadAndExtractRepo(
+      gitProvider,
+      repoOrg,
+      repoName,
+      branch,
+      accessToken,
+      commitHash,
+      gitlabRepoId
+    )
+    // Perform background task
+    processGraphCreation({
+      gitProvider,
+      repoId,
+      userOrgId,
+      userId,
+      graphExists,
+      connectionId,
+      codebasePath
+    })
 
-  return c.json({ message: 'Graph creation started' })
+    return c.json({ message: 'Graph creation started' })
+  } catch (error: any) {
+    return c.json({ message: error.message }, 500)
+  }
+
+
 })
 
 async function processGraphCreation({
   gitProvider,
   repoId,
-  repoOrg,
-  repoName,
-  branch,
-  accessToken,
-  commitHash,
   userOrgId,
   userId,
   graphExists,
   connectionId,
-  gitlabRepoId
+  codebasePath
 }: {
   gitProvider: GitServiceType
   repoId: string
-  repoOrg: string
-  repoName: string
-  branch: string
-  accessToken: string
-  commitHash: string
   userOrgId: string
   userId: string
   graphExists: boolean,
   connectionId: string,
-  gitlabRepoId?: number
+  codebasePath: string
 }) {
   let graphId = uuidv4()
   try {
     const status = graphExists ? 'completed' : 'pending'
+
+    // graph does not exist
+    if (!codebasePath) {
+      console.log('Failed to download repo')
+      return
+    }
 
     const graph: Record<string, string | number> = {
       id: graphId,
@@ -211,21 +217,6 @@ async function processGraphCreation({
       return
     }
 
-    // graph does not exist
-    const codebasePath = await downloadAndExtractRepo(
-      gitProvider,
-      repoOrg,
-      repoName,
-      branch,
-      accessToken,
-      commitHash,
-      gitlabRepoId
-    )
-    if (!codebasePath) {
-      console.log('Failed to download repo')
-      await sql`UPDATE graphs SET status = 'failed' WHERE id = ${graphId}`
-      return
-    }
 
     const codebase = new Codebase(codebasePath)
     const fileNodesMap = await codebase.parseFolder()
