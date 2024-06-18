@@ -584,22 +584,27 @@ export class Codebase {
                 if (verbose) console.log(`File ${fileId} has no children`)
                 return
             }
-            const callsCapturer = new CallsCapturer(fileNode, verbose)
-            const importedFiles: {[key: string]: Node} = {} 
+            
+
+            const importedFiles: Record<string, {fileNode: Node, importStatement: ImportStatement}> = {}
 
             // Point import statements to their respective File objects
             // console.log(`---- ${fileNode.id} ----`)
             fileNode.importStatements.forEach(i => {
+                const names = i.names.map(n => n.name)
                 if (Object.keys(fileNodesMap).includes(i.path)) {
-                    importedFiles[i.path]  = fileNodesMap[i.path]
+                    importedFiles[i.path]  = { fileNode: fileNodesMap[i.path], importStatement: i}
                 }
             })
 
-            importedFiles[fileNode.id] = fileNode
+            const selfImportStatement = new ImportStatement(fileNode.name, [], fileNode.id)
+            Object.values(fileNode.children).map(c => c.alias).forEach(c => selfImportStatement.names.push({name: c, alias: c}))
+            importedFiles[fileNode.id] = { fileNode: fileNode, importStatement: selfImportStatement}
 
+            const callsCapturer = new CallsCapturer(importedFiles, verbose)
             const nodes: Node[] = [fileNode , ...fileNode.getAllChildren()]
             nodes.forEach((n: Node) => {
-                const calls = callsCapturer.getCallsFromNode(n)
+                const calls = callsCapturer.getCallsFromNode(fileId, n)
                 // const importFromFailed: Set<string> = new Set()
                 // console.log( `### ${n.id}`)
                 // console.log(calls)

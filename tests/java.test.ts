@@ -166,7 +166,6 @@ public class Test {
     const fileNode2 = new Node(`${rootFolderPath}/file2`, fileContent2, 'file', 'java');
     const allFiles = [`${rootFolderPath}/file1.java`, `${rootFolderPath}/file2.java`];
 
-
     fileNode1.generateImports()
     fileNode2.generateImports()
     fileNode1.resolveImportStatementsPath(rootFolderPath, allFiles)

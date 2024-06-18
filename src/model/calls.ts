@@ -1,5 +1,5 @@
 import { cleanAndSplitContent, captureQuery } from "./utils"
-import { Node } from "./codebase"
+import { Node, ImportStatement} from "./codebase"
 import { itselfClassMap } from "./consts"
 
 class VariableAssignment {
@@ -33,16 +33,16 @@ class Call {
     }
 }
 export class CallsCapturer {
-    fileNode: Node
+    importedFiles: Record<string, {fileNode: Node, importStatement: ImportStatement}>= {}
     verbose: boolean = true
 
-    constructor(fileNode: Node, verbose: boolean = false) {
-        this.fileNode = fileNode
+    constructor(importedFiles: Record<string, {fileNode: Node, importStatement: ImportStatement}>, verbose: boolean = false) {
+        this.importedFiles = importedFiles
         this.verbose = verbose
     }
 
-    captureAssignments(code: string): VariableAssignment[] {
-        const captures = captureQuery(this.fileNode.language, 'assignments', code)
+    captureAssignments(code: string, language: string): VariableAssignment[] {
+        const captures = captureQuery(language, 'assignments', code)
         const results: { [key: string]: VariableAssignment[] } = {}
         let varAssignment = new VariableAssignment()
         let varAssignmentIdentifier = ''
@@ -87,7 +87,7 @@ export class CallsCapturer {
     }
 
     captureCalls(code: string, nodeRef: Node): CallIdentifier[]  {
-        const captures  = captureQuery(this.fileNode.language, 'calls', code)
+        const captures  = captureQuery(nodeRef.language, 'calls', code)
         captures.sort((a, b) => a.node.startPosition.row - b.node.startPosition.row || a.node.startPosition.column - b.node.startPosition.column)
         const results: CallIdentifier[]  = []
         const nodesSeen: Set<string> = new Set()
@@ -143,14 +143,22 @@ export class CallsCapturer {
         return results
     }
 
-    getCallsFromNode(node: Node) : Call[] {
+    getCallsFromNode(fileId: string, node: Node) : Call[] {
         // console.log(`///${node.name}///`)
         let code  = Object.keys(node.children).length > 0 ? node.getCodeWithoutBody() : node.code
         const nameAliasReplacements: { [key: string]: string }  = {}
-        this.fileNode.importStatements.forEach(i  =>  {
-            const path = i.path.replace(/\//g, '____').replace(/ /g, '__SPACE__').replace(/-/g, '__DASH__')
+        Object.values(this.importedFiles).forEach(({fileNode: f, importStatement: i})  =>  {
+            const path = f.id.replace(/\//g, '____').replace(/ /g, '__SPACE__').replace(/-/g, '__DASH__')
             if (i.names.length === 0) nameAliasReplacements[i.moduleAlias] = path
             for (const importName of i.names) nameAliasReplacements[importName.alias] = `${path}____${importName.name}`
+
+            // in C/C++ and C# when you import a file, you are importing all its children
+            if (['c', 'c++', 'csharp'].includes(node.language)) {
+                f.getAllChildren().forEach(c => {
+                    if (c.parent?.type === 'file' || c.parent?.type === 'class' || c.parent?.type === 'interface')
+                        nameAliasReplacements[c.name] = c.id.replace(/::/g, '____').replace(/\//g, '____').replace(/ /g, '__SPACE__').replace(/-/g, '__DASH__')
+                })
+            }
         })
         // Replace itself calls by the parent if its a method
         if (node.type === 'method') {
@@ -163,7 +171,7 @@ export class CallsCapturer {
         }
 
         // include all children only if its parent is the file or a class/interface
-        this.fileNode.getAllChildren().forEach(c => {
+        this.importedFiles[fileId].fileNode.getAllChildren().forEach(c => {
             if (c.parent?.type === 'file' || c.parent?.type === 'class' || c.parent?.type === 'interface')
                 nameAliasReplacements[c.name] = c.id.replace(/::/g, '____').replace(/\//g, '____').replace(/ /g, '__SPACE__').replace(/-/g, '__DASH__')
         })
@@ -175,7 +183,8 @@ export class CallsCapturer {
         });
 
         // 2. Get Assignments
-        const varReplacements = this.captureAssignments(code)
+        if (node.id.includes('main')) console.log(code)
+        const varReplacements = this.captureAssignments(code, node.language)
         const codeLines = code.split('\n')
         const lenCodeLines = codeLines.length
 
@@ -199,7 +208,7 @@ export class CallsCapturer {
         code = codeLines.join('\n')
         const capturedCalls = this.captureCalls(code, node)
         const results: {[key: string]: Call} = {}
-        const importStatementPaths = [this.fileNode.id, ...this.fileNode.importStatements.map(i => i.path)]
+        const importStatementPaths = Object.keys(this.importedFiles)
         capturedCalls.forEach(c  =>  {
             let importFrom = c.importFrom
             let callName = c.name.replace(/\?/g, '')
