@@ -196,49 +196,96 @@ union Value {
   expect(fileNode.inDegree).toBe(1);
 });
 
+
+test('Header file', () => {
+  const fileContent = `
+typedef struct Point {
+    int x;
+    int y;
+} Point;
+
+typedef union Value {
+    int intValue;
+    double floatValue;
+} Value;
+
+void function();
+`
+
+  const node = new Node(`${rootFolderPath}/file.h`, fileContent, "header", "c");
+  node.getChildrenDefinitions();
+  const expectedChildren = [
+    {
+      id: `${node.id}::function`,
+      type: "function",
+      name: "function"
+    },
+    {
+      id: `${node.id}::Value`,
+      type: "union",
+      name: "Value"
+    },
+    {
+      id: `${node.id}::Point`,
+      type: "struct",
+      name: "Point"
+    },
+  ];
+
+  const fileNodeChildrenSimplified = Object.values(node.children).map((n) =>
+    n.simplify(["id", "type", "name"])
+  );
+
+  expect(fileNodeChildrenSimplified).toStrictEqual(expectedChildren);
+  expect(node.inDegree).toBe(3);
+})
+
 test('Calls', () => {
-    const fileContent1 = `
+  const fileContent1 = `
 int add(int a, int b) {
-    return a + b;
+  return a + b;
 }
 `;
 
-    const fileContent2 = `
+  const fileContent2 = `
+#include <stdio.h>
 #include "file1.h"
 
 int x = 10;
 int y = 20;
 
 int main() {
-    int sum = add(x, y);
-    printf("The sum of %d and %d is %d", x, y, sum);
-    return 0;
+  int sum = add(x, y);
+  int diff = subtract(x, y);
+  printf("The sum of %d and %d is %d\\n", x, y, sum);
+  printf("The difference of %d and %d is %d\\n", x, y, diff);
+  return 0;
 }
 `;
 
-    const fileNode1 = new Node(`${rootFolderPath}/file1`, fileContent1, 'file', 'c');
-    const fileNode2 = new Node(`${rootFolderPath}/file2`, fileContent2, 'file', 'c');
-    const allFiles = [`${rootFolderPath}/file1.c`, `${rootFolderPath}/file2.c`];
+  const fileNode1 = new Node(`${rootFolderPath}/file1`, fileContent1, 'file', 'c');
+  const fileNode2 = new Node(`${rootFolderPath}/file2`, fileContent2, 'file', 'c');
+  const allFiles = [`${rootFolderPath}/file1.c`, `${rootFolderPath}/file2.c`];
 
-    fileNode1.generateImports()
-    fileNode2.generateImports()
-    fileNode1.resolveImportStatementsPath(rootFolderPath, allFiles)
-    fileNode2.resolveImportStatementsPath(rootFolderPath, allFiles)
-    
-    const nodesMap1 = fileNode1.getChildrenDefinitions();
-    const nodesMap2 = fileNode2.getChildrenDefinitions();
+  fileNode1.generateImports()
+  fileNode2.generateImports()
+  fileNode1.resolveImportStatementsPath(rootFolderPath, allFiles)
+  fileNode2.resolveImportStatementsPath(rootFolderPath, allFiles)
+  
+  const nodesMap1 = fileNode1.getChildrenDefinitions();
+  const nodesMap2 = fileNode2.getChildrenDefinitions();
 
-    const fileNodesMap: { [id: string]: Node } = {};
-    fileNodesMap[fileNode1.id] = fileNode1;
-    fileNodesMap[fileNode2.id] = fileNode2;
+  const fileNodesMap: { [id: string]: Node } = {};
+  fileNodesMap[fileNode1.id] = fileNode1;
+  fileNodesMap[fileNode2.id] = fileNode2;
 
-    const nodesMap = { ...nodesMap1, ...nodesMap2 };
-    const codebase = new Codebase(rootFolderPath);
-    codebase.nodesMap = nodesMap;
-    codebase.getCalls(fileNodesMap);
+  const nodesMap = { ...nodesMap1, ...nodesMap2 };
+  const codebase = new Codebase(rootFolderPath);
+  codebase.nodesMap = nodesMap;
+  codebase.getCalls(fileNodesMap);
 
-    
-    const mainCalls = codebase.getNode(`${rootFolderPath}/file2::main`)?.simplify(['calls']);
-    const expectedMainCalls = [`${rootFolderPath}/file1::add`, `${rootFolderPath}/file2::x`, `${rootFolderPath}/file2::y`];
-    expect(mainCalls?.calls).toStrictEqual(expectedMainCalls);
+  
+  const mainCalls = codebase.getNode(`${rootFolderPath}/file2::main`)?.simplify(['calls']);
+  const expectedMainCalls = [`${rootFolderPath}/file1::add`, `${rootFolderPath}/file2::x`, `${rootFolderPath}/file2::y`];
+  expect(mainCalls?.calls).toStrictEqual(expectedMainCalls);
 });
