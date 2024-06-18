@@ -9,7 +9,7 @@ import { getTotalSize } from '../model/utils'
 
 export type GitServiceType = 'github' | 'gitlab' | 'bitbucket'
 
-const MAXSIZE = 2 * 1024 * 1024 // MB
+const MAXSIZE = 2 // MB
 
 export async function downloadAndExtractRepo(
   gitService: GitServiceType,
@@ -77,11 +77,11 @@ export async function downloadAndExtractRepo(
     await fs.unlink(zipPath)
 
     const finalPath = path.join(extractPath, mainFolderPath ?? '')
-    const totalSize = await getTotalSize(finalPath)
-    console.log(`${totalSize / 1024 / 1024} MB`)
+    const totalSize = await getTotalSize(finalPath) / 1024 / 1024
+    console.log(`${totalSize} MB`)
     if (totalSize >= MAXSIZE) {
       await fs.rm(extractPath, { recursive: true, force: true })
-      throw new Error(`Repository size is too large: ${totalSize / 1024 / 1024} MB`)
+      throw new Error(`Repository size is too large: ${totalSize.toFixed(2)} MB. Max size is ${MAXSIZE} MB.`)
    }
     return finalPath
   } catch (error) {
