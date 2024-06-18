@@ -624,7 +624,8 @@ export class Codebase {
         const nodes = Object.values(this.nodesMap)
         for (const n of nodes){
             if (n.parent) {
-                const label = n.parent.type === 'file' ? `defines`: `from ${n.parent.type}`
+                // const label = n.parent.type === 'file' ? `defines`: `from ${n.parent.type}`
+                const label = 'defines'
                 links.push({source: n.parent.id, target: n.id, label })
             }
             if (n.calls.length > 0) n.calls.forEach(c => links.push({source: n.id, target: c.id, label: 'calls'}))
