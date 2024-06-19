@@ -15,8 +15,8 @@ test('Import Statements', () => {
 
     const expectedImports = [
         new ImportStatement("<stdio.h>", [], "<stdio.h>"),
-        new ImportStatement("myHeader.h", [], "/my/path/myHeader"),
-        new ImportStatement("../otherFolder/otherHeader.h", [], "/my/otherFolder/otherHeader"),
+        new ImportStatement("myHeader.h", [], "/my/path/myHeader::header"),
+        new ImportStatement("../otherFolder/otherHeader.h", [], "/my/otherFolder/otherHeader::header"),
       ];
       expect(fileNode.importStatements).toStrictEqual(expectedImports);
 })
@@ -291,13 +291,17 @@ int main() {
   fileNodesMap[fileNode1.id] = fileNode1
   fileNodesMap[fileNode2.id] = fileNode2
 
+  nodesMapHeader[headerNode1.id] = headerNode1
+  nodesMap1[fileNode1.id] = fileNode1
+  nodesMap2[fileNode2.id] = fileNode2
+
   const nodesMap = { ...nodesMapHeader, ...nodesMap1, ...nodesMap2 }
   const codebase = new Codebase(rootFolderPath)
   codebase.nodesMap = nodesMap
+
   codebase.resolveImportStatementsNodes()
   codebase.getCalls(fileNodesMap)
 
-  
   const mainCalls = codebase.getNode(`${rootFolderPath}/file2::main`)?.simplify(['calls']);
   const expectedMainCalls = [`${rootFolderPath}/file1::add`, `${rootFolderPath}/file2::x`, `${rootFolderPath}/file2::y`];
   expect(mainCalls?.calls).toStrictEqual(expectedMainCalls);

@@ -46,7 +46,6 @@ export class CallsCapturer {
         })
         // console.log(`/////${fileNode.id}`)
         // Object.keys(this.nodesMap).forEach(k => console.log(k))
-        // console.log({imports: fileNode.importStatements})
     }
 
     captureAssignments(code: string, language: string): VariableAssignment[] {
@@ -157,7 +156,6 @@ export class CallsCapturer {
         });
 
         // 2. Get Assignments
-        if (node.id.includes('HnswInsertAppendPage')) console.log(code)
         const varReplacements = this.captureAssignments(code, node.language)
         const codeLines = code.split('\n')
         const lenCodeLines = codeLines.length

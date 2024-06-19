@@ -656,14 +656,37 @@ export class Codebase {
                         i.names.push(newName)
                     })
                 })
+                if (['c', 'cpp'].includes(n.language)) {
+                    const headerNode = this.nodesMap[i.path]
+                    if (headerNode) {
+                        this.resolveHeaderC(n, headerNode)
+                    }
+                }  
+                // cases like import *, #define "file", etc.
                 if (i.names.length === 0) {
-                    this.nodesMap[i.path]?.getAllChildren(['file', 'class', 'interface', 'mod', 'namespace']).forEach(c => {
+                    this.nodesMap[i.path]?.getAllChildren(['file', 'class', 'interface', 'mod', 'namespace', 'header']).forEach(c => {
                         const newName = new ImportName(c.alias, c.alias)
                         newName.node = c
                         i.names.push(newName)
                     })
                 }
+                
             })
+        })
+    }
+
+    resolveHeaderC(fileNode: Node, headerNode: Node) {
+        if ( headerNode.type !== 'header' || !['c', 'cpp'].includes(headerNode.language)) return
+        const childIds = headerNode.getAllChildren().map(c => c.id)
+        childIds.forEach(id => {
+            const nodeRef = fileNode.getAllChildren().find(c => c.id === id.replace('::header', ''))
+            if (nodeRef) {
+                delete this.nodesMap[id]
+                headerNode.removeChild(headerNode.children[id])
+                headerNode.addChild(nodeRef)
+                headerNode.children[nodeRef.id] = nodeRef
+                headerNode.inDegree++
+            }
         })
     }
 

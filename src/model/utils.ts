@@ -168,6 +168,9 @@ export function renameSource(filePath: string, sourceName: string, language: str
     if ((['javascript', 'typescript', 'tsx', 'java', 'c', 'cpp', 'csharp'].includes(language) && newSourceName.startsWith('.') ||
         (['c', 'cpp', 'csharp'].includes(language) && !newSourceName.startsWith('<'))) ) {
         newSourceName = path.join(fileDirectory, newSourceName)
+        if (['c', 'cpp'].includes(language) && sourceNameExtension == 'h' ) {
+            newSourceName += '::header'
+        }
     } else if ( language == 'python') {
         const dotCount = firstConsecutiveDots(newSourceName)
         newSourceName = newSourceName.replace(/\./g, '/')
