@@ -10,35 +10,43 @@ class VariableAssignment {
 }
 
 class CallIdentifier {
-    name: string
+    nodeId: string
     line: number = 0
-    importFrom: string
 
-    constructor(name: string, line: number, importFrom: string) {
-        this.name = name
+    constructor(nodeId: string, line: number) {
+        this.nodeId = nodeId
         this.line = line
-        this.importFrom = importFrom
     }
 }
 
 class Call {
-    importFrom: string
-    name: string
+    nodeId: string
     lines: number[]
 
-    constructor(importFrom: string, name: string, lines: number[] = []) {
-        this.importFrom = importFrom
-        this.name = name
+    constructor(nodeId: string, lines: number[] = []) {
+        this.nodeId = nodeId
         this.lines = lines
     }
 }
 export class CallsCapturer {
-    importedFiles: Record<string, {fileNode: Node, importStatement: ImportStatement}>= {}
+    fileNode: Node
     verbose: boolean = true
+    nodesMap: {[key: string]: Node} = {}
 
-    constructor(importedFiles: Record<string, {fileNode: Node, importStatement: ImportStatement}>, verbose: boolean = false) {
-        this.importedFiles = importedFiles
+    constructor(fileNode: Node, verbose: boolean = false) {
+        this.fileNode = fileNode
         this.verbose = verbose
+        fileNode.getAllChildren().forEach( c => this.nodesMap[c.alias] = c )
+        fileNode.importStatements.forEach( i => {
+            i.names.forEach(n => {
+                if (n.node) {
+                    this.nodesMap[n.alias] = n.node
+                }
+            })
+        })
+        // console.log(`/////${fileNode.id}`)
+        // Object.keys(this.nodesMap).forEach(k => console.log(k))
+        // console.log({imports: fileNode.importStatements})
     }
 
     captureAssignments(code: string, language: string): VariableAssignment[] {
@@ -91,23 +99,7 @@ export class CallsCapturer {
         captures.sort((a, b) => a.node.startPosition.row - b.node.startPosition.row || a.node.startPosition.column - b.node.startPosition.column)
         const results: CallIdentifier[]  = []
         const nodesSeen: Set<string> = new Set()
-        let childrenNames: string[] = []
-        let possibleImportFrom = ''
-        if (nodeRef.parent && nodeRef.parent.children) {
-            childrenNames = Object.values(nodeRef.parent.children).map( c => c.name) // siblings
-            // include methods as childrenNames
-            Object.values(nodeRef.parent.children).forEach(c => {
-                if (['class'].includes(c.type)) Object.values(c.children).forEach(c => childrenNames.push(c.name))
-            })
-            possibleImportFrom = nodeRef.parent.id
-        } else if (nodeRef.type === 'file') {
-            childrenNames = Object.values(nodeRef.children).map( c => c.name)
-            // include methods as childrenNames
-            Object.values(nodeRef.children).forEach(c => {
-                if (['class'].includes(c.type)) Object.values(c.children).forEach(c => childrenNames.push(c.name))
-            })
-            possibleImportFrom = nodeRef.id
-        }
+
         captures.forEach(c => {
             let content = c.node.text
             const startLine = c.node.startPosition.row
@@ -119,62 +111,44 @@ export class CallsCapturer {
             // console.log(c.name, content)
             if (["identifier.name", "parameter_type", "return_type"].includes(c.name)) {
                 for ( const c of cleanAndSplitContent(content)) {
-                    let importFrom = ''
-                    const contentSplit = c.split('____')
-                    if (contentSplit.length > 1) {
-                        importFrom  = contentSplit.slice(0, -1).join('/')
-                        importFrom = importFrom.replace(/__SPACE__/g, ' ').replace(/__DASH__/g, '-')
+                    let callName = c.replace(/\?/g, '')
+                    const calledNode = this.nodesMap[callName]
+                    if (calledNode) {
+                        results.push(new CallIdentifier(calledNode.id, startLine))
                     }
-                    let callName = contentSplit.slice(-1)[0]
-                    if (!importFrom && childrenNames.includes(callName)) importFrom = possibleImportFrom
-                    if (importFrom) {
-                        results.push(new CallIdentifier(callName, startLine, importFrom))
-                        if (callName.includes('.')) {
-                            const callNameSplit = callName.split('.')
-                            for ( let i = 2; i < callNameSplit.length; i++) {
-                                callName = callNameSplit.slice(0, i).join('.')
-                                results.push(new CallIdentifier(callName, startLine, importFrom))
+                    if (callName.includes('.')) {
+                        const callNameSplit = callName.split('.')
+                        for ( let i = 2; i < callNameSplit.length; i++) {
+                            const calledNode =  this.nodesMap[callNameSplit.slice(0, i).join('.')]
+                            if (calledNode) {
+                                results.push(new CallIdentifier(calledNode.id, startLine))
                             }
+                            
                         }
                     }
+                    
                 }
             }
         })
         return results
     }
 
-    getCallsFromNode(fileId: string, node: Node) : Call[] {
+    getCallsFromNode(fileId: string, node: Node) : {[key: string]: number[]} {
         // console.log(`///${node.name}///`)
         let code  = Object.keys(node.children).length > 0 ? node.getCodeWithoutBody() : node.code
         const nameAliasReplacements: { [key: string]: string }  = {}
-        Object.values(this.importedFiles).forEach(({fileNode: f, importStatement: i})  =>  {
-            const path = f.id.replace(/\//g, '____').replace(/ /g, '__SPACE__').replace(/-/g, '__DASH__')
-            if (i.names.length === 0) nameAliasReplacements[i.moduleAlias] = path
-            for (const importName of i.names) nameAliasReplacements[importName.alias] = `${path}____${importName.name}`
-
-            // in C/C++ and C# when you import a file, you are importing all its children
-            if (['c', 'c++', 'csharp'].includes(node.language)) {
-                f.getAllChildren().forEach(c => {
-                    if (c.parent?.type === 'file' || c.parent?.type === 'class' || c.parent?.type === 'interface')
-                        nameAliasReplacements[c.name] = c.id.replace(/::/g, '____').replace(/\//g, '____').replace(/ /g, '__SPACE__').replace(/-/g, '__DASH__')
-                })
-            }
+        Object.values(this.fileNode.importStatements).forEach(i  =>  {
+            if (i.names.length === 0) nameAliasReplacements[i.moduleAlias] = i.module
+            for (const importName of i.names) nameAliasReplacements[importName.alias] = `${importName.name}`
         })
         // Replace itself calls by the parent if its a method
         if (node.type === 'method') {
             const itself = itselfClassMap[node.language]
-            const parentFileId = node.parent?.parent?.id.replace(/\//g, '____').replace(/ /g, '__SPACE__').replace(/-/g, '__DASH__') || ''
             const parentName = node.parent?.name || itself
-            nameAliasReplacements[itself] = `${parentFileId}____${parentName}`
+            nameAliasReplacements[itself] = parentName
             // this solves a bug
             if (['javascript', 'typescript', 'tsx'].includes(node.language)) code = `function ${code}`
         }
-
-        // include all children only if its parent is the file or a class/interface
-        this.importedFiles[fileId].fileNode.getAllChildren().forEach(c => {
-            if (c.parent?.type === 'file' || c.parent?.type === 'class' || c.parent?.type === 'interface')
-                nameAliasReplacements[c.name] = c.id.replace(/::/g, '____').replace(/\//g, '____').replace(/ /g, '__SPACE__').replace(/-/g, '__DASH__')
-        })
 
         // 1. Replace import names with aliases
         Object.entries(nameAliasReplacements).forEach(([k, v]) => {
@@ -183,7 +157,7 @@ export class CallsCapturer {
         });
 
         // 2. Get Assignments
-        // if (node.id.includes('main')) console.log(code)
+        if (node.id.includes('HnswInsertAppendPage')) console.log(code)
         const varReplacements = this.captureAssignments(code, node.language)
         const codeLines = code.split('\n')
         const lenCodeLines = codeLines.length
@@ -207,28 +181,14 @@ export class CallsCapturer {
         })
         code = codeLines.join('\n')
         const capturedCalls = this.captureCalls(code, node)
-        const results: {[key: string]: Call} = {}
-        const importStatementPaths = Object.keys(this.importedFiles)
+        const results: {[key: string]: number[]} = {}
         capturedCalls.forEach(c  =>  {
-            let importFrom = c.importFrom
-            let callName = c.name.replace(/\?/g, '')
-            // This solve a bug with python, when one can import a module instead of a component
-            let callNameSplit = callName.split('.')
-            if (importFrom.endsWith('/'+callNameSplit[0])) {
-                importFrom = importFrom.replace('/'+callNameSplit[0], '')
-                callName = callNameSplit.slice(-1)[0]
-            }
-            // Exclude calls to the node itself if it is in the first lines since that is likely a mistake
-            if (node.name == callName && c.line <= 1) return
-            // Exclude if importFrom is not a path
-            else if (!c.importFrom.includes('/')) return
-            // Exclude if importFrom is not in the import statement paths
-            else if (!importStatementPaths.includes(c.importFrom)) return
-            if (!Object.keys(results).includes(`${c.importFrom}::${callName}`)) {
-                results[`${c.importFrom}::${callName}`] = new Call(c.importFrom, callName)
+
+            if (!Object.keys(results).includes(c.nodeId)) {
+                results[c.nodeId] = []
             } 
-            results[`${c.importFrom}::${callName}`].lines.push(c.line)
+            results[c.nodeId].push(c.line)
         })
-        return Object.values(results)
+        return results
     }
 }

@@ -266,7 +266,10 @@ def foo(param: Foo):
     const nodesMap = {...nodesMap1, ...nodesMap2}
     const codebase = new Codebase(rootFolderPath)
     codebase.nodesMap = nodesMap
+
+    codebase.resolveImportStatementsNodes()
     codebase.getCalls(fileNodesMap)
+    
     const method2Calls = codebase.getNode(`${rootFolderPath}/file1::Foo.method2`)?.simplify(['calls'])
     const file2Calls = codebase.getNode(`${rootFolderPath}/file2`)?.simplify(['calls'])
     const fooVarCalls = codebase.getNode(`${rootFolderPath}/file2::foo_var`)?.simplify(['calls']) 

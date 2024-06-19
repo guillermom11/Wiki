@@ -212,7 +212,7 @@ typedef union Value {
 void function();
 `
 
-  const node = new Node(`${rootFolderPath}/file.h`, fileContent, "header", "c");
+  const node = new Node(`${rootFolderPath}/file::header`, fileContent, "header", "c");
   node.getChildrenDefinitions();
   const expectedChildren = [
     {
@@ -241,11 +241,18 @@ void function();
 })
 
 test('Calls', () => {
+  const header1 = `
+int add(int a, int b);
+`
+
+
   const fileContent1 = `
+#include "file1.h"
+
 int add(int a, int b) {
   return a + b;
 }
-`;
+`
 
   const fileContent2 = `
 #include <stdio.h>
@@ -263,26 +270,32 @@ int main() {
 }
 `;
 
-  const fileNode1 = new Node(`${rootFolderPath}/file1`, fileContent1, 'file', 'c');
-  const fileNode2 = new Node(`${rootFolderPath}/file2`, fileContent2, 'file', 'c');
-  const allFiles = [`${rootFolderPath}/file1.c`, `${rootFolderPath}/file2.c`];
+  const headerNode1 = new Node(`${rootFolderPath}/file1::header`, header1, 'header', 'c')
+  const fileNode1 = new Node(`${rootFolderPath}/file1`, fileContent1, 'file', 'c')
+  const fileNode2 = new Node(`${rootFolderPath}/file2`, fileContent2, 'file', 'c')
+  const allFiles = [`${rootFolderPath}/file1.c`, `${rootFolderPath}/file2.c`]
 
+  headerNode1.generateImports()
   fileNode1.generateImports()
   fileNode2.generateImports()
+  headerNode1.resolveImportStatementsPath(rootFolderPath, allFiles)
   fileNode1.resolveImportStatementsPath(rootFolderPath, allFiles)
   fileNode2.resolveImportStatementsPath(rootFolderPath, allFiles)
   
-  const nodesMap1 = fileNode1.getChildrenDefinitions();
-  const nodesMap2 = fileNode2.getChildrenDefinitions();
+  const nodesMapHeader = headerNode1.getChildrenDefinitions()
+  const nodesMap1 = fileNode1.getChildrenDefinitions()
+  const nodesMap2 = fileNode2.getChildrenDefinitions()
 
-  const fileNodesMap: { [id: string]: Node } = {};
-  fileNodesMap[fileNode1.id] = fileNode1;
-  fileNodesMap[fileNode2.id] = fileNode2;
+  const fileNodesMap: { [id: string]: Node } = {}
+  fileNodesMap[headerNode1.id] = headerNode1
+  fileNodesMap[fileNode1.id] = fileNode1
+  fileNodesMap[fileNode2.id] = fileNode2
 
-  const nodesMap = { ...nodesMap1, ...nodesMap2 };
-  const codebase = new Codebase(rootFolderPath);
-  codebase.nodesMap = nodesMap;
-  codebase.getCalls(fileNodesMap);
+  const nodesMap = { ...nodesMapHeader, ...nodesMap1, ...nodesMap2 }
+  const codebase = new Codebase(rootFolderPath)
+  codebase.nodesMap = nodesMap
+  codebase.resolveImportStatementsNodes()
+  codebase.getCalls(fileNodesMap)
 
   
   const mainCalls = codebase.getNode(`${rootFolderPath}/file2::main`)?.simplify(['calls']);
