@@ -7,12 +7,16 @@ const TSX = require("tree-sitter-typescript").tsx;
 const Java = require("tree-sitter-java");
 const C = require("tree-sitter-c");
 
-export type AllowedTypes = 'function' | 'class' | 'interface' | 'method' | 'enum' | 'struct' | 'namespace' | 'mod' | 'export' | 'type' | 'assignment' | 'file' | 'union'; 
+// namespace, mod and header are equivalent:
+// - a namespace define a scope that contains a set of declarations
+// - a mod defined a module, which contains a set of declarations
+// - a header is a file that contains a set of declarations
+export type AllowedTypes = 'function' | 'class' | 'interface' | 'method' | 'enum' | 'struct' | 'export' | 'type' | 'assignment' | 'file' | 'union' | 'namespace' | 'mod' | 'header' ; 
 
 export const AllowedTypesArray: AllowedTypes[] = [
     'function', 'class', 'interface', 'method', 'enum', 
-    'struct', 'namespace', 'mod', 'export', 'type', 
-    'assignment', 'file', 'union'
+    'struct', 'export', 'type', 'assignment', 'file', 'union',
+    'namespace', 'mod', 'header'
   ]
 
 export const excludedFolders = ['.git', '.vscode', 'venv', 'node_modules', 'dist', '__pycache__', 'tests', 'build', '_static', 'jest', '__tests__']
@@ -31,7 +35,7 @@ export const languages = {
 export const languageExtensionMap: Record<string, string> = {
   'py': 'python',
   'c': 'c',
-  'h': 'c', // may be we don't require the header file
+  'h': 'c',
   // 'ipynb': 'python',
   'js': 'typescript',
   'mjs': 'typescript',

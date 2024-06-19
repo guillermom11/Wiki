@@ -293,12 +293,14 @@ function foo(param: Foo) {
     const nodesMap = {...nodesMap1, ...nodesMap2}
     const codebase = new Codebase(rootFolderPath)
     codebase.nodesMap = nodesMap
+
+    codebase.resolveImportStatementsNodes()
     codebase.getCalls(fileNodesMap)
+    
     const method2Calls = codebase.getNode(`${rootFolderPath}/file1::Foo.method2`)?.simplify(['calls'])
     const file2Calls = codebase.getNode(`${rootFolderPath}/file2`)?.simplify(['calls'])
     const fooVarCalls = codebase.getNode(`${rootFolderPath}/file2::fooVar`)?.simplify(['calls']) 
     const fooCalls = codebase.getNode(`${rootFolderPath}/file2::foo`)?.simplify(['calls'])
-    
     expect(file2Calls?.calls).toStrictEqual([`${rootFolderPath}/file1::Foo`, `${rootFolderPath}/file1::Foo.method`])
     expect(fooVarCalls?.calls).toStrictEqual([`${rootFolderPath}/file1::Foo`])
     expect(method2Calls?.calls).toStrictEqual([`${rootFolderPath}/file1::Foo.method`, `${rootFolderPath}/file1::Foo`])

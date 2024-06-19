@@ -177,9 +177,14 @@ public class Test {
     fileNodesMap[fileNode1.id] = fileNode1;
     fileNodesMap[fileNode2.id] = fileNode2;
 
+    nodesMap1[fileNode1.id] = fileNode1
+    nodesMap2[fileNode2.id] = fileNode2
+    
     const nodesMap = { ...nodesMap1, ...nodesMap2 };
     const codebase = new Codebase(rootFolderPath);
     codebase.nodesMap = nodesMap;
+
+    codebase.resolveImportStatementsNodes();
     codebase.getCalls(fileNodesMap);
 
     const method2Calls = codebase.getNode(`${rootFolderPath}/file1::Foo.method2`)?.simplify(['calls']);

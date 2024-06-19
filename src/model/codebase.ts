@@ -23,6 +23,7 @@ const enc = encoding_for_model("gpt-4-turbo");
 export class ImportName {
   name: string = "";
   alias: string = "";
+  node?: Node;
   // subpath: string = ''
 
   constructor(name: string, alias?: string) {
@@ -35,9 +36,6 @@ export class ImportStatement {
   names: ImportName[];
   moduleAlias: string;
   path: string;
-  // code: string = ''
-  // startPosition: Point = {row: 0, column: 0}
-  // endPosition: Point = {row: 99999, column: 0}
 
   constructor(
     module: string = "",
@@ -103,9 +101,10 @@ export class Node {
     return;
   }
 
-  getAllChildren(): Node[] {
+  getAllChildren(parentTypes?: AllowedTypes[]): Node[] {
     // get childrens recursively
     const children: Node[] = [];
+    if (parentTypes && !parentTypes.includes(this.type)) return [];
     for (const child of Object.values(this.children)) {
       children.push(child);
       children.push(...child.getAllChildren());
@@ -411,9 +410,8 @@ export class Node {
     });
   }
 
-  //
   getChildrenDefinitions(): { [id: string]: Node } {
-    if (this.type !== "file") return {};
+    if (!["file", "header"].includes(this.type)) return {};
     const unnecessaryNodeTypes = ["export"]; // exclude it from the analysis
     const captures = captureQuery(
       this.language,
@@ -616,39 +614,39 @@ export class Codebase {
   getNode(id: string): Node | undefined {
     return this.nodesMap[id];
   }
-
   addNodeMap(nodeMap: { [id: string]: Node }) {
-    // a C project contains .h and .c files with the same name
-    Object.entries(nodeMap).forEach(([id, node]) => {
-      if (Object.keys(this.nodesMap).includes(id)) {
-        Object.values(node.children).forEach((c) => {
-          this.nodesMap[id].addChild(c);
-        });
-
-        if (this.nodesMap[id].alias.endsWith(".h"))
-          this.nodesMap[id].alias = this.nodesMap[id].alias.replace(".h", ".c");
-      } else {
-        this.nodesMap[id] = node;
-      }
-    });
+    this.nodesMap = { ...this.nodesMap, ...nodeMap };
   }
 
   async generateNodesFromFilePath(
     filePath: string
-  ): Promise<{ [id: string]: Node }> {
+  ): Promise<{ nodesMap: { [id: string]: Node }; isHeader: boolean }> {
     const fileExtension = filePath.split(".").pop();
-    if (!fileExtension) return {};
+    if (!fileExtension) return { nodesMap: {}, isHeader: false };
     const data = await fs.readFile(filePath);
     const dataString = Buffer.from(data).toString();
-    // Nodes are created using id, code, type, language
+    // Nodes are created using id, code, type, language. The id does not include the extension
     const filePathNoExtension = filePath.split(".").slice(0, -1).join(".");
-    // The id does not include the extension
-    const fileNode = new Node(
-      filePathNoExtension,
-      dataString,
-      "file",
-      languageExtensionMap[fileExtension]
-    );
+
+    let fileNode;
+    let isHeader = false;
+    // Special case: .h files (headers)
+    if (fileExtension === "h") {
+      fileNode = new Node(
+        `${filePathNoExtension}::header`,
+        dataString,
+        "header",
+        languageExtensionMap[fileExtension]
+      );
+      isHeader = true;
+    } else {
+      fileNode = new Node(
+        filePathNoExtension,
+        dataString,
+        "file",
+        languageExtensionMap[fileExtension]
+      );
+    }
     fileNode.name = filePath;
     fileNode.alias = filePath.split("/").pop() || "";
     const nodesMap = fileNode.getChildrenDefinitions();
@@ -661,7 +659,7 @@ export class Codebase {
       (n) => (n.totalTokens = enc.encode(n.code, "all", []).length)
     );
 
-    return nodesMap;
+    return { nodesMap, isHeader };
   }
 
   async parseFolder(): Promise<{ [id: string]: Node }> {
@@ -670,21 +668,25 @@ export class Codebase {
     const allFiles = await getAllFiles(this.rootFolderPath);
     for (const filePath of allFiles) {
       // can't be forEach
+      let id = filePath.split(".").slice(0, -1).join(".");
       try {
-        const nodeMap = await this.generateNodesFromFilePath(filePath);
-        this.addNodeMap(nodeMap);
-        const filePathNoExtension = filePath.split(".").slice(0, -1).join(".");
-        const fileNode = nodeMap[filePathNoExtension];
-        fileNodesMap[filePathNoExtension] = fileNode;
+        const { nodesMap, isHeader } = await this.generateNodesFromFilePath(
+          filePath
+        );
+        this.addNodeMap(nodesMap);
+        id = isHeader ? `${id}::header` : id;
+        const fileNode = nodesMap[id];
+        fileNodesMap[id] = fileNode;
         fileNode.resolveImportStatementsPath(this.rootFolderPath, allFiles);
       } catch (error: any) {
-        console.log(`Cannot parse file ${filePath}`);
+        console.log(`Cannot parse file Id ${id}`);
         console.log(error.message);
         throw error;
       }
     }
     // python special case
     this.resolvePythonInitImportStatements();
+    this.resolveImportStatementsNodes();
     return fileNodesMap;
   }
 
@@ -696,46 +698,17 @@ export class Codebase {
         return;
       }
 
-      const importedFiles: Record<
-        string,
-        { fileNode: Node; importStatement: ImportStatement }
-      > = {};
-
-      // Point import statements to their respective File objects
-      // console.log(`---- ${fileNode.id} ----`)
-      fileNode.importStatements.forEach((i) => {
-        const names = i.names.map((n) => n.name);
-        if (Object.keys(fileNodesMap).includes(i.path)) {
-          importedFiles[i.path] = {
-            fileNode: fileNodesMap[i.path],
-            importStatement: i,
-          };
-        }
-      });
-
-      const selfImportStatement = new ImportStatement(
-        fileNode.name,
-        [],
-        fileNode.id
-      );
-      Object.values(fileNode.children)
-        .map((c) => c.alias)
-        .forEach((c) => selfImportStatement.names.push({ name: c, alias: c }));
-      importedFiles[fileNode.id] = {
-        fileNode: fileNode,
-        importStatement: selfImportStatement,
-      };
-
-      const callsCapturer = new CallsCapturer(importedFiles, verbose);
+      const callsCapturer = new CallsCapturer(fileNode, verbose);
       const nodes: Node[] = [fileNode, ...fileNode.getAllChildren()];
       nodes.forEach((n: Node) => {
-        const calls = callsCapturer.getCallsFromNode(fileId, n);
+        const callNodeIds = callsCapturer.getCallsFromNode(fileId, n);
         // const importFromFailed: Set<string> = new Set()
         // console.log( `### ${n.id}`)
+        // console.log(n.code)
         // console.log(calls)
-        calls.forEach((c) => {
+        Object.entries(callNodeIds).forEach(([nodeId, lines]) => {
           // if (importFromFailed.has(c.importFrom)) return
-          const calledNode = getCalledNode(c.name, c.importFrom, importedFiles);
+          const calledNode = this.nodesMap[nodeId];
           if (calledNode) {
             n.calls.push(calledNode);
             n.outDegree++;
@@ -744,7 +717,7 @@ export class Codebase {
           } else {
             if (verbose)
               console.log(
-                `Failed to add call for node ${n.id}: ${c.name} (line ${c.lines}) not found in ${c.importFrom}`
+                `Failed to add call for node ${n.id}: ${nodeId} (line ${lines}) not found`
               );
             // importFromFailed.add(c.importFrom)
           }
@@ -793,6 +766,72 @@ export class Codebase {
         }
       });
       n.importStatements = newImportStatements;
+    });
+  }
+
+  resolveImportStatementsNodes() {
+    const nodes = Object.values(this.nodesMap);
+    nodes.forEach((n) => {
+      if (!["file", "header"].includes(n.type)) return;
+      n.importStatements.forEach((i) => {
+        i.names.forEach((n) => {
+          n.node = this.nodesMap[`${i.path}::${n.name}`];
+        });
+        const namesIds = i.names.map((n) => n.node?.id || "");
+        namesIds.forEach((id) => {
+          this.nodesMap[id]
+            ?.getAllChildren(["file", "class", "interface", "mod", "namespace"])
+            .forEach((c) => {
+              const newName = new ImportName(c.alias, c.alias);
+              newName.node = c;
+              i.names.push(newName);
+            });
+        });
+        if (["c", "cpp"].includes(n.language)) {
+          const headerNode = this.nodesMap[i.path];
+          if (headerNode) {
+            this.resolveHeaderC(n, headerNode);
+          }
+        }
+        // cases like import *, #define "file", etc.
+        if (i.names.length === 0) {
+          this.nodesMap[i.path]
+            ?.getAllChildren([
+              "file",
+              "class",
+              "interface",
+              "mod",
+              "namespace",
+              "header",
+            ])
+            .forEach((c) => {
+              const newName = new ImportName(c.alias, c.alias);
+              newName.node = c;
+              i.names.push(newName);
+            });
+        }
+      });
+    });
+  }
+
+  resolveHeaderC(fileNode: Node, headerNode: Node) {
+    if (
+      headerNode.type !== "header" ||
+      !["c", "cpp"].includes(headerNode.language)
+    )
+      return;
+    const childIds = headerNode.getAllChildren().map((c) => c.id);
+    childIds.forEach((id) => {
+      const nodeRef = fileNode
+        .getAllChildren()
+        .find((c) => c.id === id.replace("::header", ""));
+      if (nodeRef) {
+        delete this.nodesMap[id];
+        headerNode.removeChild(headerNode.children[id]);
+        headerNode.addChild(nodeRef);
+        headerNode.children[nodeRef.id] = nodeRef;
+        headerNode.inDegree++;
+      }
     });
   }
 }

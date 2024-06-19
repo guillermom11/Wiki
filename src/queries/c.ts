@@ -46,7 +46,7 @@ const definitionTemplate = `
      declarator: (function_declarator declarator: (identifier) @name) 
     ]
     parameters: (parameter_list (_) @param)?
-    body: (_) @body
+    body: (_)? @body
 )?
 
 ; For global assignments
@@ -67,6 +67,7 @@ const definitionTemplate = `
 // NOTE: @function is passed as method if is inside a class
 const constructorDefinitions = `
 (function_definition) @function
+(declaration (function_declarator)) @function
 (struct_specifier) @struct
 (union_specifier) @union
 `
