@@ -83,7 +83,10 @@ export function getRequiredDefinitions(language: string): { parser: Parser, quer
             parser.setLanguage(languages.C)
             queries = languageQueries.C
             break
-
+        case 'php':
+            parser.setLanguage(languages.PHP)
+            queries = languageQueries.PHP
+            break
         default:
             throw new Error(`Language ${language} not supported.`)
     }

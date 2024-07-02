@@ -3,13 +3,15 @@ import { tsQueries } from "./typescript"
 import { pyQueries } from "./python"
 import { javaQueries } from "./java"
 import { cQueries } from "./c"
+import { phpQueries } from "./php"
 
 export const languageQueries = {
     Javascript: jsQueries,
     Typescript: tsQueries,
     Python: pyQueries,
     Java: javaQueries,
-    C: cQueries
+    C: cQueries,
+    PHP: phpQueries,
 }
 
 
