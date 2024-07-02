@@ -48,10 +48,11 @@ const assignments = `
 
 const definitionTemplate = `
 ( _
+  (visibility_modifier)? @modifier
   name: (_) @name
   parameters: (formal_parameters (_) @param)?
   return_type: _? @return_type
-  body: ( _ ) @body
+  body: (_) @body ; NOTE: interfaces do not have a body
 )
 
 ; For global assignments   
@@ -61,8 +62,9 @@ const definitionTemplate = `
 
 const constructorDefinitions = `
 (class_declaration) @class
-(method_declaration) @function ;also considered as a function
+(method_declaration) @function ; also considered as a function
 (function_definition) @function
+(interface_declaration) @interface
 `
 
 ////////////////////

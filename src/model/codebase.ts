@@ -419,8 +419,8 @@ export class Node {
             // console.log(captures.map(c => { return {name: c.name, text: c.node.text?.slice(0, 60), start: c.node.startPosition, end: c.node.endPosition } }))
             captures.forEach((c)  =>  {
                 switch (c.name) {
-                    case 'modifier': // java only
-                        if (n.language == 'java' && c.node.text.includes('public')) n.exportable = true
+                    case 'modifier': // java, php only
+                        if (['php', 'java'].includes(n.language) && c.node.text.includes('public')) n.exportable = true
                         break
                     case 'name':
                         n.name = c.node.text
