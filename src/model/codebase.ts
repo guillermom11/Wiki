@@ -353,7 +353,7 @@ export class Node {
         const unnecessaryNodeTypes = ['export'] // exclude it from the analysis
         const captures = captureQuery(this.language, 'constructorDefinitions', this.code)
         captures.sort((a, b) => b.node.startPosition.row - a.node.startPosition.row || b.node.startPosition.column - a.node.startPosition.column)
-        let exportable = ['python'].includes(this.language) ? true : false
+        let exportable = ['python', 'php'].includes(this.language) ? true : false
         let childrenNodes: Node[] = []
     
         captures.forEach((c)  => {

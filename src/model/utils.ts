@@ -108,6 +108,9 @@ export function captureQuery(language: string, queryName: keyof treeSitterQuerie
     let uniqueCaptures = []
     try {
         const query = new Parser.Query(parser.getLanguage(), treeSitterQuery)
+        if (language === 'php' && !code.includes('<?php')){
+            code = `<?php\n${code}`
+        }
         const tree = parser.parse(code, undefined, { bufferSize: 512 * 1024})
         const captures = query.captures(tree.rootNode)
         const uniqueMap = new Map();

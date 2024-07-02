@@ -27,3 +27,47 @@ require_once 'file4.php';
     ];
     expect(fileNode.importStatements).toStrictEqual(expectedImports);
 });
+
+test('Global Variable Assignments', () => {
+    const fileContent = `
+<?php
+
+$globalVar = 'Hello, World!';
+$globalFoo = 'Foo';
+`;
+    const fileNode = new Node(`${rootFolderPath}/file`, fileContent, 'file', 'php');
+    fileNode.getChildrenDefinitions();
+
+    const expectedFileChildren = [
+        {
+            id: `${fileNode.id}::globalFoo`,
+            type: 'assignment',
+            name: 'globalFoo',
+            label: 'globalFoo',
+            language: 'php',
+            exportable: true,
+            documentation: '',
+            code: '$globalFoo = \'Foo\'',
+            parent: fileNode.id,
+            inDegree: 0,
+            outDegree: 1
+        },
+        {
+            id: `${fileNode.id}::globalVar`,
+            type: 'assignment',
+            name: 'globalVar',
+            label: 'globalVar',
+            language: 'php',
+            exportable: true,
+            documentation: '',
+            code: '$globalVar = \'Hello, World!\'',
+            parent: fileNode.id,
+            inDegree: 0,
+            outDegree: 1
+        },
+    ];
+
+    const fileNodeChildrenSimplified = Object.values(fileNode.children).map(n => n.simplify(nodeAttributes));
+    expect(fileNodeChildrenSimplified).toStrictEqual(expectedFileChildren);
+    expect(fileNode.inDegree).toBe(2);
+});

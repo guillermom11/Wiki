@@ -33,6 +33,13 @@ const importStatements = `
 
 // Global only
 const assignments = `
+(program
+	(expression_statement
+		(assignment_expression left: (variable_name)
+        					   right: (_)
+        ) @assignment 
+	) 
+)
 `
 
 //////////////////////////
@@ -40,11 +47,22 @@ const assignments = `
 //////////////////////////
 
 const definitionTemplate = `
+( _
+  name: (_) @name
+  parameters: (formal_parameters (_) @param)?
+  return_type: _? @return_type
+  body: ( _ ) @body
+)
+
+; For global assignments   
+(assignment_expression left: (variable_name (name) @name))
 `
 
-// The only way to detect if is async is to check if the function definition contains "async"
+
 const constructorDefinitions = `
 (class_declaration) @class
+(method_declaration) @function ;also considered as a function
+(function_definition) @function
 `
 
 ////////////////////
@@ -62,6 +80,14 @@ const exportClauses = `
 // ```
 // It will include the myEndpoint.get to the code of the assignment
 const extraAssignmentCode = (name: string) => `
+(program
+	(expression_statement
+		(binary_expression left: (_
+        		(variable_name (name) @identifier.name))
+        (#eq? @identifier.name "${name}")
+        ) @code
+	) 
+)
 `
 
 const calls = `
