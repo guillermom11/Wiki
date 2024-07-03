@@ -34,7 +34,7 @@ const startTime = new Date();
 // LLM settings
 const model = "gpt-3.5-turbo";
 const temperature = 0;
-const maxTokens = 1000;
+const max_tokens = 1000;
 
 // Prompts
 
@@ -204,7 +204,7 @@ async function generateNodeDocumentation(
 			],
 			model,
 			temperature,
-			maxTokens,
+			max_tokens,
 		});
 		const tokensUsed = response.usage.total_tokens;
 		totalTokensUsed += tokensUsed;
@@ -286,7 +286,7 @@ async function generateFileDocumentation(
 		],
 		model,
 		temperature,
-		maxTokens,
+		max_tokens,
 	});
 	const tokensUsed = completion.usage.total_tokens;
 	totalTokensUsed += tokensUsed;
@@ -351,7 +351,7 @@ async function generateFolderDocumentation(
 		],
 		model,
 		temperature,
-		maxTokens,
+		max_tokens,
 	});
 	const tokensUsed = completion.usage.total_tokens;
 	totalTokensUsed += tokensUsed;
