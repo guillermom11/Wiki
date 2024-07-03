@@ -1,6 +1,9 @@
 const fs2 = require("fs").promises;
 const path2 = require("path");
 const OpenAI2 = require("openai");
+const { Tiktoken } = require("tiktoken/lite");
+const cl100k_base = require("tiktoken/encoders/cl100k_base.json");
+
 /*Problems:
 -- links include links of files, which were supposed to not be included
 -- how to summarize files that don't have sub nodes so they don't have documentation? (like jest.config.js)
@@ -37,6 +40,7 @@ const temperature = 0;
 const max_tokens = 1024;
 const response_format = { type: "json_object" };
 
+const onlyLogs = false;
 // Prompts
 
 // Folders references
@@ -58,6 +62,23 @@ const timeElapsedInSecconds = ({
 	const timeElapsed = (endTime.getTime() - startTime.getTime()) / 1000;
 	console.log(fnName, timeElapsed);
 	return timeElapsed.toFixed(2);
+};
+
+const tokenizer = ({
+	fnName,
+	content,
+}: {
+	fnName: string;
+	content: string;
+}) => {
+	const encoding = new Tiktoken(
+		cl100k_base.bpe_ranks,
+		cl100k_base.special_tokens,
+		cl100k_base.pat_str
+	);
+	const tokens = encoding.encode(content);
+	console.log(fnName, tokens.length);
+	encoding.free();
 };
 
 (async () => {
@@ -222,27 +243,29 @@ async function generateNodeDocumentation(
 
 	`;
 
-	// const prompt = `Generate the documentation of the following ${node.type} called ${node.label}:
-	// 	\`\`\`
-	// 	${node.code}
-	// 	\`\`\`
-	// 	This ${node.type} uses the following nodes: <Nodes>${calledNodesSummary}</Nodes>\n\n`;
-
 	try {
-		const response = await client2.chat.completions.create({
-			messages: [
-				{
-					role: "system",
-					content: systemPrompt,
-				},
-			],
-			model,
-			temperature,
-			max_tokens,
-			response_format,
-		});
-		const tokensUsed = response.usage.total_tokens;
+		let response;
+
+		if (onlyLogs) {
+			response = null;
+		} else {
+			response = await client2.chat.completions.create({
+				messages: [
+					{
+						role: "system",
+						content: systemPrompt,
+					},
+				],
+				model,
+				temperature,
+				max_tokens,
+				response_format,
+			});
+		}
+
+		const tokensUsed = response.usage.total_tokens || 0;
 		totalTokensUsed += tokensUsed;
+
 		const FunctionEndTime = new Date();
 
 		timeElapsedInSecconds({
@@ -344,16 +367,27 @@ async function generateFileDocumentation(
 	{ 'content': '' }
 
 	`;
+	let response;
 
-	const completion = await client2.chat.completions.create({
-		messages: [{ role: "system", content: systemPrompt }],
-		model,
-		temperature,
-		max_tokens,
-		response_format,
-	});
+	try {
+		if (onlyLogs) {
+			response = null;
+		} else {
+			response = await client2.chat.completions.create({
+				messages: [{ role: "system", content: systemPrompt }],
+				model,
+				temperature,
+				max_tokens,
+				response_format,
+			});
+		}
+	} catch (error) {
+		console.error(`Error fn generateFileDocumentation:`, error);
+		return "";
+	}
 
-	const tokensUsed = completion.usage.total_tokens;
+	const tokensUsed = response?.usage.total_tokens || 0;
+	const inputTokens = response?.usage.prompt_tokens || 0;
 	totalTokensUsed += tokensUsed;
 
 	const FunctionEndTime = new Date();
@@ -369,13 +403,17 @@ async function generateFileDocumentation(
 		"prompt:",
 		systemPrompt,
 		"\n",
-		completion.choices[0].message.content,
+		response?.choices[0].message.content,
 		"\n\n",
+		"Tokenized:",
+		tokenizer({ fnName: "generateFileDocumentation", content: systemPrompt }),
+		"prompt_tokens:",
+		inputTokens,
 		"total_tokens:",
-		completion.usage.total_tokens
+		response?.usage.total_tokens
 	);
 
-	return completion.choices[0].message.content;
+	return response?.choices[0].message.content;
 }
 
 async function documentFolders(filesDocumentation: any) {
