@@ -45,8 +45,11 @@ const onlyLogs = false;
 
 // Folders references
 const projectId = "codebase-index-ts";
-const nodesPath: string = `../../test_files/${projectId}/nodes.json`;
-const linksPath: string = `../../test_files/${projectId}/links.json`;
+const forder_path = `../../test_files/`;
+
+const nodesPath: string = `${forder_path}/${projectId}/nodes.json`;
+const linksPath: string = `${forder_path}/${projectId}/links.json`;
+
 let totalTokensUsed = 0;
 
 // Utils
