@@ -34,7 +34,8 @@ const startTime = new Date();
 // LLM settings
 const model = "gpt-3.5-turbo";
 const temperature = 0;
-const max_tokens = 1000;
+const max_tokens = 1024;
+const response_format = { type: "json_object" };
 
 // Prompts
 
@@ -62,15 +63,20 @@ const timeElapsedInSecconds = ({
 (async () => {
 	const nodesWithFiles: wikiNode[] = await readJson(nodesPath); //nodes including the ones that are files
 	const nodes = nodesWithFiles.filter((item: any) => item.type !== "file"); //nodes that are not file
+
 	await fs2.writeFile("myNodes.json", JSON.stringify(nodes, null, 2));
 	const links: wikiLink[] = await readJson(linksPath);
 	const callGraph = buildCallGraph(nodes, links);
+
 	await fs2.writeFile("callGraph.json", JSON.stringify(callGraph, null, 2));
 	const startNodes = findStartNodes(callGraph); //leaf nodes
+
 	await fs2.writeFile("startNodes.json", JSON.stringify(startNodes, null, 2));
 	const usedNodes = await readJson("usedNodes.json");
+
 	//const usedNodes = await bfs(startNodes, callGraph, nodes); //only nodes with documentation
 	// await fs2.writeFile("usedNodes.json", JSON.stringify(usedNodes, null, 2));
+
 	const fileToNodes = nodesWithFiles
 		.filter((item: wikiNode) => item.type === "file")
 		.reduce((acc: any, item: any) => {
@@ -179,7 +185,7 @@ async function bfs(
 	return usedNodes;
 }
 
-// 1. Genera la documentacion de un nodo; todos los nodos en node.json pero que no son files y que tienen links con label 'calls'
+// 2. Genera la documentacion de un nodo; todos los nodos en node.json pero que no son files y que tienen links con label 'calls'
 async function generateNodeDocumentation(
 	node: wikiNode,
 	calledNodesSummary: string
@@ -187,24 +193,53 @@ async function generateNodeDocumentation(
 	const FunctionStartTime = new Date();
 	console.log("start generateNodeDocumentation", FunctionStartTime);
 
-	const prompt = `Generate the documentation of the following ${node.type} called ${node.label}:
-    \`\`\`
-    ${node.code}
-    \`\`\`
-    This ${node.type} uses the following nodes:
-    ${calledNodesSummary} `;
+	const language = "typescript"; // @TODO: cambiar por el lenguaje del codigo dinamicamente
+
+	const systemPrompt = `Generate a short description about the code bellow.
+	- The documentation you make should be in Markdown format.
+	- Create the description only about the code.
+	- You must generate a valid JSON object.
+	- Please put the documentation in the JSON.
+	- Node Type: ${node.type}; Node Label: ${node.label}.
+	- Prevent any prose.
+
+	# JSON FORMAT:
+	{ content: string }
+
+	---
+
+	# CODE CONTENT:
+	<CodeContent>
+		\`\`\`
+		${node.code}
+		\`\`\`
+	</CodeContent>
+
+	This ${node.type} uses the following nodes: <Nodes>${calledNodesSummary}</Nodes>\n\n
+	---
+	# JSON FORMAT:
+	{ 'content': '' }
+
+	`;
+
+	// const prompt = `Generate the documentation of the following ${node.type} called ${node.label}:
+	// 	\`\`\`
+	// 	${node.code}
+	// 	\`\`\`
+	// 	This ${node.type} uses the following nodes: <Nodes>${calledNodesSummary}</Nodes>\n\n`;
 
 	try {
 		const response = await client2.chat.completions.create({
 			messages: [
 				{
-					role: "user",
-					content: prompt,
+					role: "system",
+					content: systemPrompt,
 				},
 			],
 			model,
 			temperature,
 			max_tokens,
+			response_format,
 		});
 		const tokensUsed = response.usage.total_tokens;
 		totalTokensUsed += tokensUsed;
@@ -220,6 +255,20 @@ async function generateNodeDocumentation(
 			"generateNodeDocumentation time",
 			(FunctionEndTime.getTime() - FunctionStartTime.getTime()).toFixed(2)
 		);
+
+		console.log(
+			"\ngenerateNodeDocumentation",
+			"prompt:",
+			prompt,
+			"\n",
+			"response:",
+			response.choices[0].message.content,
+			"\n",
+			"total_tokens:",
+			response.usage.total_tokens,
+			"\n\n"
+		);
+
 		return response.choices[0].message.content;
 	} catch (err) {
 		console.error(`Error generating documentation for ${node.id}:`, err);
@@ -260,34 +309,50 @@ async function classifyAndDocumentFiles(
 	return filesDocumentation;
 }
 
-// 2. generateFileDocumentation: Genera la documentacion de un archivo.
-
+// 1. generateFileDocumentation: Genera la documentacion de un archivo.
 async function generateFileDocumentation(
 	filePath: string,
 	fileContent: string
 ): Promise<string> {
 	const FunctionStartTime = new Date();
+
 	console.log("start generateFileDocumentation", FunctionStartTime);
 
-	const promptSystem1 =
-		"You are wikiGPT. You will provide a wikipedia style info page documentation for the contents of a file. Given the contents of a file (documentation of parts of the file), you will generate a documentation of the file. Please be systematic and organized in your documentation. The documentation should be like a Wikipedia page style. The documentation you make should be in Markdown format.";
+	const language = filePath.split(".")[1];
 
-	const promptUser1 = `I need you to document and describe the content of a file, which is part of a repository. The content of a file is made up of the documentation of it's parts. Don't add code to the documentation. The file that I want you to document and describe about is the following: \n\n ${fileContent}\n\n. Mention the file path which is: ${filePath}. Be systematic and keep in mind this is for a wiki page. Start by identifying the file and then continue by documenting it. Crucial: At every opportunity you will link to other relative paths of the repo. The documentation of the file should be between 330 words and 400 words. Use prose!!!! Be organized and systematic with the organization of the content. The documentation should be in Markdown format and it should be in prose.`;
+	const systemPrompt = `Generate a short description about the \`${language}\` code bellow.
+	- The documentation you make should be in Markdown format.
+	- Create the description only about the code.
+	- You must generate a valid JSON object.
+	- Please put the documentation in the JSON.
+	- Prevent any prose.
+
+	# JSON FORMAT:
+	{ content: string }
+
+	---
+
+	# CODE CONTENT:
+	<FileContent>
+		\`\`\` ${filePath}
+		${fileContent}
+		\`\`\`
+	</FileContent>
+
+	---
+	# JSON FORMAT:
+	{ 'content': '' }
+
+	`;
+
 	const completion = await client2.chat.completions.create({
-		messages: [
-			{
-				role: "system",
-				content: promptSystem1,
-			},
-			{
-				role: "user",
-				content: promptUser1,
-			},
-		],
+		messages: [{ role: "system", content: systemPrompt }],
 		model,
 		temperature,
 		max_tokens,
+		response_format,
 	});
+
 	const tokensUsed = completion.usage.total_tokens;
 	totalTokensUsed += tokensUsed;
 
@@ -298,6 +363,17 @@ async function generateFileDocumentation(
 		startTime: FunctionStartTime,
 		endTime: FunctionEndTime,
 	});
+
+	console.log(
+		"\ngenerateFileDocumentation\n",
+		"prompt:",
+		systemPrompt,
+		"\n",
+		completion.choices[0].message.content,
+		"\n\n",
+		"total_tokens:",
+		completion.usage.total_tokens
+	);
 
 	return completion.choices[0].message.content;
 }
@@ -325,7 +401,6 @@ async function documentFolders(filesDocumentation: any) {
 }
 
 // 3. generateFolderDocumentation: Genera la documentacion de un folder.
-
 async function generateFolderDocumentation(
 	folderPath: string,
 	folderContent: string
