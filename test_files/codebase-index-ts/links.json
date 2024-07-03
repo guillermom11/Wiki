@@ -1,0 +1,1717 @@
+[
+  {
+    "source": "codebase-index-ts/src/index",
+    "target": "codebase-index-ts/src/index::port",
+    "label": "defines"
+  },
+  {
+    "source": "codebase-index-ts/src/index",
+    "target": "codebase-index-ts/src/index::fs",
+    "label": "defines"
+  },
+  {
+    "source": "codebase-index-ts/src/index",
+    "target": "codebase-index-ts/src/index::app",
+    "label": "defines"
+  },
+  {
+    "source": "codebase-index-ts/src/model/calls::CallsCapturer",
+    "target": "codebase-index-ts/src/model/calls::CallsCapturer.getCallsFromNode",
+    "label": "defines"
+  },
+  {
+    "source": "codebase-index-ts/src/model/calls::CallsCapturer.getCallsFromNode",
+    "target": "codebase-index-ts/src/model/calls::CallsCapturer",
+    "label": "calls"
+  },
+  {
+    "source": "codebase-index-ts/src/model/calls::CallsCapturer.getCallsFromNode",
+    "target": "codebase-index-ts/src/model/calls::CallsCapturer.captureAssignments",
+    "label": "calls"
+  },
+  {
+    "source": "codebase-index-ts/src/model/calls::CallsCapturer.getCallsFromNode",
+    "target": "codebase-index-ts/src/model/calls::CallsCapturer.captureCalls",
+    "label": "calls"
+  },
+  {
+    "source": "codebase-index-ts/src/model/calls::CallsCapturer",
+    "target": "codebase-index-ts/src/model/calls::CallsCapturer.captureCalls",
+    "label": "defines"
+  },
+  {
+    "source": "codebase-index-ts/src/model/calls::CallsCapturer.captureCalls",
+    "target": "codebase-index-ts/src/model/calls::CallIdentifier",
+    "label": "calls"
+  },
+  {
+    "source": "codebase-index-ts/src/model/calls::CallsCapturer.captureCalls",
+    "target": "codebase-index-ts/src/model/calls::CallsCapturer",
+    "label": "calls"
+  },
+  {
+    "source": "codebase-index-ts/src/model/calls::CallsCapturer",
+    "target": "codebase-index-ts/src/model/calls::CallsCapturer.captureAssignments",
+    "label": "defines"
+  },
+  {
+    "source": "codebase-index-ts/src/model/calls::CallsCapturer.captureAssignments",
+    "target": "codebase-index-ts/src/model/calls::VariableAssignment",
+    "label": "calls"
+  },
+  {
+    "source": "codebase-index-ts/src/model/calls::CallsCapturer",
+    "target": "codebase-index-ts/src/model/calls::CallsCapturer.constructor",
+    "label": "defines"
+  },
+  {
+    "source": "codebase-index-ts/src/model/calls::CallsCapturer.constructor",
+    "target": "codebase-index-ts/src/model/calls::CallsCapturer",
+    "label": "calls"
+  },
+  {
+    "source": "codebase-index-ts/src/model/calls",
+    "target": "codebase-index-ts/src/model/calls::CallsCapturer",
+    "label": "defines"
+  },
+  {
+    "source": "codebase-index-ts/src/model/calls::CallsCapturer",
+    "target": "codebase-index-ts/src/model/calls::CallsCapturer",
+    "label": "calls"
+  },
+  {
+    "source": "codebase-index-ts/src/model/calls::CallsCapturer",
+    "target": "codebase-index-ts/src/model/calls::VariableAssignment",
+    "label": "calls"
+  },
+  {
+    "source": "codebase-index-ts/src/model/calls::CallsCapturer",
+    "target": "codebase-index-ts/src/model/calls::CallIdentifier",
+    "label": "calls"
+  },
+  {
+    "source": "codebase-index-ts/src/model/calls::Call",
+    "target": "codebase-index-ts/src/model/calls::Call.constructor",
+    "label": "defines"
+  },
+  {
+    "source": "codebase-index-ts/src/model/calls::Call.constructor",
+    "target": "codebase-index-ts/src/model/calls::Call",
+    "label": "calls"
+  },
+  {
+    "source": "codebase-index-ts/src/model/calls",
+    "target": "codebase-index-ts/src/model/calls::Call",
+    "label": "defines"
+  },
+  {
+    "source": "codebase-index-ts/src/model/calls::Call",
+    "target": "codebase-index-ts/src/model/calls::Call",
+    "label": "calls"
+  },
+  {
+    "source": "codebase-index-ts/src/model/calls::CallIdentifier",
+    "target": "codebase-index-ts/src/model/calls::CallIdentifier.constructor",
+    "label": "defines"
+  },
+  {
+    "source": "codebase-index-ts/src/model/calls::CallIdentifier.constructor",
+    "target": "codebase-index-ts/src/model/calls::CallIdentifier",
+    "label": "calls"
+  },
+  {
+    "source": "codebase-index-ts/src/model/calls",
+    "target": "codebase-index-ts/src/model/calls::CallIdentifier",
+    "label": "defines"
+  },
+  {
+    "source": "codebase-index-ts/src/model/calls::CallIdentifier",
+    "target": "codebase-index-ts/src/model/calls::CallIdentifier",
+    "label": "calls"
+  },
+  {
+    "source": "codebase-index-ts/src/model/calls",
+    "target": "codebase-index-ts/src/model/calls::VariableAssignment",
+    "label": "defines"
+  },
+  {
+    "source": "codebase-index-ts/src/model/calls::VariableAssignment",
+    "target": "codebase-index-ts/src/model/calls::VariableAssignment",
+    "label": "calls"
+  },
+  {
+    "source": "codebase-index-ts/src/model/calls",
+    "target": "codebase-index-ts/src/model/calls::VariableAssignment",
+    "label": "calls"
+  },
+  {
+    "source": "codebase-index-ts/src/model/calls",
+    "target": "codebase-index-ts/src/model/calls::CallIdentifier",
+    "label": "calls"
+  },
+  {
+    "source": "codebase-index-ts/src/model/calls",
+    "target": "codebase-index-ts/src/model/calls::Call",
+    "label": "calls"
+  },
+  {
+    "source": "codebase-index-ts/src/model/calls",
+    "target": "codebase-index-ts/src/model/calls::CallsCapturer",
+    "label": "calls"
+  },
+  {
+    "source": "codebase-index-ts/src/model/codebase::Codebase",
+    "target": "codebase-index-ts/src/model/codebase::Codebase.resolveHeaderC",
+    "label": "defines"
+  },
+  {
+    "source": "codebase-index-ts/src/model/codebase::Codebase.resolveHeaderC",
+    "target": "codebase-index-ts/src/model/codebase::Node",
+    "label": "calls"
+  },
+  {
+    "source": "codebase-index-ts/src/model/codebase::Codebase.resolveHeaderC",
+    "target": "codebase-index-ts/src/model/codebase::Node.getAllChildren",
+    "label": "calls"
+  },
+  {
+    "source": "codebase-index-ts/src/model/codebase::Codebase.resolveHeaderC",
+    "target": "codebase-index-ts/src/model/codebase::Codebase",
+    "label": "calls"
+  },
+  {
+    "source": "codebase-index-ts/src/model/codebase::Codebase.resolveHeaderC",
+    "target": "codebase-index-ts/src/model/codebase::Node.removeChild",
+    "label": "calls"
+  },
+  {
+    "source": "codebase-index-ts/src/model/codebase::Codebase.resolveHeaderC",
+    "target": "codebase-index-ts/src/model/codebase::Node.addChild",
+    "label": "calls"
+  },
+  {
+    "source": "codebase-index-ts/src/model/codebase::Codebase",
+    "target": "codebase-index-ts/src/model/codebase::Codebase.resolveImportStatementsNodes",
+    "label": "defines"
+  },
+  {
+    "source": "codebase-index-ts/src/model/codebase::Codebase.resolveImportStatementsNodes",
+    "target": "codebase-index-ts/src/model/codebase::Codebase",
+    "label": "calls"
+  },
+  {
+    "source": "codebase-index-ts/src/model/codebase::Codebase.resolveImportStatementsNodes",
+    "target": "codebase-index-ts/src/model/codebase::ImportName",
+    "label": "calls"
+  },
+  {
+    "source": "codebase-index-ts/src/model/codebase::Codebase.resolveImportStatementsNodes",
+    "target": "codebase-index-ts/src/model/codebase::Codebase.resolveHeaderC",
+    "label": "calls"
+  },
+  {
+    "source": "codebase-index-ts/src/model/codebase::Codebase",
+    "target": "codebase-index-ts/src/model/codebase::Codebase.resolvePythonInitImportStatements",
+    "label": "defines"
+  },
+  {
+    "source": "codebase-index-ts/src/model/codebase::Codebase.resolvePythonInitImportStatements",
+    "target": "codebase-index-ts/src/model/codebase::Codebase",
+    "label": "calls"
+  },
+  {
+    "source": "codebase-index-ts/src/model/codebase::Codebase.resolvePythonInitImportStatements",
+    "target": "codebase-index-ts/src/model/codebase::ImportStatement",
+    "label": "calls"
+  },
+  {
+    "source": "codebase-index-ts/src/model/codebase::Codebase",
+    "target": "codebase-index-ts/src/model/codebase::Codebase.getLinks",
+    "label": "defines"
+  },
+  {
+    "source": "codebase-index-ts/src/model/codebase::Codebase.getLinks",
+    "target": "codebase-index-ts/src/model/codebase::Link",
+    "label": "calls"
+  },
+  {
+    "source": "codebase-index-ts/src/model/codebase::Codebase.getLinks",
+    "target": "codebase-index-ts/src/model/codebase::Codebase",
+    "label": "calls"
+  },
+  {
+    "source": "codebase-index-ts/src/model/codebase::Codebase",
+    "target": "codebase-index-ts/src/model/codebase::Codebase.simplify",
+    "label": "defines"
+  },
+  {
+    "source": "codebase-index-ts/src/model/codebase::Codebase.simplify",
+    "target": "codebase-index-ts/src/model/codebase::Codebase",
+    "label": "calls"
+  },
+  {
+    "source": "codebase-index-ts/src/model/codebase::Codebase",
+    "target": "codebase-index-ts/src/model/codebase::Codebase.getCalls",
+    "label": "defines"
+  },
+  {
+    "source": "codebase-index-ts/src/model/codebase::Codebase.getCalls",
+    "target": "codebase-index-ts/src/model/codebase::Node",
+    "label": "calls"
+  },
+  {
+    "source": "codebase-index-ts/src/model/codebase::Codebase.getCalls",
+    "target": "codebase-index-ts/src/model/codebase::Codebase",
+    "label": "calls"
+  },
+  {
+    "source": "codebase-index-ts/src/model/codebase::Codebase",
+    "target": "codebase-index-ts/src/model/codebase::Codebase.parseFolder",
+    "label": "defines"
+  },
+  {
+    "source": "codebase-index-ts/src/model/codebase::Codebase.parseFolder",
+    "target": "codebase-index-ts/src/model/codebase::Node",
+    "label": "calls"
+  },
+  {
+    "source": "codebase-index-ts/src/model/codebase::Codebase.parseFolder",
+    "target": "codebase-index-ts/src/model/codebase::Codebase",
+    "label": "calls"
+  },
+  {
+    "source": "codebase-index-ts/src/model/codebase::Codebase.parseFolder",
+    "target": "codebase-index-ts/src/model/codebase::Codebase.generateNodesFromFilePath",
+    "label": "calls"
+  },
+  {
+    "source": "codebase-index-ts/src/model/codebase::Codebase.parseFolder",
+    "target": "codebase-index-ts/src/model/codebase::Codebase.addNodeMap",
+    "label": "calls"
+  },
+  {
+    "source": "codebase-index-ts/src/model/codebase::Codebase.parseFolder",
+    "target": "codebase-index-ts/src/model/codebase::Codebase.resolvePythonInitImportStatements",
+    "label": "calls"
+  },
+  {
+    "source": "codebase-index-ts/src/model/codebase::Codebase.parseFolder",
+    "target": "codebase-index-ts/src/model/codebase::Codebase.resolveImportStatementsNodes",
+    "label": "calls"
+  },
+  {
+    "source": "codebase-index-ts/src/model/codebase::Codebase",
+    "target": "codebase-index-ts/src/model/codebase::Codebase.generateNodesFromFilePath",
+    "label": "defines"
+  },
+  {
+    "source": "codebase-index-ts/src/model/codebase::Codebase.generateNodesFromFilePath",
+    "target": "codebase-index-ts/src/model/codebase::Node",
+    "label": "calls"
+  },
+  {
+    "source": "codebase-index-ts/src/model/codebase::Codebase.generateNodesFromFilePath",
+    "target": "codebase-index-ts/src/model/codebase::Node.getChildrenDefinitions",
+    "label": "calls"
+  },
+  {
+    "source": "codebase-index-ts/src/model/codebase::Codebase.generateNodesFromFilePath",
+    "target": "codebase-index-ts/src/model/codebase::Node.generateImports",
+    "label": "calls"
+  },
+  {
+    "source": "codebase-index-ts/src/model/codebase::Codebase.generateNodesFromFilePath",
+    "target": "codebase-index-ts/src/model/codebase::Node.parseExportClauses",
+    "label": "calls"
+  },
+  {
+    "source": "codebase-index-ts/src/model/codebase::Codebase.generateNodesFromFilePath",
+    "target": "codebase-index-ts/src/model/codebase::Codebase",
+    "label": "calls"
+  },
+  {
+    "source": "codebase-index-ts/src/model/codebase::Codebase.generateNodesFromFilePath",
+    "target": "codebase-index-ts/src/model/codebase::enc",
+    "label": "calls"
+  },
+  {
+    "source": "codebase-index-ts/src/model/codebase::Codebase",
+    "target": "codebase-index-ts/src/model/codebase::Codebase.addNodeMap",
+    "label": "defines"
+  },
+  {
+    "source": "codebase-index-ts/src/model/codebase::Codebase.addNodeMap",
+    "target": "codebase-index-ts/src/model/codebase::Node",
+    "label": "calls"
+  },
+  {
+    "source": "codebase-index-ts/src/model/codebase::Codebase.addNodeMap",
+    "target": "codebase-index-ts/src/model/codebase::Codebase",
+    "label": "calls"
+  },
+  {
+    "source": "codebase-index-ts/src/model/codebase::Codebase",
+    "target": "codebase-index-ts/src/model/codebase::Codebase.getNode",
+    "label": "defines"
+  },
+  {
+    "source": "codebase-index-ts/src/model/codebase::Codebase.getNode",
+    "target": "codebase-index-ts/src/model/codebase::Node",
+    "label": "calls"
+  },
+  {
+    "source": "codebase-index-ts/src/model/codebase::Codebase.getNode",
+    "target": "codebase-index-ts/src/model/codebase::Codebase",
+    "label": "calls"
+  },
+  {
+    "source": "codebase-index-ts/src/model/codebase::Codebase",
+    "target": "codebase-index-ts/src/model/codebase::Codebase.addNode",
+    "label": "defines"
+  },
+  {
+    "source": "codebase-index-ts/src/model/codebase::Codebase.addNode",
+    "target": "codebase-index-ts/src/model/codebase::Node",
+    "label": "calls"
+  },
+  {
+    "source": "codebase-index-ts/src/model/codebase::Codebase.addNode",
+    "target": "codebase-index-ts/src/model/codebase::Codebase",
+    "label": "calls"
+  },
+  {
+    "source": "codebase-index-ts/src/model/codebase::Codebase",
+    "target": "codebase-index-ts/src/model/codebase::Codebase.constructor",
+    "label": "defines"
+  },
+  {
+    "source": "codebase-index-ts/src/model/codebase::Codebase.constructor",
+    "target": "codebase-index-ts/src/model/codebase::Codebase",
+    "label": "calls"
+  },
+  {
+    "source": "codebase-index-ts/src/model/codebase",
+    "target": "codebase-index-ts/src/model/codebase::Codebase",
+    "label": "defines"
+  },
+  {
+    "source": "codebase-index-ts/src/model/codebase::Codebase",
+    "target": "codebase-index-ts/src/model/codebase::Codebase",
+    "label": "calls"
+  },
+  {
+    "source": "codebase-index-ts/src/model/codebase::Codebase",
+    "target": "codebase-index-ts/src/model/codebase::Node",
+    "label": "calls"
+  },
+  {
+    "source": "codebase-index-ts/src/model/codebase::Codebase",
+    "target": "codebase-index-ts/src/model/codebase::Link",
+    "label": "calls"
+  },
+  {
+    "source": "codebase-index-ts/src/model/codebase::Node",
+    "target": "codebase-index-ts/src/model/codebase::Node.simplify",
+    "label": "defines"
+  },
+  {
+    "source": "codebase-index-ts/src/model/codebase::Node.simplify",
+    "target": "codebase-index-ts/src/model/codebase::Node",
+    "label": "calls"
+  },
+  {
+    "source": "codebase-index-ts/src/model/codebase::Node.simplify",
+    "target": "codebase-index-ts/src/model/codebase::Node.getCodeWithoutBody",
+    "label": "calls"
+  },
+  {
+    "source": "codebase-index-ts/src/model/codebase::Node",
+    "target": "codebase-index-ts/src/model/codebase::Node.getChildrenDefinitions",
+    "label": "defines"
+  },
+  {
+    "source": "codebase-index-ts/src/model/codebase::Node.getChildrenDefinitions",
+    "target": "codebase-index-ts/src/model/codebase::Node",
+    "label": "calls"
+  },
+  {
+    "source": "codebase-index-ts/src/model/codebase::Node.getChildrenDefinitions",
+    "target": "codebase-index-ts/src/model/codebase::Node.addChild",
+    "label": "calls"
+  },
+  {
+    "source": "codebase-index-ts/src/model/codebase::Node",
+    "target": "codebase-index-ts/src/model/codebase::Node.resolveImportStatementsPath",
+    "label": "defines"
+  },
+  {
+    "source": "codebase-index-ts/src/model/codebase::Node.resolveImportStatementsPath",
+    "target": "codebase-index-ts/src/model/codebase::Node",
+    "label": "calls"
+  },
+  {
+    "source": "codebase-index-ts/src/model/codebase::Node",
+    "target": "codebase-index-ts/src/model/codebase::Node.parseExportClauses",
+    "label": "defines"
+  },
+  {
+    "source": "codebase-index-ts/src/model/codebase::Node.parseExportClauses",
+    "target": "codebase-index-ts/src/model/codebase::Node",
+    "label": "calls"
+  },
+  {
+    "source": "codebase-index-ts/src/model/codebase::Node",
+    "target": "codebase-index-ts/src/model/codebase::Node.generateImports",
+    "label": "defines"
+  },
+  {
+    "source": "codebase-index-ts/src/model/codebase::Node.generateImports",
+    "target": "codebase-index-ts/src/model/codebase::Node",
+    "label": "calls"
+  },
+  {
+    "source": "codebase-index-ts/src/model/codebase::Node.generateImports",
+    "target": "codebase-index-ts/src/model/codebase::ImportStatement",
+    "label": "calls"
+  },
+  {
+    "source": "codebase-index-ts/src/model/codebase::Node.generateImports",
+    "target": "codebase-index-ts/src/model/codebase::ImportName",
+    "label": "calls"
+  },
+  {
+    "source": "codebase-index-ts/src/model/codebase::Node",
+    "target": "codebase-index-ts/src/model/codebase::Node.getCodeWithoutBody",
+    "label": "defines"
+  },
+  {
+    "source": "codebase-index-ts/src/model/codebase::Node.getCodeWithoutBody",
+    "target": "codebase-index-ts/src/model/codebase::Node",
+    "label": "calls"
+  },
+  {
+    "source": "codebase-index-ts/src/model/codebase::Node",
+    "target": "codebase-index-ts/src/model/codebase::Node.addNodeRelationship",
+    "label": "defines"
+  },
+  {
+    "source": "codebase-index-ts/src/model/codebase::Node.addNodeRelationship",
+    "target": "codebase-index-ts/src/model/codebase::Node",
+    "label": "calls"
+  },
+  {
+    "source": "codebase-index-ts/src/model/codebase::Node.addNodeRelationship",
+    "target": "codebase-index-ts/src/model/codebase::Node.isWithin",
+    "label": "calls"
+  },
+  {
+    "source": "codebase-index-ts/src/model/codebase::Node.addNodeRelationship",
+    "target": "codebase-index-ts/src/model/codebase::Node.addChild",
+    "label": "calls"
+  },
+  {
+    "source": "codebase-index-ts/src/model/codebase::Node",
+    "target": "codebase-index-ts/src/model/codebase::Node.isWithin",
+    "label": "defines"
+  },
+  {
+    "source": "codebase-index-ts/src/model/codebase::Node.isWithin",
+    "target": "codebase-index-ts/src/model/codebase::Node",
+    "label": "calls"
+  },
+  {
+    "source": "codebase-index-ts/src/model/codebase::Node",
+    "target": "codebase-index-ts/src/model/codebase::Node.addImportStatement",
+    "label": "defines"
+  },
+  {
+    "source": "codebase-index-ts/src/model/codebase::Node.addImportStatement",
+    "target": "codebase-index-ts/src/model/codebase::ImportStatement",
+    "label": "calls"
+  },
+  {
+    "source": "codebase-index-ts/src/model/codebase::Node.addImportStatement",
+    "target": "codebase-index-ts/src/model/codebase::Node",
+    "label": "calls"
+  },
+  {
+    "source": "codebase-index-ts/src/model/codebase::Node",
+    "target": "codebase-index-ts/src/model/codebase::Node.addCall",
+    "label": "defines"
+  },
+  {
+    "source": "codebase-index-ts/src/model/codebase::Node.addCall",
+    "target": "codebase-index-ts/src/model/codebase::Node",
+    "label": "calls"
+  },
+  {
+    "source": "codebase-index-ts/src/model/codebase::Node",
+    "target": "codebase-index-ts/src/model/codebase::Node.removeChild",
+    "label": "defines"
+  },
+  {
+    "source": "codebase-index-ts/src/model/codebase::Node.removeChild",
+    "target": "codebase-index-ts/src/model/codebase::Node",
+    "label": "calls"
+  },
+  {
+    "source": "codebase-index-ts/src/model/codebase::Node",
+    "target": "codebase-index-ts/src/model/codebase::Node.addChild",
+    "label": "defines"
+  },
+  {
+    "source": "codebase-index-ts/src/model/codebase::Node.addChild",
+    "target": "codebase-index-ts/src/model/codebase::Node",
+    "label": "calls"
+  },
+  {
+    "source": "codebase-index-ts/src/model/codebase::Node",
+    "target": "codebase-index-ts/src/model/codebase::Node.getAllChildren",
+    "label": "defines"
+  },
+  {
+    "source": "codebase-index-ts/src/model/codebase::Node.getAllChildren",
+    "target": "codebase-index-ts/src/model/codebase::Node",
+    "label": "calls"
+  },
+  {
+    "source": "codebase-index-ts/src/model/codebase::Node",
+    "target": "codebase-index-ts/src/model/codebase::Node.getChild",
+    "label": "defines"
+  },
+  {
+    "source": "codebase-index-ts/src/model/codebase::Node.getChild",
+    "target": "codebase-index-ts/src/model/codebase::Node",
+    "label": "calls"
+  },
+  {
+    "source": "codebase-index-ts/src/model/codebase::Node",
+    "target": "codebase-index-ts/src/model/codebase::Node.constructor",
+    "label": "defines"
+  },
+  {
+    "source": "codebase-index-ts/src/model/codebase::Node.constructor",
+    "target": "codebase-index-ts/src/model/codebase::Node",
+    "label": "calls"
+  },
+  {
+    "source": "codebase-index-ts/src/model/codebase",
+    "target": "codebase-index-ts/src/model/codebase::Node",
+    "label": "defines"
+  },
+  {
+    "source": "codebase-index-ts/src/model/codebase::Node",
+    "target": "codebase-index-ts/src/model/codebase::Node",
+    "label": "calls"
+  },
+  {
+    "source": "codebase-index-ts/src/model/codebase::Node",
+    "target": "codebase-index-ts/src/model/codebase::ImportStatement",
+    "label": "calls"
+  },
+  {
+    "source": "codebase-index-ts/src/model/codebase",
+    "target": "codebase-index-ts/src/model/codebase::Link",
+    "label": "defines"
+  },
+  {
+    "source": "codebase-index-ts/src/model/codebase::Link",
+    "target": "codebase-index-ts/src/model/codebase::Link",
+    "label": "calls"
+  },
+  {
+    "source": "codebase-index-ts/src/model/codebase::ImportStatement",
+    "target": "codebase-index-ts/src/model/codebase::ImportStatement.constructor",
+    "label": "defines"
+  },
+  {
+    "source": "codebase-index-ts/src/model/codebase::ImportStatement.constructor",
+    "target": "codebase-index-ts/src/model/codebase::ImportName",
+    "label": "calls"
+  },
+  {
+    "source": "codebase-index-ts/src/model/codebase::ImportStatement.constructor",
+    "target": "codebase-index-ts/src/model/codebase::ImportStatement",
+    "label": "calls"
+  },
+  {
+    "source": "codebase-index-ts/src/model/codebase",
+    "target": "codebase-index-ts/src/model/codebase::ImportStatement",
+    "label": "defines"
+  },
+  {
+    "source": "codebase-index-ts/src/model/codebase::ImportStatement",
+    "target": "codebase-index-ts/src/model/codebase::ImportStatement",
+    "label": "calls"
+  },
+  {
+    "source": "codebase-index-ts/src/model/codebase::ImportStatement",
+    "target": "codebase-index-ts/src/model/codebase::ImportName",
+    "label": "calls"
+  },
+  {
+    "source": "codebase-index-ts/src/model/codebase::ImportName",
+    "target": "codebase-index-ts/src/model/codebase::ImportName.constructor",
+    "label": "defines"
+  },
+  {
+    "source": "codebase-index-ts/src/model/codebase::ImportName.constructor",
+    "target": "codebase-index-ts/src/model/codebase::ImportName",
+    "label": "calls"
+  },
+  {
+    "source": "codebase-index-ts/src/model/codebase",
+    "target": "codebase-index-ts/src/model/codebase::ImportName",
+    "label": "defines"
+  },
+  {
+    "source": "codebase-index-ts/src/model/codebase::ImportName",
+    "target": "codebase-index-ts/src/model/codebase::ImportName",
+    "label": "calls"
+  },
+  {
+    "source": "codebase-index-ts/src/model/codebase::ImportName",
+    "target": "codebase-index-ts/src/model/codebase::Node",
+    "label": "calls"
+  },
+  {
+    "source": "codebase-index-ts/src/model/codebase",
+    "target": "codebase-index-ts/src/model/codebase::enc",
+    "label": "defines"
+  },
+  {
+    "source": "codebase-index-ts/src/model/codebase",
+    "target": "codebase-index-ts/src/model/codebase::ImportName",
+    "label": "calls"
+  },
+  {
+    "source": "codebase-index-ts/src/model/codebase",
+    "target": "codebase-index-ts/src/model/codebase::ImportStatement",
+    "label": "calls"
+  },
+  {
+    "source": "codebase-index-ts/src/model/codebase",
+    "target": "codebase-index-ts/src/model/codebase::Link",
+    "label": "calls"
+  },
+  {
+    "source": "codebase-index-ts/src/model/codebase",
+    "target": "codebase-index-ts/src/model/codebase::Node",
+    "label": "calls"
+  },
+  {
+    "source": "codebase-index-ts/src/model/codebase",
+    "target": "codebase-index-ts/src/model/codebase::Codebase",
+    "label": "calls"
+  },
+  {
+    "source": "codebase-index-ts/src/model/consts",
+    "target": "codebase-index-ts/src/model/consts::treeSitterCommentTypes",
+    "label": "defines"
+  },
+  {
+    "source": "codebase-index-ts/src/model/consts",
+    "target": "codebase-index-ts/src/model/consts::indexSuffixesMap",
+    "label": "defines"
+  },
+  {
+    "source": "codebase-index-ts/src/model/consts",
+    "target": "codebase-index-ts/src/model/consts::itselfClassMap",
+    "label": "defines"
+  },
+  {
+    "source": "codebase-index-ts/src/model/consts",
+    "target": "codebase-index-ts/src/model/consts::newClassMethodsMap",
+    "label": "defines"
+  },
+  {
+    "source": "codebase-index-ts/src/model/consts",
+    "target": "codebase-index-ts/src/model/consts::languageExtensionMap",
+    "label": "defines"
+  },
+  {
+    "source": "codebase-index-ts/src/model/consts",
+    "target": "codebase-index-ts/src/model/consts::languages",
+    "label": "defines"
+  },
+  {
+    "source": "codebase-index-ts/src/model/consts",
+    "target": "codebase-index-ts/src/model/consts::excludedExtensions",
+    "label": "defines"
+  },
+  {
+    "source": "codebase-index-ts/src/model/consts",
+    "target": "codebase-index-ts/src/model/consts::excludedFolders",
+    "label": "defines"
+  },
+  {
+    "source": "codebase-index-ts/src/model/consts",
+    "target": "codebase-index-ts/src/model/consts::AllowedTypesArray",
+    "label": "defines"
+  },
+  {
+    "source": "codebase-index-ts/src/model/consts::AllowedTypesArray",
+    "target": "codebase-index-ts/src/model/consts::AllowedTypes",
+    "label": "calls"
+  },
+  {
+    "source": "codebase-index-ts/src/model/consts",
+    "target": "codebase-index-ts/src/model/consts::AllowedTypes",
+    "label": "defines"
+  },
+  {
+    "source": "codebase-index-ts/src/model/consts::AllowedTypes",
+    "target": "codebase-index-ts/src/model/consts::AllowedTypes",
+    "label": "calls"
+  },
+  {
+    "source": "codebase-index-ts/src/model/consts",
+    "target": "codebase-index-ts/src/model/consts::C",
+    "label": "defines"
+  },
+  {
+    "source": "codebase-index-ts/src/model/consts",
+    "target": "codebase-index-ts/src/model/consts::Java",
+    "label": "defines"
+  },
+  {
+    "source": "codebase-index-ts/src/model/consts",
+    "target": "codebase-index-ts/src/model/consts::TSX",
+    "label": "defines"
+  },
+  {
+    "source": "codebase-index-ts/src/model/consts",
+    "target": "codebase-index-ts/src/model/consts::TypeScript",
+    "label": "defines"
+  },
+  {
+    "source": "codebase-index-ts/src/model/consts",
+    "target": "codebase-index-ts/src/model/consts::Python",
+    "label": "defines"
+  },
+  {
+    "source": "codebase-index-ts/src/model/consts",
+    "target": "codebase-index-ts/src/model/consts::JavaScript",
+    "label": "defines"
+  },
+  {
+    "source": "codebase-index-ts/src/model/consts",
+    "target": "codebase-index-ts/src/model/consts::AllowedTypes",
+    "label": "calls"
+  },
+  {
+    "source": "codebase-index-ts/src/model/utils",
+    "target": "codebase-index-ts/src/model/utils::getCalledNode",
+    "label": "defines"
+  },
+  {
+    "source": "codebase-index-ts/src/model/utils",
+    "target": "codebase-index-ts/src/model/utils::cleanAndSplitContent",
+    "label": "defines"
+  },
+  {
+    "source": "codebase-index-ts/src/model/utils",
+    "target": "codebase-index-ts/src/model/utils::firstConsecutiveDots",
+    "label": "defines"
+  },
+  {
+    "source": "codebase-index-ts/src/model/utils",
+    "target": "codebase-index-ts/src/model/utils::renameSource",
+    "label": "defines"
+  },
+  {
+    "source": "codebase-index-ts/src/model/utils::renameSource",
+    "target": "codebase-index-ts/src/model/utils::firstConsecutiveDots",
+    "label": "calls"
+  },
+  {
+    "source": "codebase-index-ts/src/model/utils",
+    "target": "codebase-index-ts/src/model/utils::cleanDefCaptures",
+    "label": "defines"
+  },
+  {
+    "source": "codebase-index-ts/src/model/utils",
+    "target": "codebase-index-ts/src/model/utils::captureQuery",
+    "label": "defines"
+  },
+  {
+    "source": "codebase-index-ts/src/model/utils::captureQuery",
+    "target": "codebase-index-ts/src/model/utils::getRequiredDefinitions",
+    "label": "calls"
+  },
+  {
+    "source": "codebase-index-ts/src/model/utils",
+    "target": "codebase-index-ts/src/model/utils::getRequiredDefinitions",
+    "label": "defines"
+  },
+  {
+    "source": "codebase-index-ts/src/model/utils",
+    "target": "codebase-index-ts/src/model/utils::getTotalSize",
+    "label": "defines"
+  },
+  {
+    "source": "codebase-index-ts/src/model/utils::getTotalSize",
+    "target": "codebase-index-ts/src/model/utils::getAllFiles",
+    "label": "calls"
+  },
+  {
+    "source": "codebase-index-ts/src/model/utils",
+    "target": "codebase-index-ts/src/model/utils::getAllFiles",
+    "label": "defines"
+  },
+  {
+    "source": "codebase-index-ts/src/queries/c",
+    "target": "codebase-index-ts/src/queries/c::cQueries",
+    "label": "defines"
+  },
+  {
+    "source": "codebase-index-ts/src/queries/c::cQueries",
+    "target": "codebase-index-ts/src/queries/c::anyAssignments",
+    "label": "calls"
+  },
+  {
+    "source": "codebase-index-ts/src/queries/c",
+    "target": "codebase-index-ts/src/queries/c::anyAssignments",
+    "label": "defines"
+  },
+  {
+    "source": "codebase-index-ts/src/queries/c",
+    "target": "codebase-index-ts/src/queries/c::calls",
+    "label": "defines"
+  },
+  {
+    "source": "codebase-index-ts/src/queries/c",
+    "target": "codebase-index-ts/src/queries/c::extraAssignmentCode",
+    "label": "defines"
+  },
+  {
+    "source": "codebase-index-ts/src/queries/c",
+    "target": "codebase-index-ts/src/queries/c::exportClauses",
+    "label": "defines"
+  },
+  {
+    "source": "codebase-index-ts/src/queries/c",
+    "target": "codebase-index-ts/src/queries/c::constructorDefinitions",
+    "label": "defines"
+  },
+  {
+    "source": "codebase-index-ts/src/queries/c",
+    "target": "codebase-index-ts/src/queries/c::definitionTemplate",
+    "label": "defines"
+  },
+  {
+    "source": "codebase-index-ts/src/queries/c",
+    "target": "codebase-index-ts/src/queries/c::assignments",
+    "label": "defines"
+  },
+  {
+    "source": "codebase-index-ts/src/queries/c",
+    "target": "codebase-index-ts/src/queries/c::importStatements",
+    "label": "defines"
+  },
+  {
+    "source": "codebase-index-ts/src/queries/c",
+    "target": "codebase-index-ts/src/queries/c::anyAssignments",
+    "label": "calls"
+  },
+  {
+    "source": "codebase-index-ts/src/queries/index",
+    "target": "codebase-index-ts/src/queries/index::treeSitterQueries",
+    "label": "defines"
+  },
+  {
+    "source": "codebase-index-ts/src/queries/index::treeSitterQueries",
+    "target": "codebase-index-ts/src/queries/index::treeSitterQueries",
+    "label": "calls"
+  },
+  {
+    "source": "codebase-index-ts/src/queries/index",
+    "target": "codebase-index-ts/src/queries/index::languageQueries",
+    "label": "defines"
+  },
+  {
+    "source": "codebase-index-ts/src/queries/index",
+    "target": "codebase-index-ts/src/queries/index::treeSitterQueries",
+    "label": "calls"
+  },
+  {
+    "source": "codebase-index-ts/src/queries/java",
+    "target": "codebase-index-ts/src/queries/java::javaQueries",
+    "label": "defines"
+  },
+  {
+    "source": "codebase-index-ts/src/queries/java::javaQueries",
+    "target": "codebase-index-ts/src/queries/java::anyAssignments",
+    "label": "calls"
+  },
+  {
+    "source": "codebase-index-ts/src/queries/java",
+    "target": "codebase-index-ts/src/queries/java::anyAssignments",
+    "label": "defines"
+  },
+  {
+    "source": "codebase-index-ts/src/queries/java",
+    "target": "codebase-index-ts/src/queries/java::calls",
+    "label": "defines"
+  },
+  {
+    "source": "codebase-index-ts/src/queries/java",
+    "target": "codebase-index-ts/src/queries/java::extraAssignmentCode",
+    "label": "defines"
+  },
+  {
+    "source": "codebase-index-ts/src/queries/java",
+    "target": "codebase-index-ts/src/queries/java::exportClauses",
+    "label": "defines"
+  },
+  {
+    "source": "codebase-index-ts/src/queries/java",
+    "target": "codebase-index-ts/src/queries/java::constructorDefinitions",
+    "label": "defines"
+  },
+  {
+    "source": "codebase-index-ts/src/queries/java",
+    "target": "codebase-index-ts/src/queries/java::definitionTemplate",
+    "label": "defines"
+  },
+  {
+    "source": "codebase-index-ts/src/queries/java",
+    "target": "codebase-index-ts/src/queries/java::assignments",
+    "label": "defines"
+  },
+  {
+    "source": "codebase-index-ts/src/queries/java",
+    "target": "codebase-index-ts/src/queries/java::importStatements",
+    "label": "defines"
+  },
+  {
+    "source": "codebase-index-ts/src/queries/java",
+    "target": "codebase-index-ts/src/queries/java::anyAssignments",
+    "label": "calls"
+  },
+  {
+    "source": "codebase-index-ts/src/queries/javascript",
+    "target": "codebase-index-ts/src/queries/javascript::jsQueries",
+    "label": "defines"
+  },
+  {
+    "source": "codebase-index-ts/src/queries/javascript::jsQueries",
+    "target": "codebase-index-ts/src/queries/javascript::anyAssignments",
+    "label": "calls"
+  },
+  {
+    "source": "codebase-index-ts/src/queries/javascript",
+    "target": "codebase-index-ts/src/queries/javascript::anyAssignments",
+    "label": "defines"
+  },
+  {
+    "source": "codebase-index-ts/src/queries/javascript",
+    "target": "codebase-index-ts/src/queries/javascript::calls",
+    "label": "defines"
+  },
+  {
+    "source": "codebase-index-ts/src/queries/javascript",
+    "target": "codebase-index-ts/src/queries/javascript::extraAssignmentCode",
+    "label": "defines"
+  },
+  {
+    "source": "codebase-index-ts/src/queries/javascript",
+    "target": "codebase-index-ts/src/queries/javascript::exportClauses",
+    "label": "defines"
+  },
+  {
+    "source": "codebase-index-ts/src/queries/javascript",
+    "target": "codebase-index-ts/src/queries/javascript::constructorDefinitions",
+    "label": "defines"
+  },
+  {
+    "source": "codebase-index-ts/src/queries/javascript",
+    "target": "codebase-index-ts/src/queries/javascript::arrowFunctionConstructor",
+    "label": "defines"
+  },
+  {
+    "source": "codebase-index-ts/src/queries/javascript",
+    "target": "codebase-index-ts/src/queries/javascript::definitionTemplate",
+    "label": "defines"
+  },
+  {
+    "source": "codebase-index-ts/src/queries/javascript",
+    "target": "codebase-index-ts/src/queries/javascript::assignments",
+    "label": "defines"
+  },
+  {
+    "source": "codebase-index-ts/src/queries/javascript",
+    "target": "codebase-index-ts/src/queries/javascript::importStatements",
+    "label": "defines"
+  },
+  {
+    "source": "codebase-index-ts/src/queries/javascript",
+    "target": "codebase-index-ts/src/queries/javascript::anyAssignments",
+    "label": "calls"
+  },
+  {
+    "source": "codebase-index-ts/src/queries/python",
+    "target": "codebase-index-ts/src/queries/python::pyQueries",
+    "label": "defines"
+  },
+  {
+    "source": "codebase-index-ts/src/queries/python::pyQueries",
+    "target": "codebase-index-ts/src/queries/python::anyAssignments",
+    "label": "calls"
+  },
+  {
+    "source": "codebase-index-ts/src/queries/python",
+    "target": "codebase-index-ts/src/queries/python::anyAssignments",
+    "label": "defines"
+  },
+  {
+    "source": "codebase-index-ts/src/queries/python",
+    "target": "codebase-index-ts/src/queries/python::calls",
+    "label": "defines"
+  },
+  {
+    "source": "codebase-index-ts/src/queries/python",
+    "target": "codebase-index-ts/src/queries/python::extraAssignmentCode",
+    "label": "defines"
+  },
+  {
+    "source": "codebase-index-ts/src/queries/python",
+    "target": "codebase-index-ts/src/queries/python::constructorDefinitions",
+    "label": "defines"
+  },
+  {
+    "source": "codebase-index-ts/src/queries/python",
+    "target": "codebase-index-ts/src/queries/python::definitionTemplate",
+    "label": "defines"
+  },
+  {
+    "source": "codebase-index-ts/src/queries/python",
+    "target": "codebase-index-ts/src/queries/python::assignments",
+    "label": "defines"
+  },
+  {
+    "source": "codebase-index-ts/src/queries/python",
+    "target": "codebase-index-ts/src/queries/python::importStatements",
+    "label": "defines"
+  },
+  {
+    "source": "codebase-index-ts/src/queries/python",
+    "target": "codebase-index-ts/src/queries/python::anyAssignments",
+    "label": "calls"
+  },
+  {
+    "source": "codebase-index-ts/src/queries/typescript",
+    "target": "codebase-index-ts/src/queries/typescript::tsQueries",
+    "label": "defines"
+  },
+  {
+    "source": "codebase-index-ts/src/queries/typescript::tsQueries",
+    "target": "codebase-index-ts/src/queries/typescript::anyAssignments",
+    "label": "calls"
+  },
+  {
+    "source": "codebase-index-ts/src/queries/typescript",
+    "target": "codebase-index-ts/src/queries/typescript::anyAssignments",
+    "label": "defines"
+  },
+  {
+    "source": "codebase-index-ts/src/queries/typescript",
+    "target": "codebase-index-ts/src/queries/typescript::calls",
+    "label": "defines"
+  },
+  {
+    "source": "codebase-index-ts/src/queries/typescript",
+    "target": "codebase-index-ts/src/queries/typescript::extraAssignmentCode",
+    "label": "defines"
+  },
+  {
+    "source": "codebase-index-ts/src/queries/typescript",
+    "target": "codebase-index-ts/src/queries/typescript::exportClauses",
+    "label": "defines"
+  },
+  {
+    "source": "codebase-index-ts/src/queries/typescript",
+    "target": "codebase-index-ts/src/queries/typescript::constructorDefinitions",
+    "label": "defines"
+  },
+  {
+    "source": "codebase-index-ts/src/queries/typescript",
+    "target": "codebase-index-ts/src/queries/typescript::definitionTemplate",
+    "label": "defines"
+  },
+  {
+    "source": "codebase-index-ts/src/queries/typescript",
+    "target": "codebase-index-ts/src/queries/typescript::importStatements",
+    "label": "defines"
+  },
+  {
+    "source": "codebase-index-ts/src/queries/typescript",
+    "target": "codebase-index-ts/src/queries/typescript::anyAssignments",
+    "label": "calls"
+  },
+  {
+    "source": "codebase-index-ts/src/routes/create_graph-test",
+    "target": "codebase-index-ts/src/routes/create_graph-test::createGraphTest",
+    "label": "defines"
+  },
+  {
+    "source": "codebase-index-ts/src/routes/create_graph-test::createGraphTest",
+    "target": "codebase-index-ts/src/routes/create_graph-test::repoRequestValidator",
+    "label": "calls"
+  },
+  {
+    "source": "codebase-index-ts/src/routes/create_graph-test::createGraphTest",
+    "target": "codebase-index-ts/src/routes/create_graph-test::secret",
+    "label": "calls"
+  },
+  {
+    "source": "codebase-index-ts/src/routes/create_graph-test",
+    "target": "codebase-index-ts/src/routes/create_graph-test::repoRequestValidator",
+    "label": "defines"
+  },
+  {
+    "source": "codebase-index-ts/src/routes/create_graph-test",
+    "target": "codebase-index-ts/src/routes/create_graph-test::secret",
+    "label": "defines"
+  },
+  {
+    "source": "codebase-index-ts/src/routes/create_graph-test",
+    "target": "codebase-index-ts/src/routes/create_graph-test::repoRequestValidator",
+    "label": "calls"
+  },
+  {
+    "source": "codebase-index-ts/src/routes/create_graph-test",
+    "target": "codebase-index-ts/src/routes/create_graph-test::secret",
+    "label": "calls"
+  },
+  {
+    "source": "codebase-index-ts/src/routes/create_graph",
+    "target": "codebase-index-ts/src/routes/create_graph::processGraphCreation",
+    "label": "defines"
+  },
+  {
+    "source": "codebase-index-ts/src/routes/create_graph",
+    "target": "codebase-index-ts/src/routes/create_graph::createGraph",
+    "label": "defines"
+  },
+  {
+    "source": "codebase-index-ts/src/routes/create_graph::createGraph",
+    "target": "codebase-index-ts/src/routes/create_graph::repoRequestValidator",
+    "label": "calls"
+  },
+  {
+    "source": "codebase-index-ts/src/routes/create_graph::createGraph",
+    "target": "codebase-index-ts/src/routes/create_graph::secret",
+    "label": "calls"
+  },
+  {
+    "source": "codebase-index-ts/src/routes/create_graph::createGraph",
+    "target": "codebase-index-ts/src/routes/create_graph::processGraphCreation",
+    "label": "calls"
+  },
+  {
+    "source": "codebase-index-ts/src/routes/create_graph",
+    "target": "codebase-index-ts/src/routes/create_graph::repoRequestValidator",
+    "label": "defines"
+  },
+  {
+    "source": "codebase-index-ts/src/routes/create_graph",
+    "target": "codebase-index-ts/src/routes/create_graph::secret",
+    "label": "defines"
+  },
+  {
+    "source": "codebase-index-ts/src/routes/create_graph",
+    "target": "codebase-index-ts/src/routes/create_graph::repoRequestValidator",
+    "label": "calls"
+  },
+  {
+    "source": "codebase-index-ts/src/routes/create_graph",
+    "target": "codebase-index-ts/src/routes/create_graph::secret",
+    "label": "calls"
+  },
+  {
+    "source": "codebase-index-ts/src/routes/create_graph",
+    "target": "codebase-index-ts/src/routes/create_graph::processGraphCreation",
+    "label": "calls"
+  },
+  {
+    "source": "codebase-index-ts/src/routes/graphs",
+    "target": "codebase-index-ts/src/routes/graphs::updateGraph",
+    "label": "defines"
+  },
+  {
+    "source": "codebase-index-ts/src/routes/graphs::updateGraph",
+    "target": "codebase-index-ts/src/routes/graphs::UpdateGraph",
+    "label": "calls"
+  },
+  {
+    "source": "codebase-index-ts/src/routes/graphs",
+    "target": "codebase-index-ts/src/routes/graphs::UpdateGraph",
+    "label": "defines"
+  },
+  {
+    "source": "codebase-index-ts/src/routes/graphs::UpdateGraph",
+    "target": "codebase-index-ts/src/routes/graphs::UpdateGraph",
+    "label": "calls"
+  },
+  {
+    "source": "codebase-index-ts/src/routes/graphs",
+    "target": "codebase-index-ts/src/routes/graphs::graphs",
+    "label": "defines"
+  },
+  {
+    "source": "codebase-index-ts/src/routes/graphs::graphs",
+    "target": "codebase-index-ts/src/routes/graphs::updateGraph",
+    "label": "calls"
+  },
+  {
+    "source": "codebase-index-ts/src/routes/graphs",
+    "target": "codebase-index-ts/src/routes/graphs::updateGraph",
+    "label": "calls"
+  },
+  {
+    "source": "codebase-index-ts/src/routes/graphs",
+    "target": "codebase-index-ts/src/routes/graphs::UpdateGraph",
+    "label": "calls"
+  },
+  {
+    "source": "codebase-index-ts/src/utils/bitbucket/refresh-token",
+    "target": "codebase-index-ts/src/utils/bitbucket/refresh-token::refreshAccessToken",
+    "label": "defines"
+  },
+  {
+    "source": "codebase-index-ts/src/utils/db",
+    "target": "codebase-index-ts/src/utils/db::sql",
+    "label": "defines"
+  },
+  {
+    "source": "codebase-index-ts/src/utils/git",
+    "target": "codebase-index-ts/src/utils/git::getAccessToken",
+    "label": "defines"
+  },
+  {
+    "source": "codebase-index-ts/src/utils/git::getAccessToken",
+    "target": "codebase-index-ts/src/utils/git::GitServiceType",
+    "label": "calls"
+  },
+  {
+    "source": "codebase-index-ts/src/utils/git",
+    "target": "codebase-index-ts/src/utils/git::getCommitHash",
+    "label": "defines"
+  },
+  {
+    "source": "codebase-index-ts/src/utils/git",
+    "target": "codebase-index-ts/src/utils/git::getCommitRepo",
+    "label": "defines"
+  },
+  {
+    "source": "codebase-index-ts/src/utils/git::getCommitRepo",
+    "target": "codebase-index-ts/src/utils/git::GitServiceType",
+    "label": "calls"
+  },
+  {
+    "source": "codebase-index-ts/src/utils/git::getCommitRepo",
+    "target": "codebase-index-ts/src/utils/git::getCommitHash",
+    "label": "calls"
+  },
+  {
+    "source": "codebase-index-ts/src/utils/git",
+    "target": "codebase-index-ts/src/utils/git::downloadAndExtractRepo",
+    "label": "defines"
+  },
+  {
+    "source": "codebase-index-ts/src/utils/git::downloadAndExtractRepo",
+    "target": "codebase-index-ts/src/utils/git::GitServiceType",
+    "label": "calls"
+  },
+  {
+    "source": "codebase-index-ts/src/utils/git",
+    "target": "codebase-index-ts/src/utils/git::MAXSIZE",
+    "label": "defines"
+  },
+  {
+    "source": "codebase-index-ts/src/utils/git",
+    "target": "codebase-index-ts/src/utils/git::GitServiceType",
+    "label": "defines"
+  },
+  {
+    "source": "codebase-index-ts/src/utils/git::GitServiceType",
+    "target": "codebase-index-ts/src/utils/git::GitServiceType",
+    "label": "calls"
+  },
+  {
+    "source": "codebase-index-ts/src/utils/git",
+    "target": "codebase-index-ts/src/utils/git::GitServiceType",
+    "label": "calls"
+  },
+  {
+    "source": "codebase-index-ts/src/utils/gitlab/refresh-token",
+    "target": "codebase-index-ts/src/utils/gitlab/refresh-token::refreshAccessToken",
+    "label": "defines"
+  },
+  {
+    "source": "codebase-index-ts/src/utils/utils",
+    "target": "codebase-index-ts/src/utils/utils::getEnv",
+    "label": "defines"
+  },
+  {
+    "source": "codebase-index-ts/src/utils/utils::getEnv",
+    "target": "codebase-index-ts/src/utils/utils::ENV_VARS",
+    "label": "calls"
+  },
+  {
+    "source": "codebase-index-ts/src/utils/utils",
+    "target": "codebase-index-ts/src/utils/utils::ENV_VARS",
+    "label": "defines"
+  },
+  {
+    "source": "codebase-index-ts/src/wiki/genWikiHtml",
+    "target": "codebase-index-ts/src/wiki/genWikiHtml::processFolderContents",
+    "label": "defines"
+  },
+  {
+    "source": "codebase-index-ts/src/wiki/genWikiHtml",
+    "target": "codebase-index-ts/src/wiki/genWikiHtml::generateWikiPage",
+    "label": "defines"
+  },
+  {
+    "source": "codebase-index-ts/src/wiki/genWikiHtml::generateWikiPage",
+    "target": "codebase-index-ts/src/wiki/genWikiHtml::fs2",
+    "label": "calls"
+  },
+  {
+    "source": "codebase-index-ts/src/wiki/genWikiHtml::generateWikiPage",
+    "target": "codebase-index-ts/src/wiki/genWikiHtml::folderContentsPath",
+    "label": "calls"
+  },
+  {
+    "source": "codebase-index-ts/src/wiki/genWikiHtml::generateWikiPage",
+    "target": "codebase-index-ts/src/wiki/genWikiHtml::processFolderContents",
+    "label": "calls"
+  },
+  {
+    "source": "codebase-index-ts/src/wiki/genWikiHtml::generateWikiPage",
+    "target": "codebase-index-ts/src/wiki/genWikiHtml::outputHtmlPath",
+    "label": "calls"
+  },
+  {
+    "source": "codebase-index-ts/src/wiki/genWikiHtml",
+    "target": "codebase-index-ts/src/wiki/genWikiHtml::outputHtmlPath",
+    "label": "defines"
+  },
+  {
+    "source": "codebase-index-ts/src/wiki/genWikiHtml",
+    "target": "codebase-index-ts/src/wiki/genWikiHtml::folderContentsPath",
+    "label": "defines"
+  },
+  {
+    "source": "codebase-index-ts/src/wiki/genWikiHtml",
+    "target": "codebase-index-ts/src/wiki/genWikiHtml::path2",
+    "label": "defines"
+  },
+  {
+    "source": "codebase-index-ts/src/wiki/genWikiHtml",
+    "target": "codebase-index-ts/src/wiki/genWikiHtml::fs2",
+    "label": "defines"
+  },
+  {
+    "source": "codebase-index-ts/src/wiki/genWikiHtml",
+    "target": "codebase-index-ts/src/wiki/genWikiHtml::generateWikiPage",
+    "label": "calls"
+  },
+  {
+    "source": "codebase-index-ts/src/wiki/wiki",
+    "target": "codebase-index-ts/src/wiki/wiki::improveWiki",
+    "label": "defines"
+  },
+  {
+    "source": "codebase-index-ts/src/wiki/wiki::improveWiki",
+    "target": "codebase-index-ts/src/wiki/wiki::client",
+    "label": "calls"
+  },
+  {
+    "source": "codebase-index-ts/src/wiki/wiki",
+    "target": "codebase-index-ts/src/wiki/wiki::buildWiki",
+    "label": "defines"
+  },
+  {
+    "source": "codebase-index-ts/src/wiki/wiki::buildWiki",
+    "target": "codebase-index-ts/src/wiki/wiki::client",
+    "label": "calls"
+  },
+  {
+    "source": "codebase-index-ts/src/wiki/wiki",
+    "target": "codebase-index-ts/src/wiki/wiki::buildFinalMarkdown",
+    "label": "defines"
+  },
+  {
+    "source": "codebase-index-ts/src/wiki/wiki::buildFinalMarkdown",
+    "target": "codebase-index-ts/src/wiki/wiki::wikiNode",
+    "label": "calls"
+  },
+  {
+    "source": "codebase-index-ts/src/wiki/wiki::buildFinalMarkdown",
+    "target": "codebase-index-ts/src/wiki/wiki::readNodes",
+    "label": "calls"
+  },
+  {
+    "source": "codebase-index-ts/src/wiki/wiki::buildFinalMarkdown",
+    "target": "codebase-index-ts/src/wiki/wiki::folderContents",
+    "label": "calls"
+  },
+  {
+    "source": "codebase-index-ts/src/wiki/wiki",
+    "target": "codebase-index-ts/src/wiki/wiki::createRepoSummary",
+    "label": "defines"
+  },
+  {
+    "source": "codebase-index-ts/src/wiki/wiki::createRepoSummary",
+    "target": "codebase-index-ts/src/wiki/wiki::client",
+    "label": "calls"
+  },
+  {
+    "source": "codebase-index-ts/src/wiki/wiki",
+    "target": "codebase-index-ts/src/wiki/wiki::getSummaryOfAllRepoForContext",
+    "label": "defines"
+  },
+  {
+    "source": "codebase-index-ts/src/wiki/wiki::getSummaryOfAllRepoForContext",
+    "target": "codebase-index-ts/src/wiki/wiki::wikiNode",
+    "label": "calls"
+  },
+  {
+    "source": "codebase-index-ts/src/wiki/wiki::getSummaryOfAllRepoForContext",
+    "target": "codebase-index-ts/src/wiki/wiki::createRepoSummary",
+    "label": "calls"
+  },
+  {
+    "source": "codebase-index-ts/src/wiki/wiki",
+    "target": "codebase-index-ts/src/wiki/wiki::processAllFolders",
+    "label": "defines"
+  },
+  {
+    "source": "codebase-index-ts/src/wiki/wiki::processAllFolders",
+    "target": "codebase-index-ts/src/wiki/wiki::folderContents",
+    "label": "calls"
+  },
+  {
+    "source": "codebase-index-ts/src/wiki/wiki::processAllFolders",
+    "target": "codebase-index-ts/src/wiki/wiki::createFolderSummary",
+    "label": "calls"
+  },
+  {
+    "source": "codebase-index-ts/src/wiki/wiki::processAllFolders",
+    "target": "codebase-index-ts/src/wiki/wiki::path",
+    "label": "calls"
+  },
+  {
+    "source": "codebase-index-ts/src/wiki/wiki",
+    "target": "codebase-index-ts/src/wiki/wiki::createFolderSummary",
+    "label": "defines"
+  },
+  {
+    "source": "codebase-index-ts/src/wiki/wiki::createFolderSummary",
+    "target": "codebase-index-ts/src/wiki/wiki::client",
+    "label": "calls"
+  },
+  {
+    "source": "codebase-index-ts/src/wiki/wiki",
+    "target": "codebase-index-ts/src/wiki/wiki::getParentFolder",
+    "label": "defines"
+  },
+  {
+    "source": "codebase-index-ts/src/wiki/wiki::getParentFolder",
+    "target": "codebase-index-ts/src/wiki/wiki::wikiNode",
+    "label": "calls"
+  },
+  {
+    "source": "codebase-index-ts/src/wiki/wiki",
+    "target": "codebase-index-ts/src/wiki/wiki::createFileSummary",
+    "label": "defines"
+  },
+  {
+    "source": "codebase-index-ts/src/wiki/wiki::createFileSummary",
+    "target": "codebase-index-ts/src/wiki/wiki::wikiNode",
+    "label": "calls"
+  },
+  {
+    "source": "codebase-index-ts/src/wiki/wiki::createFileSummary",
+    "target": "codebase-index-ts/src/wiki/wiki::client",
+    "label": "calls"
+  },
+  {
+    "source": "codebase-index-ts/src/wiki/wiki",
+    "target": "codebase-index-ts/src/wiki/wiki::processFile",
+    "label": "defines"
+  },
+  {
+    "source": "codebase-index-ts/src/wiki/wiki::processFile",
+    "target": "codebase-index-ts/src/wiki/wiki::wikiNode",
+    "label": "calls"
+  },
+  {
+    "source": "codebase-index-ts/src/wiki/wiki::processFile",
+    "target": "codebase-index-ts/src/wiki/wiki::createFileSummary",
+    "label": "calls"
+  },
+  {
+    "source": "codebase-index-ts/src/wiki/wiki::processFile",
+    "target": "codebase-index-ts/src/wiki/wiki::getParentFolder",
+    "label": "calls"
+  },
+  {
+    "source": "codebase-index-ts/src/wiki/wiki::processFile",
+    "target": "codebase-index-ts/src/wiki/wiki::folderContents",
+    "label": "calls"
+  },
+  {
+    "source": "codebase-index-ts/src/wiki/wiki",
+    "target": "codebase-index-ts/src/wiki/wiki::processAllFiles",
+    "label": "defines"
+  },
+  {
+    "source": "codebase-index-ts/src/wiki/wiki::processAllFiles",
+    "target": "codebase-index-ts/src/wiki/wiki::wikiNode",
+    "label": "calls"
+  },
+  {
+    "source": "codebase-index-ts/src/wiki/wiki::processAllFiles",
+    "target": "codebase-index-ts/src/wiki/wiki::processFile",
+    "label": "calls"
+  },
+  {
+    "source": "codebase-index-ts/src/wiki/wiki",
+    "target": "codebase-index-ts/src/wiki/wiki::readNodes",
+    "label": "defines"
+  },
+  {
+    "source": "codebase-index-ts/src/wiki/wiki::readNodes",
+    "target": "codebase-index-ts/src/wiki/wiki::fs",
+    "label": "calls"
+  },
+  {
+    "source": "codebase-index-ts/src/wiki/wiki::readNodes",
+    "target": "codebase-index-ts/src/wiki/wiki::nodesFilePath",
+    "label": "calls"
+  },
+  {
+    "source": "codebase-index-ts/src/wiki/wiki",
+    "target": "codebase-index-ts/src/wiki/wiki::contents",
+    "label": "defines"
+  },
+  {
+    "source": "codebase-index-ts/src/wiki/wiki",
+    "target": "codebase-index-ts/src/wiki/wiki::folderContents",
+    "label": "defines"
+  },
+  {
+    "source": "codebase-index-ts/src/wiki/wiki::folderContents",
+    "target": "codebase-index-ts/src/wiki/wiki::wikiNode",
+    "label": "calls"
+  },
+  {
+    "source": "codebase-index-ts/src/wiki/wiki",
+    "target": "codebase-index-ts/src/wiki/wiki::nodesFilePath",
+    "label": "defines"
+  },
+  {
+    "source": "codebase-index-ts/src/wiki/wiki",
+    "target": "codebase-index-ts/src/wiki/wiki::wikiNode",
+    "label": "defines"
+  },
+  {
+    "source": "codebase-index-ts/src/wiki/wiki::wikiNode",
+    "target": "codebase-index-ts/src/wiki/wiki::wikiNode",
+    "label": "calls"
+  },
+  {
+    "source": "codebase-index-ts/src/wiki/wiki",
+    "target": "codebase-index-ts/src/wiki/wiki::codebasePath",
+    "label": "defines"
+  },
+  {
+    "source": "codebase-index-ts/src/wiki/wiki",
+    "target": "codebase-index-ts/src/wiki/wiki::client",
+    "label": "defines"
+  },
+  {
+    "source": "codebase-index-ts/src/wiki/wiki::client",
+    "target": "codebase-index-ts/src/wiki/wiki::OpenAI",
+    "label": "calls"
+  },
+  {
+    "source": "codebase-index-ts/src/wiki/wiki",
+    "target": "codebase-index-ts/src/wiki/wiki::OpenAI",
+    "label": "defines"
+  },
+  {
+    "source": "codebase-index-ts/src/wiki/wiki",
+    "target": "codebase-index-ts/src/wiki/wiki::path",
+    "label": "defines"
+  },
+  {
+    "source": "codebase-index-ts/src/wiki/wiki",
+    "target": "codebase-index-ts/src/wiki/wiki::fs",
+    "label": "defines"
+  },
+  {
+    "source": "codebase-index-ts/src/wiki/wiki",
+    "target": "codebase-index-ts/src/wiki/wiki::OpenAI",
+    "label": "calls"
+  },
+  {
+    "source": "codebase-index-ts/src/wiki/wiki",
+    "target": "codebase-index-ts/src/wiki/wiki::wikiNode",
+    "label": "calls"
+  },
+  {
+    "source": "codebase-index-ts/src/wiki/wiki",
+    "target": "codebase-index-ts/src/wiki/wiki::readNodes",
+    "label": "calls"
+  },
+  {
+    "source": "codebase-index-ts/src/wiki/wiki",
+    "target": "codebase-index-ts/src/wiki/wiki::nodesFilePath",
+    "label": "calls"
+  },
+  {
+    "source": "codebase-index-ts/src/wiki/wiki",
+    "target": "codebase-index-ts/src/wiki/wiki::getSummaryOfAllRepoForContext",
+    "label": "calls"
+  },
+  {
+    "source": "codebase-index-ts/src/wiki/wiki",
+    "target": "codebase-index-ts/src/wiki/wiki::processAllFiles",
+    "label": "calls"
+  },
+  {
+    "source": "codebase-index-ts/src/wiki/wiki",
+    "target": "codebase-index-ts/src/wiki/wiki::processAllFolders",
+    "label": "calls"
+  },
+  {
+    "source": "codebase-index-ts/src/wiki/wiki",
+    "target": "codebase-index-ts/src/wiki/wiki::folderContents",
+    "label": "calls"
+  },
+  {
+    "source": "codebase-index-ts/src/wiki/wiki",
+    "target": "codebase-index-ts/src/wiki/wiki::buildFinalMarkdown",
+    "label": "calls"
+  },
+  {
+    "source": "codebase-index-ts/src/wiki/wiki",
+    "target": "codebase-index-ts/src/wiki/wiki::buildWiki",
+    "label": "calls"
+  },
+  {
+    "source": "codebase-index-ts/src/wiki/wiki",
+    "target": "codebase-index-ts/src/wiki/wiki::improveWiki",
+    "label": "calls"
+  },
+  {
+    "source": "codebase-index-ts/src/wiki/wiki",
+    "target": "codebase-index-ts/src/wiki/wiki::contents",
+    "label": "calls"
+  }
+]
