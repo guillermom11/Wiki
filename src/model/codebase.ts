@@ -164,10 +164,10 @@ export class Node {
         }
     }
 
-    getCodeWithoutBody() {
+    getCodeWithoutBody(considerLines: boolean = false) {
         let code = this.code
 
-        if (this.body || this.type === 'file') {
+        if ((this.body || this.type === 'file') && !['assignment', 'type', 'enum'].includes(this.type)) {
             if (Object.keys(this.children).length > 0) {
                 // const extension = this.id.split('::')[0].split('.').pop() || '';
                 const classMethodInit = this.language !== 'java' ? newClassMethodsMap[this.language] : this.name
@@ -180,21 +180,23 @@ export class Node {
                             let bodyToRemove = n.body
                             bodyToRemove = bodyToRemove.replace(n.documentation, '')
                             const spaces = ' '.repeat(n.startPosition.column)
+                            let bodyTotalLines = considerLines ? bodyToRemove.split('\n').length : 1
                             if (this.language === 'python') {
-                                code = code.replace(bodyToRemove, `\n${spaces}    ...`)
+                                code = code.replace(bodyToRemove, `\n${spaces}    ...` + '\n'.repeat(Math.max(bodyTotalLines- 1, 0)))
                             } else {
-                                code = code.replace(bodyToRemove, `{\n${spaces}    //...\n${spaces}}`)
+                                code = code.replace(bodyToRemove, `{\n${spaces}    //...\n${spaces}}` + '\n'.repeat(Math.max(bodyTotalLines - 3, 0)))
                             }
                         }
                     } else if (this.type === 'file' && !['assignment', 'type', 'enum'].includes(n.type)) {
                         if (n.body) {
                             let bodyToRemove = n.body
                             bodyToRemove = bodyToRemove.replace(n.documentation, '')
+                            let bodyTotalLines = considerLines ? bodyToRemove.split('\n').length : 1
                             const spaces = ' '.repeat(n.startPosition.column)
                             if (this.language === 'python') {
-                                code = code.replace(bodyToRemove, `${spaces}...`)
+                                code = code.replace(bodyToRemove, `${spaces}...` + '\n'.repeat(Math.max(bodyTotalLines - 1, 0)))
                             } else {
-                                code = code.replace(bodyToRemove, `{\n${spaces}//...\n${spaces}}`)
+                                code = code.replace(bodyToRemove, `{\n${spaces}//...\n${spaces}}`  + '\n'.repeat(Math.max(bodyTotalLines - 3, 0)))
                             }
 
                         }
@@ -203,18 +205,27 @@ export class Node {
 
             } else if (this.body) {
                 const spaces = ' '.repeat(this.startPosition.column)
+                let bodyTotalLines = considerLines ? this.body.split('\n').length : 1
                 if (this.language === 'python') {
-                    code = code.replace(this.body, '').trim() + `\n${spaces}    ...`
+                    code = code.replace(this.body, ''), `${spaces}...` + '\n'.repeat(Math.max(bodyTotalLines - 1, 0))
                 } else {
-                    code = code.replace(this.body, '').trim() + `{\n${spaces}    //...\n${spaces}}`
+                    code = code.replace(this.body, `{\n${spaces}//...\n${spaces}}`  + '\n'.repeat(Math.max(bodyTotalLines - 3, 0)))
                 }
 
                 
             }
         }
-        code = code.trim().replace(/\n\s*\n/, '\n')
-        if (this.parent && ['class', 'interface'].includes(this.parent?.type))
-            code = `${this.parent.code.replace(this.parent.body, '').trim()}\n    ...\n    ${code}`
+        code = considerLines? code: code.trim().replace(/\n\s*\n/, '\n')
+        if (this.parent && ['class', 'interface'].includes(this.parent?.type)) {
+            if (considerLines) {
+                const bodyTotalLines = considerLines ? this.parent.body.split('\n').length : 1
+                code = `${this.parent.code.replace(this.parent.body, '')}` + '\n'.repeat(Math.max(bodyTotalLines - 3, 0)) + `\n    ...\n    ${code}`
+            } else {
+                code = `${this.parent.code.replace(this.parent.body, '').trim()}\n    ...\n    ${code}`
+            }
+            
+            
+        }
         return code
     }
 
@@ -587,7 +598,7 @@ export class Codebase {
             const callsCapturer = new CallsCapturer(fileNode, verbose)
             const nodes: Node[] = [fileNode , ...fileNode.getAllChildren()]
             nodes.forEach((n: Node) => {
-                const callNodeIds = callsCapturer.getCallsFromNode(fileId, n)
+                const callNodeIds = callsCapturer.getCallsFromNode(n)
                 // const importFromFailed: Set<string> = new Set()
                 // console.log( `### ${n.id}`)
                 // console.log(n.code)
@@ -619,9 +630,9 @@ export class Codebase {
             if (n.parent) {
                 // const label = n.parent.type === 'file' ? `defines`: `from ${n.parent.type}`
                 const label = 'defines'
-                links.push({source: n.parent.id, target: n.id, label, line: n.startPosition.row})
+                links.push({source: n.parent.id, target: n.id, label, line: n.startPosition.row + 1})
             }
-            if (n.calls.length > 0) n.calls.forEach(c => links.push({source: n.id, target: c.node.id, label: 'calls', line: c.lines[0]}))
+            if (n.calls.length > 0) n.calls.forEach(c => links.push({source: n.id, target: c.node.id, label: 'calls', line: c.lines[0] + 1}))
         }
         return links
     }
