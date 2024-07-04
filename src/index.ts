@@ -35,6 +35,8 @@ app.get("/", async (c) => {
     "outDegree",
     "code",
     "parent",
+    "importStatements",
+    "codeNoBody"
   ]); //.filter(c => !['file'].includes(c.type))
   const links = codebase.getLinks();
 
