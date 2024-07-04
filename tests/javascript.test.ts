@@ -9,16 +9,26 @@ import { myFunction } from './myModule';
 import { myClass2 as myClass2Alias, myClass3 } from '../myModule2';
 import * as myModule3Alias from 'myModule3';
 import { myFunction as myFunctionAlias } from 'initFile';
+const myModule = require('./myModule');
+const var = require('./../myModule').var;
 `;
     const fileNode = new Node(`${rootFolderPath}/file`, fileContent, 'file', 'javascript')
     fileNode.generateImports()
     fileNode.resolveImportStatementsPath(rootFolderPath, [`${rootFolderPath}/file.js`, `${rootFolderPath}/myModule3.js`, `${rootFolderPath}/initFile/index.js`])
 
     const expectedImports = [
-        new ImportStatement('./myModule', [new ImportName('myFunction')], `/my/path/myModule`),
-        new ImportStatement('../myModule2', [new ImportName('myClass3'), new ImportName('myClass2', 'myClass2Alias')], '/my/myModule2'),
-        new ImportStatement('myModule3', [], '/my/path/myModule3', 'myModule3Alias'),
-        new ImportStatement('initFile', [new ImportName('myFunction', 'myFunctionAlias')], '/my/path/initFile/index', 'initFile'),
+        new ImportStatement('./myModule', [new ImportName('myFunction')],
+                `/my/path/myModule`, undefined, `import { myFunction } from './myModule';`),
+        new ImportStatement('../myModule2', [new ImportName('myClass3'), new ImportName('myClass2', 'myClass2Alias')],
+                '/my/myModule2', undefined, `import { myClass2 as myClass2Alias, myClass3 } from '../myModule2';`),
+        new ImportStatement('myModule3', [],
+                '/my/path/myModule3', 'myModule3Alias', `import * as myModule3Alias from 'myModule3';`),
+        new ImportStatement('initFile', [new ImportName('myFunction', 'myFunctionAlias')],
+                '/my/path/initFile/index', 'initFile', `import { myFunction as myFunctionAlias } from 'initFile';`),
+        new ImportStatement('./myModule', [],
+                '/my/path/myModule', 'myModule', `const myModule = require('./myModule');`),
+        new ImportStatement('./../myModule', [new ImportName('var')],
+            '/my/myModule', './../myModule', `const var = require('./../myModule').var;`)
     ];
     expect(fileNode.importStatements).toStrictEqual(expectedImports);
 });

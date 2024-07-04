@@ -34,8 +34,8 @@ const importStatements = `
 (lexical_declaration
     (variable_declarator
       name: [
-          (identifier) @name
-          (object_pattern (_) @name)
+          (identifier) @alias
+          (object_pattern (_) @alias)
       ]
       value: [(call_expression
                   function: _ @function
@@ -47,7 +47,7 @@ const importStatements = `
                     arguments: (arguments (string (string_fragment) @module))
                     (#eq? @function "require")
                 )
-                (property_identifier) @submodule
+                (property_identifier) @name
                )
               ]
     )           
