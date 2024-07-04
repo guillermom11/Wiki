@@ -27,6 +27,7 @@ app.get("/", async (c) => {
   console.timeEnd("codebase");
   const codebaseSimplified = codebase.simplify([
     "id",
+    "language",
     "label",
     "type",
     "parent",

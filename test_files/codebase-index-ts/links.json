@@ -1,1717 +1,2112 @@
 [
   {
-    "source": "codebase-index-ts/src/index",
-    "target": "codebase-index-ts/src/index::port",
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/graph_to_csv",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/graph_to_csv::graph_to_csv",
     "label": "defines"
   },
   {
-    "source": "codebase-index-ts/src/index",
-    "target": "codebase-index-ts/src/index::fs",
-    "label": "defines"
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/graph_to_csv",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/graph_to_csv::graph_to_csv",
+    "label": "calls"
   },
   {
-    "source": "codebase-index-ts/src/index",
-    "target": "codebase-index-ts/src/index::app",
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/index",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/index::port",
     "label": "defines"
   },
   {
-    "source": "codebase-index-ts/src/model/calls::CallsCapturer",
-    "target": "codebase-index-ts/src/model/calls::CallsCapturer.getCallsFromNode",
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/index",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/index::app",
     "label": "defines"
   },
   {
-    "source": "codebase-index-ts/src/model/calls::CallsCapturer.getCallsFromNode",
-    "target": "codebase-index-ts/src/model/calls::CallsCapturer",
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/index::app",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Codebase",
     "label": "calls"
   },
   {
-    "source": "codebase-index-ts/src/model/calls::CallsCapturer.getCallsFromNode",
-    "target": "codebase-index-ts/src/model/calls::CallsCapturer.captureAssignments",
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/index::app",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Codebase.parseFolder",
     "label": "calls"
   },
   {
-    "source": "codebase-index-ts/src/model/calls::CallsCapturer.getCallsFromNode",
-    "target": "codebase-index-ts/src/model/calls::CallsCapturer.captureCalls",
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/index::app",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Codebase.getCalls",
     "label": "calls"
   },
   {
-    "source": "codebase-index-ts/src/model/calls::CallsCapturer",
-    "target": "codebase-index-ts/src/model/calls::CallsCapturer.captureCalls",
-    "label": "defines"
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/index::app",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Codebase.simplify",
+    "label": "calls"
+  },
+  {
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/index::app",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Codebase.getLinks",
+    "label": "calls"
+  },
+  {
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/index::app",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/index::fs",
+    "label": "calls"
   },
   {
-    "source": "codebase-index-ts/src/model/calls::CallsCapturer.captureCalls",
-    "target": "codebase-index-ts/src/model/calls::CallIdentifier",
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/index::app",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/routes/create_graph::createGraph",
     "label": "calls"
   },
   {
-    "source": "codebase-index-ts/src/model/calls::CallsCapturer.captureCalls",
-    "target": "codebase-index-ts/src/model/calls::CallsCapturer",
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/index::app",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/routes/graphs::graphs",
     "label": "calls"
   },
   {
-    "source": "codebase-index-ts/src/model/calls::CallsCapturer",
-    "target": "codebase-index-ts/src/model/calls::CallsCapturer.captureAssignments",
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/index::app",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/routes/create_graph-test::createGraphTest",
+    "label": "calls"
+  },
+  {
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/index",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/index::fs",
     "label": "defines"
+  },
+  {
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/index",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Codebase",
+    "label": "calls"
+  },
+  {
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/index",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Codebase.parseFolder",
+    "label": "calls"
+  },
+  {
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/index",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Codebase.getCalls",
+    "label": "calls"
+  },
+  {
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/index",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Codebase.simplify",
+    "label": "calls"
+  },
+  {
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/index",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Codebase.getLinks",
+    "label": "calls"
+  },
+  {
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/index",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/index::fs",
+    "label": "calls"
+  },
+  {
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/index",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/routes/create_graph::createGraph",
+    "label": "calls"
+  },
+  {
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/index",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/routes/graphs::graphs",
+    "label": "calls"
   },
   {
-    "source": "codebase-index-ts/src/model/calls::CallsCapturer.captureAssignments",
-    "target": "codebase-index-ts/src/model/calls::VariableAssignment",
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/index",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/routes/create_graph-test::createGraphTest",
     "label": "calls"
   },
   {
-    "source": "codebase-index-ts/src/model/calls::CallsCapturer",
-    "target": "codebase-index-ts/src/model/calls::CallsCapturer.constructor",
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/calls::CallsCapturer",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/calls::CallsCapturer.getCallsFromNode",
     "label": "defines"
+  },
+  {
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/calls::CallsCapturer.getCallsFromNode",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Node",
+    "label": "calls"
   },
   {
-    "source": "codebase-index-ts/src/model/calls::CallsCapturer.constructor",
-    "target": "codebase-index-ts/src/model/calls::CallsCapturer",
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/calls::CallsCapturer.getCallsFromNode",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Node.getCodeWithoutBody",
     "label": "calls"
   },
   {
-    "source": "codebase-index-ts/src/model/calls",
-    "target": "codebase-index-ts/src/model/calls::CallsCapturer",
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/calls::CallsCapturer.getCallsFromNode",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/calls::CallsCapturer",
+    "label": "calls"
+  },
+  {
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/calls::CallsCapturer.getCallsFromNode",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/consts::itselfClassMap",
+    "label": "calls"
+  },
+  {
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/calls::CallsCapturer.getCallsFromNode",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/calls::CallsCapturer.captureAssignments",
+    "label": "calls"
+  },
+  {
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/calls::CallsCapturer.getCallsFromNode",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/calls::CallsCapturer.captureCalls",
+    "label": "calls"
+  },
+  {
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/calls::CallsCapturer",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/calls::CallsCapturer.captureCalls",
     "label": "defines"
+  },
+  {
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/calls::CallsCapturer.captureCalls",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Node",
+    "label": "calls"
   },
   {
-    "source": "codebase-index-ts/src/model/calls::CallsCapturer",
-    "target": "codebase-index-ts/src/model/calls::CallsCapturer",
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/calls::CallsCapturer.captureCalls",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/calls::CallIdentifier",
     "label": "calls"
   },
   {
-    "source": "codebase-index-ts/src/model/calls::CallsCapturer",
-    "target": "codebase-index-ts/src/model/calls::VariableAssignment",
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/calls::CallsCapturer.captureCalls",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/utils::captureQuery",
     "label": "calls"
   },
   {
-    "source": "codebase-index-ts/src/model/calls::CallsCapturer",
-    "target": "codebase-index-ts/src/model/calls::CallIdentifier",
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/calls::CallsCapturer.captureCalls",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/utils::cleanAndSplitContent",
     "label": "calls"
   },
   {
-    "source": "codebase-index-ts/src/model/calls::Call",
-    "target": "codebase-index-ts/src/model/calls::Call.constructor",
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/calls::CallsCapturer.captureCalls",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/calls::CallsCapturer",
+    "label": "calls"
+  },
+  {
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/calls::CallsCapturer",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/calls::CallsCapturer.captureAssignments",
     "label": "defines"
+  },
+  {
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/calls::CallsCapturer.captureAssignments",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/calls::VariableAssignment",
+    "label": "calls"
   },
   {
-    "source": "codebase-index-ts/src/model/calls::Call.constructor",
-    "target": "codebase-index-ts/src/model/calls::Call",
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/calls::CallsCapturer.captureAssignments",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/utils::captureQuery",
     "label": "calls"
   },
   {
-    "source": "codebase-index-ts/src/model/calls",
-    "target": "codebase-index-ts/src/model/calls::Call",
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/calls::CallsCapturer",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/calls::CallsCapturer.constructor",
     "label": "defines"
+  },
+  {
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/calls::CallsCapturer.constructor",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Node",
+    "label": "calls"
+  },
+  {
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/calls::CallsCapturer.constructor",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/calls::CallsCapturer",
+    "label": "calls"
   },
   {
-    "source": "codebase-index-ts/src/model/calls::Call",
-    "target": "codebase-index-ts/src/model/calls::Call",
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/calls::CallsCapturer.constructor",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Node.getAllChildren",
     "label": "calls"
   },
   {
-    "source": "codebase-index-ts/src/model/calls::CallIdentifier",
-    "target": "codebase-index-ts/src/model/calls::CallIdentifier.constructor",
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/calls",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/calls::CallsCapturer",
     "label": "defines"
+  },
+  {
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/calls::CallsCapturer",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/calls::CallsCapturer",
+    "label": "calls"
   },
   {
-    "source": "codebase-index-ts/src/model/calls::CallIdentifier.constructor",
-    "target": "codebase-index-ts/src/model/calls::CallIdentifier",
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/calls::CallsCapturer",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Node",
     "label": "calls"
   },
   {
-    "source": "codebase-index-ts/src/model/calls",
-    "target": "codebase-index-ts/src/model/calls::CallIdentifier",
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/calls::CallsCapturer",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/calls::VariableAssignment",
+    "label": "calls"
+  },
+  {
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/calls::CallsCapturer",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/calls::CallIdentifier",
+    "label": "calls"
+  },
+  {
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/calls::CallIdentifier",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/calls::CallIdentifier.constructor",
     "label": "defines"
   },
   {
-    "source": "codebase-index-ts/src/model/calls::CallIdentifier",
-    "target": "codebase-index-ts/src/model/calls::CallIdentifier",
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/calls::CallIdentifier.constructor",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/calls::CallIdentifier",
     "label": "calls"
   },
   {
-    "source": "codebase-index-ts/src/model/calls",
-    "target": "codebase-index-ts/src/model/calls::VariableAssignment",
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/calls",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/calls::CallIdentifier",
     "label": "defines"
   },
   {
-    "source": "codebase-index-ts/src/model/calls::VariableAssignment",
-    "target": "codebase-index-ts/src/model/calls::VariableAssignment",
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/calls::CallIdentifier",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/calls::CallIdentifier",
     "label": "calls"
+  },
+  {
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/calls",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/calls::VariableAssignment",
+    "label": "defines"
   },
   {
-    "source": "codebase-index-ts/src/model/calls",
-    "target": "codebase-index-ts/src/model/calls::VariableAssignment",
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/calls::VariableAssignment",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/calls::VariableAssignment",
     "label": "calls"
   },
   {
-    "source": "codebase-index-ts/src/model/calls",
-    "target": "codebase-index-ts/src/model/calls::CallIdentifier",
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/calls",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/calls::VariableAssignment",
     "label": "calls"
   },
   {
-    "source": "codebase-index-ts/src/model/calls",
-    "target": "codebase-index-ts/src/model/calls::Call",
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/calls",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/calls::CallIdentifier",
     "label": "calls"
   },
   {
-    "source": "codebase-index-ts/src/model/calls",
-    "target": "codebase-index-ts/src/model/calls::CallsCapturer",
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/calls",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/calls::CallsCapturer",
     "label": "calls"
   },
   {
-    "source": "codebase-index-ts/src/model/codebase::Codebase",
-    "target": "codebase-index-ts/src/model/codebase::Codebase.resolveHeaderC",
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Codebase",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Codebase.resolveHeaderC",
     "label": "defines"
   },
   {
-    "source": "codebase-index-ts/src/model/codebase::Codebase.resolveHeaderC",
-    "target": "codebase-index-ts/src/model/codebase::Node",
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Codebase.resolveHeaderC",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Node",
     "label": "calls"
   },
   {
-    "source": "codebase-index-ts/src/model/codebase::Codebase.resolveHeaderC",
-    "target": "codebase-index-ts/src/model/codebase::Node.getAllChildren",
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Codebase.resolveHeaderC",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Node.getAllChildren",
     "label": "calls"
   },
   {
-    "source": "codebase-index-ts/src/model/codebase::Codebase.resolveHeaderC",
-    "target": "codebase-index-ts/src/model/codebase::Codebase",
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Codebase.resolveHeaderC",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Codebase",
     "label": "calls"
   },
   {
-    "source": "codebase-index-ts/src/model/codebase::Codebase.resolveHeaderC",
-    "target": "codebase-index-ts/src/model/codebase::Node.removeChild",
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Codebase.resolveHeaderC",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Node.removeChild",
     "label": "calls"
   },
   {
-    "source": "codebase-index-ts/src/model/codebase::Codebase.resolveHeaderC",
-    "target": "codebase-index-ts/src/model/codebase::Node.addChild",
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Codebase.resolveHeaderC",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Node.addChild",
     "label": "calls"
   },
   {
-    "source": "codebase-index-ts/src/model/codebase::Codebase",
-    "target": "codebase-index-ts/src/model/codebase::Codebase.resolveImportStatementsNodes",
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Codebase",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Codebase.resolveImportStatementsNodes",
     "label": "defines"
   },
   {
-    "source": "codebase-index-ts/src/model/codebase::Codebase.resolveImportStatementsNodes",
-    "target": "codebase-index-ts/src/model/codebase::Codebase",
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Codebase.resolveImportStatementsNodes",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Codebase",
     "label": "calls"
   },
   {
-    "source": "codebase-index-ts/src/model/codebase::Codebase.resolveImportStatementsNodes",
-    "target": "codebase-index-ts/src/model/codebase::ImportName",
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Codebase.resolveImportStatementsNodes",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::ImportName",
     "label": "calls"
   },
   {
-    "source": "codebase-index-ts/src/model/codebase::Codebase.resolveImportStatementsNodes",
-    "target": "codebase-index-ts/src/model/codebase::Codebase.resolveHeaderC",
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Codebase.resolveImportStatementsNodes",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Codebase.resolveHeaderC",
     "label": "calls"
   },
   {
-    "source": "codebase-index-ts/src/model/codebase::Codebase",
-    "target": "codebase-index-ts/src/model/codebase::Codebase.resolvePythonInitImportStatements",
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Codebase",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Codebase.resolvePythonInitImportStatements",
     "label": "defines"
   },
   {
-    "source": "codebase-index-ts/src/model/codebase::Codebase.resolvePythonInitImportStatements",
-    "target": "codebase-index-ts/src/model/codebase::Codebase",
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Codebase.resolvePythonInitImportStatements",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Codebase",
     "label": "calls"
   },
   {
-    "source": "codebase-index-ts/src/model/codebase::Codebase.resolvePythonInitImportStatements",
-    "target": "codebase-index-ts/src/model/codebase::ImportStatement",
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Codebase.resolvePythonInitImportStatements",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::ImportStatement",
     "label": "calls"
   },
   {
-    "source": "codebase-index-ts/src/model/codebase::Codebase",
-    "target": "codebase-index-ts/src/model/codebase::Codebase.getLinks",
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Codebase",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Codebase.getLinks",
     "label": "defines"
   },
   {
-    "source": "codebase-index-ts/src/model/codebase::Codebase.getLinks",
-    "target": "codebase-index-ts/src/model/codebase::Link",
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Codebase.getLinks",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Link",
     "label": "calls"
   },
   {
-    "source": "codebase-index-ts/src/model/codebase::Codebase.getLinks",
-    "target": "codebase-index-ts/src/model/codebase::Codebase",
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Codebase.getLinks",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Codebase",
     "label": "calls"
   },
   {
-    "source": "codebase-index-ts/src/model/codebase::Codebase",
-    "target": "codebase-index-ts/src/model/codebase::Codebase.simplify",
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Codebase",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Codebase.simplify",
     "label": "defines"
   },
   {
-    "source": "codebase-index-ts/src/model/codebase::Codebase.simplify",
-    "target": "codebase-index-ts/src/model/codebase::Codebase",
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Codebase.simplify",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Codebase",
     "label": "calls"
   },
   {
-    "source": "codebase-index-ts/src/model/codebase::Codebase",
-    "target": "codebase-index-ts/src/model/codebase::Codebase.getCalls",
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Codebase",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Codebase.getCalls",
     "label": "defines"
+  },
+  {
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Codebase.getCalls",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Node",
+    "label": "calls"
+  },
+  {
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Codebase.getCalls",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/calls::CallsCapturer",
+    "label": "calls"
   },
   {
-    "source": "codebase-index-ts/src/model/codebase::Codebase.getCalls",
-    "target": "codebase-index-ts/src/model/codebase::Node",
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Codebase.getCalls",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/calls::CallsCapturer.getCallsFromNode",
     "label": "calls"
   },
   {
-    "source": "codebase-index-ts/src/model/codebase::Codebase.getCalls",
-    "target": "codebase-index-ts/src/model/codebase::Codebase",
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Codebase.getCalls",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Codebase",
     "label": "calls"
   },
   {
-    "source": "codebase-index-ts/src/model/codebase::Codebase",
-    "target": "codebase-index-ts/src/model/codebase::Codebase.parseFolder",
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Codebase",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Codebase.parseFolder",
     "label": "defines"
+  },
+  {
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Codebase.parseFolder",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Node",
+    "label": "calls"
   },
   {
-    "source": "codebase-index-ts/src/model/codebase::Codebase.parseFolder",
-    "target": "codebase-index-ts/src/model/codebase::Node",
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Codebase.parseFolder",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Codebase",
     "label": "calls"
   },
   {
-    "source": "codebase-index-ts/src/model/codebase::Codebase.parseFolder",
-    "target": "codebase-index-ts/src/model/codebase::Codebase",
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Codebase.parseFolder",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/utils::getAllFiles",
     "label": "calls"
   },
   {
-    "source": "codebase-index-ts/src/model/codebase::Codebase.parseFolder",
-    "target": "codebase-index-ts/src/model/codebase::Codebase.generateNodesFromFilePath",
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Codebase.parseFolder",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Codebase.generateNodesFromFilePath",
     "label": "calls"
   },
   {
-    "source": "codebase-index-ts/src/model/codebase::Codebase.parseFolder",
-    "target": "codebase-index-ts/src/model/codebase::Codebase.addNodeMap",
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Codebase.parseFolder",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Codebase.addNodeMap",
     "label": "calls"
   },
   {
-    "source": "codebase-index-ts/src/model/codebase::Codebase.parseFolder",
-    "target": "codebase-index-ts/src/model/codebase::Codebase.resolvePythonInitImportStatements",
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Codebase.parseFolder",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Codebase.resolvePythonInitImportStatements",
     "label": "calls"
   },
   {
-    "source": "codebase-index-ts/src/model/codebase::Codebase.parseFolder",
-    "target": "codebase-index-ts/src/model/codebase::Codebase.resolveImportStatementsNodes",
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Codebase.parseFolder",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Codebase.resolveImportStatementsNodes",
     "label": "calls"
   },
   {
-    "source": "codebase-index-ts/src/model/codebase::Codebase",
-    "target": "codebase-index-ts/src/model/codebase::Codebase.generateNodesFromFilePath",
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Codebase",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Codebase.generateNodesFromFilePath",
     "label": "defines"
+  },
+  {
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Codebase.generateNodesFromFilePath",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Node",
+    "label": "calls"
   },
   {
-    "source": "codebase-index-ts/src/model/codebase::Codebase.generateNodesFromFilePath",
-    "target": "codebase-index-ts/src/model/codebase::Node",
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Codebase.generateNodesFromFilePath",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/consts::languageExtensionMap",
     "label": "calls"
   },
   {
-    "source": "codebase-index-ts/src/model/codebase::Codebase.generateNodesFromFilePath",
-    "target": "codebase-index-ts/src/model/codebase::Node.getChildrenDefinitions",
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Codebase.generateNodesFromFilePath",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Node.getChildrenDefinitions",
     "label": "calls"
   },
   {
-    "source": "codebase-index-ts/src/model/codebase::Codebase.generateNodesFromFilePath",
-    "target": "codebase-index-ts/src/model/codebase::Node.generateImports",
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Codebase.generateNodesFromFilePath",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Node.generateImports",
     "label": "calls"
   },
   {
-    "source": "codebase-index-ts/src/model/codebase::Codebase.generateNodesFromFilePath",
-    "target": "codebase-index-ts/src/model/codebase::Node.parseExportClauses",
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Codebase.generateNodesFromFilePath",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Node.parseExportClauses",
     "label": "calls"
   },
   {
-    "source": "codebase-index-ts/src/model/codebase::Codebase.generateNodesFromFilePath",
-    "target": "codebase-index-ts/src/model/codebase::Codebase",
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Codebase.generateNodesFromFilePath",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Codebase",
     "label": "calls"
   },
   {
-    "source": "codebase-index-ts/src/model/codebase::Codebase.generateNodesFromFilePath",
-    "target": "codebase-index-ts/src/model/codebase::enc",
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Codebase.generateNodesFromFilePath",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::enc",
     "label": "calls"
   },
   {
-    "source": "codebase-index-ts/src/model/codebase::Codebase",
-    "target": "codebase-index-ts/src/model/codebase::Codebase.addNodeMap",
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Codebase",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Codebase.addNodeMap",
     "label": "defines"
   },
   {
-    "source": "codebase-index-ts/src/model/codebase::Codebase.addNodeMap",
-    "target": "codebase-index-ts/src/model/codebase::Node",
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Codebase.addNodeMap",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Node",
     "label": "calls"
   },
   {
-    "source": "codebase-index-ts/src/model/codebase::Codebase.addNodeMap",
-    "target": "codebase-index-ts/src/model/codebase::Codebase",
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Codebase.addNodeMap",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Codebase",
     "label": "calls"
   },
   {
-    "source": "codebase-index-ts/src/model/codebase::Codebase",
-    "target": "codebase-index-ts/src/model/codebase::Codebase.getNode",
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Codebase",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Codebase.getNode",
     "label": "defines"
   },
   {
-    "source": "codebase-index-ts/src/model/codebase::Codebase.getNode",
-    "target": "codebase-index-ts/src/model/codebase::Node",
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Codebase.getNode",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Node",
     "label": "calls"
   },
   {
-    "source": "codebase-index-ts/src/model/codebase::Codebase.getNode",
-    "target": "codebase-index-ts/src/model/codebase::Codebase",
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Codebase.getNode",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Codebase",
     "label": "calls"
   },
   {
-    "source": "codebase-index-ts/src/model/codebase::Codebase",
-    "target": "codebase-index-ts/src/model/codebase::Codebase.addNode",
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Codebase",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Codebase.addNode",
     "label": "defines"
   },
   {
-    "source": "codebase-index-ts/src/model/codebase::Codebase.addNode",
-    "target": "codebase-index-ts/src/model/codebase::Node",
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Codebase.addNode",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Node",
     "label": "calls"
   },
   {
-    "source": "codebase-index-ts/src/model/codebase::Codebase.addNode",
-    "target": "codebase-index-ts/src/model/codebase::Codebase",
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Codebase.addNode",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Codebase",
     "label": "calls"
   },
   {
-    "source": "codebase-index-ts/src/model/codebase::Codebase",
-    "target": "codebase-index-ts/src/model/codebase::Codebase.constructor",
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Codebase",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Codebase.constructor",
     "label": "defines"
   },
   {
-    "source": "codebase-index-ts/src/model/codebase::Codebase.constructor",
-    "target": "codebase-index-ts/src/model/codebase::Codebase",
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Codebase.constructor",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Codebase",
     "label": "calls"
   },
   {
-    "source": "codebase-index-ts/src/model/codebase",
-    "target": "codebase-index-ts/src/model/codebase::Codebase",
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Codebase",
     "label": "defines"
   },
   {
-    "source": "codebase-index-ts/src/model/codebase::Codebase",
-    "target": "codebase-index-ts/src/model/codebase::Codebase",
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Codebase",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Codebase",
     "label": "calls"
   },
   {
-    "source": "codebase-index-ts/src/model/codebase::Codebase",
-    "target": "codebase-index-ts/src/model/codebase::Node",
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Codebase",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Node",
     "label": "calls"
   },
   {
-    "source": "codebase-index-ts/src/model/codebase::Codebase",
-    "target": "codebase-index-ts/src/model/codebase::Link",
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Codebase",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Link",
     "label": "calls"
   },
   {
-    "source": "codebase-index-ts/src/model/codebase::Node",
-    "target": "codebase-index-ts/src/model/codebase::Node.simplify",
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Node",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Node.simplify",
     "label": "defines"
   },
   {
-    "source": "codebase-index-ts/src/model/codebase::Node.simplify",
-    "target": "codebase-index-ts/src/model/codebase::Node",
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Node.simplify",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Node",
     "label": "calls"
   },
   {
-    "source": "codebase-index-ts/src/model/codebase::Node.simplify",
-    "target": "codebase-index-ts/src/model/codebase::Node.getCodeWithoutBody",
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Node.simplify",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Node.getCodeWithoutBody",
     "label": "calls"
   },
   {
-    "source": "codebase-index-ts/src/model/codebase::Node",
-    "target": "codebase-index-ts/src/model/codebase::Node.getChildrenDefinitions",
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Node",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Node.getChildrenDefinitions",
     "label": "defines"
+  },
+  {
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Node.getChildrenDefinitions",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Node",
+    "label": "calls"
+  },
+  {
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Node.getChildrenDefinitions",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/utils::captureQuery",
+    "label": "calls"
+  },
+  {
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Node.getChildrenDefinitions",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/consts::AllowedTypesArray",
+    "label": "calls"
+  },
+  {
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Node.getChildrenDefinitions",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/consts::AllowedTypes",
+    "label": "calls"
+  },
+  {
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Node.getChildrenDefinitions",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/consts::treeSitterCommentTypes",
+    "label": "calls"
   },
   {
-    "source": "codebase-index-ts/src/model/codebase::Node.getChildrenDefinitions",
-    "target": "codebase-index-ts/src/model/codebase::Node",
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Node.getChildrenDefinitions",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/utils::cleanDefCaptures",
     "label": "calls"
   },
   {
-    "source": "codebase-index-ts/src/model/codebase::Node.getChildrenDefinitions",
-    "target": "codebase-index-ts/src/model/codebase::Node.addChild",
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Node.getChildrenDefinitions",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Node.addChild",
     "label": "calls"
   },
   {
-    "source": "codebase-index-ts/src/model/codebase::Node",
-    "target": "codebase-index-ts/src/model/codebase::Node.resolveImportStatementsPath",
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Node",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Node.resolveImportStatementsPath",
     "label": "defines"
   },
   {
-    "source": "codebase-index-ts/src/model/codebase::Node.resolveImportStatementsPath",
-    "target": "codebase-index-ts/src/model/codebase::Node",
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Node.resolveImportStatementsPath",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Node",
     "label": "calls"
   },
   {
-    "source": "codebase-index-ts/src/model/codebase::Node",
-    "target": "codebase-index-ts/src/model/codebase::Node.parseExportClauses",
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Node.resolveImportStatementsPath",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/consts::indexSuffixesMap",
+    "label": "calls"
+  },
+  {
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Node",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Node.parseExportClauses",
     "label": "defines"
+  },
+  {
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Node.parseExportClauses",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Node",
+    "label": "calls"
   },
   {
-    "source": "codebase-index-ts/src/model/codebase::Node.parseExportClauses",
-    "target": "codebase-index-ts/src/model/codebase::Node",
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Node.parseExportClauses",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/utils::captureQuery",
     "label": "calls"
   },
   {
-    "source": "codebase-index-ts/src/model/codebase::Node",
-    "target": "codebase-index-ts/src/model/codebase::Node.generateImports",
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Node",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Node.generateImports",
     "label": "defines"
+  },
+  {
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Node.generateImports",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Node",
+    "label": "calls"
+  },
+  {
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Node.generateImports",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/utils::captureQuery",
+    "label": "calls"
   },
   {
-    "source": "codebase-index-ts/src/model/codebase::Node.generateImports",
-    "target": "codebase-index-ts/src/model/codebase::Node",
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Node.generateImports",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::ImportStatement",
     "label": "calls"
   },
   {
-    "source": "codebase-index-ts/src/model/codebase::Node.generateImports",
-    "target": "codebase-index-ts/src/model/codebase::ImportStatement",
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Node.generateImports",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::ImportName",
     "label": "calls"
   },
   {
-    "source": "codebase-index-ts/src/model/codebase::Node.generateImports",
-    "target": "codebase-index-ts/src/model/codebase::ImportName",
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Node.generateImports",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/utils::renameSource",
     "label": "calls"
   },
   {
-    "source": "codebase-index-ts/src/model/codebase::Node",
-    "target": "codebase-index-ts/src/model/codebase::Node.getCodeWithoutBody",
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Node",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Node.getCodeWithoutBody",
     "label": "defines"
+  },
+  {
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Node.getCodeWithoutBody",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Node",
+    "label": "calls"
   },
   {
-    "source": "codebase-index-ts/src/model/codebase::Node.getCodeWithoutBody",
-    "target": "codebase-index-ts/src/model/codebase::Node",
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Node.getCodeWithoutBody",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/consts::newClassMethodsMap",
     "label": "calls"
   },
   {
-    "source": "codebase-index-ts/src/model/codebase::Node",
-    "target": "codebase-index-ts/src/model/codebase::Node.addNodeRelationship",
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Node",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Node.addNodeRelationship",
     "label": "defines"
   },
   {
-    "source": "codebase-index-ts/src/model/codebase::Node.addNodeRelationship",
-    "target": "codebase-index-ts/src/model/codebase::Node",
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Node.addNodeRelationship",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Node",
     "label": "calls"
   },
   {
-    "source": "codebase-index-ts/src/model/codebase::Node.addNodeRelationship",
-    "target": "codebase-index-ts/src/model/codebase::Node.isWithin",
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Node.addNodeRelationship",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Node.isWithin",
     "label": "calls"
   },
   {
-    "source": "codebase-index-ts/src/model/codebase::Node.addNodeRelationship",
-    "target": "codebase-index-ts/src/model/codebase::Node.addChild",
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Node.addNodeRelationship",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Node.addChild",
     "label": "calls"
   },
   {
-    "source": "codebase-index-ts/src/model/codebase::Node",
-    "target": "codebase-index-ts/src/model/codebase::Node.isWithin",
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Node",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Node.isWithin",
     "label": "defines"
   },
   {
-    "source": "codebase-index-ts/src/model/codebase::Node.isWithin",
-    "target": "codebase-index-ts/src/model/codebase::Node",
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Node.isWithin",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Node",
     "label": "calls"
   },
   {
-    "source": "codebase-index-ts/src/model/codebase::Node",
-    "target": "codebase-index-ts/src/model/codebase::Node.addImportStatement",
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Node",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Node.addImportStatement",
     "label": "defines"
   },
   {
-    "source": "codebase-index-ts/src/model/codebase::Node.addImportStatement",
-    "target": "codebase-index-ts/src/model/codebase::ImportStatement",
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Node.addImportStatement",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::ImportStatement",
     "label": "calls"
   },
   {
-    "source": "codebase-index-ts/src/model/codebase::Node.addImportStatement",
-    "target": "codebase-index-ts/src/model/codebase::Node",
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Node.addImportStatement",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Node",
     "label": "calls"
   },
   {
-    "source": "codebase-index-ts/src/model/codebase::Node",
-    "target": "codebase-index-ts/src/model/codebase::Node.addCall",
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Node",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Node.addCall",
     "label": "defines"
   },
   {
-    "source": "codebase-index-ts/src/model/codebase::Node.addCall",
-    "target": "codebase-index-ts/src/model/codebase::Node",
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Node.addCall",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Node",
     "label": "calls"
   },
   {
-    "source": "codebase-index-ts/src/model/codebase::Node",
-    "target": "codebase-index-ts/src/model/codebase::Node.removeChild",
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Node",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Node.removeChild",
     "label": "defines"
   },
   {
-    "source": "codebase-index-ts/src/model/codebase::Node.removeChild",
-    "target": "codebase-index-ts/src/model/codebase::Node",
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Node.removeChild",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Node",
     "label": "calls"
   },
   {
-    "source": "codebase-index-ts/src/model/codebase::Node",
-    "target": "codebase-index-ts/src/model/codebase::Node.addChild",
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Node",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Node.addChild",
     "label": "defines"
   },
   {
-    "source": "codebase-index-ts/src/model/codebase::Node.addChild",
-    "target": "codebase-index-ts/src/model/codebase::Node",
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Node.addChild",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Node",
     "label": "calls"
   },
   {
-    "source": "codebase-index-ts/src/model/codebase::Node",
-    "target": "codebase-index-ts/src/model/codebase::Node.getAllChildren",
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Node",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Node.getAllChildren",
     "label": "defines"
   },
   {
-    "source": "codebase-index-ts/src/model/codebase::Node.getAllChildren",
-    "target": "codebase-index-ts/src/model/codebase::Node",
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Node.getAllChildren",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/consts::AllowedTypes",
     "label": "calls"
   },
   {
-    "source": "codebase-index-ts/src/model/codebase::Node",
-    "target": "codebase-index-ts/src/model/codebase::Node.getChild",
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Node.getAllChildren",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Node",
+    "label": "calls"
+  },
+  {
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Node",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Node.getChild",
+    "label": "defines"
+  },
+  {
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Node.getChild",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Node",
+    "label": "calls"
+  },
+  {
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Node",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Node.constructor",
     "label": "defines"
+  },
+  {
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Node.constructor",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/consts::AllowedTypes",
+    "label": "calls"
   },
   {
-    "source": "codebase-index-ts/src/model/codebase::Node.getChild",
-    "target": "codebase-index-ts/src/model/codebase::Node",
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Node.constructor",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Node",
     "label": "calls"
   },
   {
-    "source": "codebase-index-ts/src/model/codebase::Node",
-    "target": "codebase-index-ts/src/model/codebase::Node.constructor",
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Node",
     "label": "defines"
+  },
+  {
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Node",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Node",
+    "label": "calls"
+  },
+  {
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Node",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/consts::AllowedTypes",
+    "label": "calls"
+  },
+  {
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Node",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::ImportStatement",
+    "label": "calls"
   },
   {
-    "source": "codebase-index-ts/src/model/codebase::Node.constructor",
-    "target": "codebase-index-ts/src/model/codebase::Node",
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Node",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::NodeCallTuple",
     "label": "calls"
   },
   {
-    "source": "codebase-index-ts/src/model/codebase",
-    "target": "codebase-index-ts/src/model/codebase::Node",
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::NodeCallTuple",
     "label": "defines"
   },
   {
-    "source": "codebase-index-ts/src/model/codebase::Node",
-    "target": "codebase-index-ts/src/model/codebase::Node",
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::NodeCallTuple",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::NodeCallTuple",
     "label": "calls"
   },
   {
-    "source": "codebase-index-ts/src/model/codebase::Node",
-    "target": "codebase-index-ts/src/model/codebase::ImportStatement",
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::NodeCallTuple",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Node",
     "label": "calls"
   },
   {
-    "source": "codebase-index-ts/src/model/codebase",
-    "target": "codebase-index-ts/src/model/codebase::Link",
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Link",
     "label": "defines"
   },
   {
-    "source": "codebase-index-ts/src/model/codebase::Link",
-    "target": "codebase-index-ts/src/model/codebase::Link",
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Link",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Link",
     "label": "calls"
   },
   {
-    "source": "codebase-index-ts/src/model/codebase::ImportStatement",
-    "target": "codebase-index-ts/src/model/codebase::ImportStatement.constructor",
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::ImportStatement",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::ImportStatement.constructor",
     "label": "defines"
   },
   {
-    "source": "codebase-index-ts/src/model/codebase::ImportStatement.constructor",
-    "target": "codebase-index-ts/src/model/codebase::ImportName",
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::ImportStatement.constructor",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::ImportName",
     "label": "calls"
   },
   {
-    "source": "codebase-index-ts/src/model/codebase::ImportStatement.constructor",
-    "target": "codebase-index-ts/src/model/codebase::ImportStatement",
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::ImportStatement.constructor",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::ImportStatement",
     "label": "calls"
   },
   {
-    "source": "codebase-index-ts/src/model/codebase",
-    "target": "codebase-index-ts/src/model/codebase::ImportStatement",
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::ImportStatement",
     "label": "defines"
   },
   {
-    "source": "codebase-index-ts/src/model/codebase::ImportStatement",
-    "target": "codebase-index-ts/src/model/codebase::ImportStatement",
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::ImportStatement",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::ImportStatement",
     "label": "calls"
   },
   {
-    "source": "codebase-index-ts/src/model/codebase::ImportStatement",
-    "target": "codebase-index-ts/src/model/codebase::ImportName",
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::ImportStatement",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::ImportName",
     "label": "calls"
   },
   {
-    "source": "codebase-index-ts/src/model/codebase::ImportName",
-    "target": "codebase-index-ts/src/model/codebase::ImportName.constructor",
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::ImportName",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::ImportName.constructor",
     "label": "defines"
   },
   {
-    "source": "codebase-index-ts/src/model/codebase::ImportName.constructor",
-    "target": "codebase-index-ts/src/model/codebase::ImportName",
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::ImportName.constructor",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::ImportName",
     "label": "calls"
   },
   {
-    "source": "codebase-index-ts/src/model/codebase",
-    "target": "codebase-index-ts/src/model/codebase::ImportName",
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::ImportName",
     "label": "defines"
   },
   {
-    "source": "codebase-index-ts/src/model/codebase::ImportName",
-    "target": "codebase-index-ts/src/model/codebase::ImportName",
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::ImportName",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::ImportName",
     "label": "calls"
   },
   {
-    "source": "codebase-index-ts/src/model/codebase::ImportName",
-    "target": "codebase-index-ts/src/model/codebase::Node",
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::ImportName",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Node",
     "label": "calls"
   },
   {
-    "source": "codebase-index-ts/src/model/codebase",
-    "target": "codebase-index-ts/src/model/codebase::enc",
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::enc",
     "label": "defines"
+  },
+  {
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::ImportName",
+    "label": "calls"
   },
   {
-    "source": "codebase-index-ts/src/model/codebase",
-    "target": "codebase-index-ts/src/model/codebase::ImportName",
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::ImportStatement",
     "label": "calls"
   },
   {
-    "source": "codebase-index-ts/src/model/codebase",
-    "target": "codebase-index-ts/src/model/codebase::ImportStatement",
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Link",
     "label": "calls"
   },
   {
-    "source": "codebase-index-ts/src/model/codebase",
-    "target": "codebase-index-ts/src/model/codebase::Link",
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::NodeCallTuple",
     "label": "calls"
   },
   {
-    "source": "codebase-index-ts/src/model/codebase",
-    "target": "codebase-index-ts/src/model/codebase::Node",
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Node",
     "label": "calls"
   },
   {
-    "source": "codebase-index-ts/src/model/codebase",
-    "target": "codebase-index-ts/src/model/codebase::Codebase",
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Codebase",
     "label": "calls"
   },
   {
-    "source": "codebase-index-ts/src/model/consts",
-    "target": "codebase-index-ts/src/model/consts::treeSitterCommentTypes",
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/consts",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/consts::treeSitterCommentTypes",
     "label": "defines"
   },
   {
-    "source": "codebase-index-ts/src/model/consts",
-    "target": "codebase-index-ts/src/model/consts::indexSuffixesMap",
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/consts",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/consts::indexSuffixesMap",
     "label": "defines"
   },
   {
-    "source": "codebase-index-ts/src/model/consts",
-    "target": "codebase-index-ts/src/model/consts::itselfClassMap",
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/consts",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/consts::itselfClassMap",
     "label": "defines"
   },
   {
-    "source": "codebase-index-ts/src/model/consts",
-    "target": "codebase-index-ts/src/model/consts::newClassMethodsMap",
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/consts",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/consts::newClassMethodsMap",
     "label": "defines"
   },
   {
-    "source": "codebase-index-ts/src/model/consts",
-    "target": "codebase-index-ts/src/model/consts::languageExtensionMap",
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/consts",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/consts::languageExtensionMap",
     "label": "defines"
   },
   {
-    "source": "codebase-index-ts/src/model/consts",
-    "target": "codebase-index-ts/src/model/consts::languages",
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/consts",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/consts::languages",
     "label": "defines"
   },
   {
-    "source": "codebase-index-ts/src/model/consts",
-    "target": "codebase-index-ts/src/model/consts::excludedExtensions",
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/consts",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/consts::excludedExtensions",
     "label": "defines"
   },
   {
-    "source": "codebase-index-ts/src/model/consts",
-    "target": "codebase-index-ts/src/model/consts::excludedFolders",
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/consts",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/consts::excludedFolders",
     "label": "defines"
   },
   {
-    "source": "codebase-index-ts/src/model/consts",
-    "target": "codebase-index-ts/src/model/consts::AllowedTypesArray",
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/consts",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/consts::AllowedTypesArray",
     "label": "defines"
   },
   {
-    "source": "codebase-index-ts/src/model/consts::AllowedTypesArray",
-    "target": "codebase-index-ts/src/model/consts::AllowedTypes",
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/consts::AllowedTypesArray",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/consts::AllowedTypes",
     "label": "calls"
   },
   {
-    "source": "codebase-index-ts/src/model/consts",
-    "target": "codebase-index-ts/src/model/consts::AllowedTypes",
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/consts",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/consts::AllowedTypes",
     "label": "defines"
   },
   {
-    "source": "codebase-index-ts/src/model/consts::AllowedTypes",
-    "target": "codebase-index-ts/src/model/consts::AllowedTypes",
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/consts::AllowedTypes",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/consts::AllowedTypes",
     "label": "calls"
+  },
+  {
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/consts",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/consts::PHP",
+    "label": "defines"
   },
   {
-    "source": "codebase-index-ts/src/model/consts",
-    "target": "codebase-index-ts/src/model/consts::C",
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/consts",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/consts::C",
     "label": "defines"
   },
   {
-    "source": "codebase-index-ts/src/model/consts",
-    "target": "codebase-index-ts/src/model/consts::Java",
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/consts",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/consts::Java",
     "label": "defines"
   },
   {
-    "source": "codebase-index-ts/src/model/consts",
-    "target": "codebase-index-ts/src/model/consts::TSX",
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/consts",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/consts::TSX",
     "label": "defines"
   },
   {
-    "source": "codebase-index-ts/src/model/consts",
-    "target": "codebase-index-ts/src/model/consts::TypeScript",
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/consts",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/consts::TypeScript",
     "label": "defines"
   },
   {
-    "source": "codebase-index-ts/src/model/consts",
-    "target": "codebase-index-ts/src/model/consts::Python",
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/consts",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/consts::Python",
     "label": "defines"
   },
   {
-    "source": "codebase-index-ts/src/model/consts",
-    "target": "codebase-index-ts/src/model/consts::JavaScript",
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/consts",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/consts::JavaScript",
     "label": "defines"
   },
   {
-    "source": "codebase-index-ts/src/model/consts",
-    "target": "codebase-index-ts/src/model/consts::AllowedTypes",
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/consts",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/consts::AllowedTypes",
     "label": "calls"
   },
   {
-    "source": "codebase-index-ts/src/model/utils",
-    "target": "codebase-index-ts/src/model/utils::getCalledNode",
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/utils",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/utils::getCalledNode",
     "label": "defines"
+  },
+  {
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/utils::getCalledNode",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Node",
+    "label": "calls"
   },
   {
-    "source": "codebase-index-ts/src/model/utils",
-    "target": "codebase-index-ts/src/model/utils::cleanAndSplitContent",
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/utils::getCalledNode",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::ImportStatement",
+    "label": "calls"
+  },
+  {
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/utils",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/utils::cleanAndSplitContent",
     "label": "defines"
   },
   {
-    "source": "codebase-index-ts/src/model/utils",
-    "target": "codebase-index-ts/src/model/utils::firstConsecutiveDots",
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/utils",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/utils::firstConsecutiveDots",
     "label": "defines"
   },
   {
-    "source": "codebase-index-ts/src/model/utils",
-    "target": "codebase-index-ts/src/model/utils::renameSource",
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/utils",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/utils::renameSource",
     "label": "defines"
+  },
+  {
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/utils::renameSource",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/consts::languageExtensionMap",
+    "label": "calls"
   },
   {
-    "source": "codebase-index-ts/src/model/utils::renameSource",
-    "target": "codebase-index-ts/src/model/utils::firstConsecutiveDots",
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/utils::renameSource",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/utils::firstConsecutiveDots",
     "label": "calls"
   },
   {
-    "source": "codebase-index-ts/src/model/utils",
-    "target": "codebase-index-ts/src/model/utils::cleanDefCaptures",
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/utils",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/utils::cleanDefCaptures",
     "label": "defines"
   },
   {
-    "source": "codebase-index-ts/src/model/utils",
-    "target": "codebase-index-ts/src/model/utils::captureQuery",
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/utils",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/utils::captureQuery",
     "label": "defines"
+  },
+  {
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/utils::captureQuery",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/index::treeSitterQueries",
+    "label": "calls"
   },
   {
-    "source": "codebase-index-ts/src/model/utils::captureQuery",
-    "target": "codebase-index-ts/src/model/utils::getRequiredDefinitions",
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/utils::captureQuery",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/utils::getRequiredDefinitions",
     "label": "calls"
   },
   {
-    "source": "codebase-index-ts/src/model/utils",
-    "target": "codebase-index-ts/src/model/utils::getRequiredDefinitions",
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/utils",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/utils::getRequiredDefinitions",
     "label": "defines"
+  },
+  {
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/utils::getRequiredDefinitions",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/index::treeSitterQueries",
+    "label": "calls"
+  },
+  {
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/utils::getRequiredDefinitions",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/consts::languages",
+    "label": "calls"
+  },
+  {
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/utils::getRequiredDefinitions",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/index::languageQueries",
+    "label": "calls"
   },
   {
-    "source": "codebase-index-ts/src/model/utils",
-    "target": "codebase-index-ts/src/model/utils::getTotalSize",
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/utils",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/utils::getTotalSize",
     "label": "defines"
   },
   {
-    "source": "codebase-index-ts/src/model/utils::getTotalSize",
-    "target": "codebase-index-ts/src/model/utils::getAllFiles",
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/utils::getTotalSize",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/utils::getAllFiles",
     "label": "calls"
   },
   {
-    "source": "codebase-index-ts/src/model/utils",
-    "target": "codebase-index-ts/src/model/utils::getAllFiles",
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/utils",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/utils::getAllFiles",
     "label": "defines"
+  },
+  {
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/utils::getAllFiles",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/consts::languageExtensionMap",
+    "label": "calls"
+  },
+  {
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/utils::getAllFiles",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/consts::excludedExtensions",
+    "label": "calls"
+  },
+  {
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/utils::getAllFiles",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/consts::excludedFolders",
+    "label": "calls"
+  },
+  {
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/utils",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/index::treeSitterQueries",
+    "label": "calls"
+  },
+  {
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/utils",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Node",
+    "label": "calls"
+  },
+  {
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/utils",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::ImportStatement",
+    "label": "calls"
   },
   {
-    "source": "codebase-index-ts/src/queries/c",
-    "target": "codebase-index-ts/src/queries/c::cQueries",
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/c",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/c::cQueries",
     "label": "defines"
   },
   {
-    "source": "codebase-index-ts/src/queries/c::cQueries",
-    "target": "codebase-index-ts/src/queries/c::anyAssignments",
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/c::cQueries",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/c::anyAssignments",
     "label": "calls"
   },
   {
-    "source": "codebase-index-ts/src/queries/c",
-    "target": "codebase-index-ts/src/queries/c::anyAssignments",
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/c",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/c::anyAssignments",
     "label": "defines"
   },
   {
-    "source": "codebase-index-ts/src/queries/c",
-    "target": "codebase-index-ts/src/queries/c::calls",
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/c",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/c::calls",
     "label": "defines"
   },
   {
-    "source": "codebase-index-ts/src/queries/c",
-    "target": "codebase-index-ts/src/queries/c::extraAssignmentCode",
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/c",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/c::extraAssignmentCode",
     "label": "defines"
   },
   {
-    "source": "codebase-index-ts/src/queries/c",
-    "target": "codebase-index-ts/src/queries/c::exportClauses",
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/c",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/c::exportClauses",
     "label": "defines"
   },
   {
-    "source": "codebase-index-ts/src/queries/c",
-    "target": "codebase-index-ts/src/queries/c::constructorDefinitions",
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/c",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/c::constructorDefinitions",
     "label": "defines"
   },
   {
-    "source": "codebase-index-ts/src/queries/c",
-    "target": "codebase-index-ts/src/queries/c::definitionTemplate",
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/c",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/c::definitionTemplate",
     "label": "defines"
   },
   {
-    "source": "codebase-index-ts/src/queries/c",
-    "target": "codebase-index-ts/src/queries/c::assignments",
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/c",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/c::assignments",
     "label": "defines"
   },
   {
-    "source": "codebase-index-ts/src/queries/c",
-    "target": "codebase-index-ts/src/queries/c::importStatements",
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/c",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/c::importStatements",
     "label": "defines"
   },
   {
-    "source": "codebase-index-ts/src/queries/c",
-    "target": "codebase-index-ts/src/queries/c::anyAssignments",
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/c",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/index::treeSitterQueries",
     "label": "calls"
   },
   {
-    "source": "codebase-index-ts/src/queries/index",
-    "target": "codebase-index-ts/src/queries/index::treeSitterQueries",
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/c",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/c::anyAssignments",
+    "label": "calls"
+  },
+  {
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/index",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/index::treeSitterQueries",
     "label": "defines"
   },
   {
-    "source": "codebase-index-ts/src/queries/index::treeSitterQueries",
-    "target": "codebase-index-ts/src/queries/index::treeSitterQueries",
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/index::treeSitterQueries",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/index::treeSitterQueries",
     "label": "calls"
   },
   {
-    "source": "codebase-index-ts/src/queries/index",
-    "target": "codebase-index-ts/src/queries/index::languageQueries",
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/index",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/index::languageQueries",
     "label": "defines"
+  },
+  {
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/index::languageQueries",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/javascript::jsQueries",
+    "label": "calls"
+  },
+  {
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/index::languageQueries",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/typescript::tsQueries",
+    "label": "calls"
+  },
+  {
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/index::languageQueries",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/python::pyQueries",
+    "label": "calls"
+  },
+  {
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/index::languageQueries",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/java::javaQueries",
+    "label": "calls"
   },
   {
-    "source": "codebase-index-ts/src/queries/index",
-    "target": "codebase-index-ts/src/queries/index::treeSitterQueries",
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/index::languageQueries",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/c::cQueries",
     "label": "calls"
   },
   {
-    "source": "codebase-index-ts/src/queries/java",
-    "target": "codebase-index-ts/src/queries/java::javaQueries",
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/index::languageQueries",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/php::phpQueries",
+    "label": "calls"
+  },
+  {
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/index",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/javascript::jsQueries",
+    "label": "calls"
+  },
+  {
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/index",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/typescript::tsQueries",
+    "label": "calls"
+  },
+  {
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/index",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/python::pyQueries",
+    "label": "calls"
+  },
+  {
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/index",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/java::javaQueries",
+    "label": "calls"
+  },
+  {
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/index",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/c::cQueries",
+    "label": "calls"
+  },
+  {
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/index",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/php::phpQueries",
+    "label": "calls"
+  },
+  {
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/index",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/index::treeSitterQueries",
+    "label": "calls"
+  },
+  {
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/java",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/java::javaQueries",
     "label": "defines"
   },
   {
-    "source": "codebase-index-ts/src/queries/java::javaQueries",
-    "target": "codebase-index-ts/src/queries/java::anyAssignments",
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/java::javaQueries",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/java::anyAssignments",
     "label": "calls"
   },
   {
-    "source": "codebase-index-ts/src/queries/java",
-    "target": "codebase-index-ts/src/queries/java::anyAssignments",
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/java",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/java::anyAssignments",
     "label": "defines"
   },
   {
-    "source": "codebase-index-ts/src/queries/java",
-    "target": "codebase-index-ts/src/queries/java::calls",
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/java",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/java::calls",
     "label": "defines"
   },
   {
-    "source": "codebase-index-ts/src/queries/java",
-    "target": "codebase-index-ts/src/queries/java::extraAssignmentCode",
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/java",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/java::extraAssignmentCode",
     "label": "defines"
   },
   {
-    "source": "codebase-index-ts/src/queries/java",
-    "target": "codebase-index-ts/src/queries/java::exportClauses",
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/java",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/java::exportClauses",
     "label": "defines"
   },
   {
-    "source": "codebase-index-ts/src/queries/java",
-    "target": "codebase-index-ts/src/queries/java::constructorDefinitions",
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/java",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/java::constructorDefinitions",
     "label": "defines"
   },
   {
-    "source": "codebase-index-ts/src/queries/java",
-    "target": "codebase-index-ts/src/queries/java::definitionTemplate",
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/java",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/java::definitionTemplate",
     "label": "defines"
   },
   {
-    "source": "codebase-index-ts/src/queries/java",
-    "target": "codebase-index-ts/src/queries/java::assignments",
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/java",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/java::assignments",
     "label": "defines"
   },
   {
-    "source": "codebase-index-ts/src/queries/java",
-    "target": "codebase-index-ts/src/queries/java::importStatements",
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/java",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/java::importStatements",
     "label": "defines"
+  },
+  {
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/java",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/index::treeSitterQueries",
+    "label": "calls"
   },
   {
-    "source": "codebase-index-ts/src/queries/java",
-    "target": "codebase-index-ts/src/queries/java::anyAssignments",
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/java",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/java::anyAssignments",
     "label": "calls"
   },
   {
-    "source": "codebase-index-ts/src/queries/javascript",
-    "target": "codebase-index-ts/src/queries/javascript::jsQueries",
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/javascript",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/javascript::jsQueries",
     "label": "defines"
   },
   {
-    "source": "codebase-index-ts/src/queries/javascript::jsQueries",
-    "target": "codebase-index-ts/src/queries/javascript::anyAssignments",
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/javascript::jsQueries",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/javascript::anyAssignments",
     "label": "calls"
   },
   {
-    "source": "codebase-index-ts/src/queries/javascript",
-    "target": "codebase-index-ts/src/queries/javascript::anyAssignments",
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/javascript",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/javascript::anyAssignments",
     "label": "defines"
   },
   {
-    "source": "codebase-index-ts/src/queries/javascript",
-    "target": "codebase-index-ts/src/queries/javascript::calls",
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/javascript",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/javascript::calls",
     "label": "defines"
   },
   {
-    "source": "codebase-index-ts/src/queries/javascript",
-    "target": "codebase-index-ts/src/queries/javascript::extraAssignmentCode",
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/javascript",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/javascript::extraAssignmentCode",
     "label": "defines"
   },
   {
-    "source": "codebase-index-ts/src/queries/javascript",
-    "target": "codebase-index-ts/src/queries/javascript::exportClauses",
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/javascript",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/javascript::exportClauses",
     "label": "defines"
   },
   {
-    "source": "codebase-index-ts/src/queries/javascript",
-    "target": "codebase-index-ts/src/queries/javascript::constructorDefinitions",
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/javascript",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/javascript::constructorDefinitions",
     "label": "defines"
   },
   {
-    "source": "codebase-index-ts/src/queries/javascript",
-    "target": "codebase-index-ts/src/queries/javascript::arrowFunctionConstructor",
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/javascript",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/javascript::arrowFunctionConstructor",
     "label": "defines"
   },
   {
-    "source": "codebase-index-ts/src/queries/javascript",
-    "target": "codebase-index-ts/src/queries/javascript::definitionTemplate",
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/javascript",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/javascript::definitionTemplate",
     "label": "defines"
   },
   {
-    "source": "codebase-index-ts/src/queries/javascript",
-    "target": "codebase-index-ts/src/queries/javascript::assignments",
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/javascript",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/javascript::assignments",
     "label": "defines"
   },
   {
-    "source": "codebase-index-ts/src/queries/javascript",
-    "target": "codebase-index-ts/src/queries/javascript::importStatements",
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/javascript",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/javascript::importStatements",
     "label": "defines"
+  },
+  {
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/javascript",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/index::treeSitterQueries",
+    "label": "calls"
   },
   {
-    "source": "codebase-index-ts/src/queries/javascript",
-    "target": "codebase-index-ts/src/queries/javascript::anyAssignments",
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/javascript",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/javascript::anyAssignments",
     "label": "calls"
   },
   {
-    "source": "codebase-index-ts/src/queries/python",
-    "target": "codebase-index-ts/src/queries/python::pyQueries",
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/php",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/php::phpQueries",
     "label": "defines"
   },
   {
-    "source": "codebase-index-ts/src/queries/python::pyQueries",
-    "target": "codebase-index-ts/src/queries/python::anyAssignments",
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/php::phpQueries",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/php::anyAssignments",
     "label": "calls"
   },
   {
-    "source": "codebase-index-ts/src/queries/python",
-    "target": "codebase-index-ts/src/queries/python::anyAssignments",
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/php",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/php::anyAssignments",
     "label": "defines"
   },
   {
-    "source": "codebase-index-ts/src/queries/python",
-    "target": "codebase-index-ts/src/queries/python::calls",
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/php",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/php::calls",
     "label": "defines"
   },
   {
-    "source": "codebase-index-ts/src/queries/python",
-    "target": "codebase-index-ts/src/queries/python::extraAssignmentCode",
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/php",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/php::extraAssignmentCode",
     "label": "defines"
   },
   {
-    "source": "codebase-index-ts/src/queries/python",
-    "target": "codebase-index-ts/src/queries/python::constructorDefinitions",
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/php",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/php::exportClauses",
     "label": "defines"
   },
   {
-    "source": "codebase-index-ts/src/queries/python",
-    "target": "codebase-index-ts/src/queries/python::definitionTemplate",
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/php",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/php::constructorDefinitions",
     "label": "defines"
   },
   {
-    "source": "codebase-index-ts/src/queries/python",
-    "target": "codebase-index-ts/src/queries/python::assignments",
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/php",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/php::definitionTemplate",
     "label": "defines"
   },
   {
-    "source": "codebase-index-ts/src/queries/python",
-    "target": "codebase-index-ts/src/queries/python::importStatements",
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/php",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/php::assignments",
     "label": "defines"
   },
   {
-    "source": "codebase-index-ts/src/queries/python",
-    "target": "codebase-index-ts/src/queries/python::anyAssignments",
-    "label": "calls"
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/php",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/php::importStatements",
+    "label": "defines"
   },
   {
-    "source": "codebase-index-ts/src/queries/typescript",
-    "target": "codebase-index-ts/src/queries/typescript::tsQueries",
-    "label": "defines"
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/php",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/index::treeSitterQueries",
+    "label": "calls"
   },
   {
-    "source": "codebase-index-ts/src/queries/typescript::tsQueries",
-    "target": "codebase-index-ts/src/queries/typescript::anyAssignments",
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/php",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/php::anyAssignments",
     "label": "calls"
   },
   {
-    "source": "codebase-index-ts/src/queries/typescript",
-    "target": "codebase-index-ts/src/queries/typescript::anyAssignments",
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/python",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/python::pyQueries",
     "label": "defines"
   },
   {
-    "source": "codebase-index-ts/src/queries/typescript",
-    "target": "codebase-index-ts/src/queries/typescript::calls",
-    "label": "defines"
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/python::pyQueries",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/python::anyAssignments",
+    "label": "calls"
   },
   {
-    "source": "codebase-index-ts/src/queries/typescript",
-    "target": "codebase-index-ts/src/queries/typescript::extraAssignmentCode",
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/python",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/python::anyAssignments",
     "label": "defines"
   },
   {
-    "source": "codebase-index-ts/src/queries/typescript",
-    "target": "codebase-index-ts/src/queries/typescript::exportClauses",
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/python",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/python::calls",
     "label": "defines"
   },
   {
-    "source": "codebase-index-ts/src/queries/typescript",
-    "target": "codebase-index-ts/src/queries/typescript::constructorDefinitions",
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/python",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/python::extraAssignmentCode",
     "label": "defines"
   },
   {
-    "source": "codebase-index-ts/src/queries/typescript",
-    "target": "codebase-index-ts/src/queries/typescript::definitionTemplate",
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/python",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/python::constructorDefinitions",
     "label": "defines"
   },
   {
-    "source": "codebase-index-ts/src/queries/typescript",
-    "target": "codebase-index-ts/src/queries/typescript::importStatements",
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/python",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/python::definitionTemplate",
     "label": "defines"
   },
   {
-    "source": "codebase-index-ts/src/queries/typescript",
-    "target": "codebase-index-ts/src/queries/typescript::anyAssignments",
-    "label": "calls"
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/python",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/python::assignments",
+    "label": "defines"
   },
   {
-    "source": "codebase-index-ts/src/routes/create_graph-test",
-    "target": "codebase-index-ts/src/routes/create_graph-test::createGraphTest",
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/python",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/python::importStatements",
     "label": "defines"
   },
   {
-    "source": "codebase-index-ts/src/routes/create_graph-test::createGraphTest",
-    "target": "codebase-index-ts/src/routes/create_graph-test::repoRequestValidator",
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/python",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/index::treeSitterQueries",
     "label": "calls"
   },
   {
-    "source": "codebase-index-ts/src/routes/create_graph-test::createGraphTest",
-    "target": "codebase-index-ts/src/routes/create_graph-test::secret",
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/python",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/python::anyAssignments",
     "label": "calls"
   },
   {
-    "source": "codebase-index-ts/src/routes/create_graph-test",
-    "target": "codebase-index-ts/src/routes/create_graph-test::repoRequestValidator",
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/typescript",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/typescript::tsQueries",
     "label": "defines"
+  },
+  {
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/typescript::tsQueries",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/typescript::anyAssignments",
+    "label": "calls"
   },
   {
-    "source": "codebase-index-ts/src/routes/create_graph-test",
-    "target": "codebase-index-ts/src/routes/create_graph-test::secret",
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/typescript",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/typescript::anyAssignments",
     "label": "defines"
   },
   {
-    "source": "codebase-index-ts/src/routes/create_graph-test",
-    "target": "codebase-index-ts/src/routes/create_graph-test::repoRequestValidator",
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/typescript::anyAssignments",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/javascript::jsQueries",
     "label": "calls"
   },
   {
-    "source": "codebase-index-ts/src/routes/create_graph-test",
-    "target": "codebase-index-ts/src/routes/create_graph-test::secret",
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/typescript",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/typescript::calls",
+    "label": "defines"
+  },
+  {
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/typescript::calls",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/javascript::jsQueries",
     "label": "calls"
   },
   {
-    "source": "codebase-index-ts/src/routes/create_graph",
-    "target": "codebase-index-ts/src/routes/create_graph::processGraphCreation",
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/typescript",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/typescript::extraAssignmentCode",
     "label": "defines"
+  },
+  {
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/typescript::extraAssignmentCode",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/javascript::jsQueries",
+    "label": "calls"
   },
   {
-    "source": "codebase-index-ts/src/routes/create_graph",
-    "target": "codebase-index-ts/src/routes/create_graph::createGraph",
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/typescript",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/typescript::exportClauses",
     "label": "defines"
   },
   {
-    "source": "codebase-index-ts/src/routes/create_graph::createGraph",
-    "target": "codebase-index-ts/src/routes/create_graph::repoRequestValidator",
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/typescript::exportClauses",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/javascript::jsQueries",
     "label": "calls"
   },
   {
-    "source": "codebase-index-ts/src/routes/create_graph::createGraph",
-    "target": "codebase-index-ts/src/routes/create_graph::secret",
-    "label": "calls"
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/typescript",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/typescript::constructorDefinitions",
+    "label": "defines"
   },
   {
-    "source": "codebase-index-ts/src/routes/create_graph::createGraph",
-    "target": "codebase-index-ts/src/routes/create_graph::processGraphCreation",
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/typescript::constructorDefinitions",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/javascript::jsQueries",
     "label": "calls"
   },
   {
-    "source": "codebase-index-ts/src/routes/create_graph",
-    "target": "codebase-index-ts/src/routes/create_graph::repoRequestValidator",
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/typescript",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/typescript::definitionTemplate",
     "label": "defines"
   },
   {
-    "source": "codebase-index-ts/src/routes/create_graph",
-    "target": "codebase-index-ts/src/routes/create_graph::secret",
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/typescript",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/typescript::importStatements",
     "label": "defines"
+  },
+  {
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/typescript::importStatements",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/javascript::jsQueries",
+    "label": "calls"
   },
   {
-    "source": "codebase-index-ts/src/routes/create_graph",
-    "target": "codebase-index-ts/src/routes/create_graph::repoRequestValidator",
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/typescript",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/javascript::jsQueries",
     "label": "calls"
   },
   {
-    "source": "codebase-index-ts/src/routes/create_graph",
-    "target": "codebase-index-ts/src/routes/create_graph::secret",
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/typescript",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/index::treeSitterQueries",
     "label": "calls"
   },
   {
-    "source": "codebase-index-ts/src/routes/create_graph",
-    "target": "codebase-index-ts/src/routes/create_graph::processGraphCreation",
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/typescript",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/typescript::anyAssignments",
     "label": "calls"
   },
   {
-    "source": "codebase-index-ts/src/routes/graphs",
-    "target": "codebase-index-ts/src/routes/graphs::updateGraph",
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/routes/create_graph-test",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/routes/create_graph-test::createGraphTest",
     "label": "defines"
   },
   {
-    "source": "codebase-index-ts/src/routes/graphs::updateGraph",
-    "target": "codebase-index-ts/src/routes/graphs::UpdateGraph",
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/routes/create_graph-test::createGraphTest",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/routes/create_graph-test::repoRequestValidator",
     "label": "calls"
   },
   {
-    "source": "codebase-index-ts/src/routes/graphs",
-    "target": "codebase-index-ts/src/routes/graphs::UpdateGraph",
-    "label": "defines"
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/routes/create_graph-test::createGraphTest",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/utils/git::getCommitRepo",
+    "label": "calls"
   },
   {
-    "source": "codebase-index-ts/src/routes/graphs::UpdateGraph",
-    "target": "codebase-index-ts/src/routes/graphs::UpdateGraph",
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/routes/create_graph-test::createGraphTest",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/utils/git::downloadAndExtractRepo",
     "label": "calls"
   },
   {
-    "source": "codebase-index-ts/src/routes/graphs",
-    "target": "codebase-index-ts/src/routes/graphs::graphs",
-    "label": "defines"
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/routes/create_graph-test::createGraphTest",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Codebase",
+    "label": "calls"
   },
   {
-    "source": "codebase-index-ts/src/routes/graphs::graphs",
-    "target": "codebase-index-ts/src/routes/graphs::updateGraph",
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/routes/create_graph-test::createGraphTest",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Codebase.parseFolder",
     "label": "calls"
   },
   {
-    "source": "codebase-index-ts/src/routes/graphs",
-    "target": "codebase-index-ts/src/routes/graphs::updateGraph",
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/routes/create_graph-test::createGraphTest",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Codebase.getCalls",
     "label": "calls"
   },
   {
-    "source": "codebase-index-ts/src/routes/graphs",
-    "target": "codebase-index-ts/src/routes/graphs::UpdateGraph",
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/routes/create_graph-test::createGraphTest",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Codebase.simplify",
     "label": "calls"
   },
   {
-    "source": "codebase-index-ts/src/utils/bitbucket/refresh-token",
-    "target": "codebase-index-ts/src/utils/bitbucket/refresh-token::refreshAccessToken",
-    "label": "defines"
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/routes/create_graph-test::createGraphTest",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Codebase.getLinks",
+    "label": "calls"
   },
   {
-    "source": "codebase-index-ts/src/utils/db",
-    "target": "codebase-index-ts/src/utils/db::sql",
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/routes/create_graph-test",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/routes/create_graph-test::repoRequestValidator",
     "label": "defines"
   },
   {
-    "source": "codebase-index-ts/src/utils/git",
-    "target": "codebase-index-ts/src/utils/git::getAccessToken",
-    "label": "defines"
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/routes/create_graph-test",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/routes/create_graph-test::repoRequestValidator",
+    "label": "calls"
   },
   {
-    "source": "codebase-index-ts/src/utils/git::getAccessToken",
-    "target": "codebase-index-ts/src/utils/git::GitServiceType",
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/routes/create_graph-test",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/utils/git::getCommitRepo",
     "label": "calls"
   },
   {
-    "source": "codebase-index-ts/src/utils/git",
-    "target": "codebase-index-ts/src/utils/git::getCommitHash",
-    "label": "defines"
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/routes/create_graph-test",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/utils/git::downloadAndExtractRepo",
+    "label": "calls"
   },
   {
-    "source": "codebase-index-ts/src/utils/git",
-    "target": "codebase-index-ts/src/utils/git::getCommitRepo",
-    "label": "defines"
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/routes/create_graph-test",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Codebase",
+    "label": "calls"
   },
   {
-    "source": "codebase-index-ts/src/utils/git::getCommitRepo",
-    "target": "codebase-index-ts/src/utils/git::GitServiceType",
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/routes/create_graph-test",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Codebase.parseFolder",
     "label": "calls"
   },
   {
-    "source": "codebase-index-ts/src/utils/git::getCommitRepo",
-    "target": "codebase-index-ts/src/utils/git::getCommitHash",
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/routes/create_graph-test",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Codebase.getCalls",
     "label": "calls"
   },
   {
-    "source": "codebase-index-ts/src/utils/git",
-    "target": "codebase-index-ts/src/utils/git::downloadAndExtractRepo",
-    "label": "defines"
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/routes/create_graph-test",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Codebase.simplify",
+    "label": "calls"
   },
   {
-    "source": "codebase-index-ts/src/utils/git::downloadAndExtractRepo",
-    "target": "codebase-index-ts/src/utils/git::GitServiceType",
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/routes/create_graph-test",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Codebase.getLinks",
     "label": "calls"
   },
   {
-    "source": "codebase-index-ts/src/utils/git",
-    "target": "codebase-index-ts/src/utils/git::MAXSIZE",
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/routes/create_graph",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/routes/create_graph::processGraphCreation",
     "label": "defines"
   },
   {
-    "source": "codebase-index-ts/src/utils/git",
-    "target": "codebase-index-ts/src/utils/git::GitServiceType",
-    "label": "defines"
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/routes/create_graph::processGraphCreation",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/utils/git::GitServiceType",
+    "label": "calls"
   },
   {
-    "source": "codebase-index-ts/src/utils/git::GitServiceType",
-    "target": "codebase-index-ts/src/utils/git::GitServiceType",
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/routes/create_graph::processGraphCreation",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/utils/db::sql",
     "label": "calls"
   },
   {
-    "source": "codebase-index-ts/src/utils/git",
-    "target": "codebase-index-ts/src/utils/git::GitServiceType",
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/routes/create_graph::processGraphCreation",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Codebase",
     "label": "calls"
   },
   {
-    "source": "codebase-index-ts/src/utils/gitlab/refresh-token",
-    "target": "codebase-index-ts/src/utils/gitlab/refresh-token::refreshAccessToken",
-    "label": "defines"
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/routes/create_graph::processGraphCreation",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Codebase.parseFolder",
+    "label": "calls"
   },
   {
-    "source": "codebase-index-ts/src/utils/utils",
-    "target": "codebase-index-ts/src/utils/utils::getEnv",
-    "label": "defines"
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/routes/create_graph::processGraphCreation",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Codebase.getCalls",
+    "label": "calls"
   },
   {
-    "source": "codebase-index-ts/src/utils/utils::getEnv",
-    "target": "codebase-index-ts/src/utils/utils::ENV_VARS",
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/routes/create_graph::processGraphCreation",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Codebase.simplify",
     "label": "calls"
   },
   {
-    "source": "codebase-index-ts/src/utils/utils",
-    "target": "codebase-index-ts/src/utils/utils::ENV_VARS",
-    "label": "defines"
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/routes/create_graph::processGraphCreation",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Codebase.getLinks",
+    "label": "calls"
   },
   {
-    "source": "codebase-index-ts/src/wiki/genWikiHtml",
-    "target": "codebase-index-ts/src/wiki/genWikiHtml::processFolderContents",
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/routes/create_graph",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/routes/create_graph::createGraph",
     "label": "defines"
   },
   {
-    "source": "codebase-index-ts/src/wiki/genWikiHtml",
-    "target": "codebase-index-ts/src/wiki/genWikiHtml::generateWikiPage",
-    "label": "defines"
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/routes/create_graph::createGraph",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/routes/create_graph::repoRequestValidator",
+    "label": "calls"
   },
   {
-    "source": "codebase-index-ts/src/wiki/genWikiHtml::generateWikiPage",
-    "target": "codebase-index-ts/src/wiki/genWikiHtml::fs2",
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/routes/create_graph::createGraph",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/routes/create_graph::secret",
     "label": "calls"
   },
   {
-    "source": "codebase-index-ts/src/wiki/genWikiHtml::generateWikiPage",
-    "target": "codebase-index-ts/src/wiki/genWikiHtml::folderContentsPath",
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/routes/create_graph::createGraph",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/utils/db::sql",
     "label": "calls"
   },
   {
-    "source": "codebase-index-ts/src/wiki/genWikiHtml::generateWikiPage",
-    "target": "codebase-index-ts/src/wiki/genWikiHtml::processFolderContents",
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/routes/create_graph::createGraph",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/utils/git::getAccessToken",
     "label": "calls"
   },
   {
-    "source": "codebase-index-ts/src/wiki/genWikiHtml::generateWikiPage",
-    "target": "codebase-index-ts/src/wiki/genWikiHtml::outputHtmlPath",
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/routes/create_graph::createGraph",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/utils/git::getCommitRepo",
     "label": "calls"
   },
   {
-    "source": "codebase-index-ts/src/wiki/genWikiHtml",
-    "target": "codebase-index-ts/src/wiki/genWikiHtml::outputHtmlPath",
-    "label": "defines"
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/routes/create_graph::createGraph",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/utils/git::downloadAndExtractRepo",
+    "label": "calls"
   },
   {
-    "source": "codebase-index-ts/src/wiki/genWikiHtml",
-    "target": "codebase-index-ts/src/wiki/genWikiHtml::folderContentsPath",
-    "label": "defines"
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/routes/create_graph::createGraph",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/routes/create_graph::processGraphCreation",
+    "label": "calls"
   },
   {
-    "source": "codebase-index-ts/src/wiki/genWikiHtml",
-    "target": "codebase-index-ts/src/wiki/genWikiHtml::path2",
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/routes/create_graph",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/routes/create_graph::repoRequestValidator",
     "label": "defines"
   },
   {
-    "source": "codebase-index-ts/src/wiki/genWikiHtml",
-    "target": "codebase-index-ts/src/wiki/genWikiHtml::fs2",
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/routes/create_graph",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/routes/create_graph::secret",
     "label": "defines"
   },
   {
-    "source": "codebase-index-ts/src/wiki/genWikiHtml",
-    "target": "codebase-index-ts/src/wiki/genWikiHtml::generateWikiPage",
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/routes/create_graph::secret",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/utils/utils::getEnv",
     "label": "calls"
-  },
-  {
-    "source": "codebase-index-ts/src/wiki/wiki",
-    "target": "codebase-index-ts/src/wiki/wiki::improveWiki",
-    "label": "defines"
   },
   {
-    "source": "codebase-index-ts/src/wiki/wiki::improveWiki",
-    "target": "codebase-index-ts/src/wiki/wiki::client",
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/routes/create_graph",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/utils/utils::getEnv",
     "label": "calls"
   },
   {
-    "source": "codebase-index-ts/src/wiki/wiki",
-    "target": "codebase-index-ts/src/wiki/wiki::buildWiki",
-    "label": "defines"
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/routes/create_graph",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/routes/create_graph::repoRequestValidator",
+    "label": "calls"
   },
   {
-    "source": "codebase-index-ts/src/wiki/wiki::buildWiki",
-    "target": "codebase-index-ts/src/wiki/wiki::client",
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/routes/create_graph",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/routes/create_graph::secret",
     "label": "calls"
   },
   {
-    "source": "codebase-index-ts/src/wiki/wiki",
-    "target": "codebase-index-ts/src/wiki/wiki::buildFinalMarkdown",
-    "label": "defines"
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/routes/create_graph",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/utils/db::sql",
+    "label": "calls"
   },
   {
-    "source": "codebase-index-ts/src/wiki/wiki::buildFinalMarkdown",
-    "target": "codebase-index-ts/src/wiki/wiki::wikiNode",
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/routes/create_graph",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/utils/git::getAccessToken",
     "label": "calls"
   },
   {
-    "source": "codebase-index-ts/src/wiki/wiki::buildFinalMarkdown",
-    "target": "codebase-index-ts/src/wiki/wiki::readNodes",
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/routes/create_graph",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/utils/git::getCommitRepo",
     "label": "calls"
   },
   {
-    "source": "codebase-index-ts/src/wiki/wiki::buildFinalMarkdown",
-    "target": "codebase-index-ts/src/wiki/wiki::folderContents",
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/routes/create_graph",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/utils/git::downloadAndExtractRepo",
     "label": "calls"
   },
   {
-    "source": "codebase-index-ts/src/wiki/wiki",
-    "target": "codebase-index-ts/src/wiki/wiki::createRepoSummary",
-    "label": "defines"
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/routes/create_graph",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/routes/create_graph::processGraphCreation",
+    "label": "calls"
   },
   {
-    "source": "codebase-index-ts/src/wiki/wiki::createRepoSummary",
-    "target": "codebase-index-ts/src/wiki/wiki::client",
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/routes/create_graph",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/utils/git::GitServiceType",
     "label": "calls"
   },
   {
-    "source": "codebase-index-ts/src/wiki/wiki",
-    "target": "codebase-index-ts/src/wiki/wiki::getSummaryOfAllRepoForContext",
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/routes/graphs",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/routes/graphs::updateGraph",
     "label": "defines"
   },
   {
-    "source": "codebase-index-ts/src/wiki/wiki::getSummaryOfAllRepoForContext",
-    "target": "codebase-index-ts/src/wiki/wiki::wikiNode",
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/routes/graphs::updateGraph",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/routes/graphs::UpdateGraph",
     "label": "calls"
   },
   {
-    "source": "codebase-index-ts/src/wiki/wiki::getSummaryOfAllRepoForContext",
-    "target": "codebase-index-ts/src/wiki/wiki::createRepoSummary",
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/routes/graphs::updateGraph",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/utils/git::downloadAndExtractRepo",
     "label": "calls"
-  },
-  {
-    "source": "codebase-index-ts/src/wiki/wiki",
-    "target": "codebase-index-ts/src/wiki/wiki::processAllFolders",
-    "label": "defines"
   },
   {
-    "source": "codebase-index-ts/src/wiki/wiki::processAllFolders",
-    "target": "codebase-index-ts/src/wiki/wiki::folderContents",
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/routes/graphs::updateGraph",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/utils/db::sql",
     "label": "calls"
   },
   {
-    "source": "codebase-index-ts/src/wiki/wiki::processAllFolders",
-    "target": "codebase-index-ts/src/wiki/wiki::createFolderSummary",
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/routes/graphs::updateGraph",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Codebase",
     "label": "calls"
   },
   {
-    "source": "codebase-index-ts/src/wiki/wiki::processAllFolders",
-    "target": "codebase-index-ts/src/wiki/wiki::path",
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/routes/graphs::updateGraph",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Codebase.parseFolder",
     "label": "calls"
   },
   {
-    "source": "codebase-index-ts/src/wiki/wiki",
-    "target": "codebase-index-ts/src/wiki/wiki::createFolderSummary",
-    "label": "defines"
-  },
-  {
-    "source": "codebase-index-ts/src/wiki/wiki::createFolderSummary",
-    "target": "codebase-index-ts/src/wiki/wiki::client",
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/routes/graphs::updateGraph",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Codebase.getCalls",
     "label": "calls"
   },
   {
-    "source": "codebase-index-ts/src/wiki/wiki",
-    "target": "codebase-index-ts/src/wiki/wiki::getParentFolder",
-    "label": "defines"
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/routes/graphs::updateGraph",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Codebase.simplify",
+    "label": "calls"
   },
   {
-    "source": "codebase-index-ts/src/wiki/wiki::getParentFolder",
-    "target": "codebase-index-ts/src/wiki/wiki::wikiNode",
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/routes/graphs::updateGraph",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Codebase.getLinks",
     "label": "calls"
   },
   {
-    "source": "codebase-index-ts/src/wiki/wiki",
-    "target": "codebase-index-ts/src/wiki/wiki::createFileSummary",
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/routes/graphs",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/routes/graphs::UpdateGraph",
     "label": "defines"
   },
   {
-    "source": "codebase-index-ts/src/wiki/wiki::createFileSummary",
-    "target": "codebase-index-ts/src/wiki/wiki::wikiNode",
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/routes/graphs::UpdateGraph",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/routes/graphs::UpdateGraph",
     "label": "calls"
   },
   {
-    "source": "codebase-index-ts/src/wiki/wiki::createFileSummary",
-    "target": "codebase-index-ts/src/wiki/wiki::client",
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/routes/graphs::UpdateGraph",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/utils/git::GitServiceType",
     "label": "calls"
   },
   {
-    "source": "codebase-index-ts/src/wiki/wiki",
-    "target": "codebase-index-ts/src/wiki/wiki::processFile",
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/routes/graphs",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/routes/graphs::graphs",
     "label": "defines"
   },
   {
-    "source": "codebase-index-ts/src/wiki/wiki::processFile",
-    "target": "codebase-index-ts/src/wiki/wiki::wikiNode",
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/routes/graphs::graphs",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/utils/utils::getEnv",
     "label": "calls"
   },
   {
-    "source": "codebase-index-ts/src/wiki/wiki::processFile",
-    "target": "codebase-index-ts/src/wiki/wiki::createFileSummary",
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/routes/graphs::graphs",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/utils/db::sql",
     "label": "calls"
   },
   {
-    "source": "codebase-index-ts/src/wiki/wiki::processFile",
-    "target": "codebase-index-ts/src/wiki/wiki::getParentFolder",
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/routes/graphs::graphs",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/utils/git::getAccessToken",
     "label": "calls"
   },
   {
-    "source": "codebase-index-ts/src/wiki/wiki::processFile",
-    "target": "codebase-index-ts/src/wiki/wiki::folderContents",
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/routes/graphs::graphs",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/utils/git::getCommitRepo",
     "label": "calls"
   },
   {
-    "source": "codebase-index-ts/src/wiki/wiki",
-    "target": "codebase-index-ts/src/wiki/wiki::processAllFiles",
-    "label": "defines"
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/routes/graphs::graphs",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/routes/graphs::updateGraph",
+    "label": "calls"
   },
   {
-    "source": "codebase-index-ts/src/wiki/wiki::processAllFiles",
-    "target": "codebase-index-ts/src/wiki/wiki::wikiNode",
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/routes/graphs",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/utils/utils::getEnv",
     "label": "calls"
   },
   {
-    "source": "codebase-index-ts/src/wiki/wiki::processAllFiles",
-    "target": "codebase-index-ts/src/wiki/wiki::processFile",
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/routes/graphs",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/utils/db::sql",
     "label": "calls"
   },
   {
-    "source": "codebase-index-ts/src/wiki/wiki",
-    "target": "codebase-index-ts/src/wiki/wiki::readNodes",
-    "label": "defines"
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/routes/graphs",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/utils/git::getAccessToken",
+    "label": "calls"
   },
   {
-    "source": "codebase-index-ts/src/wiki/wiki::readNodes",
-    "target": "codebase-index-ts/src/wiki/wiki::fs",
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/routes/graphs",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/utils/git::getCommitRepo",
     "label": "calls"
   },
   {
-    "source": "codebase-index-ts/src/wiki/wiki::readNodes",
-    "target": "codebase-index-ts/src/wiki/wiki::nodesFilePath",
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/routes/graphs",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/routes/graphs::updateGraph",
     "label": "calls"
   },
   {
-    "source": "codebase-index-ts/src/wiki/wiki",
-    "target": "codebase-index-ts/src/wiki/wiki::contents",
-    "label": "defines"
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/routes/graphs",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/routes/graphs::UpdateGraph",
+    "label": "calls"
   },
   {
-    "source": "codebase-index-ts/src/wiki/wiki",
-    "target": "codebase-index-ts/src/wiki/wiki::folderContents",
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/utils/bitbucket/refresh-token",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/utils/bitbucket/refresh-token::refreshAccessToken",
     "label": "defines"
   },
   {
-    "source": "codebase-index-ts/src/wiki/wiki::folderContents",
-    "target": "codebase-index-ts/src/wiki/wiki::wikiNode",
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/utils/bitbucket/refresh-token::refreshAccessToken",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/utils/utils::getEnv",
     "label": "calls"
   },
   {
-    "source": "codebase-index-ts/src/wiki/wiki",
-    "target": "codebase-index-ts/src/wiki/wiki::nodesFilePath",
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/utils/db",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/utils/db::sql",
     "label": "defines"
   },
   {
-    "source": "codebase-index-ts/src/wiki/wiki",
-    "target": "codebase-index-ts/src/wiki/wiki::wikiNode",
-    "label": "defines"
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/utils/db::sql",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/utils/utils::getEnv",
+    "label": "calls"
   },
   {
-    "source": "codebase-index-ts/src/wiki/wiki::wikiNode",
-    "target": "codebase-index-ts/src/wiki/wiki::wikiNode",
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/utils/db",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/utils/utils::getEnv",
     "label": "calls"
   },
   {
-    "source": "codebase-index-ts/src/wiki/wiki",
-    "target": "codebase-index-ts/src/wiki/wiki::codebasePath",
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/utils/git",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/utils/git::getAccessToken",
     "label": "defines"
   },
   {
-    "source": "codebase-index-ts/src/wiki/wiki",
-    "target": "codebase-index-ts/src/wiki/wiki::client",
-    "label": "defines"
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/utils/git::getAccessToken",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/utils/git::GitServiceType",
+    "label": "calls"
   },
   {
-    "source": "codebase-index-ts/src/wiki/wiki::client",
-    "target": "codebase-index-ts/src/wiki/wiki::OpenAI",
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/utils/git::getAccessToken",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/utils/db::sql",
     "label": "calls"
   },
   {
-    "source": "codebase-index-ts/src/wiki/wiki",
-    "target": "codebase-index-ts/src/wiki/wiki::OpenAI",
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/utils/git",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/utils/git::getCommitHash",
     "label": "defines"
   },
   {
-    "source": "codebase-index-ts/src/wiki/wiki",
-    "target": "codebase-index-ts/src/wiki/wiki::path",
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/utils/git",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/utils/git::getCommitRepo",
     "label": "defines"
   },
   {
-    "source": "codebase-index-ts/src/wiki/wiki",
-    "target": "codebase-index-ts/src/wiki/wiki::fs",
-    "label": "defines"
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/utils/git::getCommitRepo",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/utils/git::GitServiceType",
+    "label": "calls"
   },
   {
-    "source": "codebase-index-ts/src/wiki/wiki",
-    "target": "codebase-index-ts/src/wiki/wiki::OpenAI",
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/utils/git::getCommitRepo",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/utils/db::sql",
     "label": "calls"
   },
   {
-    "source": "codebase-index-ts/src/wiki/wiki",
-    "target": "codebase-index-ts/src/wiki/wiki::wikiNode",
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/utils/git::getCommitRepo",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/utils/git::getCommitHash",
     "label": "calls"
   },
   {
-    "source": "codebase-index-ts/src/wiki/wiki",
-    "target": "codebase-index-ts/src/wiki/wiki::readNodes",
-    "label": "calls"
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/utils/git",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/utils/git::downloadAndExtractRepo",
+    "label": "defines"
   },
   {
-    "source": "codebase-index-ts/src/wiki/wiki",
-    "target": "codebase-index-ts/src/wiki/wiki::nodesFilePath",
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/utils/git::downloadAndExtractRepo",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/utils/git::GitServiceType",
     "label": "calls"
   },
   {
-    "source": "codebase-index-ts/src/wiki/wiki",
-    "target": "codebase-index-ts/src/wiki/wiki::getSummaryOfAllRepoForContext",
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/utils/git::downloadAndExtractRepo",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/utils::getTotalSize",
     "label": "calls"
   },
   {
-    "source": "codebase-index-ts/src/wiki/wiki",
-    "target": "codebase-index-ts/src/wiki/wiki::processAllFiles",
-    "label": "calls"
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/utils/git",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/utils/git::MAXSIZE",
+    "label": "defines"
   },
   {
-    "source": "codebase-index-ts/src/wiki/wiki",
-    "target": "codebase-index-ts/src/wiki/wiki::processAllFolders",
-    "label": "calls"
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/utils/git",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/utils/git::GitServiceType",
+    "label": "defines"
   },
   {
-    "source": "codebase-index-ts/src/wiki/wiki",
-    "target": "codebase-index-ts/src/wiki/wiki::folderContents",
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/utils/git::GitServiceType",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/utils/git::GitServiceType",
     "label": "calls"
   },
   {
-    "source": "codebase-index-ts/src/wiki/wiki",
-    "target": "codebase-index-ts/src/wiki/wiki::buildFinalMarkdown",
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/utils/git",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/utils/git::GitServiceType",
     "label": "calls"
   },
   {
-    "source": "codebase-index-ts/src/wiki/wiki",
-    "target": "codebase-index-ts/src/wiki/wiki::buildWiki",
-    "label": "calls"
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/utils/gitlab/refresh-token",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/utils/gitlab/refresh-token::refreshAccessToken",
+    "label": "defines"
   },
   {
-    "source": "codebase-index-ts/src/wiki/wiki",
-    "target": "codebase-index-ts/src/wiki/wiki::improveWiki",
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/utils/gitlab/refresh-token::refreshAccessToken",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/utils/utils::getEnv",
     "label": "calls"
   },
   {
-    "source": "codebase-index-ts/src/wiki/wiki",
-    "target": "codebase-index-ts/src/wiki/wiki::contents",
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/utils/utils",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/utils/utils::getEnv",
+    "label": "defines"
+  },
+  {
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/utils/utils::getEnv",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/utils/utils::ENV_VARS",
     "label": "calls"
+  },
+  {
+    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/utils/utils",
+    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/utils/utils::ENV_VARS",
+    "label": "defines"
   }
 ]

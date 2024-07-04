@@ -1,3 +1,5 @@
+import { AllowedTypes } from "../model/consts";
+
 const fs2 = require("fs").promises;
 const path2 = require("path");
 const OpenAI2 = require("openai");
@@ -11,14 +13,18 @@ const cl100k_base = require("tiktoken/encoders/cl100k_base.json");
 */
 type wikiNode = {
 	id: string;
+	alias: string;
+	language: string;
 	label: string;
-	type: string;
+	type: AllowedTypes;
 	parent?: string; // optional
 	totalTokens: number;
 	inDegree: number;
 	outDegree: number;
 	code: string;
 	summary?: string; // optional
+    importStatements: string[]
+    codeNoBody: string
 };
 
 type wikiLink = {
@@ -96,10 +102,10 @@ const tokenizer = ({
 	const startNodes = findStartNodes(callGraph); //leaf nodes
 
 	await fs2.writeFile("startNodes.json", JSON.stringify(startNodes, null, 2));
-	const usedNodes = await readJson("usedNodes.json");
+	// const usedNodes = await readJson("usedNodes.json");
 
-	//const usedNodes = await bfs(startNodes, callGraph, nodes); //only nodes with documentation
-	// await fs2.writeFile("usedNodes.json", JSON.stringify(usedNodes, null, 2));
+	const usedNodes = await bfs(nodesWithFiles, startNodes, callGraph, nodes); //only nodes with documentation
+	await fs2.writeFile("usedNodes.json", JSON.stringify(usedNodes, null, 2));
 
 	const fileToNodes = nodesWithFiles
 		.filter((item: wikiNode) => item.type === "file")
@@ -125,6 +131,20 @@ const tokenizer = ({
 	);
 	console.log("Total tokens used: ", totalTokensUsed);
 })();
+
+
+function findFileParent(nodesWithFiles: wikiNode[], node: wikiNode){
+	const parent = nodesWithFiles.filter(n => n.id == node.parent)[0]
+	if (parent && parent.type === 'file') {
+		return parent
+	} else if (parent.type !== 'file') {
+		return findFileParent(nodesWithFiles, parent)
+	} else {
+		console.log("Parent not found :(")
+	}
+}
+
+
 
 async function readJson(filePath: string) {
 	let nodeInfo: any[] = [];
@@ -166,6 +186,7 @@ function findStartNodes(callGraph: { [key: string]: string[] }) {
 }
 
 async function bfs(
+	nodesWithFiles: wikiNode[],
 	startNodes: string[],
 	callGraph: { [key: string]: string[] },
 	nodes: wikiNode[]
@@ -191,6 +212,7 @@ async function bfs(
 				.join("\n");
 
 			const documentation = await generateNodeDocumentation(
+				nodesWithFiles,
 				currentNode,
 				calledNodesSummary
 			);
@@ -211,40 +233,46 @@ async function bfs(
 
 // 2. Genera la documentacion de un nodo; todos los nodos en node.json pero que no son files y que tienen links con label 'calls'
 async function generateNodeDocumentation(
+	nodesWithFiles: wikiNode[],
 	node: wikiNode,
 	calledNodesSummary: string
 ) {
 	const FunctionStartTime = new Date();
 	console.log("start generateNodeDocumentation", FunctionStartTime);
 
-	const language = "typescript"; // @TODO: cambiar por el lenguaje del codigo dinamicamente
+	const parentNode = findFileParent(nodesWithFiles, node)
+	
+	const importStatements = parentNode? parentNode.importStatements.join('\n') : ''
 
-	const systemPrompt = `Generate a short description about the code bellow.
-	- The documentation you make should be in Markdown format.
-	- Create the description only about the code.
-	- You must generate a valid JSON object.
-	- Please put the documentation in the JSON.
-	- Node Type: ${node.type}; Node Label: ${node.label}.
-	- Prevent any prose.
+	let systemPrompt = `You are a helpful ${node.language} code assistant that helps to write code documentation in just one paragraph.`;
 
-	# JSON FORMAT:
-	{ content: string }
+	if (['function', 'class', 'method'].includes(node.type)) {
+		systemPrompt += ` The documentation must include how each parameter is used and what the ${node.type} does.`
+	}
 
-	---
+	systemPrompt += `\nPrevent any prose in your response. Please, be concise and don't talk about the file.`
 
-	# CODE CONTENT:
-	<CodeContent>
-		\`\`\`
-		${node.code}
-		\`\`\`
-	</CodeContent>
+	let userPrompt = `Write a documentation for the following ${node.type} called "${node.label}" in just one paragraph.
+	
+\`\`\`${node.language}
+${node.code}
+\`\`\`
+`
 
-	This ${node.type} uses the following nodes: <Nodes>${calledNodesSummary}</Nodes>\n\n
-	---
-	# JSON FORMAT:
-	{ 'content': '' }
+	if (importStatements) {
+		userPrompt += `You may require to know the import statements of the file where ${node.type} is defined:
 
-	`;
+\`\`\`${node.language}
+${importStatements}
+\`\`\`
+
+If the code uses an import statement, mention it.
+`
+	}
+
+	if (calledNodesSummary) {
+		userPrompt += `\nTo put more context, here is the documentation of each component used by the code:\n${calledNodesSummary}`
+	}
 
 	try {
 		let response;
@@ -258,11 +286,14 @@ async function generateNodeDocumentation(
 						role: "system",
 						content: systemPrompt,
 					},
+					{
+						role: "user",
+						content: userPrompt,
+					}
 				],
 				model,
 				temperature,
-				max_tokens,
-				response_format,
+				max_tokens
 			});
 		}
 
@@ -284,8 +315,11 @@ async function generateNodeDocumentation(
 
 		console.log(
 			"\ngenerateNodeDocumentation",
-			"prompt:",
-			prompt,
+			"systemPrompt:",
+			systemPrompt,
+			"\n",
+			"userPrompt:",
+			userPrompt,
 			"\n",
 			"response:",
 			response.choices[0].message.content,
