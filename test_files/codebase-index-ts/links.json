@@ -1,2112 +1,2097 @@
 [
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/graph_to_csv",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/graph_to_csv::graph_to_csv",
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\index",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\index::port",
     "label": "defines"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/graph_to_csv",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/graph_to_csv::graph_to_csv",
-    "label": "calls"
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\index",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\index::fs",
+    "label": "defines"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/index",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/index::port",
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\index",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\index::app",
     "label": "defines"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/index",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/index::app",
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\calls::CallsCapturer",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\calls::CallsCapturer.getCallsFromNode",
     "label": "defines"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/index::app",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Codebase",
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\calls::CallsCapturer.getCallsFromNode",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\calls::CallsCapturer",
     "label": "calls"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/index::app",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Codebase.parseFolder",
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\calls::CallsCapturer.getCallsFromNode",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\calls::CallsCapturer.captureAssignments",
     "label": "calls"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/index::app",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Codebase.getCalls",
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\calls::CallsCapturer.getCallsFromNode",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\calls::CallsCapturer.captureCalls",
     "label": "calls"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/index::app",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Codebase.simplify",
-    "label": "calls"
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\calls::CallsCapturer",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\calls::CallsCapturer.captureCalls",
+    "label": "defines"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/index::app",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Codebase.getLinks",
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\calls::CallsCapturer.captureCalls",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\calls::CallIdentifier",
     "label": "calls"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/index::app",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/index::fs",
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\calls::CallsCapturer.captureCalls",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\calls::CallsCapturer",
     "label": "calls"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/index::app",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/routes/create_graph::createGraph",
-    "label": "calls"
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\calls::CallsCapturer",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\calls::CallsCapturer.captureAssignments",
+    "label": "defines"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/index::app",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/routes/graphs::graphs",
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\calls::CallsCapturer.captureAssignments",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\calls::VariableAssignment",
     "label": "calls"
+  },
+  {
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\calls::CallsCapturer",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\calls::CallsCapturer.constructor",
+    "label": "defines"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/index::app",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/routes/create_graph-test::createGraphTest",
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\calls::CallsCapturer.constructor",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\calls::CallsCapturer",
     "label": "calls"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/index",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/index::fs",
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\calls",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\calls::CallsCapturer",
     "label": "defines"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/index",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Codebase",
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\calls::CallsCapturer",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\calls::CallsCapturer",
     "label": "calls"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/index",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Codebase.parseFolder",
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\calls::CallsCapturer",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\calls::VariableAssignment",
     "label": "calls"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/index",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Codebase.getCalls",
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\calls::CallsCapturer",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\calls::CallIdentifier",
     "label": "calls"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/index",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Codebase.simplify",
-    "label": "calls"
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\calls::Call",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\calls::Call.constructor",
+    "label": "defines"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/index",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Codebase.getLinks",
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\calls::Call.constructor",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\calls::Call",
     "label": "calls"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/index",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/index::fs",
-    "label": "calls"
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\calls",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\calls::Call",
+    "label": "defines"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/index",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/routes/create_graph::createGraph",
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\calls::Call",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\calls::Call",
     "label": "calls"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/index",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/routes/graphs::graphs",
-    "label": "calls"
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\calls::CallIdentifier",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\calls::CallIdentifier.constructor",
+    "label": "defines"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/index",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/routes/create_graph-test::createGraphTest",
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\calls::CallIdentifier.constructor",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\calls::CallIdentifier",
     "label": "calls"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/calls::CallsCapturer",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/calls::CallsCapturer.getCallsFromNode",
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\calls",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\calls::CallIdentifier",
     "label": "defines"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/calls::CallsCapturer.getCallsFromNode",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Node",
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\calls::CallIdentifier",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\calls::CallIdentifier",
     "label": "calls"
+  },
+  {
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\calls",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\calls::VariableAssignment",
+    "label": "defines"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/calls::CallsCapturer.getCallsFromNode",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Node.getCodeWithoutBody",
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\calls::VariableAssignment",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\calls::VariableAssignment",
     "label": "calls"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/calls::CallsCapturer.getCallsFromNode",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/calls::CallsCapturer",
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\calls",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\calls::VariableAssignment",
     "label": "calls"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/calls::CallsCapturer.getCallsFromNode",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/consts::itselfClassMap",
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\calls",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\calls::CallIdentifier",
     "label": "calls"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/calls::CallsCapturer.getCallsFromNode",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/calls::CallsCapturer.captureAssignments",
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\calls",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\calls::Call",
     "label": "calls"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/calls::CallsCapturer.getCallsFromNode",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/calls::CallsCapturer.captureCalls",
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\calls",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\calls::CallsCapturer",
     "label": "calls"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/calls::CallsCapturer",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/calls::CallsCapturer.captureCalls",
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\codebase::Codebase",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\codebase::Codebase.resolveHeaderC",
     "label": "defines"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/calls::CallsCapturer.captureCalls",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Node",
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\codebase::Codebase.resolveHeaderC",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\codebase::Node",
     "label": "calls"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/calls::CallsCapturer.captureCalls",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/calls::CallIdentifier",
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\codebase::Codebase.resolveHeaderC",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\codebase::Node.getAllChildren",
     "label": "calls"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/calls::CallsCapturer.captureCalls",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/utils::captureQuery",
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\codebase::Codebase.resolveHeaderC",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\codebase::Codebase",
     "label": "calls"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/calls::CallsCapturer.captureCalls",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/utils::cleanAndSplitContent",
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\codebase::Codebase.resolveHeaderC",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\codebase::Node.removeChild",
     "label": "calls"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/calls::CallsCapturer.captureCalls",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/calls::CallsCapturer",
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\codebase::Codebase.resolveHeaderC",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\codebase::Node.addChild",
     "label": "calls"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/calls::CallsCapturer",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/calls::CallsCapturer.captureAssignments",
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\codebase::Codebase",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\codebase::Codebase.resolveImportStatementsNodes",
     "label": "defines"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/calls::CallsCapturer.captureAssignments",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/calls::VariableAssignment",
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\codebase::Codebase.resolveImportStatementsNodes",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\codebase::Codebase",
     "label": "calls"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/calls::CallsCapturer.captureAssignments",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/utils::captureQuery",
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\codebase::Codebase.resolveImportStatementsNodes",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\codebase::ImportName",
     "label": "calls"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/calls::CallsCapturer",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/calls::CallsCapturer.constructor",
-    "label": "defines"
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\codebase::Codebase.resolveImportStatementsNodes",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\codebase::Codebase.resolveHeaderC",
+    "label": "calls"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/calls::CallsCapturer.constructor",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Node",
-    "label": "calls"
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\codebase::Codebase",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\codebase::Codebase.resolvePythonInitImportStatements",
+    "label": "defines"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/calls::CallsCapturer.constructor",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/calls::CallsCapturer",
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\codebase::Codebase.resolvePythonInitImportStatements",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\codebase::Codebase",
     "label": "calls"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/calls::CallsCapturer.constructor",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Node.getAllChildren",
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\codebase::Codebase.resolvePythonInitImportStatements",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\codebase::ImportStatement",
     "label": "calls"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/calls",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/calls::CallsCapturer",
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\codebase::Codebase",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\codebase::Codebase.getLinks",
     "label": "defines"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/calls::CallsCapturer",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/calls::CallsCapturer",
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\codebase::Codebase.getLinks",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\codebase::Link",
     "label": "calls"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/calls::CallsCapturer",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Node",
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\codebase::Codebase.getLinks",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\codebase::Codebase",
     "label": "calls"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/calls::CallsCapturer",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/calls::VariableAssignment",
-    "label": "calls"
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\codebase::Codebase",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\codebase::Codebase.simplify",
+    "label": "defines"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/calls::CallsCapturer",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/calls::CallIdentifier",
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\codebase::Codebase.simplify",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\codebase::Codebase",
     "label": "calls"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/calls::CallIdentifier",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/calls::CallIdentifier.constructor",
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\codebase::Codebase",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\codebase::Codebase.getCalls",
     "label": "defines"
+  },
+  {
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\codebase::Codebase.getCalls",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\codebase::Node",
+    "label": "calls"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/calls::CallIdentifier.constructor",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/calls::CallIdentifier",
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\codebase::Codebase.getCalls",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\codebase::Codebase",
     "label": "calls"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/calls",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/calls::CallIdentifier",
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\codebase::Codebase",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\codebase::Codebase.parseFolder",
     "label": "defines"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/calls::CallIdentifier",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/calls::CallIdentifier",
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\codebase::Codebase.parseFolder",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\codebase::Node",
     "label": "calls"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/calls",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/calls::VariableAssignment",
-    "label": "defines"
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\codebase::Codebase.parseFolder",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\codebase::Codebase",
+    "label": "calls"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/calls::VariableAssignment",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/calls::VariableAssignment",
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\codebase::Codebase.parseFolder",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\codebase::Codebase.generateNodesFromFilePath",
     "label": "calls"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/calls",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/calls::VariableAssignment",
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\codebase::Codebase.parseFolder",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\codebase::Codebase.addNodeMap",
     "label": "calls"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/calls",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/calls::CallIdentifier",
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\codebase::Codebase.parseFolder",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\codebase::Codebase.resolvePythonInitImportStatements",
     "label": "calls"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/calls",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/calls::CallsCapturer",
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\codebase::Codebase.parseFolder",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\codebase::Codebase.resolveImportStatementsNodes",
     "label": "calls"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Codebase",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Codebase.resolveHeaderC",
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\codebase::Codebase",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\codebase::Codebase.generateNodesFromFilePath",
     "label": "defines"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Codebase.resolveHeaderC",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Node",
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\codebase::Codebase.generateNodesFromFilePath",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\codebase::Node",
     "label": "calls"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Codebase.resolveHeaderC",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Node.getAllChildren",
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\codebase::Codebase.generateNodesFromFilePath",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\codebase::Node.getChildrenDefinitions",
     "label": "calls"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Codebase.resolveHeaderC",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Codebase",
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\codebase::Codebase.generateNodesFromFilePath",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\codebase::Node.generateImports",
     "label": "calls"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Codebase.resolveHeaderC",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Node.removeChild",
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\codebase::Codebase.generateNodesFromFilePath",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\codebase::Node.parseExportClauses",
     "label": "calls"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Codebase.resolveHeaderC",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Node.addChild",
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\codebase::Codebase.generateNodesFromFilePath",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\codebase::Codebase",
     "label": "calls"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Codebase",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Codebase.resolveImportStatementsNodes",
-    "label": "defines"
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\codebase::Codebase.generateNodesFromFilePath",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\codebase::enc",
+    "label": "calls"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Codebase.resolveImportStatementsNodes",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Codebase",
-    "label": "calls"
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\codebase::Codebase",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\codebase::Codebase.addNodeMap",
+    "label": "defines"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Codebase.resolveImportStatementsNodes",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::ImportName",
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\codebase::Codebase.addNodeMap",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\codebase::Node",
     "label": "calls"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Codebase.resolveImportStatementsNodes",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Codebase.resolveHeaderC",
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\codebase::Codebase.addNodeMap",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\codebase::Codebase",
     "label": "calls"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Codebase",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Codebase.resolvePythonInitImportStatements",
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\codebase::Codebase",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\codebase::Codebase.getNode",
     "label": "defines"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Codebase.resolvePythonInitImportStatements",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Codebase",
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\codebase::Codebase.getNode",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\codebase::Node",
     "label": "calls"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Codebase.resolvePythonInitImportStatements",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::ImportStatement",
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\codebase::Codebase.getNode",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\codebase::Codebase",
     "label": "calls"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Codebase",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Codebase.getLinks",
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\codebase::Codebase",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\codebase::Codebase.addNode",
     "label": "defines"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Codebase.getLinks",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Link",
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\codebase::Codebase.addNode",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\codebase::Node",
     "label": "calls"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Codebase.getLinks",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Codebase",
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\codebase::Codebase.addNode",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\codebase::Codebase",
     "label": "calls"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Codebase",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Codebase.simplify",
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\codebase::Codebase",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\codebase::Codebase.constructor",
     "label": "defines"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Codebase.simplify",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Codebase",
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\codebase::Codebase.constructor",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\codebase::Codebase",
     "label": "calls"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Codebase",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Codebase.getCalls",
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\codebase",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\codebase::Codebase",
     "label": "defines"
-  },
-  {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Codebase.getCalls",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Node",
-    "label": "calls"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Codebase.getCalls",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/calls::CallsCapturer",
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\codebase::Codebase",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\codebase::Codebase",
     "label": "calls"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Codebase.getCalls",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/calls::CallsCapturer.getCallsFromNode",
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\codebase::Codebase",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\codebase::Node",
     "label": "calls"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Codebase.getCalls",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Codebase",
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\codebase::Codebase",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\codebase::Link",
     "label": "calls"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Codebase",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Codebase.parseFolder",
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\codebase::Node",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\codebase::Node.simplify",
     "label": "defines"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Codebase.parseFolder",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Node",
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\codebase::Node.simplify",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\codebase::Node",
     "label": "calls"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Codebase.parseFolder",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Codebase",
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\codebase::Node.simplify",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\codebase::Node.getCodeWithoutBody",
     "label": "calls"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Codebase.parseFolder",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/utils::getAllFiles",
-    "label": "calls"
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\codebase::Node",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\codebase::Node.getChildrenDefinitions",
+    "label": "defines"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Codebase.parseFolder",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Codebase.generateNodesFromFilePath",
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\codebase::Node.getChildrenDefinitions",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\codebase::Node",
     "label": "calls"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Codebase.parseFolder",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Codebase.addNodeMap",
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\codebase::Node.getChildrenDefinitions",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\codebase::Node.addChild",
     "label": "calls"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Codebase.parseFolder",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Codebase.resolvePythonInitImportStatements",
-    "label": "calls"
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\codebase::Node",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\codebase::Node.resolveImportStatementsPath",
+    "label": "defines"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Codebase.parseFolder",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Codebase.resolveImportStatementsNodes",
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\codebase::Node.resolveImportStatementsPath",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\codebase::Node",
     "label": "calls"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Codebase",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Codebase.generateNodesFromFilePath",
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\codebase::Node",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\codebase::Node.parseExportClauses",
     "label": "defines"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Codebase.generateNodesFromFilePath",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Node",
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\codebase::Node.parseExportClauses",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\codebase::Node",
     "label": "calls"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Codebase.generateNodesFromFilePath",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/consts::languageExtensionMap",
-    "label": "calls"
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\codebase::Node",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\codebase::Node.generateImports",
+    "label": "defines"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Codebase.generateNodesFromFilePath",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Node.getChildrenDefinitions",
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\codebase::Node.generateImports",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\codebase::Node",
     "label": "calls"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Codebase.generateNodesFromFilePath",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Node.generateImports",
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\codebase::Node.generateImports",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\codebase::ImportStatement",
     "label": "calls"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Codebase.generateNodesFromFilePath",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Node.parseExportClauses",
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\codebase::Node.generateImports",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\codebase::ImportName",
     "label": "calls"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Codebase.generateNodesFromFilePath",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Codebase",
-    "label": "calls"
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\codebase::Node",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\codebase::Node.getCodeWithoutBody",
+    "label": "defines"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Codebase.generateNodesFromFilePath",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::enc",
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\codebase::Node.getCodeWithoutBody",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\codebase::Node",
     "label": "calls"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Codebase",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Codebase.addNodeMap",
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\codebase::Node",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\codebase::Node.addNodeRelationship",
     "label": "defines"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Codebase.addNodeMap",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Node",
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\codebase::Node.addNodeRelationship",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\codebase::Node",
     "label": "calls"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Codebase.addNodeMap",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Codebase",
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\codebase::Node.addNodeRelationship",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\codebase::Node.isWithin",
     "label": "calls"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Codebase",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Codebase.getNode",
-    "label": "defines"
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\codebase::Node.addNodeRelationship",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\codebase::Node.addChild",
+    "label": "calls"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Codebase.getNode",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Node",
-    "label": "calls"
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\codebase::Node",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\codebase::Node.isWithin",
+    "label": "defines"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Codebase.getNode",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Codebase",
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\codebase::Node.isWithin",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\codebase::Node",
     "label": "calls"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Codebase",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Codebase.addNode",
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\codebase::Node",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\codebase::Node.addImportStatement",
     "label": "defines"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Codebase.addNode",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Node",
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\codebase::Node.addImportStatement",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\codebase::ImportStatement",
     "label": "calls"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Codebase.addNode",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Codebase",
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\codebase::Node.addImportStatement",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\codebase::Node",
     "label": "calls"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Codebase",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Codebase.constructor",
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\codebase::Node",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\codebase::Node.addCall",
     "label": "defines"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Codebase.constructor",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Codebase",
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\codebase::Node.addCall",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\codebase::Node",
     "label": "calls"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Codebase",
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\codebase::Node",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\codebase::Node.removeChild",
     "label": "defines"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Codebase",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Codebase",
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\codebase::Node.removeChild",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\codebase::Node",
     "label": "calls"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Codebase",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Node",
-    "label": "calls"
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\codebase::Node",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\codebase::Node.addChild",
+    "label": "defines"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Codebase",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Link",
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\codebase::Node.addChild",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\codebase::Node",
     "label": "calls"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Node",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Node.simplify",
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\codebase::Node",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\codebase::Node.getAllChildren",
     "label": "defines"
-  },
-  {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Node.simplify",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Node",
-    "label": "calls"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Node.simplify",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Node.getCodeWithoutBody",
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\codebase::Node.getAllChildren",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\codebase::Node",
     "label": "calls"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Node",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Node.getChildrenDefinitions",
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\codebase::Node",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\codebase::Node.getChild",
     "label": "defines"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Node.getChildrenDefinitions",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Node",
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\codebase::Node.getChild",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\codebase::Node",
     "label": "calls"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Node.getChildrenDefinitions",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/utils::captureQuery",
-    "label": "calls"
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\codebase::Node",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\codebase::Node.constructor",
+    "label": "defines"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Node.getChildrenDefinitions",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/consts::AllowedTypesArray",
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\codebase::Node.constructor",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\codebase::Node",
     "label": "calls"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Node.getChildrenDefinitions",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/consts::AllowedTypes",
-    "label": "calls"
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\codebase",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\codebase::Node",
+    "label": "defines"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Node.getChildrenDefinitions",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/consts::treeSitterCommentTypes",
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\codebase::Node",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\codebase::Node",
     "label": "calls"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Node.getChildrenDefinitions",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/utils::cleanDefCaptures",
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\codebase::Node",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\codebase::ImportStatement",
     "label": "calls"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Node.getChildrenDefinitions",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Node.addChild",
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\codebase",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\codebase::Link",
+    "label": "defines"
+  },
+  {
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\codebase::Link",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\codebase::Link",
     "label": "calls"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Node",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Node.resolveImportStatementsPath",
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\codebase::ImportStatement",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\codebase::ImportStatement.constructor",
     "label": "defines"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Node.resolveImportStatementsPath",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Node",
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\codebase::ImportStatement.constructor",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\codebase::ImportName",
     "label": "calls"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Node.resolveImportStatementsPath",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/consts::indexSuffixesMap",
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\codebase::ImportStatement.constructor",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\codebase::ImportStatement",
     "label": "calls"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Node",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Node.parseExportClauses",
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\codebase",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\codebase::ImportStatement",
     "label": "defines"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Node.parseExportClauses",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Node",
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\codebase::ImportStatement",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\codebase::ImportStatement",
     "label": "calls"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Node.parseExportClauses",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/utils::captureQuery",
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\codebase::ImportStatement",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\codebase::ImportName",
     "label": "calls"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Node",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Node.generateImports",
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\codebase::ImportName",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\codebase::ImportName.constructor",
     "label": "defines"
-  },
-  {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Node.generateImports",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Node",
-    "label": "calls"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Node.generateImports",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/utils::captureQuery",
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\codebase::ImportName.constructor",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\codebase::ImportName",
     "label": "calls"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Node.generateImports",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::ImportStatement",
-    "label": "calls"
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\codebase",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\codebase::ImportName",
+    "label": "defines"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Node.generateImports",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::ImportName",
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\codebase::ImportName",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\codebase::ImportName",
     "label": "calls"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Node.generateImports",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/utils::renameSource",
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\codebase::ImportName",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\codebase::Node",
     "label": "calls"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Node",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Node.getCodeWithoutBody",
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\codebase",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\codebase::enc",
     "label": "defines"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Node.getCodeWithoutBody",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Node",
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\codebase",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\codebase::ImportName",
     "label": "calls"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Node.getCodeWithoutBody",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/consts::newClassMethodsMap",
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\codebase",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\codebase::ImportStatement",
     "label": "calls"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Node",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Node.addNodeRelationship",
-    "label": "defines"
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\codebase",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\codebase::Link",
+    "label": "calls"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Node.addNodeRelationship",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Node",
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\codebase",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\codebase::Node",
     "label": "calls"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Node.addNodeRelationship",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Node.isWithin",
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\codebase",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\codebase::Codebase",
     "label": "calls"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Node.addNodeRelationship",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Node.addChild",
-    "label": "calls"
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\consts",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\consts::treeSitterCommentTypes",
+    "label": "defines"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Node",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Node.isWithin",
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\consts",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\consts::indexSuffixesMap",
     "label": "defines"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Node.isWithin",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Node",
-    "label": "calls"
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\consts",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\consts::itselfClassMap",
+    "label": "defines"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Node",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Node.addImportStatement",
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\consts",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\consts::newClassMethodsMap",
     "label": "defines"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Node.addImportStatement",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::ImportStatement",
-    "label": "calls"
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\consts",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\consts::languageExtensionMap",
+    "label": "defines"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Node.addImportStatement",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Node",
-    "label": "calls"
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\consts",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\consts::languages",
+    "label": "defines"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Node",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Node.addCall",
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\consts",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\consts::excludedExtensions",
     "label": "defines"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Node.addCall",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Node",
-    "label": "calls"
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\consts",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\consts::excludedFolders",
+    "label": "defines"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Node",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Node.removeChild",
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\consts",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\consts::AllowedTypesArray",
     "label": "defines"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Node.removeChild",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Node",
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\consts::AllowedTypesArray",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\consts::AllowedTypes",
     "label": "calls"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Node",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Node.addChild",
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\consts",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\consts::AllowedTypes",
     "label": "defines"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Node.addChild",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Node",
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\consts::AllowedTypes",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\consts::AllowedTypes",
     "label": "calls"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Node",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Node.getAllChildren",
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\consts",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\consts::C",
     "label": "defines"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Node.getAllChildren",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/consts::AllowedTypes",
-    "label": "calls"
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\consts",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\consts::Java",
+    "label": "defines"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Node.getAllChildren",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Node",
-    "label": "calls"
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\consts",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\consts::TSX",
+    "label": "defines"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Node",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Node.getChild",
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\consts",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\consts::TypeScript",
     "label": "defines"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Node.getChild",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Node",
-    "label": "calls"
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\consts",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\consts::Python",
+    "label": "defines"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Node",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Node.constructor",
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\consts",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\consts::JavaScript",
     "label": "defines"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Node.constructor",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/consts::AllowedTypes",
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\consts",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\consts::AllowedTypes",
     "label": "calls"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Node.constructor",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Node",
-    "label": "calls"
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\utils",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\utils::getCalledNode",
+    "label": "defines"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Node",
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\utils",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\utils::cleanAndSplitContent",
     "label": "defines"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Node",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Node",
-    "label": "calls"
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\utils",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\utils::firstConsecutiveDots",
+    "label": "defines"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Node",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/consts::AllowedTypes",
-    "label": "calls"
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\utils",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\utils::renameSource",
+    "label": "defines"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Node",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::ImportStatement",
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\utils::renameSource",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\utils::firstConsecutiveDots",
     "label": "calls"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Node",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::NodeCallTuple",
-    "label": "calls"
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\utils",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\utils::cleanDefCaptures",
+    "label": "defines"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::NodeCallTuple",
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\utils",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\utils::captureQuery",
     "label": "defines"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::NodeCallTuple",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::NodeCallTuple",
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\utils::captureQuery",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\utils::getRequiredDefinitions",
     "label": "calls"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::NodeCallTuple",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Node",
-    "label": "calls"
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\utils",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\utils::getRequiredDefinitions",
+    "label": "defines"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Link",
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\utils",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\utils::getTotalSize",
     "label": "defines"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Link",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Link",
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\utils::getTotalSize",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\utils::getAllFiles",
     "label": "calls"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::ImportStatement",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::ImportStatement.constructor",
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\utils",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\utils::getAllFiles",
     "label": "defines"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::ImportStatement.constructor",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::ImportName",
-    "label": "calls"
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\queries\\c",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\queries\\c::cQueries",
+    "label": "defines"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::ImportStatement.constructor",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::ImportStatement",
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\queries\\c::cQueries",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\queries\\c::anyAssignments",
     "label": "calls"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::ImportStatement",
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\queries\\c",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\queries\\c::anyAssignments",
     "label": "defines"
-  },
-  {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::ImportStatement",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::ImportStatement",
-    "label": "calls"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::ImportStatement",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::ImportName",
-    "label": "calls"
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\queries\\c",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\queries\\c::calls",
+    "label": "defines"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::ImportName",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::ImportName.constructor",
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\queries\\c",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\queries\\c::extraAssignmentCode",
     "label": "defines"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::ImportName.constructor",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::ImportName",
-    "label": "calls"
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\queries\\c",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\queries\\c::exportClauses",
+    "label": "defines"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::ImportName",
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\queries\\c",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\queries\\c::constructorDefinitions",
     "label": "defines"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::ImportName",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::ImportName",
-    "label": "calls"
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\queries\\c",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\queries\\c::definitionTemplate",
+    "label": "defines"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::ImportName",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Node",
-    "label": "calls"
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\queries\\c",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\queries\\c::assignments",
+    "label": "defines"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::enc",
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\queries\\c",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\queries\\c::importStatements",
     "label": "defines"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::ImportName",
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\queries\\c",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\queries\\c::anyAssignments",
     "label": "calls"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::ImportStatement",
-    "label": "calls"
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\queries\\index",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\queries\\index::treeSitterQueries",
+    "label": "defines"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Link",
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\queries\\index::treeSitterQueries",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\queries\\index::treeSitterQueries",
     "label": "calls"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::NodeCallTuple",
-    "label": "calls"
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\queries\\index",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\queries\\index::languageQueries",
+    "label": "defines"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Node",
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\queries\\index",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\queries\\index::treeSitterQueries",
     "label": "calls"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Codebase",
-    "label": "calls"
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\queries\\java",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\queries\\java::javaQueries",
+    "label": "defines"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/consts",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/consts::treeSitterCommentTypes",
-    "label": "defines"
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\queries\\java::javaQueries",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\queries\\java::anyAssignments",
+    "label": "calls"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/consts",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/consts::indexSuffixesMap",
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\queries\\java",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\queries\\java::anyAssignments",
     "label": "defines"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/consts",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/consts::itselfClassMap",
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\queries\\java",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\queries\\java::calls",
     "label": "defines"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/consts",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/consts::newClassMethodsMap",
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\queries\\java",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\queries\\java::extraAssignmentCode",
     "label": "defines"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/consts",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/consts::languageExtensionMap",
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\queries\\java",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\queries\\java::exportClauses",
     "label": "defines"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/consts",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/consts::languages",
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\queries\\java",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\queries\\java::constructorDefinitions",
     "label": "defines"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/consts",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/consts::excludedExtensions",
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\queries\\java",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\queries\\java::definitionTemplate",
     "label": "defines"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/consts",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/consts::excludedFolders",
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\queries\\java",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\queries\\java::assignments",
     "label": "defines"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/consts",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/consts::AllowedTypesArray",
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\queries\\java",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\queries\\java::importStatements",
     "label": "defines"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/consts::AllowedTypesArray",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/consts::AllowedTypes",
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\queries\\java",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\queries\\java::anyAssignments",
     "label": "calls"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/consts",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/consts::AllowedTypes",
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\queries\\javascript",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\queries\\javascript::jsQueries",
     "label": "defines"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/consts::AllowedTypes",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/consts::AllowedTypes",
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\queries\\javascript::jsQueries",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\queries\\javascript::anyAssignments",
     "label": "calls"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/consts",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/consts::PHP",
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\queries\\javascript",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\queries\\javascript::anyAssignments",
     "label": "defines"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/consts",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/consts::C",
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\queries\\javascript",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\queries\\javascript::calls",
     "label": "defines"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/consts",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/consts::Java",
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\queries\\javascript",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\queries\\javascript::extraAssignmentCode",
     "label": "defines"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/consts",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/consts::TSX",
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\queries\\javascript",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\queries\\javascript::exportClauses",
     "label": "defines"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/consts",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/consts::TypeScript",
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\queries\\javascript",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\queries\\javascript::constructorDefinitions",
     "label": "defines"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/consts",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/consts::Python",
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\queries\\javascript",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\queries\\javascript::arrowFunctionConstructor",
     "label": "defines"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/consts",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/consts::JavaScript",
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\queries\\javascript",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\queries\\javascript::definitionTemplate",
     "label": "defines"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/consts",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/consts::AllowedTypes",
-    "label": "calls"
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\queries\\javascript",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\queries\\javascript::assignments",
+    "label": "defines"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/utils",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/utils::getCalledNode",
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\queries\\javascript",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\queries\\javascript::importStatements",
     "label": "defines"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/utils::getCalledNode",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Node",
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\queries\\javascript",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\queries\\javascript::anyAssignments",
     "label": "calls"
+  },
+  {
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\queries\\python",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\queries\\python::pyQueries",
+    "label": "defines"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/utils::getCalledNode",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::ImportStatement",
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\queries\\python::pyQueries",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\queries\\python::anyAssignments",
     "label": "calls"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/utils",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/utils::cleanAndSplitContent",
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\queries\\python",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\queries\\python::anyAssignments",
     "label": "defines"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/utils",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/utils::firstConsecutiveDots",
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\queries\\python",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\queries\\python::calls",
     "label": "defines"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/utils",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/utils::renameSource",
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\queries\\python",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\queries\\python::extraAssignmentCode",
     "label": "defines"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/utils::renameSource",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/consts::languageExtensionMap",
-    "label": "calls"
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\queries\\python",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\queries\\python::constructorDefinitions",
+    "label": "defines"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/utils::renameSource",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/utils::firstConsecutiveDots",
-    "label": "calls"
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\queries\\python",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\queries\\python::definitionTemplate",
+    "label": "defines"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/utils",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/utils::cleanDefCaptures",
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\queries\\python",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\queries\\python::assignments",
     "label": "defines"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/utils",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/utils::captureQuery",
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\queries\\python",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\queries\\python::importStatements",
     "label": "defines"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/utils::captureQuery",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/index::treeSitterQueries",
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\queries\\python",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\queries\\python::anyAssignments",
     "label": "calls"
+  },
+  {
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\queries\\typescript",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\queries\\typescript::tsQueries",
+    "label": "defines"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/utils::captureQuery",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/utils::getRequiredDefinitions",
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\queries\\typescript::tsQueries",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\queries\\typescript::anyAssignments",
     "label": "calls"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/utils",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/utils::getRequiredDefinitions",
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\queries\\typescript",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\queries\\typescript::anyAssignments",
     "label": "defines"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/utils::getRequiredDefinitions",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/index::treeSitterQueries",
-    "label": "calls"
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\queries\\typescript",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\queries\\typescript::calls",
+    "label": "defines"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/utils::getRequiredDefinitions",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/consts::languages",
-    "label": "calls"
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\queries\\typescript",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\queries\\typescript::extraAssignmentCode",
+    "label": "defines"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/utils::getRequiredDefinitions",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/index::languageQueries",
-    "label": "calls"
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\queries\\typescript",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\queries\\typescript::exportClauses",
+    "label": "defines"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/utils",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/utils::getTotalSize",
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\queries\\typescript",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\queries\\typescript::constructorDefinitions",
     "label": "defines"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/utils::getTotalSize",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/utils::getAllFiles",
-    "label": "calls"
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\queries\\typescript",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\queries\\typescript::definitionTemplate",
+    "label": "defines"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/utils",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/utils::getAllFiles",
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\queries\\typescript",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\queries\\typescript::importStatements",
     "label": "defines"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/utils::getAllFiles",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/consts::languageExtensionMap",
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\queries\\typescript",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\queries\\typescript::anyAssignments",
     "label": "calls"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/utils::getAllFiles",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/consts::excludedExtensions",
-    "label": "calls"
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\routes\\create_graph-test",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\routes\\create_graph-test::createGraphTest",
+    "label": "defines"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/utils::getAllFiles",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/consts::excludedFolders",
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\routes\\create_graph-test::createGraphTest",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\routes\\create_graph-test::repoRequestValidator",
     "label": "calls"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/utils",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/index::treeSitterQueries",
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\routes\\create_graph-test::createGraphTest",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\routes\\create_graph-test::secret",
     "label": "calls"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/utils",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Node",
-    "label": "calls"
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\routes\\create_graph-test",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\routes\\create_graph-test::repoRequestValidator",
+    "label": "defines"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/model/utils",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::ImportStatement",
-    "label": "calls"
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\routes\\create_graph-test",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\routes\\create_graph-test::secret",
+    "label": "defines"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/c",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/c::cQueries",
-    "label": "defines"
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\routes\\create_graph-test",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\routes\\create_graph-test::repoRequestValidator",
+    "label": "calls"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/c::cQueries",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/c::anyAssignments",
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\routes\\create_graph-test",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\routes\\create_graph-test::secret",
     "label": "calls"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/c",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/c::anyAssignments",
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\routes\\create_graph",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\routes\\create_graph::processGraphCreation",
     "label": "defines"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/c",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/c::calls",
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\routes\\create_graph",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\routes\\create_graph::createGraph",
     "label": "defines"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/c",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/c::extraAssignmentCode",
-    "label": "defines"
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\routes\\create_graph::createGraph",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\routes\\create_graph::repoRequestValidator",
+    "label": "calls"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/c",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/c::exportClauses",
-    "label": "defines"
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\routes\\create_graph::createGraph",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\routes\\create_graph::secret",
+    "label": "calls"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/c",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/c::constructorDefinitions",
-    "label": "defines"
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\routes\\create_graph::createGraph",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\routes\\create_graph::processGraphCreation",
+    "label": "calls"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/c",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/c::definitionTemplate",
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\routes\\create_graph",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\routes\\create_graph::repoRequestValidator",
     "label": "defines"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/c",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/c::assignments",
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\routes\\create_graph",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\routes\\create_graph::secret",
     "label": "defines"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/c",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/c::importStatements",
-    "label": "defines"
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\routes\\create_graph",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\routes\\create_graph::repoRequestValidator",
+    "label": "calls"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/c",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/index::treeSitterQueries",
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\routes\\create_graph",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\routes\\create_graph::secret",
     "label": "calls"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/c",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/c::anyAssignments",
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\routes\\create_graph",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\routes\\create_graph::processGraphCreation",
     "label": "calls"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/index",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/index::treeSitterQueries",
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\routes\\graphs",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\routes\\graphs::updateGraph",
     "label": "defines"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/index::treeSitterQueries",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/index::treeSitterQueries",
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\routes\\graphs::updateGraph",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\routes\\graphs::UpdateGraph",
     "label": "calls"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/index",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/index::languageQueries",
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\routes\\graphs",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\routes\\graphs::UpdateGraph",
     "label": "defines"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/index::languageQueries",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/javascript::jsQueries",
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\routes\\graphs::UpdateGraph",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\routes\\graphs::UpdateGraph",
     "label": "calls"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/index::languageQueries",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/typescript::tsQueries",
-    "label": "calls"
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\routes\\graphs",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\routes\\graphs::graphs",
+    "label": "defines"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/index::languageQueries",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/python::pyQueries",
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\routes\\graphs::graphs",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\routes\\graphs::updateGraph",
     "label": "calls"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/index::languageQueries",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/java::javaQueries",
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\routes\\graphs",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\routes\\graphs::updateGraph",
     "label": "calls"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/index::languageQueries",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/c::cQueries",
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\routes\\graphs",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\routes\\graphs::UpdateGraph",
     "label": "calls"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/index::languageQueries",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/php::phpQueries",
-    "label": "calls"
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\utils\\bitbucket\\refresh-token",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\utils\\bitbucket\\refresh-token::refreshAccessToken",
+    "label": "defines"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/index",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/javascript::jsQueries",
-    "label": "calls"
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\utils\\db",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\utils\\db::sql",
+    "label": "defines"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/index",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/typescript::tsQueries",
-    "label": "calls"
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\utils\\git",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\utils\\git::getAccessToken",
+    "label": "defines"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/index",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/python::pyQueries",
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\utils\\git::getAccessToken",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\utils\\git::GitServiceType",
     "label": "calls"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/index",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/java::javaQueries",
-    "label": "calls"
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\utils\\git",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\utils\\git::getCommitHash",
+    "label": "defines"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/index",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/c::cQueries",
-    "label": "calls"
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\utils\\git",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\utils\\git::getCommitRepo",
+    "label": "defines"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/index",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/php::phpQueries",
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\utils\\git::getCommitRepo",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\utils\\git::GitServiceType",
     "label": "calls"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/index",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/index::treeSitterQueries",
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\utils\\git::getCommitRepo",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\utils\\git::getCommitHash",
     "label": "calls"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/java",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/java::javaQueries",
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\utils\\git",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\utils\\git::downloadAndExtractRepo",
     "label": "defines"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/java::javaQueries",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/java::anyAssignments",
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\utils\\git::downloadAndExtractRepo",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\utils\\git::GitServiceType",
     "label": "calls"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/java",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/java::anyAssignments",
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\utils\\git",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\utils\\git::MAXSIZE",
     "label": "defines"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/java",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/java::calls",
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\utils\\git",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\utils\\git::GitServiceType",
     "label": "defines"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/java",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/java::extraAssignmentCode",
-    "label": "defines"
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\utils\\git::GitServiceType",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\utils\\git::GitServiceType",
+    "label": "calls"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/java",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/java::exportClauses",
-    "label": "defines"
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\utils\\git",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\utils\\git::GitServiceType",
+    "label": "calls"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/java",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/java::constructorDefinitions",
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\utils\\gitlab\\refresh-token",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\utils\\gitlab\\refresh-token::refreshAccessToken",
     "label": "defines"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/java",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/java::definitionTemplate",
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\utils\\utils",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\utils\\utils::getEnv",
     "label": "defines"
+  },
+  {
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\utils\\utils::getEnv",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\utils\\utils::ENV_VARS",
+    "label": "calls"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/java",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/java::assignments",
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\utils\\utils",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\utils\\utils::ENV_VARS",
     "label": "defines"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/java",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/java::importStatements",
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\wiki\\wiki2",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\wiki\\wiki2::generateFolderDocumentation",
     "label": "defines"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/java",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/index::treeSitterQueries",
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\wiki\\wiki2::generateFolderDocumentation",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\wiki\\wiki2::client2",
     "label": "calls"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/java",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/java::anyAssignments",
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\wiki\\wiki2::generateFolderDocumentation",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\wiki\\wiki2::timeElapsedInSecconds",
     "label": "calls"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/javascript",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/javascript::jsQueries",
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\wiki\\wiki2",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\wiki\\wiki2::documentFolders",
     "label": "defines"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/javascript::jsQueries",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/javascript::anyAssignments",
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\wiki\\wiki2::documentFolders",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\wiki\\wiki2::path2",
     "label": "calls"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/javascript",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/javascript::anyAssignments",
-    "label": "defines"
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\wiki\\wiki2::documentFolders",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\wiki\\wiki2::generateFolderDocumentation",
+    "label": "calls"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/javascript",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/javascript::calls",
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\wiki\\wiki2",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\wiki\\wiki2::generateFileDocumentation",
     "label": "defines"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/javascript",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/javascript::extraAssignmentCode",
-    "label": "defines"
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\wiki\\wiki2::generateFileDocumentation",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\wiki\\wiki2::wikiNode",
+    "label": "calls"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/javascript",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/javascript::exportClauses",
-    "label": "defines"
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\wiki\\wiki2::generateFileDocumentation",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\wiki\\wiki2::client2",
+    "label": "calls"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/javascript",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/javascript::constructorDefinitions",
-    "label": "defines"
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\wiki\\wiki2::generateFileDocumentation",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\wiki\\wiki2::timeElapsedInSecconds",
+    "label": "calls"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/javascript",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/javascript::arrowFunctionConstructor",
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\wiki\\wiki2",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\wiki\\wiki2::classifyAndDocumentFiles",
     "label": "defines"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/javascript",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/javascript::definitionTemplate",
-    "label": "defines"
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\wiki\\wiki2::classifyAndDocumentFiles",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\wiki\\wiki2::wikiNode",
+    "label": "calls"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/javascript",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/javascript::assignments",
-    "label": "defines"
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\wiki\\wiki2::classifyAndDocumentFiles",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\wiki\\wiki2::fs2",
+    "label": "calls"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/javascript",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/javascript::importStatements",
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\wiki\\wiki2::classifyAndDocumentFiles",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\wiki\\wiki2::generateFileDocumentation",
+    "label": "calls"
+  },
+  {
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\wiki\\wiki2",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\wiki\\wiki2::generateNodeDocumentation",
     "label": "defines"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/javascript",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/index::treeSitterQueries",
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\wiki\\wiki2::generateNodeDocumentation",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\wiki\\wiki2::wikiNode",
     "label": "calls"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/javascript",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/javascript::anyAssignments",
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\wiki\\wiki2::generateNodeDocumentation",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\wiki\\wiki2::findFileParent",
     "label": "calls"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/php",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/php::phpQueries",
-    "label": "defines"
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\wiki\\wiki2::generateNodeDocumentation",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\wiki\\wiki2::client2",
+    "label": "calls"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/php::phpQueries",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/php::anyAssignments",
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\wiki\\wiki2::generateNodeDocumentation",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\wiki\\wiki2::timeElapsedInSecconds",
     "label": "calls"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/php",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/php::anyAssignments",
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\wiki\\wiki2",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\wiki\\wiki2::bfs",
     "label": "defines"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/php",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/php::calls",
-    "label": "defines"
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\wiki\\wiki2::bfs",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\wiki\\wiki2::wikiNode",
+    "label": "calls"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/php",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/php::extraAssignmentCode",
-    "label": "defines"
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\wiki\\wiki2::bfs",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\wiki\\wiki2::generateNodeDocumentation",
+    "label": "calls"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/php",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/php::exportClauses",
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\wiki\\wiki2",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\wiki\\wiki2::findStartNodes",
     "label": "defines"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/php",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/php::constructorDefinitions",
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\wiki\\wiki2",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\wiki\\wiki2::buildCallGraph",
     "label": "defines"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/php",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/php::definitionTemplate",
-    "label": "defines"
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\wiki\\wiki2::buildCallGraph",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\wiki\\wiki2::wikiNode",
+    "label": "calls"
+  },
+  {
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\wiki\\wiki2::buildCallGraph",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\wiki\\wiki2::wikiLink",
+    "label": "calls"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/php",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/php::assignments",
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\wiki\\wiki2",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\wiki\\wiki2::readJson",
     "label": "defines"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/php",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/php::importStatements",
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\wiki\\wiki2::readJson",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\wiki\\wiki2::fs2",
+    "label": "calls"
+  },
+  {
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\wiki\\wiki2",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\wiki\\wiki2::findFileParent",
     "label": "defines"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/php",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/index::treeSitterQueries",
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\wiki\\wiki2::findFileParent",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\wiki\\wiki2::wikiNode",
     "label": "calls"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/php",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/php::anyAssignments",
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\wiki\\wiki2::findFileParent",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\wiki\\wiki2::findFileParent",
     "label": "calls"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/python",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/python::pyQueries",
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\wiki\\wiki2",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\wiki\\wiki2::tokenizer",
     "label": "defines"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/python::pyQueries",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/python::anyAssignments",
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\wiki\\wiki2::tokenizer",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\wiki\\wiki2::cl100k_base",
     "label": "calls"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/python",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/python::anyAssignments",
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\wiki\\wiki2",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\wiki\\wiki2::timeElapsedInSecconds",
     "label": "defines"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/python",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/python::calls",
-    "label": "defines"
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\wiki\\wiki2::timeElapsedInSecconds",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\wiki\\wiki2::startTime",
+    "label": "calls"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/python",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/python::extraAssignmentCode",
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\wiki\\wiki2",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\wiki\\wiki2::totalTokensUsed",
     "label": "defines"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/python",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/python::constructorDefinitions",
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\wiki\\wiki2",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\wiki\\wiki2::linksPath",
     "label": "defines"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/python",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/python::definitionTemplate",
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\wiki\\wiki2",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\wiki\\wiki2::nodesPath",
     "label": "defines"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/python",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/python::assignments",
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\wiki\\wiki2",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\wiki\\wiki2::forder_path",
     "label": "defines"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/python",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/python::importStatements",
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\wiki\\wiki2",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\wiki\\wiki2::projectId",
     "label": "defines"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/python",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/index::treeSitterQueries",
-    "label": "calls"
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\wiki\\wiki2",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\wiki\\wiki2::onlyLogs",
+    "label": "defines"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/python",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/python::anyAssignments",
-    "label": "calls"
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\wiki\\wiki2",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\wiki\\wiki2::response_format",
+    "label": "defines"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/typescript",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/typescript::tsQueries",
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\wiki\\wiki2",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\wiki\\wiki2::max_tokens",
     "label": "defines"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/typescript::tsQueries",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/typescript::anyAssignments",
-    "label": "calls"
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\wiki\\wiki2",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\wiki\\wiki2::temperature",
+    "label": "defines"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/typescript",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/typescript::anyAssignments",
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\wiki\\wiki2",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\wiki\\wiki2::model",
     "label": "defines"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/typescript::anyAssignments",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/javascript::jsQueries",
-    "label": "calls"
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\wiki\\wiki2",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\wiki\\wiki2::startTime",
+    "label": "defines"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/typescript",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/typescript::calls",
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\wiki\\wiki2",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\wiki\\wiki2::client2",
     "label": "defines"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/typescript::calls",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/javascript::jsQueries",
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\wiki\\wiki2::client2",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\wiki\\wiki2::OpenAI2",
     "label": "calls"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/typescript",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/typescript::extraAssignmentCode",
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\wiki\\wiki2",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\wiki\\wiki2::wikiLink",
     "label": "defines"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/typescript::extraAssignmentCode",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/javascript::jsQueries",
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\wiki\\wiki2::wikiLink",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\wiki\\wiki2::wikiLink",
     "label": "calls"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/typescript",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/typescript::exportClauses",
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\wiki\\wiki2",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\wiki\\wiki2::wikiNode",
     "label": "defines"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/typescript::exportClauses",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/javascript::jsQueries",
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\wiki\\wiki2::wikiNode",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\wiki\\wiki2::wikiNode",
     "label": "calls"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/typescript",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/typescript::constructorDefinitions",
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\wiki\\wiki2",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\wiki\\wiki2::cl100k_base",
     "label": "defines"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/typescript::constructorDefinitions",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/javascript::jsQueries",
-    "label": "calls"
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\wiki\\wiki2",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\wiki\\wiki2::OpenAI2",
+    "label": "defines"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/typescript",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/typescript::definitionTemplate",
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\wiki\\wiki2",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\wiki\\wiki2::path2",
     "label": "defines"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/typescript",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/typescript::importStatements",
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\wiki\\wiki2",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\wiki\\wiki2::fs2",
     "label": "defines"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/typescript::importStatements",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/javascript::jsQueries",
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\wiki\\wiki2",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\wiki\\wiki2::wikiNode",
     "label": "calls"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/typescript",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/javascript::jsQueries",
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\wiki\\wiki2",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\wiki\\wiki2::wikiLink",
     "label": "calls"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/typescript",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/index::treeSitterQueries",
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\wiki\\wiki2",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\wiki\\wiki2::OpenAI2",
     "label": "calls"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/typescript",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/queries/typescript::anyAssignments",
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\wiki\\wiki2",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\wiki\\wiki2::readJson",
     "label": "calls"
-  },
-  {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/routes/create_graph-test",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/routes/create_graph-test::createGraphTest",
-    "label": "defines"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/routes/create_graph-test::createGraphTest",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/routes/create_graph-test::repoRequestValidator",
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\wiki\\wiki2",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\wiki\\wiki2::nodesPath",
     "label": "calls"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/routes/create_graph-test::createGraphTest",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/utils/git::getCommitRepo",
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\wiki\\wiki2",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\wiki\\wiki2::linksPath",
     "label": "calls"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/routes/create_graph-test::createGraphTest",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/utils/git::downloadAndExtractRepo",
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\wiki\\wiki2",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\wiki\\wiki2::buildCallGraph",
     "label": "calls"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/routes/create_graph-test::createGraphTest",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Codebase",
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\wiki\\wiki2",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\wiki\\wiki2::findStartNodes",
     "label": "calls"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/routes/create_graph-test::createGraphTest",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Codebase.parseFolder",
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\wiki\\wiki2",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\wiki\\wiki2::bfs",
     "label": "calls"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/routes/create_graph-test::createGraphTest",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Codebase.getCalls",
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\wiki\\wiki2",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\wiki\\wiki2::classifyAndDocumentFiles",
     "label": "calls"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/routes/create_graph-test::createGraphTest",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Codebase.simplify",
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\wiki\\wiki2",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\wiki\\wiki2::documentFolders",
     "label": "calls"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/routes/create_graph-test::createGraphTest",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Codebase.getLinks",
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\wiki\\wiki2",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\wiki\\wiki2::totalTokensUsed",
     "label": "calls"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/routes/create_graph-test",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/routes/create_graph-test::repoRequestValidator",
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\tests\\c.test",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\tests\\c.test::nodeAttributes",
     "label": "defines"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/routes/create_graph-test",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/routes/create_graph-test::repoRequestValidator",
-    "label": "calls"
-  },
-  {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/routes/create_graph-test",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/utils/git::getCommitRepo",
-    "label": "calls"
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\tests\\c.test",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\tests\\c.test::rootFolderPath",
+    "label": "defines"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/routes/create_graph-test",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/utils/git::downloadAndExtractRepo",
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\tests\\c.test",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\tests\\c.test::nodeAttributes",
     "label": "calls"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/routes/create_graph-test",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Codebase",
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\tests\\c.test",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\tests\\c.test::rootFolderPath",
     "label": "calls"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/routes/create_graph-test",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Codebase.parseFolder",
-    "label": "calls"
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\tests\\java.test",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\tests\\java.test::nodeAttributes",
+    "label": "defines"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/routes/create_graph-test",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Codebase.getCalls",
-    "label": "calls"
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\tests\\java.test",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\tests\\java.test::rootFolderPath",
+    "label": "defines"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/routes/create_graph-test",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Codebase.simplify",
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\tests\\java.test",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\tests\\java.test::rootFolderPath",
     "label": "calls"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/routes/create_graph-test",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Codebase.getLinks",
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\tests\\java.test",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\tests\\java.test::nodeAttributes",
     "label": "calls"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/routes/create_graph",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/routes/create_graph::processGraphCreation",
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\tests\\javascript.test",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\tests\\javascript.test::nodeAttributes",
     "label": "defines"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/routes/create_graph::processGraphCreation",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/utils/git::GitServiceType",
-    "label": "calls"
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\tests\\javascript.test",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\tests\\javascript.test::rootFolderPath",
+    "label": "defines"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/routes/create_graph::processGraphCreation",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/utils/db::sql",
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\tests\\javascript.test",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\tests\\javascript.test::rootFolderPath",
     "label": "calls"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/routes/create_graph::processGraphCreation",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Codebase",
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\tests\\javascript.test",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\tests\\javascript.test::nodeAttributes",
     "label": "calls"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/routes/create_graph::processGraphCreation",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Codebase.parseFolder",
-    "label": "calls"
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\tests\\python.test",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\tests\\python.test::nodeAttributes",
+    "label": "defines"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/routes/create_graph::processGraphCreation",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Codebase.getCalls",
-    "label": "calls"
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\tests\\python.test",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\tests\\python.test::rootFolderPath",
+    "label": "defines"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/routes/create_graph::processGraphCreation",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Codebase.simplify",
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\tests\\python.test",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\tests\\python.test::rootFolderPath",
     "label": "calls"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/routes/create_graph::processGraphCreation",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Codebase.getLinks",
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\tests\\python.test",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\tests\\python.test::nodeAttributes",
     "label": "calls"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/routes/create_graph",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/routes/create_graph::createGraph",
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\wiki",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\wiki::improveWiki",
     "label": "defines"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/routes/create_graph::createGraph",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/routes/create_graph::repoRequestValidator",
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\wiki::improveWiki",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\wiki::client",
     "label": "calls"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/routes/create_graph::createGraph",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/routes/create_graph::secret",
-    "label": "calls"
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\wiki",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\wiki::buildWiki",
+    "label": "defines"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/routes/create_graph::createGraph",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/utils/db::sql",
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\wiki::buildWiki",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\wiki::client",
     "label": "calls"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/routes/create_graph::createGraph",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/utils/git::getAccessToken",
-    "label": "calls"
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\wiki",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\wiki::buildFinalMarkdown",
+    "label": "defines"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/routes/create_graph::createGraph",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/utils/git::getCommitRepo",
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\wiki::buildFinalMarkdown",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\wiki::wikiNode",
     "label": "calls"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/routes/create_graph::createGraph",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/utils/git::downloadAndExtractRepo",
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\wiki::buildFinalMarkdown",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\wiki::readNodes",
     "label": "calls"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/routes/create_graph::createGraph",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/routes/create_graph::processGraphCreation",
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\wiki::buildFinalMarkdown",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\wiki::folderContents",
     "label": "calls"
-  },
-  {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/routes/create_graph",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/routes/create_graph::repoRequestValidator",
-    "label": "defines"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/routes/create_graph",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/routes/create_graph::secret",
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\wiki",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\wiki::createRepoSummary",
     "label": "defines"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/routes/create_graph::secret",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/utils/utils::getEnv",
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\wiki::createRepoSummary",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\wiki::client",
     "label": "calls"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/routes/create_graph",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/utils/utils::getEnv",
-    "label": "calls"
-  },
-  {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/routes/create_graph",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/routes/create_graph::repoRequestValidator",
-    "label": "calls"
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\wiki",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\wiki::getSummaryOfAllRepoForContext",
+    "label": "defines"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/routes/create_graph",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/routes/create_graph::secret",
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\wiki::getSummaryOfAllRepoForContext",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\wiki::wikiNode",
     "label": "calls"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/routes/create_graph",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/utils/db::sql",
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\wiki::getSummaryOfAllRepoForContext",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\wiki::createRepoSummary",
     "label": "calls"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/routes/create_graph",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/utils/git::getAccessToken",
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\wiki::getSummaryOfAllRepoForContext",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\wiki::allCode",
     "label": "calls"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/routes/create_graph",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/utils/git::getCommitRepo",
-    "label": "calls"
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\wiki",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\wiki::processAllFolders",
+    "label": "defines"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/routes/create_graph",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/utils/git::downloadAndExtractRepo",
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\wiki::processAllFolders",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\wiki::folderContents",
     "label": "calls"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/routes/create_graph",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/routes/create_graph::processGraphCreation",
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\wiki::processAllFolders",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\wiki::createFolderSummary",
     "label": "calls"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/routes/create_graph",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/utils/git::GitServiceType",
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\wiki::processAllFolders",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\wiki::path",
     "label": "calls"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/routes/graphs",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/routes/graphs::updateGraph",
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\wiki",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\wiki::createFolderSummary",
     "label": "defines"
-  },
-  {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/routes/graphs::updateGraph",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/routes/graphs::UpdateGraph",
-    "label": "calls"
-  },
-  {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/routes/graphs::updateGraph",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/utils/git::downloadAndExtractRepo",
-    "label": "calls"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/routes/graphs::updateGraph",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/utils/db::sql",
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\wiki::createFolderSummary",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\wiki::client",
     "label": "calls"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/routes/graphs::updateGraph",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Codebase",
-    "label": "calls"
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\wiki",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\wiki::getParentFolder",
+    "label": "defines"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/routes/graphs::updateGraph",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Codebase.parseFolder",
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\wiki::getParentFolder",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\wiki::wikiNode",
     "label": "calls"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/routes/graphs::updateGraph",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Codebase.getCalls",
-    "label": "calls"
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\wiki",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\wiki::createFileSummary",
+    "label": "defines"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/routes/graphs::updateGraph",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Codebase.simplify",
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\wiki::createFileSummary",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\wiki::wikiNode",
     "label": "calls"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/routes/graphs::updateGraph",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/codebase::Codebase.getLinks",
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\wiki::createFileSummary",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\wiki::client",
     "label": "calls"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/routes/graphs",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/routes/graphs::UpdateGraph",
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\wiki",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\wiki::processFile",
     "label": "defines"
-  },
-  {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/routes/graphs::UpdateGraph",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/routes/graphs::UpdateGraph",
-    "label": "calls"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/routes/graphs::UpdateGraph",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/utils/git::GitServiceType",
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\wiki::processFile",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\wiki::wikiNode",
     "label": "calls"
-  },
-  {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/routes/graphs",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/routes/graphs::graphs",
-    "label": "defines"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/routes/graphs::graphs",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/utils/utils::getEnv",
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\wiki::processFile",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\wiki::createFileSummary",
     "label": "calls"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/routes/graphs::graphs",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/utils/db::sql",
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\wiki::processFile",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\wiki::getParentFolder",
     "label": "calls"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/routes/graphs::graphs",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/utils/git::getAccessToken",
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\wiki::processFile",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\wiki::folderContents",
     "label": "calls"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/routes/graphs::graphs",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/utils/git::getCommitRepo",
-    "label": "calls"
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\wiki",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\wiki::processAllFiles",
+    "label": "defines"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/routes/graphs::graphs",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/routes/graphs::updateGraph",
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\wiki::processAllFiles",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\wiki::wikiNode",
     "label": "calls"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/routes/graphs",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/utils/utils::getEnv",
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\wiki::processAllFiles",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\wiki::processFile",
     "label": "calls"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/routes/graphs",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/utils/db::sql",
-    "label": "calls"
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\wiki",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\wiki::readNodes",
+    "label": "defines"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/routes/graphs",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/utils/git::getAccessToken",
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\wiki::readNodes",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\wiki::fs",
     "label": "calls"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/routes/graphs",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/utils/git::getCommitRepo",
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\wiki::readNodes",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\wiki::nodesFilePath",
     "label": "calls"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/routes/graphs",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/routes/graphs::updateGraph",
-    "label": "calls"
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\wiki",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\wiki::allCode",
+    "label": "defines"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/routes/graphs",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/routes/graphs::UpdateGraph",
-    "label": "calls"
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\wiki",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\wiki::contents",
+    "label": "defines"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/utils/bitbucket/refresh-token",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/utils/bitbucket/refresh-token::refreshAccessToken",
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\wiki",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\wiki::folderContents",
     "label": "defines"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/utils/bitbucket/refresh-token::refreshAccessToken",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/utils/utils::getEnv",
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\wiki::folderContents",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\wiki::wikiNode",
     "label": "calls"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/utils/db",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/utils/db::sql",
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\wiki",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\wiki::nodesFilePath",
     "label": "defines"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/utils/db::sql",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/utils/utils::getEnv",
-    "label": "calls"
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\wiki",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\wiki::wikiNode",
+    "label": "defines"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/utils/db",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/utils/utils::getEnv",
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\wiki::wikiNode",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\wiki::wikiNode",
     "label": "calls"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/utils/git",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/utils/git::getAccessToken",
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\wiki",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\wiki::codebasePath",
     "label": "defines"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/utils/git::getAccessToken",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/utils/git::GitServiceType",
-    "label": "calls"
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\wiki",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\wiki::client",
+    "label": "defines"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/utils/git::getAccessToken",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/utils/db::sql",
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\wiki::client",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\wiki::OpenAI",
     "label": "calls"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/utils/git",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/utils/git::getCommitHash",
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\wiki",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\wiki::OpenAI",
     "label": "defines"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/utils/git",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/utils/git::getCommitRepo",
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\wiki",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\wiki::path",
     "label": "defines"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/utils/git::getCommitRepo",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/utils/git::GitServiceType",
-    "label": "calls"
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\wiki",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\wiki::fs",
+    "label": "defines"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/utils/git::getCommitRepo",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/utils/db::sql",
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\wiki",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\wiki::OpenAI",
     "label": "calls"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/utils/git::getCommitRepo",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/utils/git::getCommitHash",
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\wiki",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\wiki::wikiNode",
     "label": "calls"
-  },
-  {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/utils/git",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/utils/git::downloadAndExtractRepo",
-    "label": "defines"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/utils/git::downloadAndExtractRepo",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/utils/git::GitServiceType",
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\wiki",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\wiki::readNodes",
     "label": "calls"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/utils/git::downloadAndExtractRepo",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/model/utils::getTotalSize",
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\wiki",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\wiki::nodesFilePath",
     "label": "calls"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/utils/git",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/utils/git::MAXSIZE",
-    "label": "defines"
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\wiki",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\wiki::getSummaryOfAllRepoForContext",
+    "label": "calls"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/utils/git",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/utils/git::GitServiceType",
-    "label": "defines"
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\wiki",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\wiki::allCode",
+    "label": "calls"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/utils/git::GitServiceType",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/utils/git::GitServiceType",
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\wiki",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\wiki::processAllFiles",
     "label": "calls"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/utils/git",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/utils/git::GitServiceType",
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\wiki",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\wiki::processAllFolders",
     "label": "calls"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/utils/gitlab/refresh-token",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/utils/gitlab/refresh-token::refreshAccessToken",
-    "label": "defines"
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\wiki",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\wiki::folderContents",
+    "label": "calls"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/utils/gitlab/refresh-token::refreshAccessToken",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/utils/utils::getEnv",
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\wiki",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\wiki::buildFinalMarkdown",
     "label": "calls"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/utils/utils",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/utils/utils::getEnv",
-    "label": "defines"
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\wiki",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\wiki::buildWiki",
+    "label": "calls"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/utils/utils::getEnv",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/utils/utils::ENV_VARS",
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\wiki",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\wiki::improveWiki",
     "label": "calls"
   },
   {
-    "source": "/home/pudu/MISC/judini/codebase-index-ts/src/utils/utils",
-    "target": "/home/pudu/MISC/judini/codebase-index-ts/src/utils/utils::ENV_VARS",
-    "label": "defines"
+    "source": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\wiki",
+    "target": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\wiki::contents",
+    "label": "calls"
   }
 ]

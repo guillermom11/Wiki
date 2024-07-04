@@ -17,7 +17,7 @@ app.get("/", async (c) => {
   console.time("codebase");
   // const codebasePath = path.join(__dirname, '../../../codebase-index')
   const codebasePath =
-    "C:/Users/gmasc/OneDrive/Documentos/CodeGPT/Graphs/codebase-index-ts/src/utils";
+    "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts";
   const codebase = new Codebase(codebasePath); //
   console.log(`Parsing ${codebasePath}`);
   const fileNodesMap = await codebase.parseFolder();
@@ -37,7 +37,7 @@ app.get("/", async (c) => {
     "code",
     "parent",
     "importStatements",
-    "codeNoBody"
+    "codeNoBody",
   ]); //.filter(c => !['file'].includes(c.type))
   const links = codebase.getLinks();
 
