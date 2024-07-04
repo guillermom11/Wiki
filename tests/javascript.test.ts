@@ -35,6 +35,8 @@ const var = require('./../myModule').var;
 
 test('Assignments', () => {
     const fileContent = `
+const myModule = require('./myModule');
+
 export const foo = 1
 
 const bar = new Hono()
@@ -255,7 +257,7 @@ function foo() {
     const fooFunction = fileNode.children[`${rootFolderPath}/file::foo`];
 
     expect(fooClass.getCodeWithoutBody()).toBe("class Foo {\n    foo = 1;\n\n    constructor() {\n        this.foo = 1;\n    }\n\n    bar() {\n        //...\n    }\n}")
-    expect(barMethod.getCodeWithoutBody()).toBe("class Foo\n    ...\n    bar(){\n        //...\n    }");
+    expect(barMethod.getCodeWithoutBody()).toBe("class Foo\n    ...\n    bar() {\n    //...\n    }");
     // functions with children remain unchanged?
     // expect(fooFunction.getCodeWithoutBody()).toBe("function foo() {\n    function baz() {\n    /**\n     * The baz documentation\n     */\n        return 1;\n    }\n    return baz();\n}");
 })

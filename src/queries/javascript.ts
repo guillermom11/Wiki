@@ -66,7 +66,8 @@ const assignments = `
     (_
         (variable_declarator
             name: (identifier)
-            value: (_ !body) ; to exclude arrow functions
+            value: (_ !body) @v ; !body to exclude arrow functions
+            (#not-match? @v "require*") ; to exclude require imports
         ) @assignment
     )
 ) 
