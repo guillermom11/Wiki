@@ -254,7 +254,7 @@ export class Node {
                     }
                     
                     newImportStatement.path = renameSource(this.id, newImportStatement.module, this.language)
-                    newImportStatement.code = c.node.text
+                    newImportStatement.code = c.node.text.trimEnd()
                     // newImportStatement.startPosition = c.node.startPosition
                     // newImportStatement.endPosition = c.node.endPosition
                     importStatements.push(newImportStatement)
