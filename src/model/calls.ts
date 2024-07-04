@@ -19,15 +19,6 @@ class CallIdentifier {
     }
 }
 
-class Call {
-    nodeId: string
-    lines: number[]
-
-    constructor(nodeId: string, lines: number[] = []) {
-        this.nodeId = nodeId
-        this.lines = lines
-    }
-}
 export class CallsCapturer {
     fileNode: Node
     verbose: boolean = true

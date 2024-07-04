@@ -36,12 +36,14 @@ export class ImportStatement {
     names: ImportName[]
     moduleAlias: string
     path: string
+    code?: string
 
-    constructor(module: string = '', names: ImportName[] = [], path: string = '', moduleAlias?: string) {
+    constructor(module: string = '', names: ImportName[] = [], path: string = '', moduleAlias?: string, code?: string) {
         this.module = module
         this.names = names
         this.moduleAlias = moduleAlias || module
         this.path = path
+        this.code = code
     }
 }
 
@@ -49,7 +51,10 @@ interface Link {
     source: string
     target: string
     label: string
+    line?: number|null
 }
+
+type NodeCallTuple = {node: Node, lines: number[]} // nodeId, first line
 
 export class Node {
     id: string = '' // id is like /home/user/repo/file.extension::nodeName
@@ -65,7 +70,7 @@ export class Node {
     exportable: boolean = false
     parent?: Node
     children: {[key: string]: Node} = {}
-    calls: Node[] = []
+    calls: NodeCallTuple[] = []
     startPosition: Point = {row: 0, column: 0}
     endPosition: Point = {row: 99999, column: 0}
     inDegree: number = 0
@@ -119,9 +124,9 @@ export class Node {
         }
      }
 
-    addCall(node: Node){
+    addCall(node: Node, lines: number[] = []){
         // this -> node
-        this.calls.push(node)
+        this.calls.push({node, lines})
         node.inDegree++
         this.outDegree++
     }
@@ -196,7 +201,7 @@ export class Node {
                     }
                 })
 
-            } else {
+            } else if (this.body) {
                 const spaces = ' '.repeat(this.startPosition.column)
                 if (this.language === 'python') {
                     code = code.replace(this.body, '').trim() + `\n${spaces}    ...`
@@ -249,7 +254,7 @@ export class Node {
                     }
                     
                     newImportStatement.path = renameSource(this.id, newImportStatement.module, this.language)
-                    // newImportStatement.code = c.node.text
+                    newImportStatement.code = c.node.text
                     // newImportStatement.startPosition = c.node.startPosition
                     // newImportStatement.endPosition = c.node.endPosition
                     importStatements.push(newImportStatement)
@@ -483,10 +488,10 @@ export class Node {
             documentation: this.documentation,
             code: this.parent && ['class', 'interface'].includes(this.parent?.type)  ? `${this.parent.code.replace(this.parent.body, '').trim()}\n    ...\n    ${this.code}` : this.code,
             codeNoBody: this.getCodeWithoutBody(),
-            importStatements: this.importStatements.map(i => i.path),
+            importStatements: this.importStatements.map(i => i.code),
             parent: this.parent?.id,
             children: Object.keys(this.children),
-            calls: this.calls.map(c => c.id),
+            calls: this.calls.map(c => c.node.id),
             inDegree: this.inDegree,
             outDegree: this.outDegree
         };
@@ -591,9 +596,7 @@ export class Codebase {
                     // if (importFromFailed.has(c.importFrom)) return
                     const calledNode = this.nodesMap[nodeId]
                     if (calledNode) {
-                        n.calls.push(calledNode)
-                        n.outDegree++
-                        calledNode.inDegree++
+                        n.addCall(calledNode, lines) // first line
                         // console.log(`Added call from ${n.id} to ${calledNode.id}`)
                     } else {
                         if (verbose) console.log(`Failed to add call for node ${n.id}: ${nodeId} (line ${lines}) not found`)
@@ -616,9 +619,9 @@ export class Codebase {
             if (n.parent) {
                 // const label = n.parent.type === 'file' ? `defines`: `from ${n.parent.type}`
                 const label = 'defines'
-                links.push({source: n.parent.id, target: n.id, label })
+                links.push({source: n.parent.id, target: n.id, label, line: n.startPosition.row})
             }
-            if (n.calls.length > 0) n.calls.forEach(c => links.push({source: n.id, target: c.id, label: 'calls'}))
+            if (n.calls.length > 0) n.calls.forEach(c => links.push({source: n.id, target: c.node.id, label: 'calls', line: c.lines[0]}))
         }
         return links
     }
