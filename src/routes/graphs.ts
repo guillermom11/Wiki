@@ -269,12 +269,14 @@ async function updateGraph({
           node_source_id, 
           node_target_id, 
           repo_id, 
-          label
+          label,
+          line
         ) VALUES (
           ${nodeDBIds[link.source]}, 
           ${nodeDBIds[link.target]}, 
           ${repoId}, 
-          ${link.label}
+          ${link.label},
+          ${link.line}
         ) 
       `
     })

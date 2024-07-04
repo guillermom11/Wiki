@@ -51,7 +51,7 @@ interface Link {
     source: string
     target: string
     label: string
-    line?: number|null
+    line: number
 }
 
 type NodeCallTuple = {node: Node, lines: number[]} // nodeId, first line
