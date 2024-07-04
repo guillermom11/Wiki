@@ -183,6 +183,9 @@ const calls = `
 
 ; any object
 ( _ object: _ @identifier.name)
+
+; format strings
+(template_substitution _ @identifier.name)
 `
 
 ///////////
