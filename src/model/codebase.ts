@@ -36,17 +36,20 @@ export class ImportStatement {
   names: ImportName[];
   moduleAlias: string;
   path: string;
+  code?: string
 
   constructor(
     module: string = "",
     names: ImportName[] = [],
     path: string = "",
-    moduleAlias?: string
+    moduleAlias?: string,
+    code?: string
   ) {
     this.module = module;
     this.names = names;
     this.moduleAlias = moduleAlias || module;
     this.path = path;
+    this.code = code
   }
 }
 
@@ -286,7 +289,7 @@ export class Node {
             newImportStatement.module,
             this.language
           );
-          // newImportStatement.code = c.node.text
+          newImportStatement.code = c.node.text
           // newImportStatement.startPosition = c.node.startPosition
           // newImportStatement.endPosition = c.node.endPosition
           importStatements.push(newImportStatement);
@@ -579,7 +582,7 @@ export class Node {
               .trim()}\n    ...\n    ${this.code}`
           : this.code,
       codeNoBody: this.getCodeWithoutBody(),
-      importStatements: this.importStatements.map((i) => i.path),
+      importStatements: this.importStatements.map((i) => i.code),
       parent: this.parent?.id,
       children: Object.keys(this.children),
       calls: this.calls.map((c) => c.id),
