@@ -20,10 +20,14 @@ require_once 'file4.php';
          `${rootFolderPath}/file4.php`,])
 
     const expectedImports = [
-        new ImportStatement('file.php', [], `${rootFolderPath}/file`),
-        new ImportStatement('file2.php', [], `${rootFolderPath}/file2`),
-        new ImportStatement('../otherFolder/file3.php', [], `/my/otherFolder/file3`),
-        new ImportStatement('file4.php', [], `${rootFolderPath}/file4`),
+        new ImportStatement('file.php', [], `${rootFolderPath}/file`, undefined,
+            `include 'file.php';`),
+        new ImportStatement('file2.php', [], `${rootFolderPath}/file2`, undefined,
+            `include_once 'file2.php';`),
+        new ImportStatement('../otherFolder/file3.php', [], `/my/otherFolder/file3`, undefined,
+            `require '../otherFolder/file3.php';`),
+        new ImportStatement('file4.php', [], `${rootFolderPath}/file4`, undefined,
+            `require_once 'file4.php';`),
     ];
     expect(fileNode.importStatements).toStrictEqual(expectedImports);
 });
