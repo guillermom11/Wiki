@@ -102,10 +102,10 @@ const tokenizer = ({
   const startNodes = findStartNodes(callGraph); //leaf nodes
 
   await fs2.writeFile("startNodes.json", JSON.stringify(startNodes, null, 2));
-  // const usedNodes = await readJson("usedNodes.json");
+  const usedNodes = await readJson("usedNodes.json");
 
-  const usedNodes = await bfs(nodesWithFiles, startNodes, callGraph, nodes); //only nodes with documentation
-  await fs2.writeFile("usedNodes.json", JSON.stringify(usedNodes, null, 2));
+  //const usedNodes = await bfs(nodesWithFiles, startNodes, callGraph, nodes); //only nodes with documentation
+  //await fs2.writeFile("usedNodes.json", JSON.stringify(usedNodes, null, 2));
 
   const fileToNodes = nodesWithFiles
     .filter((item: wikiNode) => item.type === "file")
@@ -192,6 +192,9 @@ async function bfs(
   const queue: string[] = startNodes;
   const visited: Set<string> = new Set();
   const usedNodes: wikiNode[] = [];
+  if (queue.length === 0) {
+    console.log("There is no start node (no node that doesn't call anyone).");
+  }
   while (queue.length > 0) {
     console.log("HERE:", queue.length);
     const currentNodeId = queue.shift()!;
@@ -460,12 +463,26 @@ async function generateFileDocumentation(
 async function documentFolders(filesDocumentation: any) {
   const folders: { [folderPath: string]: string[] } = {};
   for (const filePath in filesDocumentation) {
-    const folderPath = path2.dirname(filePath);
+    let currentFolderPath = path2.dirname(filePath);
+    //console.log("Processing filePath:", filePath);
 
-    if (!folders[folderPath]) {
-      folders[folderPath] = [];
+    while (
+      currentFolderPath &&
+      currentFolderPath.includes(projectId) && // Only process files that are in the project we want
+      currentFolderPath !== path2.parse(currentFolderPath).root //do not go past root folder
+    ) {
+      //console.log("Adding to folder:", currentFolderPath);
+      if (!folders[currentFolderPath]) {
+        folders[currentFolderPath] = [];
+      }
+      folders[currentFolderPath].push(filesDocumentation[filePath]); // Push the documentation of the file
+
+      const nextPath = path2.dirname(currentFolderPath);
+      if (nextPath === currentFolderPath) {
+        break; //Prevent inf loop
+      }
+      currentFolderPath = nextPath;
     }
-    folders[folderPath].push(filesDocumentation[filePath]); //push the documentation of the file
   }
 
   const foldersDocumentation: { [folderPath: string]: string } = {};
@@ -495,7 +512,7 @@ async function generateFolderDocumentation(
   let userPrompt = `Write a documentation for the following folder called "${folderPath}" in a concise manner.
   You will be given the documentation of the files that are inside the folder which are the following:\n
   ${folderContent}`;
-
+  //console.log(`Folder ${folderPath} has contents: ${folderContent}`);
   let response;
 
   try {
