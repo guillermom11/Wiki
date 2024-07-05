@@ -244,8 +244,8 @@ async function processGraphCreation({
     // Insert links into the database
     const insertLinkPromises = links.map((link) => {
       return sql`
-    INSERT INTO links (node_source_id, node_target_id, repo_id, label)
-    VALUES (${nodeDBIds[link.source]}, ${nodeDBIds[link.target]}, ${repoId}, ${link.label})
+    INSERT INTO links (node_source_id, node_target_id, repo_id, label, line)
+    VALUES (${nodeDBIds[link.source]}, ${nodeDBIds[link.target]}, ${repoId}, ${link.label}, ${link.line})
     `
     })
 

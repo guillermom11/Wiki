@@ -34,8 +34,8 @@ const importStatements = `
 (lexical_declaration
     (variable_declarator
       name: [
-          (identifier) @name
-          (object_pattern (_) @name)
+          (identifier) @alias
+          (object_pattern (_) @alias)
       ]
       value: [(call_expression
                   function: _ @function
@@ -47,7 +47,7 @@ const importStatements = `
                     arguments: (arguments (string (string_fragment) @module))
                     (#eq? @function "require")
                 )
-                (property_identifier) @submodule
+                (property_identifier) @name
                )
               ]
     )           
@@ -66,7 +66,8 @@ const assignments = `
     (_
         (variable_declarator
             name: (identifier)
-            value: (_ !body) ; to exclude arrow functions
+            value: (_ !body) @v ; !body to exclude arrow functions
+            (#not-match? @v "require*") ; to exclude require imports
         ) @assignment
     )
 ) 
@@ -183,6 +184,9 @@ const calls = `
 
 ; any object
 ( _ object: _ @identifier.name)
+
+; format strings
+(template_substitution _ @identifier.name)
 `
 
 ///////////
