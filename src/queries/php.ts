@@ -19,10 +19,10 @@ import { treeSitterQueries } from './index';
 // If there is no import.name  then no component is really imported
 // import.module considers only the string fragment
 const importStatements = `
-(include_expression (string (string_content) @module )) @import_statement
-(include_once_expression (string (string_content) @module )) @import_statement
-(require_expression (string (string_content) @module )) @import_statement
-(require_once_expression (string (string_content) @module )) @import_statement
+(expression_statement (include_expression (string (string_content) @module ))) @import_statement
+(expression_statement (include_once_expression (string (string_content) @module ))) @import_statement
+(expression_statement (require_expression (string (string_content) @module ))) @import_statement
+(expression_statement (require_once_expression (string (string_content) @module ))) @import_statement
 `
 
 /////////////////

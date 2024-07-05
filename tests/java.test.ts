@@ -5,20 +5,24 @@ const nodeAttributes = ['id', 'type', 'name', 'label', 'language', 'exportable',
 
 test('Import Statements', () => {
     const fileContent = `
-import myModule.myFunction;
+import myModule.myClass1;
 import myModule2.myClass2;
 import myModule3.*;
-import initFile.myFunction;
+import initFile.myClass;
 `;
     const fileNode = new Node(`${rootFolderPath}/file`, fileContent, 'file', 'java');
     fileNode.generateImports();
     fileNode.resolveImportStatementsPath(rootFolderPath, [`${rootFolderPath}/myModule.java`, `${rootFolderPath}/myModule2.java`, `${rootFolderPath}/myModule3.java`, `${rootFolderPath}/initFile.java`]);
 
     const expectedImports: ImportStatement[] = [
-        new ImportStatement('myModule', [new ImportName('myFunction')], `${rootFolderPath}/myModule`),
-        new ImportStatement('myModule2', [new ImportName('myClass2')], `${rootFolderPath}/myModule2`),
-        new ImportStatement('myModule3', [], `${rootFolderPath}/myModule3`, 'myModule3'),
-        new ImportStatement('initFile', [new ImportName('myFunction')], `${rootFolderPath}/initFile`),
+        new ImportStatement('myModule', [new ImportName('myClass1')], `${rootFolderPath}/myModule`, undefined,
+                `import myModule.myClass1;`),
+        new ImportStatement('myModule2', [new ImportName('myClass2')], `${rootFolderPath}/myModule2`, undefined,
+                `import myModule2.myClass2;`),
+        new ImportStatement('myModule3', [], `${rootFolderPath}/myModule3`, 'myModule3',
+            `import myModule3.*;`),
+        new ImportStatement('initFile', [new ImportName('myClass')], `${rootFolderPath}/initFile`, undefined,
+    		`import initFile.myClass;`),
     ];
     expect(fileNode.importStatements).toStrictEqual(expectedImports);
 });

@@ -19,15 +19,6 @@ class CallIdentifier {
     }
 }
 
-class Call {
-    nodeId: string
-    lines: number[]
-
-    constructor(nodeId: string, lines: number[] = []) {
-        this.nodeId = nodeId
-        this.lines = lines
-    }
-}
 export class CallsCapturer {
     fileNode: Node
     verbose: boolean = true
@@ -74,7 +65,7 @@ export class CallsCapturer {
                     // Remove parentheses and their contents
                     content = content.replace(/\(.*?\)/gs, '');
                     // Replace newlines and double spaces
-                    
+        
                     content = content.replace(/\n/g, '').replace(/  /g, '').trim();
                     // Check for any quotation marks, brackets, or braces
                     if (["\"", "'", "[", "]", "{", "}"].some(char => content.includes(char))) {
@@ -132,9 +123,9 @@ export class CallsCapturer {
         return results
     }
 
-    getCallsFromNode(fileId: string, node: Node) : {[key: string]: number[]} {
+    getCallsFromNode(node: Node) : {[key: string]: number[]} {
         // console.log(`///${node.name}///`)
-        let code  = Object.keys(node.children).length > 0 ? node.getCodeWithoutBody() : node.code
+        let code  = Object.keys(node.children).length > 0 ? node.getCodeWithoutBody(true) : node.code
         const nameAliasReplacements: { [key: string]: string }  = {}
         Object.values(this.fileNode.importStatements).forEach(i  =>  {
             if (i.names.length === 0) nameAliasReplacements[i.moduleAlias] = i.module

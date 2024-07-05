@@ -154,6 +154,9 @@ const calls = `
 
 ; any object name
 ( _ object: _ @identifier.name)
+
+; format string
+(interpolation expression: _  @identifier.name)
 `
 
 /////////////

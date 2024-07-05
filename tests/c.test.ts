@@ -14,9 +14,12 @@ test('Import Statements', () => {
     fileNode.generateImports()
 
     const expectedImports = [
-        new ImportStatement("<stdio.h>", [], "<stdio.h>"),
-        new ImportStatement("myHeader.h", [], "/my/path/myHeader::header"),
-        new ImportStatement("../otherFolder/otherHeader.h", [], "/my/otherFolder/otherHeader::header"),
+        new ImportStatement("<stdio.h>", [], "<stdio.h>", undefined,
+          `#include <stdio.h>`),
+        new ImportStatement("myHeader.h", [], "/my/path/myHeader::header", undefined,
+          `#include "myHeader.h"`),
+        new ImportStatement("../otherFolder/otherHeader.h", [], "/my/otherFolder/otherHeader::header", undefined,
+          `#include "../otherFolder/otherHeader.h"`),
       ];
       expect(fileNode.importStatements).toStrictEqual(expectedImports);
 })
