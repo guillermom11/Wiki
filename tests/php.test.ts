@@ -215,3 +215,132 @@ class Foo {
     expect(fileNode.inDegree).toBe(1);
     expect(classNodeMethodsSimplified).toStrictEqual(expectedMethods);
 });
+
+
+test('Namespace v1', () => {
+    const fileContent = `
+<?php
+namespace MyProject\\Utilities;
+
+use MyProject\\Models\\User;
+
+class Helper {
+    public static function greet(User $user) {
+        return "Hello, " . $user->getName();
+    }
+}
+`;
+    const fileNode = new Node(`${rootFolderPath}/Helper.php`, fileContent, 'file', 'php');
+    fileNode.getChildrenDefinitions();
+
+    const namespaceChildren = Object.values(fileNode.children)[0];
+    const namespaceChildrenSimplified = namespaceChildren.simplify(nodeAttributes)
+    const classChildrenSimplified = Object.values(namespaceChildren.children)[0].simplify(nodeAttributes)
+
+    const expectedNamespace = {
+        id: `${fileNode.id}::MyProject\\Utilities`,
+        type: 'namespace',
+        name: 'MyProject\\Utilities',
+        label: 'MyProject\\Utilities',
+        language: 'php',
+        exportable: true,
+        documentation: '',
+        code: `namespace MyProject\\Utilities;
+
+use MyProject\\Models\\User;
+
+class Helper {
+    public static function greet(User $user) {
+        return "Hello, " . $user->getName();
+    }
+}`,
+        parent: fileNode.id,
+        inDegree: 1,
+        outDegree: 1,
+    };
+
+
+    const expectedClass = {
+        id: `${fileNode.id}::Helper`,
+        type: 'class',
+        name: 'Helper',
+        label: 'Helper',
+        language: 'php',
+        exportable: true,
+        documentation: '',
+        code: 'class Helper {\n    public static function greet(User $user) {\n        return "Hello, " . $user->getName();\n    }\n}',
+        parent: `${fileNode.id}::MyProject\\Utilities`,
+        inDegree: 1,
+        outDegree: 1,
+    };
+
+
+
+    expect(namespaceChildrenSimplified).toStrictEqual(expectedNamespace);
+    expect(classChildrenSimplified).toStrictEqual(expectedClass);
+});
+
+
+
+test('Namespace v2', () => {
+    const fileContent = `
+<?php
+namespace MyProject\\Utilities {
+    class Helper {
+        public static function greet() {
+            return "Hello, World";
+        }
+    }
+}
+`;
+    const fileNode = new Node(`${rootFolderPath}/Helper.php`, fileContent, 'file', 'php');
+    fileNode.getChildrenDefinitions();
+
+    const namespaceChildren = Object.values(fileNode.children)[0];
+    const namespaceChildrenSimplified = namespaceChildren.simplify(nodeAttributes)
+    const classChildrenSimplified = Object.values(namespaceChildren.children)[0].simplify(nodeAttributes)
+
+    const expectedNamespace = {
+        id: `${fileNode.id}::MyProject\\Utilities`,
+        type: 'namespace',
+        name: 'MyProject\\Utilities',
+        label: 'MyProject\\Utilities',
+        language: 'php',
+        exportable: true,
+        documentation: '',
+        code: `namespace MyProject\\Utilities {
+    class Helper {
+        public static function greet() {
+            return "Hello, World";
+        }
+    }
+}`,
+        parent: fileNode.id,
+        inDegree: 1,
+        outDegree: 1,
+    };
+
+
+    const expectedClass = {
+        id: `${fileNode.id}::Helper`,
+        type: 'class',
+        name: 'Helper',
+        label: 'Helper',
+        language: 'php',
+        exportable: true,
+        documentation: '',
+        code: `class Helper {
+        public static function greet() {
+            return "Hello, World";
+        }
+    }`,
+        parent: `${fileNode.id}::MyProject\\Utilities`,
+        inDegree: 1,
+        outDegree: 1,
+    };
+
+
+
+    expect(namespaceChildrenSimplified).toStrictEqual(expectedNamespace);
+    expect(classChildrenSimplified).toStrictEqual(expectedClass);
+});

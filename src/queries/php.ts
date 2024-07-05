@@ -65,12 +65,13 @@ const constructorDefinitions = `
 (method_declaration) @function ; also considered as a function
 (function_definition) @function
 (interface_declaration) @interface
+(namespace_definition body: (_) ) @namespace
 `
 
 ////////
 // Space Declaration: namespace
 const spaceDeclaration = `
-(namespace_definition name: (_) @spaceName)
+(namespace_definition name: (_) @spaceName !body)
 `
 
 // ASSIGNMENT SPECIAL CASE

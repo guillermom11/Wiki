@@ -75,8 +75,8 @@ export class Node {
     endPosition: Point = {row: 99999, column: 0}
     inDegree: number = 0
     outDegree: number = 0
-    // space where the node is defined, for java will be a "package", for other cases will be the namespace
-    spaceName: string = '' 
+    // originFile is the file where the node is defined
+    originFile: string = ''
 
     constructor(id: string, code?: string, type?: AllowedTypes, language?: string) {
         this.id  = id
@@ -209,7 +209,7 @@ export class Node {
                 const spaces = ' '.repeat(this.startPosition.column)
                 let bodyTotalLines = considerLines ? this.body.split('\n').length : 1
                 if (this.language === 'python') {
-                    code = code.replace(this.body, ''), `${spaces}...` + '\n'.repeat(Math.max(bodyTotalLines - 1, 0))
+                    code = code.replace(this.body, `${spaces}...` + '\n'.repeat(Math.max(bodyTotalLines - 1, 0)))
                 } else {
                     code = code.replace(this.body, `{\n${spaces}//...\n${spaces}}`  + '\n'.repeat(Math.max(bodyTotalLines - 3, 0)))
                 }
@@ -278,20 +278,6 @@ export class Node {
         this.importStatements = importStatements.reverse()
     }
 
-    parseSpaceDeclaration() {
-        // only java, php
-        if (!['java', 'php'].includes(this.language)) return
-        console.log('HERE')
-        const captures = captureQuery(this.language, 'spaceDeclaration', this.code)
-        captures.forEach(c => {
-            switch (c.name) {
-                case 'spaceName':
-                    this.spaceName = c.node.text
-                    break
-            }
-        })
-
-    }
 
     parseExportClauses(nodesMap: {[id: string]: Node} = {}) {
         // only js, ts have the "export { ... }" clause
@@ -396,7 +382,7 @@ export class Node {
                 newNode.startPosition  = c.node.startPosition
                 newNode.endPosition  = c.node.endPosition
                 newNode.exportable = exportable
-                newNode.spaceName = this.spaceName
+                newNode.originFile = this.id
                 
                 // In many languages the documentation is the prev sibling
                 let prevTreeSitterNode = c.node.previousNamedSibling
@@ -488,6 +474,27 @@ export class Node {
     
         // must have a name
         childrenNodes = childrenNodes.filter(c => c.name)
+
+        // find "package" or "namespace"
+        let spaceNode = null
+        if (['java', 'php'].includes(this.language)) {
+            const captures = captureQuery(this.language, 'spaceDeclaration', this.code)
+            captures.forEach(c => {
+                switch (c.name) {
+                    case 'spaceName':
+                        const spaceName = c.node.text
+                        const initialLine = c.node.startPosition.row
+                        const type = 'java' == this.language ? 'package' : 'namespace'
+                        spaceNode = new Node(`${this.id}::${spaceName}`, this.code.split('\n').slice(initialLine, -1).join('\n'), type, this.language)
+                        spaceNode.name = spaceName
+                        spaceNode.alias = spaceName
+                        spaceNode.exportable = true
+                        break
+                }
+            })
+        }
+
+        if (spaceNode) childrenNodes.push(spaceNode)
     
         childrenNodes.forEach((n, i) => {
             for (let j = i+1; j < childrenNodes.length; j++) {
@@ -523,7 +530,6 @@ export class Node {
             calls: this.calls.map(c => c.node.id),
             inDegree: this.inDegree,
             outDegree: this.outDegree,
-            spaceName: this.spaceName
         };
     
         if (attributes.length === 0) {
@@ -544,11 +550,17 @@ export class Codebase {
      // NOTE: rootFolderPath should be an absolute path
     rootFolderPath: string = ''
     nodesMap: { [id: string]: Node } = {}
+    // an space can be defined in multiples files (for example namespaces in C#)
+    spaceMap: {[spaceName: string]: Node[]} = {}
 
     constructor(rootFolderPath: string)  { this.rootFolderPath  = rootFolderPath }
     addNode(node: Node) { this.nodesMap[node.id] = node; }
     getNode(id: string): Node | undefined { return this.nodesMap[id];  }
     addNodeMap(nodeMap: {[id: string]: Node}) { this.nodesMap  = {...this.nodesMap, ...nodeMap} }
+    addNodeToSpaceMap(spaceName: string, node: Node) { 
+        if (!this.spaceMap[spaceName]) this.spaceMap[spaceName] = []
+         this.spaceMap[spaceName].push(node)
+    }
 
     async generateNodesFromFilePath(filePath: string): Promise<{nodesMap: {[id: string]: Node}, isHeader: boolean}> {
         const fileExtension  = filePath.split('.').pop()
@@ -569,7 +581,6 @@ export class Codebase {
         }
         fileNode.name = filePath
         fileNode.alias = filePath.split('/').pop() || ''
-        fileNode.parseSpaceDeclaration()
         const nodesMap = fileNode.getChildrenDefinitions()
         fileNode.generateImports()
         fileNode.parseExportClauses(this.nodesMap)
@@ -714,10 +725,13 @@ export class Codebase {
         const childIds = headerNode.getAllChildren().map(c => c.id)
         childIds.forEach(id => {
             const nodeRef = fileNode.getAllChildren().find(c => c.id === id.replace('::header', ''))
+            // nodeRef is the headerNode.children[id] but already defined
             if (nodeRef) {
+                // remove that node
                 delete this.nodesMap[id]
                 headerNode.removeChild(headerNode.children[id])
-                headerNode.addChild(nodeRef)
+                // headerNode.addChild(nodeRef)
+                // add it to headerNode without changing the parent
                 headerNode.children[nodeRef.id] = nodeRef
                 headerNode.inDegree++
             }

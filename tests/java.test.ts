@@ -1,3 +1,4 @@
+import exp from "constants";
 import { Codebase, Node, ImportStatement, ImportName } from "../src/model/codebase";
 const rootFolderPath = '/my/path'
 
@@ -55,12 +56,46 @@ public class FooClass {
 }
 `;
     const fileNode = new Node(`${rootFolderPath}/file`, fileContent, 'file', 'java');
-    fileNode.parseSpaceDeclaration()
     fileNode.getChildrenDefinitions()
-    const classNodeChildren = Object.values(fileNode.children)[0].children;
-    const fileNodeChildrenSimplified = Object.values(fileNode.children).map(n => n.simplify([...nodeAttributes, 'children', 'spaceName']));
-    const classNodeMethodsSimplified = Object.values(classNodeChildren).map(n => n.simplify(nodeAttributes));
+    const packageChildren = Object.values(fileNode.children)[0];
+    const fileNodeChildrenSimplified = Object.values(fileNode.children).map(n => n.simplify([...nodeAttributes, 'children']));
+    const classNodeChildren: Node = Object.values(packageChildren.children)[0];
+    const classChildrenSimplified = classNodeChildren.simplify([...nodeAttributes, 'children'])
+    const classNodeMethodsSimplified = Object.values(classNodeChildren.children).map(n => n.simplify(nodeAttributes));
+    
     const expectedFileChildren = [
+        {
+            id: `${fileNode.id}::file`,
+            type: 'package',
+            name: 'file',
+            label: 'file',
+            language: 'java',
+            exportable: true,
+            documentation: "",
+            code: `package file;
+
+/**
+ * The FooClass documentation
+ */
+public class FooClass {
+    private int foo = 1;
+
+    public FooClass() {
+        this.foo = 1;
+    }
+
+    public int bar() {
+        return 1;
+    }
+}`,
+            parent: fileNode.id,
+            inDegree: 1,
+            outDegree: 1,
+            children: [`${fileNode.id}::FooClass`],
+        },
+    ];
+
+    const expectedClass = 
         {
             id: `${fileNode.id}::FooClass`,
             type: 'class',
@@ -70,13 +105,11 @@ public class FooClass {
             exportable: true,
             documentation: "/**\n * The FooClass documentation\n */",
             code: "public class FooClass {\n    private int foo = 1;\n\n    public FooClass() {\n        this.foo = 1;\n    }\n\n    public int bar() {\n        return 1;\n    }\n}",
-            parent: fileNode.id,
+            parent: `${fileNode.id}::file`,
             inDegree: 2,
             outDegree: 1,
             children: [`${fileNode.id}::FooClass.bar`, `${fileNode.id}::FooClass.FooClass`],
-            spaceName: 'file'
-        },
-    ];
+        };
 
     const expectedMethods = [
         {
@@ -109,6 +142,7 @@ public class FooClass {
     ];
     expect(fileNodeChildrenSimplified).toStrictEqual(expectedFileChildren);
     expect(fileNode.inDegree).toBe(1);
+    expect(classChildrenSimplified).toStrictEqual(expectedClass);
     expect(classNodeMethodsSimplified).toStrictEqual(expectedMethods);
 });
 
@@ -137,7 +171,7 @@ public class FooClass {
     const fooClass = fileNode.children[`${rootFolderPath}/file::FooClass`];
     const barMethod = fooClass.children[`${rootFolderPath}/file::FooClass.bar`];
     expect(fooClass.getCodeWithoutBody()).toBe("public class FooClass {\n    private int foo = 1;\n\n    public FooClass() {\n        this.foo = 1;\n    }\n\n    public int bar() {\n        //...\n    }\n}");
-    expect(barMethod.getCodeWithoutBody()).toBe("public class FooClass\n    ...\n    public int bar(){\n        //...\n    }");
+    expect(barMethod.getCodeWithoutBody()).toBe("public class FooClass\n    ...\n    public int bar() {\n    //...\n    }");
 });
 
 test('Calls', () => {

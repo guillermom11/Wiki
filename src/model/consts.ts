@@ -12,12 +12,28 @@ const PHP = require("tree-sitter-php").php;
 // - a namespace define a scope that contains a set of declarations
 // - a mod defined a module, which contains a set of declarations
 // - a header is a file that contains a set of declarations
-export type AllowedTypes = 'function' | 'class' | 'interface' | 'method' | 'enum' | 'struct' | 'export' | 'type' | 'assignment' | 'file' | 'union' | 'namespace' | 'mod' | 'header' ; 
+export type AllowedTypes = 
+  | 'function'
+  | 'class'
+  | 'interface'
+  | 'method'
+  | 'enum'
+  | 'struct'
+  | 'export'
+  | 'type'
+  | 'assignment'
+  | 'file'
+  | 'union'
+  | 'namespace'
+  | 'mod'
+  | 'header'
+  | 'package'
+
 
 export const AllowedTypesArray: AllowedTypes[] = [
     'function', 'class', 'interface', 'method', 'enum', 
     'struct', 'export', 'type', 'assignment', 'file', 'union',
-    'namespace', 'mod', 'header'
+    'namespace', 'mod', 'header', 'package'
   ]
 
 export const excludedFolders = ['.git', '.vscode', 'venv', 'node_modules', 'dist', '__pycache__', 'tests', 'build', '_static', 'jest', '__tests__']
