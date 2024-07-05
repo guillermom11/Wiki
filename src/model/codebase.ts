@@ -70,8 +70,8 @@ export class Node {
     endPosition: Point = {row: 99999, column: 0}
     inDegree: number = 0
     outDegree: number = 0
-    // spaces where the node is defined, for java will be a "package", for other cases will be the namespace
-    space: string = '' 
+    // space where the node is defined, for java will be a "package", for other cases will be the namespace
+    spaceName: string = '' 
 
     constructor(id: string, code?: string, type?: AllowedTypes, language?: string) {
         this.id  = id
@@ -262,6 +262,21 @@ export class Node {
         this.importStatements = importStatements.reverse()
     }
 
+    parseSpaceDeclaration() {
+        // only java, php
+        if (!['java', 'php'].includes(this.language)) return
+        console.log('HERE')
+        const captures = captureQuery(this.language, 'spaceDeclaration', this.code)
+        captures.forEach(c => {
+            switch (c.name) {
+                case 'spaceName':
+                    this.spaceName = c.node.text
+                    break
+            }
+        })
+
+    }
+
     parseExportClauses(nodesMap: {[id: string]: Node} = {}) {
         // only js, ts have the "export { ... }" clause
         if (!['javascript', 'typescript', 'tsx'].includes(this.language)) return
@@ -365,6 +380,7 @@ export class Node {
                 newNode.startPosition  = c.node.startPosition
                 newNode.endPosition  = c.node.endPosition
                 newNode.exportable = exportable
+                newNode.spaceName = this.spaceName
                 
                 // In many languages the documentation is the prev sibling
                 let prevTreeSitterNode = c.node.previousNamedSibling
@@ -490,7 +506,8 @@ export class Node {
             children: Object.keys(this.children),
             calls: this.calls.map(c => c.id),
             inDegree: this.inDegree,
-            outDegree: this.outDegree
+            outDegree: this.outDegree,
+            spaceName: this.spaceName
         };
     
         if (attributes.length === 0) {
@@ -536,6 +553,7 @@ export class Codebase {
         }
         fileNode.name = filePath
         fileNode.alias = filePath.split('/').pop() || ''
+        fileNode.parseSpaceDeclaration()
         const nodesMap = fileNode.getChildrenDefinitions()
         fileNode.generateImports()
         fileNode.parseExportClauses(this.nodesMap)

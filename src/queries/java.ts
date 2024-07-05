@@ -55,7 +55,7 @@ const constructorDefinitions = `
 ////////
 // Space Declaration: package
 const spaceDeclaration = `
-(package_declaration _ @spaceName)
+(package_declaration (_) @spaceName)
 `
 
 

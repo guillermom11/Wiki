@@ -33,6 +33,8 @@ import initFile.myFunction;
 // En java el constructor se llama igual que la clase
 test('Class definition', () => {
     const fileContent = `
+package file;
+
 /**
  * The FooClass documentation
  */
@@ -49,9 +51,10 @@ public class FooClass {
 }
 `;
     const fileNode = new Node(`${rootFolderPath}/file`, fileContent, 'file', 'java');
+    fileNode.parseSpaceDeclaration()
     fileNode.getChildrenDefinitions()
     const classNodeChildren = Object.values(fileNode.children)[0].children;
-    const fileNodeChildrenSimplified = Object.values(fileNode.children).map(n => n.simplify([...nodeAttributes, 'children']));
+    const fileNodeChildrenSimplified = Object.values(fileNode.children).map(n => n.simplify([...nodeAttributes, 'children', 'spaceName']));
     const classNodeMethodsSimplified = Object.values(classNodeChildren).map(n => n.simplify(nodeAttributes));
     const expectedFileChildren = [
         {
@@ -66,7 +69,8 @@ public class FooClass {
             parent: fileNode.id,
             inDegree: 2,
             outDegree: 1,
-            children: [`${fileNode.id}::FooClass.bar`, `${fileNode.id}::FooClass.FooClass`]
+            children: [`${fileNode.id}::FooClass.bar`, `${fileNode.id}::FooClass.FooClass`],
+            spaceName: 'file'
         },
     ];
 
