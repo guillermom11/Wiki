@@ -70,6 +70,8 @@ export class Node {
     endPosition: Point = {row: 99999, column: 0}
     inDegree: number = 0
     outDegree: number = 0
+    // spaces where the node is defined, for java will be a "package", for other cases will be the namespace
+    space: string = '' 
 
     constructor(id: string, code?: string, type?: AllowedTypes, language?: string) {
         this.id  = id

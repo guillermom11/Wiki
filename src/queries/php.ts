@@ -67,11 +67,10 @@ const constructorDefinitions = `
 (interface_declaration) @interface
 `
 
-////////////////////
-// EXPORTS_CLAUSES //
-////////////////////
-// Export clauses can contain an alias
-const exportClauses = `
+////////
+// Space Declaration: namespace
+const spaceDeclaration = `
+(namespace_definition name: (_) @spaceName)
 `
 
 // ASSIGNMENT SPECIAL CASE
@@ -107,8 +106,9 @@ export const phpQueries: treeSitterQueries = {
     importStatements,
     constructorDefinitions: assignments + constructorDefinitions,
     definitionTemplate,
-    exportClauses,
+    exportClauses: '',
     extraAssignmentCode,
     calls,
-    assignments: anyAssignments
+    assignments: anyAssignments,
+    spaceDeclaration
 }
