@@ -23,6 +23,15 @@ const importStatements = `
 (expression_statement (include_once_expression (string (string_content) @module ))) @import_statement
 (expression_statement (require_expression (string (string_content) @module ))) @import_statement
 (expression_statement (require_once_expression (string (string_content) @module ))) @import_statement
+(namespace_use_declaration
+ (namespace_use_clause
+	(qualified_name 
+    	(namespace_name_as_prefix (namespace_name) @module) 
+        (name) @name  
+ 	)
+    (namespace_aliasing_clause (name) @alias)?
+ )
+) @import_statement
 `
 
 /////////////////
@@ -65,13 +74,13 @@ const constructorDefinitions = `
 (method_declaration) @function ; also considered as a function
 (function_definition) @function
 (interface_declaration) @interface
+(namespace_definition body: (_) ) @namespace
 `
 
-////////////////////
-// EXPORTS_CLAUSES //
-////////////////////
-// Export clauses can contain an alias
-const exportClauses = `
+////////
+// Space Declaration: namespace
+const spaceDeclaration = `
+(namespace_definition name: (_) @spaceName !body)
 `
 
 // ASSIGNMENT SPECIAL CASE
@@ -93,6 +102,11 @@ const extraAssignmentCode = (name: string) => `
 `
 
 const calls = `
+(function_call_expression (name) @identifier.name)
+(named_type) @parameter_type
+(member_call_expression) @identifier.name
+(member_access_expression) @identifier.name
+(_ object: (name) @identifier.name)
 `
 
 ///////////
@@ -101,14 +115,29 @@ const calls = `
 // > my_class.my_method()
 // should be considered as a call to MyClass.my_method()
 const anyAssignments = `
+(expression_statement
+  (assignment_expression left: (variable_name) @left
+                  right: [
+                  (member_access_expression) @right
+                  (variable_name) @right
+                  (object_creation_expression (name) @right)
+                  ]
+    ) @assignment 
+) 
+
+(_
+  parameters: (formal_parameters
+          (_ (named_type) @right (variable_name) @left) @assignment)?
+)
 `
 
 export const phpQueries: treeSitterQueries = {
     importStatements,
     constructorDefinitions: assignments + constructorDefinitions,
     definitionTemplate,
-    exportClauses,
+    exportClauses: '',
     extraAssignmentCode,
     calls,
-    assignments: anyAssignments
+    assignments: anyAssignments,
+    spaceDeclaration
 }

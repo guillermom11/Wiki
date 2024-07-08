@@ -187,5 +187,6 @@ export const pyQueries: treeSitterQueries = {
   extraAssignmentCode,
   exportClauses: '',
   calls,
-  assignments: anyAssignments 
-   }
+  assignments: anyAssignments,
+  spaceDeclaration: ''
+}

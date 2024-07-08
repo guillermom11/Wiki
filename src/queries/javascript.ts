@@ -254,5 +254,6 @@ export const jsQueries: treeSitterQueries = {
     exportClauses,
     extraAssignmentCode,
     calls,
-    assignments: anyAssignments
+    assignments: anyAssignments,
+    spaceDeclaration: ''
 }

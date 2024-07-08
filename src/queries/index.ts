@@ -16,11 +16,20 @@ export const languageQueries = {
 
 
 export interface treeSitterQueries {
+    // found all import statements
     importStatements: string
+    // found all definitions, such as classes, functions, etc
     constructorDefinitions: string
+    // found name and body of each definition
     definitionTemplate: string
+    // found export clauses, necessary for js, ts and tsx
     exportClauses: string
-    extraAssignmentCode: (name: string) => string
-    calls: string
+    // found all (global) assignments
     assignments: string
+    // for instance, if the assignment is a class and the code uses a method globally, add it to the assignment code
+    extraAssignmentCode: (name: string) => string
+    // found all calls
+    calls: string
+    // found space declaration, such as using "package" in java, or "namespace" in PHP, C#, etc
+    spaceDeclaration: string
 }

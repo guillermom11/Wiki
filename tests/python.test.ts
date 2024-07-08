@@ -225,7 +225,7 @@ def foo():
     const fooFunction = fileNode.children[`${rootFolderPath}/file::foo`]
 
     expect(fooClass.getCodeWithoutBody()).toBe("class Foo:\n    foo: int = 1\n\n    def __init__(self):\n        self.foo=1\n\n    def bar(self):\n        \n        ...")
-    expect(barMethod.getCodeWithoutBody()).toBe("class Foo:\n    ...\n    def bar(self):\n        ...")
+    expect(barMethod.getCodeWithoutBody()).toBe("class Foo:\n    ...\n    def bar(self):\n            ...")
     // functions with children remain unchanged?
     expect(fooFunction.getCodeWithoutBody()).toBe("def foo():\n    def baz():\n        '''The baz documentation'''\n        return 1\n    return baz()")
 })
