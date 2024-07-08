@@ -13,10 +13,10 @@ open  http://localhost:3000
 - Typescript / TSX
 - Java (beta)
 - C (beta)
+- PHP (beta)
   
   
 ## TO DO
-- [ ] Agregar PHP
 - [ ] Agregar C+
 - [ ] Agregar C#
 - [ ] Agregar Go
