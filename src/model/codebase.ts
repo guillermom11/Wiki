@@ -339,6 +339,7 @@ export class Node {
 
     resolveImportStatementsPath(rootFolderPath: string, allFiles: string[]) {
         if (this.type !== 'file') return
+        // In some cases the import statement is related to index files such as index.ts or __init__.py
         const suffix = indexSuffixesMap[this.language];
         const fileSet = new Set(allFiles.map(p => p.split('.').slice(0, -1).join('.')));
         
@@ -382,7 +383,7 @@ export class Node {
                 newNode.startPosition  = c.node.startPosition
                 newNode.endPosition  = c.node.endPosition
                 newNode.exportable = exportable
-                newNode.originFile = this.id
+                newNode.originFile = this.name
                 
                 // In many languages the documentation is the prev sibling
                 let prevTreeSitterNode = c.node.previousNamedSibling
@@ -557,9 +558,9 @@ export class Codebase {
     addNode(node: Node) { this.nodesMap[node.id] = node; }
     getNode(id: string): Node | undefined { return this.nodesMap[id];  }
     addNodeMap(nodeMap: {[id: string]: Node}) { this.nodesMap  = {...this.nodesMap, ...nodeMap} }
-    addNodeToSpaceMap(spaceName: string, node: Node) { 
-        if (!this.spaceMap[spaceName]) this.spaceMap[spaceName] = []
-         this.spaceMap[spaceName].push(node)
+    addNodeToSpaceMap(node: Node) { 
+        if (!this.spaceMap[node.name]) this.spaceMap[node.name] = []
+         this.spaceMap[node.name].push(node)
     }
 
     async generateNodesFromFilePath(filePath: string): Promise<{nodesMap: {[id: string]: Node}, isHeader: boolean}> {
@@ -586,10 +587,50 @@ export class Codebase {
         fileNode.parseExportClauses(this.nodesMap)
         nodesMap[fileNode.id] = fileNode
 
-        // get tokens
-        Object.values(nodesMap).forEach(n => n.totalTokens = enc.encode(n.code, 'all', []).length)
+        
+        Object.values(nodesMap).forEach(n => {
+            // get tokens
+            n.totalTokens = enc.encode(n.code, 'all', []).length
+            // save space nodes
+            if (['namespace', 'package', 'mod'].includes(n.type)) this.addNodeToSpaceMap(n)
+        })
 
         return {nodesMap, isHeader}
+    }
+
+    resolveSpaces() {
+        const globalSpaceMap: {[spaceName: string]: Node[]} = {}
+        Object.entries(this.spaceMap).forEach(([spaceName, nodes]) => {
+            const globalNode = new Node(`${spaceName}`, '', nodes[0].type, nodes[0].language)
+            globalNode.name = spaceName
+            globalNode.alias = spaceName
+            globalNode.parent = nodes[0].parent
+            // globalNode.originFile = nodes[0].originFile
+            nodes.forEach(n => {
+                globalNode.code += n.code + '\n\n'
+                for (const c of n.getAllChildren()) {
+                    const oldId = c.id
+                    delete this.nodesMap[oldId]
+                    c.id = `${spaceName}::${c.name}`
+                    if (c.parent && ['file', 'package', 'mod', 'namespace'].includes(c.parent.type))
+                        globalNode.addChild(c)
+                        
+                    this.nodesMap[c.id] = c
+                }
+                if (n.parent) {
+                    this.nodesMap[n.parent.id].removeChild(n)
+                    // add it to parent without changing the parent
+                    this.nodesMap[n.parent.id].children[globalNode.id] = globalNode
+                    this.nodesMap[n.parent.id].inDegree++
+                    delete this.nodesMap[n.id]
+                    this.nodesMap[globalNode.id] = globalNode
+                }
+            })
+            globalSpaceMap[spaceName] = [globalNode]
+        })
+
+        this.spaceMap = globalSpaceMap
+        
     }
     
 
@@ -614,6 +655,7 @@ export class Codebase {
         }
         // python special case
         this.resolvePythonInitImportStatements()
+        this.resolveSpaces()
         this.resolveImportStatementsNodes()
         return fileNodesMap 
     }
@@ -637,7 +679,8 @@ export class Codebase {
                 Object.entries(callNodeIds).forEach(([nodeId, lines]) => {
                     // if (importFromFailed.has(c.importFrom)) return
                     const calledNode = this.nodesMap[nodeId]
-                    if (calledNode) {
+                    if (calledNode && !['package', 'mod', 'namespace'].includes(calledNode.type)) {
+                        // console.log({calledNode: calledNode.id, type: calledNode.type})
                         n.addCall(calledNode, lines) // first line
                         // console.log(`Added call from ${n.id} to ${calledNode.id}`)
                     } else {
@@ -691,11 +734,11 @@ export class Codebase {
             if (!['file', 'header'].includes(n.type) ) return
             n.importStatements.forEach(i => {
                 i.names.forEach(n => {
-                    n.node = this.nodesMap[`${i.path}::${n.name}`]
+                    n.node = this.nodesMap[`${i.path}::${n.name}`] || this.nodesMap[`${i.module}::${n.name}`]
                 })
                 const namesIds = i.names.map(n => n.node?.id || '')
                 namesIds.forEach(id => {
-                    this.nodesMap[id]?.getAllChildren(['file', 'class', 'interface', 'mod', 'namespace']).forEach(c => {
+                    this.nodesMap[id]?.getAllChildren(['file', 'class', 'interface', 'mod', 'namespace', 'package']).forEach(c => {
                         const newName = new ImportName(c.alias, c.alias)
                         newName.node = c
                         i.names.push(newName)
@@ -710,6 +753,11 @@ export class Codebase {
                 // cases like import *, #define "file", etc.
                 if (i.names.length === 0) {
                     this.nodesMap[i.path]?.getAllChildren(['file', 'class', 'interface', 'mod', 'namespace', 'header']).forEach(c => {
+                        const newName = new ImportName(c.alias, c.alias)
+                        newName.node = c
+                        i.names.push(newName)
+                    })
+                    this.nodesMap[i.module]?.getAllChildren(['file', 'class', 'interface', 'mod', 'namespace', 'header']).forEach(c => {
                         const newName = new ImportName(c.alias, c.alias)
                         newName.node = c
                         i.names.push(newName)

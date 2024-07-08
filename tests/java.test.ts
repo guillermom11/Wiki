@@ -1,4 +1,3 @@
-import exp from "constants";
 import { Codebase, Node, ImportStatement, ImportName } from "../src/model/codebase";
 const rootFolderPath = '/my/path'
 
@@ -210,8 +209,10 @@ public class Test {
 
     fileNode1.generateImports()
     fileNode2.generateImports()
-    fileNode1.resolveImportStatementsPath(rootFolderPath, allFiles)
-    fileNode2.resolveImportStatementsPath(rootFolderPath, allFiles)
+
+    fileNode1.name = `${rootFolderPath}/file1.java`
+    fileNode2.name = `${rootFolderPath}/file2.java`
+
     const nodesMap1 = fileNode1.getChildrenDefinitions();
     const nodesMap2 = fileNode2.getChildrenDefinitions();
 
@@ -226,12 +227,18 @@ public class Test {
     const codebase = new Codebase(rootFolderPath);
     codebase.nodesMap = nodesMap;
 
+    Object.values(nodesMap).forEach(n => {
+        // save space nodes
+        if (['namespace', 'package', 'mod'].includes(n.type)) codebase.addNodeToSpaceMap(n)
+    })
+
+    codebase.resolveSpaces()
     codebase.resolveImportStatementsNodes();
     codebase.getCalls(fileNodesMap);
 
-    const method2Calls = codebase.getNode(`${rootFolderPath}/file1::Foo.method2`)?.simplify(['calls']);
+    const method2Calls = codebase.getNode(`file1::Foo.method2`)?.simplify(['calls']);
     const mainCalls = codebase.getNode(`${rootFolderPath}/file2::Test.main`)?.simplify(['calls']);
 
-    expect(method2Calls?.calls).toStrictEqual([`${rootFolderPath}/file1::Foo.method`, `${rootFolderPath}/file1::Foo`]);
-    expect(mainCalls?.calls).toStrictEqual([`${rootFolderPath}/file1::Foo`, `${rootFolderPath}/file1::Foo.method`]);
+    expect(method2Calls?.calls).toStrictEqual([`file1::Foo.method`, `file1::Foo`]);
+    expect(mainCalls?.calls).toStrictEqual([`file1::Foo`, `file1::Foo.method`]);
 });

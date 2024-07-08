@@ -27,7 +27,10 @@ export class CallsCapturer {
     constructor(fileNode: Node, verbose: boolean = false) {
         this.fileNode = fileNode
         this.verbose = verbose
-        fileNode.getAllChildren().forEach( c => this.nodesMap[c.alias] = c )
+        fileNode.getAllChildren().forEach( c => {
+            if (['namespace', 'package', 'mod'].includes(c.type)) return
+            this.nodesMap[c.alias] = c 
+        })
         fileNode.importStatements.forEach( i => {
             i.names.forEach(n => {
                 if (n.node) {
@@ -36,7 +39,8 @@ export class CallsCapturer {
             })
         })
         // console.log(`/////${fileNode.id}`)
-        // Object.keys(this.nodesMap).forEach(k => console.log(k))
+        // console.log({keys: Object.keys(this.nodesMap)})
+        // Object.keys(this.nodesMap).forEach(k => console.log(k, this.nodesMap[k].id))
     }
 
     captureAssignments(code: string, language: string): VariableAssignment[] {
@@ -103,6 +107,7 @@ export class CallsCapturer {
                 for ( const c of cleanAndSplitContent(content)) {
                     let callName = c.replace(/\?/g, '')
                     const calledNode = this.nodesMap[callName]
+                    // console.log({nodeRef: nodeRef.id, callName, id: calledNode?.id ?? ''})
                     if (calledNode) {
                         results.push(new CallIdentifier(calledNode.id, startLine))
                     }
@@ -172,7 +177,6 @@ export class CallsCapturer {
         const capturedCalls = this.captureCalls(code, node)
         const results: {[key: string]: number[]} = {}
         capturedCalls.forEach(c  =>  {
-
             if (!Object.keys(results).includes(c.nodeId)) {
                 results[c.nodeId] = []
             } 
