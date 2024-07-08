@@ -348,3 +348,77 @@ namespace MyProject\\Utilities {
     expect(namespaceChildrenSimplified).toStrictEqual(expectedNamespace);
     expect(classChildrenSimplified).toStrictEqual(expectedClass);
 });
+
+
+test('Calls', () => {
+    const fileContent1 = `
+<?php
+namespace MyNamespace;
+
+class Foo {
+    private $baz = 1;
+
+    public function __construct() {
+        $this->baz = 1;
+    }
+
+    public function method() {
+        return 1;
+    }
+
+    public function method2() {
+        return $this->method();
+    }
+}
+`;
+
+    const fileContent2 = `
+<?php
+require_once 'file1.php';
+
+use MyNamespace\\Foo;
+
+$fooVar = new Foo();
+$fooVar->method();
+
+function foo(Foo $param) {
+    return $param->method2();
+}
+`;
+
+    const fileNode1 = new Node(`${rootFolderPath}/file1`, fileContent1, 'file', 'php');
+    const fileNode2 = new Node(`${rootFolderPath}/file2`, fileContent2, 'file', 'php');
+    fileNode1.generateImports();
+    fileNode2.generateImports();
+
+    const nodesMap1 = fileNode1.getChildrenDefinitions();
+    const nodesMap2 = fileNode2.getChildrenDefinitions();
+
+    const fileNodesMap: { [id: string]: Node } = {};
+    fileNodesMap[fileNode1.id] = fileNode1;
+    fileNodesMap[fileNode2.id] = fileNode2;
+
+    nodesMap1[fileNode1.id] = fileNode1;
+    nodesMap2[fileNode2.id] = fileNode2;
+
+    const nodesMap = { ...nodesMap1, ...nodesMap2 };
+    const codebase = new Codebase(rootFolderPath);
+    codebase.nodesMap = nodesMap;
+
+    Object.values(nodesMap).forEach(n => {
+        // save space nodes
+        if (['namespace', 'package', 'mod'].includes(n.type)) codebase.addNodeToSpaceMap(n)
+    })
+
+    codebase.resolveSpaces()
+    codebase.resolveImportStatementsNodes();
+    codebase.getCalls(fileNodesMap, true);
+
+    const method2Calls = codebase.getNode(`MyNamespace::Foo.method2`)?.simplify(['calls']);
+    const fileCalls = codebase.getNode(`${rootFolderPath}/file2`)?.simplify(['calls']);
+    const fooCalls = codebase.getNode(`${rootFolderPath}/file2::foo`)?.simplify(['calls']);
+
+    expect(method2Calls?.calls).toStrictEqual([`MyNamespace::Foo.method`, `MyNamespace::Foo`]);
+    expect(fileCalls?.calls).toStrictEqual([`MyNamespace::Foo.method`, `MyNamespace::Foo`]);
+    expect(fooCalls?.calls).toStrictEqual([`MyNamespace::Foo`, `MyNamespace::Foo.method2`]);
+});
