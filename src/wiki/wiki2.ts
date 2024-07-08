@@ -9,7 +9,7 @@ const cl100k_base = require("tiktoken/encoders/cl100k_base.json");
 /*Problems:
 -- links include links of files, which were supposed to not be included
 -- how to summarize files that don't have sub nodes so they don't have documentation? (like jest.config.js)
---
+-- include label "defines" in links
 */
 type wikiNode = {
   id: string;
@@ -96,15 +96,17 @@ const tokenizer = ({
 
   await fs2.writeFile("myNodes.json", JSON.stringify(nodes, null, 2));
   const links: wikiLink[] = await readJson(linksPath);
-  const callGraph = buildCallGraph(nodes, links);
+  const { callGraph, defineGraph, wholeGraph } = buildGraphs(nodes, links); //call graph between nodes,not including files.
 
   await fs2.writeFile("callGraph.json", JSON.stringify(callGraph, null, 2));
-  const startNodes = findStartNodes(callGraph); //leaf nodes
+  await fs2.writeFile("defineGraph.json", JSON.stringify(defineGraph, null, 2));
+  await fs2.writeFile("wholeGraph.json", JSON.stringify(wholeGraph, null, 2));
+  const startNodes = findStartNodes(wholeGraph); //leaf nodes
 
   await fs2.writeFile("startNodes.json", JSON.stringify(startNodes, null, 2));
   const usedNodes = await readJson("usedNodes.json");
 
-  //const usedNodes = await bfs(nodesWithFiles, startNodes, callGraph, nodes); //only nodes with documentation
+  //const usedNodes = await bfs(nodesWithFiles, startNodes, wholeGraph, nodes); //only nodes with documentation. INcludes "calls" and "defines"
   //await fs2.writeFile("usedNodes.json", JSON.stringify(usedNodes, null, 2));
 
   const fileToNodes = nodesWithFiles
@@ -158,26 +160,33 @@ async function readJson(filePath: string) {
   return nodeInfo;
 }
 
-function buildCallGraph(nodes: wikiNode[], links: wikiLink[]) {
+function buildGraphs(nodes: wikiNode[], links: wikiLink[]) {
   //all nodes appear on links?
   const callGraph: { [key: string]: string[] } = {};
+  const defineGraph: { [key: string]: string[] } = {};
+  const wholeGraph: { [key: string]: string[] } = {};
   nodes.forEach((node) => {
+    //nodes that are not files!!!
     callGraph[node.id] = [];
+    defineGraph[node.id] = [];
+    wholeGraph[node.id] = [];
   });
 
   for (const link of links) {
-    if (link.label === "calls") {
-      if (
-        callGraph[link.source] &&
-        link.source.includes("::") && //so that links that include files are not included
-        link.target.includes("::")
-      ) {
+    if (
+      link.source.includes("::") && //so that links that include files are not included
+      link.target.includes("::")
+    ) {
+      if (link.label === "calls") {
         callGraph[link.source].push(link.target);
+      } else if (link.label === "defines") {
+        defineGraph[link.source].push(link.target);
       }
+      wholeGraph[link.source].push(link.target);
     }
   }
 
-  return callGraph;
+  return { callGraph, defineGraph, wholeGraph };
 }
 function findStartNodes(callGraph: { [key: string]: string[] }) {
   return Object.keys(callGraph).filter((node) => callGraph[node].length === 0); //get nodes that don't call anyone.
@@ -186,7 +195,7 @@ function findStartNodes(callGraph: { [key: string]: string[] }) {
 async function bfs(
   nodesWithFiles: wikiNode[],
   startNodes: string[],
-  callGraph: { [key: string]: string[] },
+  wholeGraph: { [key: string]: string[] },
   nodes: wikiNode[]
 ): Promise<wikiNode[]> {
   const queue: string[] = startNodes;
@@ -204,7 +213,7 @@ async function bfs(
     const currentNode = nodes.find((node) => node.id === currentNodeId);
 
     if (currentNode && currentNode.type !== "file") {
-      const calledNodes = callGraph[currentNodeId] || [];
+      const calledNodes = wholeGraph[currentNodeId] || []; //defined or called by the current node
       const calledNodesInfo = calledNodes.map((id) =>
         nodes.find((node) => node.id === id && node.type !== "file")
       );
@@ -228,7 +237,7 @@ async function bfs(
       }
     }
   }
-  console.log("FINISHED");
+  console.log("FINISHED BFS");
   return usedNodes;
 }
 
@@ -397,7 +406,10 @@ async function generateFileDocumentation(
   \`\`\`${fileNode.codeNoBody}\`\`\``;
 
   if (fileContent) {
-    userPrompt += `Lucky for you, I also have individual documentation of the sub components (parts) of the ${fileNode.type} is the following:`;
+    userPrompt += `Lucky for you, I also have individual documentation of the sub components (parts) of the ${fileNode.type}. 
+    The documentation of the "sub components" of the ${fileNode.type} corresponds to the collection of documentations of the sub parts (methods, functions, definition or more that are inside the file).
+     So, the individual documentation of the sub components (parts) is the following:\n\n
+     ${fileContent}`;
   }
   let response;
 
