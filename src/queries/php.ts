@@ -23,6 +23,15 @@ const importStatements = `
 (expression_statement (include_once_expression (string (string_content) @module ))) @import_statement
 (expression_statement (require_expression (string (string_content) @module ))) @import_statement
 (expression_statement (require_once_expression (string (string_content) @module ))) @import_statement
+(namespace_use_declaration
+ (namespace_use_clause
+	(qualified_name 
+    	(namespace_name_as_prefix (namespace_name) @module) 
+        (name) @name  
+ 	)
+    (namespace_aliasing_clause (name) @alias)?
+ )
+) @import_statement
 `
 
 /////////////////

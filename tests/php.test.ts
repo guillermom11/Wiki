@@ -10,6 +10,8 @@ include 'file.php';
 include_once 'file2.php';
 require '../otherFolder/file3.php';
 require_once 'file4.php';
+
+use MyProject\\Models\\User as UserModel;
 `;
     const fileNode = new Node(`${rootFolderPath}/file`, fileContent, 'file', 'php');
     fileNode.generateImports();
@@ -28,6 +30,8 @@ require_once 'file4.php';
             `require '../otherFolder/file3.php';`),
         new ImportStatement('file4.php', [], `${rootFolderPath}/file4`, undefined,
             `require_once 'file4.php';`),
+        new ImportStatement('MyProject\\Models', [new ImportName('User', 'UserModel')], 'MyProject\\Models', undefined,
+            `use MyProject\\Models\\User as UserModel;`),
     ];
     expect(fileNode.importStatements).toStrictEqual(expectedImports);
 });
