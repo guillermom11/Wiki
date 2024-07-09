@@ -9,22 +9,34 @@ import { myFunction } from './myModule';
 import { myClass2 as myClass2Alias, myClass3 } from '../myModule2';
 import * as myModule3Alias from 'myModule3';
 import { myFunction as myFunctionAlias } from 'initFile';
+const myModule = require('./myModule');
+const var = require('./../myModule').var;
 `;
     const fileNode = new Node(`${rootFolderPath}/file`, fileContent, 'file', 'javascript')
     fileNode.generateImports()
     fileNode.resolveImportStatementsPath(rootFolderPath, [`${rootFolderPath}/file.js`, `${rootFolderPath}/myModule3.js`, `${rootFolderPath}/initFile/index.js`])
 
     const expectedImports = [
-        new ImportStatement('./myModule', [new ImportName('myFunction')], `/my/path/myModule`),
-        new ImportStatement('../myModule2', [new ImportName('myClass3'), new ImportName('myClass2', 'myClass2Alias')], '/my/myModule2'),
-        new ImportStatement('myModule3', [], '/my/path/myModule3', 'myModule3Alias'),
-        new ImportStatement('initFile', [new ImportName('myFunction', 'myFunctionAlias')], '/my/path/initFile/index', 'initFile'),
+        new ImportStatement('./myModule', [new ImportName('myFunction')],
+                `/my/path/myModule`, undefined, `import { myFunction } from './myModule';`),
+        new ImportStatement('../myModule2', [new ImportName('myClass3'), new ImportName('myClass2', 'myClass2Alias')],
+                '/my/myModule2', undefined, `import { myClass2 as myClass2Alias, myClass3 } from '../myModule2';`),
+        new ImportStatement('myModule3', [],
+                '/my/path/myModule3', 'myModule3Alias', `import * as myModule3Alias from 'myModule3';`),
+        new ImportStatement('initFile', [new ImportName('myFunction', 'myFunctionAlias')],
+                '/my/path/initFile/index', 'initFile', `import { myFunction as myFunctionAlias } from 'initFile';`),
+        new ImportStatement('./myModule', [],
+                '/my/path/myModule', 'myModule', `const myModule = require('./myModule');`),
+        new ImportStatement('./../myModule', [new ImportName('var')],
+            '/my/myModule', './../myModule', `const var = require('./../myModule').var;`)
     ];
     expect(fileNode.importStatements).toStrictEqual(expectedImports);
 });
 
 test('Assignments', () => {
     const fileContent = `
+const myModule = require('./myModule');
+
 export const foo = 1
 
 const bar = new Hono()
@@ -245,7 +257,7 @@ function foo() {
     const fooFunction = fileNode.children[`${rootFolderPath}/file::foo`];
 
     expect(fooClass.getCodeWithoutBody()).toBe("class Foo {\n    foo = 1;\n\n    constructor() {\n        this.foo = 1;\n    }\n\n    bar() {\n        //...\n    }\n}")
-    expect(barMethod.getCodeWithoutBody()).toBe("class Foo\n    ...\n    bar(){\n        //...\n    }");
+    expect(barMethod.getCodeWithoutBody()).toBe("class Foo\n    ...\n    bar() {\n    //...\n    }");
     // functions with children remain unchanged?
     // expect(fooFunction.getCodeWithoutBody()).toBe("function foo() {\n    function baz() {\n    /**\n     * The baz documentation\n     */\n        return 1;\n    }\n    return baz();\n}");
 })
@@ -293,12 +305,14 @@ function foo(param: Foo) {
     const nodesMap = {...nodesMap1, ...nodesMap2}
     const codebase = new Codebase(rootFolderPath)
     codebase.nodesMap = nodesMap
+
+    codebase.resolveImportStatementsNodes()
     codebase.getCalls(fileNodesMap)
+    
     const method2Calls = codebase.getNode(`${rootFolderPath}/file1::Foo.method2`)?.simplify(['calls'])
     const file2Calls = codebase.getNode(`${rootFolderPath}/file2`)?.simplify(['calls'])
     const fooVarCalls = codebase.getNode(`${rootFolderPath}/file2::fooVar`)?.simplify(['calls']) 
     const fooCalls = codebase.getNode(`${rootFolderPath}/file2::foo`)?.simplify(['calls'])
-    
     expect(file2Calls?.calls).toStrictEqual([`${rootFolderPath}/file1::Foo`, `${rootFolderPath}/file1::Foo.method`])
     expect(fooVarCalls?.calls).toStrictEqual([`${rootFolderPath}/file1::Foo`])
     expect(method2Calls?.calls).toStrictEqual([`${rootFolderPath}/file1::Foo.method`, `${rootFolderPath}/file1::Foo`])

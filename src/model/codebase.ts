@@ -17,6 +17,7 @@ const enc = encoding_for_model('gpt-4-turbo')
 export class ImportName {
   name: string = ''
   alias: string = ''
+  node?: Node
   // subpath: string = ''
 
   constructor(name: string, alias?: string) {
@@ -29,20 +30,20 @@ export class ImportStatement {
   names: ImportName[]
   moduleAlias: string
   path: string
-  // code: string = ''
-  // startPosition: Point = {row: 0, column: 0}
-  // endPosition: Point = {row: 99999, column: 0}
+  code?: string
 
   constructor(
     module: string = '',
     names: ImportName[] = [],
     path: string = '',
-    moduleAlias?: string
+    moduleAlias?: string,
+    code?: string
   ) {
     this.module = module
     this.names = names
     this.moduleAlias = moduleAlias || module
     this.path = path
+    this.code = code
   }
 }
 
@@ -50,7 +51,10 @@ interface Link {
   source: string
   target: string
   label: string
+  line: number
 }
+
+type NodeCallTuple = { node: Node; lines: number[] } // nodeId, first line
 
 export class Node {
   id: string = '' // id is like /home/user/repo/file.extension::nodeName
@@ -66,11 +70,13 @@ export class Node {
   exportable: boolean = false
   parent?: Node
   children: { [key: string]: Node } = {}
-  calls: Node[] = []
+  calls: NodeCallTuple[] = []
   startPosition: Point = { row: 0, column: 0 }
   endPosition: Point = { row: 99999, column: 0 }
   inDegree: number = 0
   outDegree: number = 0
+  // originFile is the file where the node is defined
+  originFile: string = ''
 
   constructor(id: string, code?: string, type?: AllowedTypes, language?: string) {
     this.id = id
@@ -92,9 +98,10 @@ export class Node {
     return
   }
 
-  getAllChildren(): Node[] {
+  getAllChildren(parentTypes?: AllowedTypes[]): Node[] {
     // get childrens recursively
     const children: Node[] = []
+    if (parentTypes && !parentTypes.includes(this.type)) return []
     for (const child of Object.values(this.children)) {
       children.push(child)
       children.push(...child.getAllChildren())
@@ -119,9 +126,9 @@ export class Node {
     }
   }
 
-  addCall(node: Node) {
+  addCall(node: Node, lines: number[] = []) {
     // this -> node
-    this.calls.push(node)
+    this.calls.push({ node, lines })
     node.inDegree++
     this.outDegree++
   }
@@ -163,19 +170,13 @@ export class Node {
     }
   }
 
-  propagateExportable() {
-    if (this.exportable) {
-      Object.keys(this.children).forEach((id) => {
-        this.children[id].exportable = true
-        this.children[id].propagateExportable()
-      })
-    }
-  }
-
-  getCodeWithoutBody() {
+  getCodeWithoutBody(considerLines: boolean = false) {
     let code = this.code
 
-    if (this.body || this.type === 'file') {
+    if (
+      (this.body || this.type === 'file') &&
+      !['assignment', 'type', 'enum'].includes(this.type)
+    ) {
       if (Object.keys(this.children).length > 0) {
         // const extension = this.id.split('::')[0].split('.').pop() || '';
         const classMethodInit =
@@ -189,37 +190,67 @@ export class Node {
               let bodyToRemove = n.body
               bodyToRemove = bodyToRemove.replace(n.documentation, '')
               const spaces = ' '.repeat(n.startPosition.column)
+              let bodyTotalLines = considerLines ? bodyToRemove.split('\n').length : 1
               if (this.language === 'python') {
-                code = code.replace(bodyToRemove, `\n${spaces}    ...`)
+                code = code.replace(
+                  bodyToRemove,
+                  `\n${spaces}    ...` + '\n'.repeat(Math.max(bodyTotalLines - 1, 0))
+                )
               } else {
-                code = code.replace(bodyToRemove, `{\n${spaces}    //...\n${spaces}}`)
+                code = code.replace(
+                  bodyToRemove,
+                  `{\n${spaces}    //...\n${spaces}}` + '\n'.repeat(Math.max(bodyTotalLines - 3, 0))
+                )
               }
             }
           } else if (this.type === 'file' && !['assignment', 'type', 'enum'].includes(n.type)) {
             if (n.body) {
               let bodyToRemove = n.body
               bodyToRemove = bodyToRemove.replace(n.documentation, '')
+              let bodyTotalLines = considerLines ? bodyToRemove.split('\n').length : 1
               const spaces = ' '.repeat(n.startPosition.column)
               if (this.language === 'python') {
-                code = code.replace(bodyToRemove, `${spaces}...`)
+                code = code.replace(
+                  bodyToRemove,
+                  `${spaces}...` + '\n'.repeat(Math.max(bodyTotalLines - 1, 0))
+                )
               } else {
-                code = code.replace(bodyToRemove, `{\n${spaces}//...\n${spaces}}`)
+                code = code.replace(
+                  bodyToRemove,
+                  `{\n${spaces}//...\n${spaces}}` + '\n'.repeat(Math.max(bodyTotalLines - 3, 0))
+                )
               }
             }
           }
         })
-      } else {
+      } else if (this.body) {
         const spaces = ' '.repeat(this.startPosition.column)
+        let bodyTotalLines = considerLines ? this.body.split('\n').length : 1
         if (this.language === 'python') {
-          code = code.replace(this.body, '').trim() + `\n${spaces}    ...`
+          code = code.replace(
+            this.body,
+            `${spaces}...` + '\n'.repeat(Math.max(bodyTotalLines - 1, 0))
+          )
         } else {
-          code = code.replace(this.body, '').trim() + `{\n${spaces}    //...\n${spaces}}`
+          code = code.replace(
+            this.body,
+            `{\n${spaces}//...\n${spaces}}` + '\n'.repeat(Math.max(bodyTotalLines - 3, 0))
+          )
         }
       }
     }
-    code = code.trim().replace(/\n\s*\n/, '\n')
-    if (this.parent && ['class', 'interface'].includes(this.parent?.type))
-      code = `${this.parent.code.replace(this.parent.body, '').trim()}\n    ...\n    ${code}`
+    code = considerLines ? code : code.trim().replace(/\n\s*\n/, '\n')
+    if (this.parent && ['class', 'interface'].includes(this.parent?.type)) {
+      if (considerLines) {
+        const bodyTotalLines = considerLines ? this.parent.body.split('\n').length : 1
+        code =
+          `${this.parent.code.replace(this.parent.body, '')}` +
+          '\n'.repeat(Math.max(bodyTotalLines - 3, 0)) +
+          `\n    ...\n    ${code}`
+      } else {
+        code = `${this.parent.code.replace(this.parent.body, '').trim()}\n    ...\n    ${code}`
+      }
+    }
     return code
   }
 
@@ -263,7 +294,7 @@ export class Node {
           }
 
           newImportStatement.path = renameSource(this.id, newImportStatement.module, this.language)
-          // newImportStatement.code = c.node.text
+          newImportStatement.code = c.node.text.trimEnd()
           // newImportStatement.startPosition = c.node.startPosition
           // newImportStatement.endPosition = c.node.endPosition
           importStatements.push(newImportStatement)
@@ -339,6 +370,7 @@ export class Node {
 
   resolveImportStatementsPath(rootFolderPath: string, allFiles: string[]) {
     if (this.type !== 'file') return
+    // In some cases the import statement is related to index files such as index.ts or __init__.py
     const suffix = indexSuffixesMap[this.language]
     const fileSet = new Set(allFiles.map((p) => p.split('.').slice(0, -1).join('.')))
 
@@ -376,7 +408,7 @@ export class Node {
   }
 
   getChildrenDefinitions(): { [id: string]: Node } {
-    if (this.type !== 'file') return {}
+    if (!['file', 'header'].includes(this.type)) return {}
     const unnecessaryNodeTypes = ['export'] // exclude it from the analysis
     const captures = captureQuery(this.language, 'constructorDefinitions', this.code)
     captures.sort(
@@ -384,7 +416,7 @@ export class Node {
         b.node.startPosition.row - a.node.startPosition.row ||
         b.node.startPosition.column - a.node.startPosition.column
     )
-    let exportable = ['python'].includes(this.language) ? true : false
+    let exportable = ['python', 'php'].includes(this.language) ? true : false
     let childrenNodes: Node[] = []
 
     captures.forEach((c) => {
@@ -394,6 +426,7 @@ export class Node {
         newNode.startPosition = c.node.startPosition
         newNode.endPosition = c.node.endPosition
         newNode.exportable = exportable
+        newNode.originFile = this.name
 
         // In many languages the documentation is the prev sibling
         let prevTreeSitterNode = c.node.previousNamedSibling
@@ -456,8 +489,9 @@ export class Node {
       // console.log(captures.map(c => { return {name: c.name, text: c.node.text?.slice(0, 60), start: c.node.startPosition, end: c.node.endPosition } }))
       captures.forEach((c) => {
         switch (c.name) {
-          case 'modifier': // java only
-            if (n.language == 'java' && c.node.text.includes('public')) n.exportable = true
+          case 'modifier': // java, php only
+            if (['php', 'java'].includes(n.language) && c.node.text.includes('public'))
+              n.exportable = true
             break
           case 'name':
             n.name = c.node.text
@@ -497,6 +531,32 @@ export class Node {
     // must have a name
     childrenNodes = childrenNodes.filter((c) => c.name)
 
+    // find "package" or "namespace"
+    let spaceNode = null
+    if (['java', 'php'].includes(this.language)) {
+      const captures = captureQuery(this.language, 'spaceDeclaration', this.code)
+      captures.forEach((c) => {
+        switch (c.name) {
+          case 'spaceName':
+            const spaceName = c.node.text
+            const initialLine = c.node.startPosition.row
+            const type = 'java' == this.language ? 'package' : 'namespace'
+            spaceNode = new Node(
+              `${this.id}::${spaceName}`,
+              this.code.split('\n').slice(initialLine, -1).join('\n'),
+              type,
+              this.language
+            )
+            spaceNode.name = spaceName
+            spaceNode.alias = spaceName
+            spaceNode.exportable = true
+            break
+        }
+      })
+    }
+
+    if (spaceNode) childrenNodes.push(spaceNode)
+
     childrenNodes.forEach((n, i) => {
       for (let j = i + 1; j < childrenNodes.length; j++) {
         n.addNodeRelationship(childrenNodes[j])
@@ -528,10 +588,10 @@ export class Node {
           ? `${this.parent.code.replace(this.parent.body, '').trim()}\n    ...\n    ${this.code}`
           : this.code,
       codeNoBody: this.getCodeWithoutBody(),
-      importStatements: this.importStatements.map((i) => i.path),
+      importStatements: this.importStatements.map((i) => i.code),
       parent: this.parent?.id,
       children: Object.keys(this.children),
-      calls: this.calls.map((c) => c.id),
+      calls: this.calls.map((c) => c.node.id),
       inDegree: this.inDegree,
       outDegree: this.outDegree
     }
@@ -553,6 +613,8 @@ export class Codebase {
   // NOTE: rootFolderPath should be an absolute path
   rootFolderPath: string = ''
   nodesMap: { [id: string]: Node } = {}
+  // an space can be defined in multiples files (for example namespaces in C#)
+  spaceMap: { [spaceName: string]: Node[] } = {}
 
   constructor(rootFolderPath: string) {
     this.rootFolderPath = rootFolderPath
@@ -566,21 +628,40 @@ export class Codebase {
   addNodeMap(nodeMap: { [id: string]: Node }) {
     this.nodesMap = { ...this.nodesMap, ...nodeMap }
   }
+  addNodeToSpaceMap(node: Node) {
+    if (!this.spaceMap[node.name]) this.spaceMap[node.name] = []
+    this.spaceMap[node.name].push(node)
+  }
 
-  async generateNodesFromFilePath(filePath: string): Promise<{ [id: string]: Node }> {
+  async generateNodesFromFilePath(
+    filePath: string
+  ): Promise<{ nodesMap: { [id: string]: Node }; isHeader: boolean }> {
     const fileExtension = filePath.split('.').pop()
-    if (!fileExtension) return {}
+    if (!fileExtension) return { nodesMap: {}, isHeader: false }
     const data = await fs.readFile(filePath)
     const dataString = Buffer.from(data).toString()
-    // Nodes are created using id, code, type, language
+    // Nodes are created using id, code, type, language. The id does not include the extension
     const filePathNoExtension = filePath.split('.').slice(0, -1).join('.')
-    // The id does not include the extension
-    const fileNode = new Node(
-      filePathNoExtension,
-      dataString,
-      'file',
-      languageExtensionMap[fileExtension]
-    )
+
+    let fileNode
+    let isHeader = false
+    // Special case: .h files (headers)
+    if (fileExtension === 'h') {
+      fileNode = new Node(
+        `${filePathNoExtension}::header`,
+        dataString,
+        'header',
+        languageExtensionMap[fileExtension]
+      )
+      isHeader = true
+    } else {
+      fileNode = new Node(
+        filePathNoExtension,
+        dataString,
+        'file',
+        languageExtensionMap[fileExtension]
+      )
+    }
     fileNode.name = filePath
     fileNode.alias = filePath.split('/').pop() || ''
     const nodesMap = fileNode.getChildrenDefinitions()
@@ -588,10 +669,48 @@ export class Codebase {
     fileNode.parseExportClauses(this.nodesMap)
     nodesMap[fileNode.id] = fileNode
 
-    // get tokens
-    Object.values(nodesMap).forEach((n) => (n.totalTokens = enc.encode(n.code, 'all', []).length))
+    Object.values(nodesMap).forEach((n) => {
+      // get tokens
+      n.totalTokens = enc.encode(n.code, 'all', []).length
+      // save space nodes
+      if (['namespace', 'package', 'mod'].includes(n.type)) this.addNodeToSpaceMap(n)
+    })
 
-    return nodesMap
+    return { nodesMap, isHeader }
+  }
+
+  resolveSpaces() {
+    const globalSpaceMap: { [spaceName: string]: Node[] } = {}
+    Object.entries(this.spaceMap).forEach(([spaceName, nodes]) => {
+      const globalNode = new Node(`${spaceName}`, '', nodes[0].type, nodes[0].language)
+      globalNode.name = spaceName
+      globalNode.alias = spaceName
+      globalNode.parent = nodes[0].parent
+      // globalNode.originFile = nodes[0].originFile
+      nodes.forEach((n) => {
+        globalNode.code += n.code + '\n\n'
+        for (const c of n.getAllChildren()) {
+          const oldId = c.id
+          delete this.nodesMap[oldId]
+          c.id = `${spaceName}::${c.name}`
+          if (c.parent && ['file', 'package', 'mod', 'namespace'].includes(c.parent.type))
+            globalNode.addChild(c)
+
+          this.nodesMap[c.id] = c
+        }
+        if (n.parent) {
+          this.nodesMap[n.parent.id].removeChild(n)
+          // add it to parent without changing the parent
+          this.nodesMap[n.parent.id].children[globalNode.id] = globalNode
+          this.nodesMap[n.parent.id].inDegree++
+          delete this.nodesMap[n.id]
+          this.nodesMap[globalNode.id] = globalNode
+        }
+      })
+      globalSpaceMap[spaceName] = [globalNode]
+    })
+
+    this.spaceMap = globalSpaceMap
   }
 
   async parseFolder(): Promise<{ [id: string]: Node }> {
@@ -600,21 +719,24 @@ export class Codebase {
     const allFiles = await getAllFiles(this.rootFolderPath)
     for (const filePath of allFiles) {
       // can't be forEach
+      let id = filePath.split('.').slice(0, -1).join('.')
       try {
-        const nodeMap = await this.generateNodesFromFilePath(filePath)
-        this.addNodeMap(nodeMap)
-        const filePathNoExtension = filePath.split('.').slice(0, -1).join('.')
-        const fileNode = nodeMap[filePathNoExtension]
-        fileNodesMap[filePathNoExtension] = fileNode
+        const { nodesMap, isHeader } = await this.generateNodesFromFilePath(filePath)
+        this.addNodeMap(nodesMap)
+        id = isHeader ? `${id}::header` : id
+        const fileNode = nodesMap[id]
+        fileNodesMap[id] = fileNode
         fileNode.resolveImportStatementsPath(this.rootFolderPath, allFiles)
       } catch (error: any) {
-        console.log(`Cannot parse file ${filePath}`)
+        console.log(`Cannot parse file Id ${id}`)
         console.log(error.message)
         throw error
       }
     }
     // python special case
     this.resolvePythonInitImportStatements()
+    this.resolveSpaces()
+    this.resolveImportStatementsNodes()
     return fileNodesMap
   }
 
@@ -625,37 +747,26 @@ export class Codebase {
         if (verbose) console.log(`File ${fileId} has no children`)
         return
       }
+
       const callsCapturer = new CallsCapturer(fileNode, verbose)
-      const importedFiles: { [key: string]: Node } = {}
-
-      // Point import statements to their respective File objects
-      // console.log(`---- ${fileNode.id} ----`)
-      fileNode.importStatements.forEach((i) => {
-        if (Object.keys(fileNodesMap).includes(i.path)) {
-          importedFiles[i.path] = fileNodesMap[i.path]
-        }
-      })
-
-      importedFiles[fileNode.id] = fileNode
-
       const nodes: Node[] = [fileNode, ...fileNode.getAllChildren()]
       nodes.forEach((n: Node) => {
-        const calls = callsCapturer.getCallsFromNode(n)
+        const callNodeIds = callsCapturer.getCallsFromNode(n)
         // const importFromFailed: Set<string> = new Set()
         // console.log( `### ${n.id}`)
+        // console.log(n.code)
         // console.log(calls)
-        calls.forEach((c) => {
+        Object.entries(callNodeIds).forEach(([nodeId, lines]) => {
           // if (importFromFailed.has(c.importFrom)) return
-          const calledNode = getCalledNode(c.name, c.importFrom, importedFiles)
-          if (calledNode) {
-            n.calls.push(calledNode)
-            n.outDegree++
-            calledNode.inDegree++
+          const calledNode = this.nodesMap[nodeId]
+          if (calledNode && !['package', 'mod', 'namespace'].includes(calledNode.type)) {
+            // console.log({calledNode: calledNode.id, type: calledNode.type})
+            n.addCall(calledNode, lines) // first line
             // console.log(`Added call from ${n.id} to ${calledNode.id}`)
           } else {
             if (verbose)
               console.log(
-                `Failed to add call for node ${n.id}: ${c.name} (line ${c.lines}) not found in ${c.importFrom}`
+                `Failed to add call for node ${n.id}: ${nodeId} (line ${lines}) not found`
               )
             // importFromFailed.add(c.importFrom)
           }
@@ -673,11 +784,14 @@ export class Codebase {
     const nodes = Object.values(this.nodesMap)
     for (const n of nodes) {
       if (n.parent) {
-        const label = n.parent.type === 'file' ? `defines` : `from ${n.parent.type}`
-        links.push({ source: n.parent.id, target: n.id, label })
+        // const label = n.parent.type === 'file' ? `defines`: `from ${n.parent.type}`
+        const label = 'defines'
+        links.push({ source: n.parent.id, target: n.id, label, line: n.startPosition.row + 1 })
       }
       if (n.calls.length > 0)
-        n.calls.forEach((c) => links.push({ source: n.id, target: c.id, label: 'calls' }))
+        n.calls.forEach((c) =>
+          links.push({ source: n.id, target: c.node.id, label: 'calls', line: c.lines[0] + 1 })
+        )
     }
     return links
   }
@@ -696,6 +810,69 @@ export class Codebase {
         }
       })
       n.importStatements = newImportStatements
+    })
+  }
+
+  resolveImportStatementsNodes() {
+    const nodes = Object.values(this.nodesMap)
+    nodes.forEach((n) => {
+      if (!['file', 'header'].includes(n.type)) return
+      n.importStatements.forEach((i) => {
+        i.names.forEach((n) => {
+          n.node = this.nodesMap[`${i.path}::${n.name}`] || this.nodesMap[`${i.module}::${n.name}`]
+        })
+        const namesIds = i.names.map((n) => n.node?.id || '')
+        namesIds.forEach((id) => {
+          this.nodesMap[id]
+            ?.getAllChildren(['file', 'class', 'interface', 'mod', 'namespace', 'package'])
+            .forEach((c) => {
+              const newName = new ImportName(c.alias, c.alias)
+              newName.node = c
+              i.names.push(newName)
+            })
+        })
+        if (['c', 'cpp'].includes(n.language)) {
+          const headerNode = this.nodesMap[i.path]
+          if (headerNode) {
+            this.resolveHeaderC(n, headerNode)
+          }
+        }
+        // cases like import *, #define "file", etc.
+        if (i.names.length === 0) {
+          this.nodesMap[i.path]
+            ?.getAllChildren(['file', 'class', 'interface', 'mod', 'namespace', 'header'])
+            .forEach((c) => {
+              const newName = new ImportName(c.alias, c.alias)
+              newName.node = c
+              i.names.push(newName)
+            })
+          this.nodesMap[i.module]
+            ?.getAllChildren(['file', 'class', 'interface', 'mod', 'namespace', 'header'])
+            .forEach((c) => {
+              const newName = new ImportName(c.alias, c.alias)
+              newName.node = c
+              i.names.push(newName)
+            })
+        }
+      })
+    })
+  }
+
+  resolveHeaderC(fileNode: Node, headerNode: Node) {
+    if (headerNode.type !== 'header' || !['c', 'cpp'].includes(headerNode.language)) return
+    const childIds = headerNode.getAllChildren().map((c) => c.id)
+    childIds.forEach((id) => {
+      const nodeRef = fileNode.getAllChildren().find((c) => c.id === id.replace('::header', ''))
+      // nodeRef is the headerNode.children[id] but already defined
+      if (nodeRef) {
+        // remove that node
+        delete this.nodesMap[id]
+        headerNode.removeChild(headerNode.children[id])
+        // headerNode.addChild(nodeRef)
+        // add it to headerNode without changing the parent
+        headerNode.children[nodeRef.id] = nodeRef
+        headerNode.inDegree++
+      }
     })
   }
 }

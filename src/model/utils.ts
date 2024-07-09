@@ -4,8 +4,7 @@ import { glob } from 'glob'
 import fs from 'node:fs/promises'
 import path from 'path'
 import Parser from 'tree-sitter'
-import { Node } from './codebase'
-import { parse } from 'node:path'
+import { Node, ImportStatement } from './codebase'
 
 /**
  * Get a list of all files in a given folder, including only files with the given extensions
@@ -19,20 +18,16 @@ export async function getAllFiles(rootFolderPath: string): Promise<string[]> {
     .map((ext) => `\\.${ext}$`)
     .join('|')
   const regex = new RegExp(extensionsPattern)
-
   const excludedExtensionPattern = new RegExp(
     excludedExtensions.map((ext) => `\\.${ext}$`).join('|')
   )
-
   const excludedFolderPattern = new RegExp(excludedFolders.map((f) => `${f}/`).join('|'))
-
   const files = await glob(`**/*`, {
     cwd: rootFolderPath,
     absolute: true
   })
   // no sync
   const validFiles = await Promise.all(files.map(async (file) => (await fs.lstat(file)).isFile()))
-
   const matchingFiles = files.filter(
     (file, i) =>
       regex.test(file) &&
@@ -43,6 +38,24 @@ export async function getAllFiles(rootFolderPath: string): Promise<string[]> {
   )
   matchingFiles.sort() // sorted
   return matchingFiles
+}
+
+/**
+ * Get the total size of all files returned by getAllFiles
+ *
+ * @param rootFolderPath - The root folder to search in
+ * @returns - The total size in bytes of the matching files
+ */
+export async function getTotalSize(rootFolderPath: string): Promise<number> {
+  const matchingFiles = await getAllFiles(rootFolderPath)
+  const sizes = await Promise.all(
+    matchingFiles.map(async (file) => {
+      const { size } = await fs.stat(file)
+      return size
+    })
+  )
+  const totalSize = sizes.reduce((acc, size) => acc + size, 0)
+  return totalSize
 }
 
 /**
@@ -81,7 +94,10 @@ export function getRequiredDefinitions(language: string): {
       parser.setLanguage(languages.C)
       queries = languageQueries.C
       break
-
+    case 'php':
+      parser.setLanguage(languages.PHP)
+      queries = languageQueries.PHP
+      break
     default:
       throw new Error(`Language ${language} not supported.`)
   }
@@ -111,6 +127,9 @@ export function captureQuery(
   let uniqueCaptures = []
   try {
     const query = new Parser.Query(parser.getLanguage(), treeSitterQuery)
+    if (language === 'php' && !code.includes('<?php')) {
+      code = `<?php\n${code}`
+    }
     const tree = parser.parse(code, undefined, { bufferSize: 512 * 1024 })
     const captures = query.captures(tree.rootNode)
     const uniqueMap = new Map()
@@ -183,6 +202,9 @@ export function renameSource(filePath: string, sourceName: string, language: str
     (['c', 'cpp', 'csharp'].includes(language) && !newSourceName.startsWith('<'))
   ) {
     newSourceName = path.join(fileDirectory, newSourceName)
+    if (['c', 'cpp'].includes(language) && sourceNameExtension == 'h') {
+      newSourceName += '::header'
+    }
   } else if (language == 'python') {
     const dotCount = firstConsecutiveDots(newSourceName)
     newSourceName = newSourceName.replace(/\./g, '/')
@@ -219,9 +241,9 @@ export const cleanAndSplitContent = (content: string): string[] => {
 export function getCalledNode(
   callName: string,
   importFrom: string,
-  importedFileNodes: { [key: string]: Node }
-): Node | undefined {
-  const importedFile = importedFileNodes[importFrom]
+  importedFileNodes: Record<string, { fileNode: Node; importStatement: ImportStatement }>
+) {
+  const importedFile = importedFileNodes[importFrom].fileNode
   const calledNode = importedFile?.getChild(`${importedFile.id}::${callName}`)
   return calledNode
 }

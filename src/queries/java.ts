@@ -52,17 +52,18 @@ const constructorDefinitions = `
 (class_declaration) @class
 `
 
-////////////////////
-// EXPORTS_CLAUSES //
-////////////////////
-// No export clauses
-const exportClauses = ``
+////////
+// Space Declaration: package
+const spaceDeclaration = `
+(package_declaration (_) @spaceName)
+`
+
 
 // ASSIGNMENT SPECIAL CASE
-// TODO
+// No assignments
 const extraAssignmentCode = (name: string) => `` 
 
-// TODO
+
 const calls = `
 (method_invocation) @identifier.name
 (type_identifier) @parameter_type
@@ -73,7 +74,6 @@ const calls = `
 // Assignments are necessary to get the correct calls. For example:
 // > my_class = MyClass()
 // > my_class.my_method()
-// TODO
 const anyAssignments = `
 (variable_declarator
 	name: (identifier) @left
@@ -88,8 +88,9 @@ export const javaQueries: treeSitterQueries = {
     importStatements,
     constructorDefinitions: assignments + constructorDefinitions,
     definitionTemplate,
-    exportClauses,
+    exportClauses: '',
     extraAssignmentCode,
     calls,
-    assignments: anyAssignments
+    assignments: anyAssignments,
+    spaceDeclaration
 }

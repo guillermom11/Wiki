@@ -10,6 +10,6 @@ RUN pnpm  install
 
 COPY . .
 
-EXPOSE 8001
+EXPOSE 80
 
 CMD ["node", "--import=tsx", "./src/index.ts"]

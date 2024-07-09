@@ -5,8 +5,11 @@ import path from 'node:path'
 import { sql } from './db'
 import { refreshAccessToken as refreshAccessTokenGitlab } from './gitlab/refresh-token'
 import { refreshAccessToken as refreshAccessTokenBitbucket } from './bitbucket/refresh-token'
+import { getTotalSize } from '../model/utils'
 
 export type GitServiceType = 'github' | 'gitlab' | 'bitbucket'
+
+const MAXSIZE = 2 // MB
 
 export async function downloadAndExtractRepo(
   gitService: GitServiceType,
@@ -51,7 +54,7 @@ export async function downloadAndExtractRepo(
     const tmpFolderPath = `${process.cwd()}/tmp`
     await fs.mkdir(tmpFolderPath, { recursive: true })
 
-    const extractPath = path.join(tmpFolderPath, `${commitSha}_${repoOrg}_${repoName}_${branch}`)
+    const extractPath = path.join(tmpFolderPath, `${commitSha}_${repoOrg}_${repoName}_${branch}_${Date.now()}`)
 
     // Save zip
     const zipPath = `${extractPath}.zip`
@@ -72,7 +75,15 @@ export async function downloadAndExtractRepo(
 
     // Delete zip
     await fs.unlink(zipPath)
-    return path.join(extractPath, mainFolderPath ?? '')
+
+    const finalPath = path.join(extractPath, mainFolderPath ?? '')
+    const totalSize = await getTotalSize(finalPath) / 1024 / 1024
+    console.log(`${totalSize} MB`)
+    if (totalSize >= MAXSIZE) {
+      await fs.rm(extractPath, { recursive: true, force: true })
+      throw new Error(`Repository size is too large: ${totalSize.toFixed(2)} MB. Max size is ${MAXSIZE} MB.`)
+   }
+    return finalPath
   } catch (error) {
     console.log(error)
     throw error

@@ -80,7 +80,6 @@ createGraph.post('/', repoRequestValidator, async (c) => {
     connectionId,
     gitlabRepoId
   )
-
   if (!commitHash) {
     console.log('Failed to get commit')
     return c.json({ message: 'Failed to get commit' }, 500)
@@ -149,55 +148,59 @@ createGraph.post('/', repoRequestValidator, async (c) => {
     graphExists = true
   }
 
-  // Perform background task
-  processGraphCreation({
-    gitProvider,
-    repoId,
-    repoOrg,
-    repoName,
-    branch,
-    accessToken,
-    commitHash,
-    userOrgId,
-    userId,
-    graphExists,
-    connectionId,
-    gitlabRepoId
-  })
+  try {
+    const codebasePath = await downloadAndExtractRepo(
+      gitProvider,
+      repoOrg,
+      repoName,
+      branch,
+      accessToken,
+      commitHash,
+      gitlabRepoId
+    )
+    // Perform background task
+    processGraphCreation({
+      gitProvider,
+      repoId,
+      userOrgId,
+      userId,
+      graphExists,
+      connectionId,
+      codebasePath
+    })
 
-  return c.json({ message: 'Graph creation started' })
+    return c.json({ message: 'Graph creation started' })
+  } catch (error: any) {
+    return c.json({ message: error.message }, 500)
+  }
 })
 
 async function processGraphCreation({
   gitProvider,
   repoId,
-  repoOrg,
-  repoName,
-  branch,
-  accessToken,
-  commitHash,
   userOrgId,
   userId,
   graphExists,
   connectionId,
-  gitlabRepoId
+  codebasePath
 }: {
   gitProvider: GitServiceType
   repoId: string
-  repoOrg: string
-  repoName: string
-  branch: string
-  accessToken: string
-  commitHash: string
   userOrgId: string
   userId: string
   graphExists: boolean
   connectionId: string
-  gitlabRepoId?: number
+  codebasePath: string
 }) {
   let graphId = uuidv4()
   try {
     const status = graphExists ? 'completed' : 'pending'
+
+    // graph does not exist
+    if (!codebasePath) {
+      console.log('Failed to download repo')
+      return
+    }
 
     const graph: Record<string, string | number> = {
       id: graphId,
@@ -218,31 +221,13 @@ async function processGraphCreation({
       return
     }
 
-    // graph does not exist
-    const codebasePath = await downloadAndExtractRepo(
-      gitProvider,
-      repoOrg,
-      repoName,
-      branch,
-      accessToken,
-      commitHash,
-      gitlabRepoId
-    )
-    if (!codebasePath) {
-      console.log('Failed to download repo')
-      await sql`UPDATE graphs SET status = 'failed' WHERE id = ${graphId}`
-      return
-    }
-
     const codebase = new Codebase(codebasePath)
     const fileNodesMap = await codebase.parseFolder()
     codebase.getCalls(fileNodesMap, false)
-
     const nodes = codebase.simplify()
 
     // create a uuid for each node
     const nodeDBIds: { [key: string]: string } = {}
-
     for (const node of nodes) {
       nodeDBIds[node.id] = uuidv4()
     }
@@ -251,41 +236,23 @@ async function processGraphCreation({
     const insertNodePromises = nodes.map((node) => {
       const fullName = node.id.replace(codebasePath, '')
       return sql`
-        INSERT INTO nodes (
-          id,
-          repo_id,
-          type,
-          language,
-          total_tokens,
-          documentation,
-          code,
-          code_no_body,
-          in_degree,
-          out_degree,
-          full_name,
-          label
-        ) VALUES (
-          ${nodeDBIds[node.id]},
-          ${repoId},
-          ${node.type},
-          ${node.language},
-          ${node.totalTokens},
-          ${node.documentation},
-          ${node.code},
-          ${node.codeNoBody},
-          ${node.inDegree},
-          ${node.outDegree},
-          ${fullName}, ${node.label}
-        )
-      `
+    INSERT INTO nodes (id, repo_id, type, language, total_tokens, documentation, code, code_no_body, in_degree, out_degree, full_name, label)
+    VALUES (${nodeDBIds[node.id]}, ${repoId}, ${node.type}, ${node.language}, ${
+        node.totalTokens
+      }, ${node.documentation}, ${node.code}, ${node.codeNoBody}, ${node.inDegree}, ${
+        node.outDegree
+      }, ${fullName}, ${node.label})
+    `
     })
 
     const links = codebase.getLinks()
     // Insert links into the database
     const insertLinkPromises = links.map((link) => {
       return sql`
-    INSERT INTO links (node_source_id, node_target_id, repo_id, label)
-    VALUES (${nodeDBIds[link.source]}, ${nodeDBIds[link.target]}, ${repoId}, ${link.label})
+    INSERT INTO links (node_source_id, node_target_id, repo_id, label, line)
+    VALUES (${nodeDBIds[link.source]}, ${nodeDBIds[link.target]}, ${repoId}, ${link.label}, ${
+        link.line
+      })
     `
     })
 

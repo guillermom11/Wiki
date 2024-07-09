@@ -12,26 +12,15 @@ const app = new Hono()
 app.use('*', prettyJSON())
 app.use('/v1/*', cors())
 
-// app.get('/', async (c) => {
-//   console.time('codebase')
-//   const codebasePath = path.join(__dirname, '../../api-vicuna-deno')
-//   const codebase = new Codebase(codebasePath) //
-//   const fileNodesMap = await codebase.parseFolder()
-//   codebase.getCalls(fileNodesMap, true)
-//   console.timeEnd('codebase')
-//   const codebaseSimplified = codebase.simplify() //.filter(c => ['file'].includes(c.type))
-
-//   // console.log(codebaseSimplified)
-//   return c.text(JSON.stringify(codebaseSimplified, null, 2))
-
-//   // return c.text(JSON.stringify(codebase.getLinks(), null, 2))
-// })
+app.get('/', async (c) => {
+  return c.json({ message: 'Hello, World!' }, {status: 200})
+})
 
 app.route('/v1/repo', createGraph)
 app.route('/v1/graphs', graphs)
 app.route('v1/repo-test', createGraphTest)
 
-const port = 8001
+const port = Number(process.env.PORT ?? 8001) 
 console.log(`Server is running on port ${port}`)
 
 serve({

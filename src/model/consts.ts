@@ -6,7 +6,12 @@ const TypeScript = require('tree-sitter-typescript').typescript
 const TSX = require('tree-sitter-typescript').tsx
 const Java = require('tree-sitter-java')
 const C = require('tree-sitter-c')
+const PHP = require('tree-sitter-php').php
 
+// namespace, mod and header are equivalent:
+// - a namespace define a scope that contains a set of declarations
+// - a mod defined a module, which contains a set of declarations
+// - a header is a file that contains a set of declarations
 export type AllowedTypes =
   | 'function'
   | 'class'
@@ -14,13 +19,15 @@ export type AllowedTypes =
   | 'method'
   | 'enum'
   | 'struct'
-  | 'namespace'
-  | 'mod'
   | 'export'
   | 'type'
   | 'assignment'
   | 'file'
   | 'union'
+  | 'namespace'
+  | 'mod'
+  | 'header'
+  | 'package'
 
 export const AllowedTypesArray: AllowedTypes[] = [
   'function',
@@ -29,13 +36,15 @@ export const AllowedTypesArray: AllowedTypes[] = [
   'method',
   'enum',
   'struct',
-  'namespace',
-  'mod',
   'export',
   'type',
   'assignment',
   'file',
-  'union'
+  'union',
+  'namespace',
+  'mod',
+  'header',
+  'package'
 ]
 
 export const excludedFolders = [
@@ -57,8 +66,7 @@ export const excludedExtensions = [
   'min.css.map',
   'min.js.map',
   'd.ts',
-  '.config.js',
-  '.h'
+  '.config.js'
 ]
 
 export const languages = {
@@ -67,20 +75,22 @@ export const languages = {
   TypeScript,
   TSX,
   Java,
-  C
+  C,
+  PHP
 }
 
 export const languageExtensionMap: Record<string, string> = {
   py: 'python',
   c: 'c',
-  h: 'c', // may be we don't require the header file
+  h: 'c',
   // 'ipynb': 'python',
   js: 'typescript',
   mjs: 'typescript',
   jsx: 'typescript',
   ts: 'typescript',
   tsx: 'tsx',
-  java: 'java'
+  java: 'java',
+  php: 'php'
 }
 
 export const newClassMethodsMap: Record<string, string> = {
@@ -89,7 +99,8 @@ export const newClassMethodsMap: Record<string, string> = {
   typescript: 'constructor',
   tsx: 'constructor',
   java: '', // java constructor has the same name as the class
-  rust: 'new'
+  rust: 'new',
+  php: '__construct'
 }
 
 export const itselfClassMap: Record<string, string> = {
@@ -97,7 +108,9 @@ export const itselfClassMap: Record<string, string> = {
   javascript: 'this',
   typescript: 'this',
   tsx: 'this',
-  java: 'this'
+  java: 'this',
+  rust: 'self',
+  php: '$this'
 }
 
 export const indexSuffixesMap: Record<string, string> = {
@@ -105,7 +118,9 @@ export const indexSuffixesMap: Record<string, string> = {
   javascript: '/index',
   typescript: '/index',
   tsx: '/index',
-  java: '' // java has no index
+  java: '', // java has no index
+  rust: '', // rust has no index
+  php: '' // php has no index
 }
 
 export const treeSitterCommentTypes = ['comment', 'line_comment', 'block_comment']

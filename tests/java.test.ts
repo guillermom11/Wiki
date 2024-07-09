@@ -5,20 +5,24 @@ const nodeAttributes = ['id', 'type', 'name', 'label', 'language', 'exportable',
 
 test('Import Statements', () => {
     const fileContent = `
-import myModule.myFunction;
+import myModule.myClass1;
 import myModule2.myClass2;
 import myModule3.*;
-import initFile.myFunction;
+import initFile.myClass;
 `;
     const fileNode = new Node(`${rootFolderPath}/file`, fileContent, 'file', 'java');
     fileNode.generateImports();
     fileNode.resolveImportStatementsPath(rootFolderPath, [`${rootFolderPath}/myModule.java`, `${rootFolderPath}/myModule2.java`, `${rootFolderPath}/myModule3.java`, `${rootFolderPath}/initFile.java`]);
 
     const expectedImports: ImportStatement[] = [
-        new ImportStatement('myModule', [new ImportName('myFunction')], `${rootFolderPath}/myModule`),
-        new ImportStatement('myModule2', [new ImportName('myClass2')], `${rootFolderPath}/myModule2`),
-        new ImportStatement('myModule3', [], `${rootFolderPath}/myModule3`, 'myModule3'),
-        new ImportStatement('initFile', [new ImportName('myFunction')], `${rootFolderPath}/initFile`),
+        new ImportStatement('myModule', [new ImportName('myClass1')], `${rootFolderPath}/myModule`, undefined,
+                `import myModule.myClass1;`),
+        new ImportStatement('myModule2', [new ImportName('myClass2')], `${rootFolderPath}/myModule2`, undefined,
+                `import myModule2.myClass2;`),
+        new ImportStatement('myModule3', [], `${rootFolderPath}/myModule3`, 'myModule3',
+            `import myModule3.*;`),
+        new ImportStatement('initFile', [new ImportName('myClass')], `${rootFolderPath}/initFile`, undefined,
+    		`import initFile.myClass;`),
     ];
     expect(fileNode.importStatements).toStrictEqual(expectedImports);
 });
@@ -33,6 +37,8 @@ import initFile.myFunction;
 // En java el constructor se llama igual que la clase
 test('Class definition', () => {
     const fileContent = `
+package file;
+
 /**
  * The FooClass documentation
  */
@@ -50,10 +56,45 @@ public class FooClass {
 `;
     const fileNode = new Node(`${rootFolderPath}/file`, fileContent, 'file', 'java');
     fileNode.getChildrenDefinitions()
-    const classNodeChildren = Object.values(fileNode.children)[0].children;
+    const packageChildren = Object.values(fileNode.children)[0];
     const fileNodeChildrenSimplified = Object.values(fileNode.children).map(n => n.simplify([...nodeAttributes, 'children']));
-    const classNodeMethodsSimplified = Object.values(classNodeChildren).map(n => n.simplify(nodeAttributes));
+    const classNodeChildren: Node = Object.values(packageChildren.children)[0];
+    const classChildrenSimplified = classNodeChildren.simplify([...nodeAttributes, 'children'])
+    const classNodeMethodsSimplified = Object.values(classNodeChildren.children).map(n => n.simplify(nodeAttributes));
+    
     const expectedFileChildren = [
+        {
+            id: `${fileNode.id}::file`,
+            type: 'package',
+            name: 'file',
+            label: 'file',
+            language: 'java',
+            exportable: true,
+            documentation: "",
+            code: `package file;
+
+/**
+ * The FooClass documentation
+ */
+public class FooClass {
+    private int foo = 1;
+
+    public FooClass() {
+        this.foo = 1;
+    }
+
+    public int bar() {
+        return 1;
+    }
+}`,
+            parent: fileNode.id,
+            inDegree: 1,
+            outDegree: 1,
+            children: [`${fileNode.id}::FooClass`],
+        },
+    ];
+
+    const expectedClass = 
         {
             id: `${fileNode.id}::FooClass`,
             type: 'class',
@@ -63,12 +104,11 @@ public class FooClass {
             exportable: true,
             documentation: "/**\n * The FooClass documentation\n */",
             code: "public class FooClass {\n    private int foo = 1;\n\n    public FooClass() {\n        this.foo = 1;\n    }\n\n    public int bar() {\n        return 1;\n    }\n}",
-            parent: fileNode.id,
+            parent: `${fileNode.id}::file`,
             inDegree: 2,
             outDegree: 1,
-            children: [`${fileNode.id}::FooClass.bar`, `${fileNode.id}::FooClass.FooClass`]
-        },
-    ];
+            children: [`${fileNode.id}::FooClass.bar`, `${fileNode.id}::FooClass.FooClass`],
+        };
 
     const expectedMethods = [
         {
@@ -101,6 +141,7 @@ public class FooClass {
     ];
     expect(fileNodeChildrenSimplified).toStrictEqual(expectedFileChildren);
     expect(fileNode.inDegree).toBe(1);
+    expect(classChildrenSimplified).toStrictEqual(expectedClass);
     expect(classNodeMethodsSimplified).toStrictEqual(expectedMethods);
 });
 
@@ -129,7 +170,7 @@ public class FooClass {
     const fooClass = fileNode.children[`${rootFolderPath}/file::FooClass`];
     const barMethod = fooClass.children[`${rootFolderPath}/file::FooClass.bar`];
     expect(fooClass.getCodeWithoutBody()).toBe("public class FooClass {\n    private int foo = 1;\n\n    public FooClass() {\n        this.foo = 1;\n    }\n\n    public int bar() {\n        //...\n    }\n}");
-    expect(barMethod.getCodeWithoutBody()).toBe("public class FooClass\n    ...\n    public int bar(){\n        //...\n    }");
+    expect(barMethod.getCodeWithoutBody()).toBe("public class FooClass\n    ...\n    public int bar() {\n    //...\n    }");
 });
 
 test('Calls', () => {
@@ -166,11 +207,12 @@ public class Test {
     const fileNode2 = new Node(`${rootFolderPath}/file2`, fileContent2, 'file', 'java');
     const allFiles = [`${rootFolderPath}/file1.java`, `${rootFolderPath}/file2.java`];
 
-
     fileNode1.generateImports()
     fileNode2.generateImports()
-    fileNode1.resolveImportStatementsPath(rootFolderPath, allFiles)
-    fileNode2.resolveImportStatementsPath(rootFolderPath, allFiles)
+
+    fileNode1.name = `${rootFolderPath}/file1.java`
+    fileNode2.name = `${rootFolderPath}/file2.java`
+
     const nodesMap1 = fileNode1.getChildrenDefinitions();
     const nodesMap2 = fileNode2.getChildrenDefinitions();
 
@@ -178,14 +220,25 @@ public class Test {
     fileNodesMap[fileNode1.id] = fileNode1;
     fileNodesMap[fileNode2.id] = fileNode2;
 
+    nodesMap1[fileNode1.id] = fileNode1
+    nodesMap2[fileNode2.id] = fileNode2
+    
     const nodesMap = { ...nodesMap1, ...nodesMap2 };
     const codebase = new Codebase(rootFolderPath);
     codebase.nodesMap = nodesMap;
+
+    Object.values(nodesMap).forEach(n => {
+        // save space nodes
+        if (['namespace', 'package', 'mod'].includes(n.type)) codebase.addNodeToSpaceMap(n)
+    })
+
+    codebase.resolveSpaces()
+    codebase.resolveImportStatementsNodes();
     codebase.getCalls(fileNodesMap);
 
-    const method2Calls = codebase.getNode(`${rootFolderPath}/file1::Foo.method2`)?.simplify(['calls']);
+    const method2Calls = codebase.getNode(`file1::Foo.method2`)?.simplify(['calls']);
     const mainCalls = codebase.getNode(`${rootFolderPath}/file2::Test.main`)?.simplify(['calls']);
 
-    expect(method2Calls?.calls).toStrictEqual([`${rootFolderPath}/file1::Foo.method`, `${rootFolderPath}/file1::Foo`]);
-    expect(mainCalls?.calls).toStrictEqual([`${rootFolderPath}/file1::Foo`, `${rootFolderPath}/file1::Foo.method`]);
+    expect(method2Calls?.calls).toStrictEqual([`file1::Foo.method`, `file1::Foo`]);
+    expect(mainCalls?.calls).toStrictEqual([`file1::Foo`, `file1::Foo.method`]);
 });

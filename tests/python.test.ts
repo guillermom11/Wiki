@@ -15,12 +15,16 @@ from initFile import myFunction
     fileNode.resolveImportStatementsPath(rootFolderPath, [`${rootFolderPath}/file.py`, `${rootFolderPath}/myModule3.py`, `${rootFolderPath}/initFile/__init__.py`])
 
     const expectedImports: ImportStatement[] = [
-        new ImportStatement('.myModule', [new ImportName('myFunction')], `/my/path/myModule`),
-        new ImportStatement('..myModule2', [new ImportName('myClass3'), new ImportName('myClass2', 'myClass2Alias')], '/my/myModule2'),
+        new ImportStatement('.myModule', [new ImportName('myFunction')], `/my/path/myModule`,
+        undefined, `from .myModule import myFunction`),
+        new ImportStatement('..myModule2', [new ImportName('myClass3'), new ImportName('myClass2', 'myClass2Alias')], '/my/myModule2',
+        undefined, `from ..myModule2 import myClass2 as myClass2Alias, myClass3`),
         // myModule3 exists in the same folder
-        new ImportStatement('myModule3', [], '/my/path/myModule3', 'myModule3Alias'),
+        new ImportStatement('myModule3', [], '/my/path/myModule3', 'myModule3Alias',
+            `import myModule3 as myModule3Alias`),
         // initFile is a folder, but contains __init__.py
-        new ImportStatement('initFile', [new ImportName('myFunction')], '/my/path/initFile/__init__', 'initFile'),
+        new ImportStatement('initFile', [new ImportName('myFunction')], '/my/path/initFile/__init__', 'initFile',
+            `from initFile import myFunction`),
     ]
     expect(fileNode.importStatements).toStrictEqual(expectedImports)
 })
@@ -221,7 +225,7 @@ def foo():
     const fooFunction = fileNode.children[`${rootFolderPath}/file::foo`]
 
     expect(fooClass.getCodeWithoutBody()).toBe("class Foo:\n    foo: int = 1\n\n    def __init__(self):\n        self.foo=1\n\n    def bar(self):\n        \n        ...")
-    expect(barMethod.getCodeWithoutBody()).toBe("class Foo:\n    ...\n    def bar(self):\n        ...")
+    expect(barMethod.getCodeWithoutBody()).toBe("class Foo:\n    ...\n    def bar(self):\n            ...")
     // functions with children remain unchanged?
     expect(fooFunction.getCodeWithoutBody()).toBe("def foo():\n    def baz():\n        '''The baz documentation'''\n        return 1\n    return baz()")
 })
@@ -266,7 +270,10 @@ def foo(param: Foo):
     const nodesMap = {...nodesMap1, ...nodesMap2}
     const codebase = new Codebase(rootFolderPath)
     codebase.nodesMap = nodesMap
+
+    codebase.resolveImportStatementsNodes()
     codebase.getCalls(fileNodesMap)
+    
     const method2Calls = codebase.getNode(`${rootFolderPath}/file1::Foo.method2`)?.simplify(['calls'])
     const file2Calls = codebase.getNode(`${rootFolderPath}/file2`)?.simplify(['calls'])
     const fooVarCalls = codebase.getNode(`${rootFolderPath}/file2::foo_var`)?.simplify(['calls']) 
