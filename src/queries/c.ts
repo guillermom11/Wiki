@@ -72,14 +72,7 @@ const constructorDefinitions = `
 (union_specifier) @union
 `
 
-////////////////////
-// EXPORTS_CLAUSES //
-////////////////////
-// No export clauses
-const exportClauses = ``
-
 // ASSIGNMENT SPECIAL CASE
-// TODO
 const extraAssignmentCode = (name: string) => `
 ( translation_unit
     (expression_statement
@@ -93,7 +86,6 @@ const extraAssignmentCode = (name: string) => `
 )
     ` 
 
-// TODO
 const calls = `
 (call_expression function: _ @identifier.name)
 ( _ arguments: (argument_list (identifier) @identifier.name) )
@@ -103,7 +95,6 @@ const calls = `
 // Assignments are necessary to get the correct calls. For example:
 // > my_class = MyClass()
 // > my_class.my_method()
-// TODO
 const anyAssignments = `
 (declaration
     declarator: (
@@ -121,8 +112,9 @@ export const cQueries: treeSitterQueries = {
     importStatements,
     constructorDefinitions: assignments + constructorDefinitions,
     definitionTemplate,
-    exportClauses,
+    exportClauses: '',
     extraAssignmentCode,
     calls,
-    assignments: anyAssignments
+    assignments: anyAssignments,
+    spaceDeclaration: ''
 }

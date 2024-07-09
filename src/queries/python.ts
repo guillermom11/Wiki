@@ -154,6 +154,9 @@ const calls = `
 
 ; any object name
 ( _ object: _ @identifier.name)
+
+; format string
+(interpolation expression: _  @identifier.name)
 `
 
 /////////////
@@ -184,5 +187,6 @@ export const pyQueries: treeSitterQueries = {
   extraAssignmentCode,
   exportClauses: '',
   calls,
-  assignments: anyAssignments 
-   }
+  assignments: anyAssignments,
+  spaceDeclaration: ''
+}

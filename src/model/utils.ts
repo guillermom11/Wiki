@@ -105,7 +105,10 @@ export function getRequiredDefinitions(language: string): {
       parser.setLanguage(languages.C);
       queries = languageQueries.C;
       break;
-
+    case "php":
+      parser.setLanguage(languages.PHP);
+      queries = languageQueries.PHP;
+      break;
     default:
       throw new Error(`Language ${language} not supported.`);
   }
@@ -135,6 +138,9 @@ export function captureQuery(
   let uniqueCaptures = [];
   try {
     const query = new Parser.Query(parser.getLanguage(), treeSitterQuery);
+    if (language === "php" && !code.includes("<?php")) {
+      code = `<?php\n${code}`;
+    }
     const tree = parser.parse(code, undefined, { bufferSize: 512 * 1024 });
     const captures = query.captures(tree.rootNode);
     const uniqueMap = new Map();

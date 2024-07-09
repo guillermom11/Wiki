@@ -19,15 +19,6 @@ class CallIdentifier {
     }
 }
 
-class Call {
-    nodeId: string
-    lines: number[]
-
-    constructor(nodeId: string, lines: number[] = []) {
-        this.nodeId = nodeId
-        this.lines = lines
-    }
-}
 export class CallsCapturer {
     fileNode: Node
     verbose: boolean = true
@@ -36,7 +27,10 @@ export class CallsCapturer {
     constructor(fileNode: Node, verbose: boolean = false) {
         this.fileNode = fileNode
         this.verbose = verbose
-        fileNode.getAllChildren().forEach( c => this.nodesMap[c.alias] = c )
+        fileNode.getAllChildren().forEach( c => {
+            if (['namespace', 'package', 'mod'].includes(c.type)) return
+            this.nodesMap[c.alias] = c 
+        })
         fileNode.importStatements.forEach( i => {
             i.names.forEach(n => {
                 if (n.node) {
@@ -45,7 +39,8 @@ export class CallsCapturer {
             })
         })
         // console.log(`/////${fileNode.id}`)
-        // Object.keys(this.nodesMap).forEach(k => console.log(k))
+        // console.log({keys: Object.keys(this.nodesMap)})
+        // Object.keys(this.nodesMap).forEach(k => console.log(k, this.nodesMap[k].id))
     }
 
     captureAssignments(code: string, language: string): VariableAssignment[] {
@@ -74,7 +69,7 @@ export class CallsCapturer {
                     // Remove parentheses and their contents
                     content = content.replace(/\(.*?\)/gs, '');
                     // Replace newlines and double spaces
-                    
+        
                     content = content.replace(/\n/g, '').replace(/  /g, '').trim();
                     // Check for any quotation marks, brackets, or braces
                     if (["\"", "'", "[", "]", "{", "}"].some(char => content.includes(char))) {
@@ -110,8 +105,11 @@ export class CallsCapturer {
             // console.log(c.name, content)
             if (["identifier.name", "parameter_type", "return_type"].includes(c.name)) {
                 for ( const c of cleanAndSplitContent(content)) {
-                    let callName = c.replace(/\?/g, '')
+                    // Remove "?" for js
+                    // Remove "$" and change "->" to "." for php
+                    let callName = c.replace(/\?/g, '').replace(/\$/g, '').replace(/\-\>/g, '.')
                     const calledNode = this.nodesMap[callName]
+                    // console.log({nodeRef: nodeRef.id, callName, id: calledNode?.id ?? ''})
                     if (calledNode) {
                         results.push(new CallIdentifier(calledNode.id, startLine))
                     }
@@ -132,13 +130,30 @@ export class CallsCapturer {
         return results
     }
 
-    getCallsFromNode(fileId: string, node: Node) : {[key: string]: number[]} {
+    getCallsFromNode(node: Node) : {[key: string]: number[]} {
         // console.log(`///${node.name}///`)
-        let code  = Object.keys(node.children).length > 0 ? node.getCodeWithoutBody() : node.code
+        let code  = Object.keys(node.children).length > 0 ? node.getCodeWithoutBody(true) : node.code
         const nameAliasReplacements: { [key: string]: string }  = {}
         Object.values(this.fileNode.importStatements).forEach(i  =>  {
-            if (i.names.length === 0) nameAliasReplacements[i.moduleAlias] = i.module
-            for (const importName of i.names) nameAliasReplacements[importName.alias] = `${importName.name}`
+
+            if (i.names.length === 0) {
+                let moduleAlias = i.moduleAlias
+                let module = i.module
+                if (['php'].includes(node.language)) {
+                    moduleAlias = moduleAlias.replace(/\./g, '->')
+                    module = module.replace(/\./g, '->')
+                }
+                nameAliasReplacements[moduleAlias] = module
+            }
+            for (const importName of i.names) {
+                let nameAlias = importName.alias
+                let name = importName.name
+                if (['php'].includes(node.language)) {
+                    nameAlias = nameAlias.replace(/\./g, '->')
+                    name = name.replace(/\./g, '->')
+                }
+                nameAliasReplacements[nameAlias] = name
+            }
         })
         // Replace itself calls by the parent if its a method
         if (node.type === 'method') {
@@ -151,8 +166,8 @@ export class CallsCapturer {
 
         // 1. Replace import names with aliases
         Object.entries(nameAliasReplacements).forEach(([k, v]) => {
-            const leftPattern = new RegExp(`\\b${k.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}\\b`, 'g');
-            code = code.replace(leftPattern, v);
+            const leftPattern = new RegExp(`(^|\\W)${k.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}\\b`, 'g');
+            code = code.replace(leftPattern, (match, p1) => p1 + v);
         });
 
         // 2. Get Assignments
@@ -164,11 +179,11 @@ export class CallsCapturer {
         varReplacements.forEach(v  =>  {
             const startLine = v.startLine
             const endLine  = v.endLine
-            const leftPattern = new RegExp(`(?<!\\.)\\b${v.left.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}\\b`, 'g');
+            const leftPattern = new RegExp(`(^|\\W)${v.left.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}\\b`, 'g');
             let i = 0
             try {
                 for (i = startLine; i < Math.min(endLine + 1, lenCodeLines); i++) {
-                    codeLines[i] = codeLines[i].replace(leftPattern, v.right)
+                    codeLines[i] = codeLines[i].replace(leftPattern, (match, p1) => p1 + v.right);
                 }
             } catch (error: any) {
                 if (this.verbose) {
@@ -181,7 +196,6 @@ export class CallsCapturer {
         const capturedCalls = this.captureCalls(code, node)
         const results: {[key: string]: number[]} = {}
         capturedCalls.forEach(c  =>  {
-
             if (!Object.keys(results).includes(c.nodeId)) {
                 results[c.nodeId] = []
             } 
