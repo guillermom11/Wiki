@@ -54,7 +54,7 @@ export async function downloadAndExtractRepo(
     const tmpFolderPath = `${process.cwd()}/tmp`
     await fs.mkdir(tmpFolderPath, { recursive: true })
 
-    const extractPath = path.join(tmpFolderPath, `${commitSha}_${repoOrg}_${repoName}_${branch}`)
+    const extractPath = path.join(tmpFolderPath, `${commitSha}_${repoOrg}_${repoName}_${branch}_${Date.now()}`)
 
     // Save zip
     const zipPath = `${extractPath}.zip`
