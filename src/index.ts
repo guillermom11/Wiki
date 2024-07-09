@@ -20,7 +20,7 @@ app.route('/v1/repo', createGraph)
 app.route('/v1/graphs', graphs)
 app.route('v1/repo-test', createGraphTest)
 
-const port = 80
+const port = Number(process.env.PORT ?? 8001) 
 console.log(`Server is running on port ${port}`)
 
 serve({
