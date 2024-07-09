@@ -24,4 +24,4 @@ app.route('v1/repo-test', createGraphTest)
 const port = Number(process.env.PORT ?? 8001)
 console.log(`Server is running on port ${port}`)
 
-handle(app)
+export const handler = handle(app)
