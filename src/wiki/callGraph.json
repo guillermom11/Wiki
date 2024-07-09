@@ -1,6 +1,5 @@
 {
   "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\index::port": [],
-  "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\index::fs": [],
   "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\index::app": [],
   "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\calls::CallsCapturer.getCallsFromNode": [
     "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\calls::CallsCapturer",
@@ -22,12 +21,6 @@
     "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\calls::VariableAssignment",
     "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\calls::CallIdentifier"
   ],
-  "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\calls::Call.constructor": [
-    "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\calls::Call"
-  ],
-  "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\calls::Call": [
-    "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\calls::Call"
-  ],
   "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\calls::CallIdentifier.constructor": [
     "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\calls::CallIdentifier"
   ],
@@ -41,8 +34,7 @@
     "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\codebase::Node",
     "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\codebase::Node.getAllChildren",
     "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\codebase::Codebase",
-    "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\codebase::Node.removeChild",
-    "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\codebase::Node.addChild"
+    "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\codebase::Node.removeChild"
   ],
   "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\codebase::Codebase.resolveImportStatementsNodes": [
     "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\codebase::Codebase",
@@ -70,7 +62,13 @@
     "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\codebase::Codebase.generateNodesFromFilePath",
     "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\codebase::Codebase.addNodeMap",
     "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\codebase::Codebase.resolvePythonInitImportStatements",
+    "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\codebase::Codebase.resolveSpaces",
     "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\codebase::Codebase.resolveImportStatementsNodes"
+  ],
+  "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\codebase::Codebase.resolveSpaces": [
+    "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\codebase::Node",
+    "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\codebase::Codebase",
+    "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\codebase::Node.addChild"
   ],
   "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\codebase::Codebase.generateNodesFromFilePath": [
     "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\codebase::Node",
@@ -78,7 +76,12 @@
     "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\codebase::Node.generateImports",
     "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\codebase::Node.parseExportClauses",
     "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\codebase::Codebase",
-    "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\codebase::enc"
+    "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\codebase::enc",
+    "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\codebase::Codebase.addNodeToSpaceMap"
+  ],
+  "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\codebase::Codebase.addNodeToSpaceMap": [
+    "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\codebase::Node",
+    "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\codebase::Codebase"
   ],
   "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\codebase::Codebase.addNodeMap": [
     "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\codebase::Node",
@@ -154,7 +157,12 @@
   ],
   "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\codebase::Node": [
     "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\codebase::Node",
-    "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\codebase::ImportStatement"
+    "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\codebase::ImportStatement",
+    "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\codebase::NodeCallTuple"
+  ],
+  "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\codebase::NodeCallTuple": [
+    "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\codebase::NodeCallTuple",
+    "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\codebase::Node"
   ],
   "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\codebase::Link": [
     "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\codebase::Link"
@@ -189,12 +197,6 @@
   "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\consts::AllowedTypes": [
     "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\consts::AllowedTypes"
   ],
-  "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\consts::C": [],
-  "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\consts::Java": [],
-  "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\consts::TSX": [],
-  "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\consts::TypeScript": [],
-  "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\consts::Python": [],
-  "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\consts::JavaScript": [],
   "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\utils::getCalledNode": [],
   "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\utils::cleanAndSplitContent": [],
   "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\utils::firstConsecutiveDots": [],
@@ -216,7 +218,6 @@
   "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\queries\\c::anyAssignments": [],
   "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\queries\\c::calls": [],
   "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\queries\\c::extraAssignmentCode": [],
-  "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\queries\\c::exportClauses": [],
   "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\queries\\c::constructorDefinitions": [],
   "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\queries\\c::definitionTemplate": [],
   "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\queries\\c::assignments": [],
@@ -231,7 +232,7 @@
   "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\queries\\java::anyAssignments": [],
   "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\queries\\java::calls": [],
   "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\queries\\java::extraAssignmentCode": [],
-  "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\queries\\java::exportClauses": [],
+  "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\queries\\java::spaceDeclaration": [],
   "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\queries\\java::constructorDefinitions": [],
   "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\queries\\java::definitionTemplate": [],
   "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\queries\\java::assignments": [],
@@ -243,11 +244,21 @@
   "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\queries\\javascript::calls": [],
   "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\queries\\javascript::extraAssignmentCode": [],
   "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\queries\\javascript::exportClauses": [],
-  "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\queries\\javascript::constructorDefinitions": [],
+  "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\queries\\javascript::constructorDefinitions": [
+    "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\queries\\javascript::arrowFunctionConstructor"
+  ],
   "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\queries\\javascript::arrowFunctionConstructor": [],
   "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\queries\\javascript::definitionTemplate": [],
-  "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\queries\\javascript::assignments": [],
-  "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\queries\\javascript::importStatements": [],
+  "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\queries\\php::phpQueries": [
+    "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\queries\\php::anyAssignments"
+  ],
+  "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\queries\\php::anyAssignments": [],
+  "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\queries\\php::calls": [],
+  "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\queries\\php::extraAssignmentCode": [],
+  "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\queries\\php::spaceDeclaration": [],
+  "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\queries\\php::constructorDefinitions": [],
+  "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\queries\\php::definitionTemplate": [],
+  "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\queries\\php::assignments": [],
   "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\queries\\python::pyQueries": [
     "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\queries\\python::anyAssignments"
   ],
@@ -302,7 +313,8 @@
     "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\utils\\git::getCommitHash"
   ],
   "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\utils\\git::downloadAndExtractRepo": [
-    "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\utils\\git::GitServiceType"
+    "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\utils\\git::GitServiceType",
+    "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\utils\\git::MAXSIZE"
   ],
   "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\utils\\git::MAXSIZE": [],
   "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\utils\\git::GitServiceType": [
@@ -318,7 +330,7 @@
     "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\wiki\\wiki2::timeElapsedInSecconds"
   ],
   "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\wiki\\wiki2::documentFolders": [
-    "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\wiki\\wiki2::path2",
+    "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\wiki\\wiki2::projectId",
     "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\wiki\\wiki2::generateFolderDocumentation"
   ],
   "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\wiki\\wiki2::generateFileDocumentation": [
@@ -328,7 +340,6 @@
   ],
   "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\wiki\\wiki2::classifyAndDocumentFiles": [
     "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\wiki\\wiki2::wikiNode",
-    "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\wiki\\wiki2::fs2",
     "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\wiki\\wiki2::generateFileDocumentation"
   ],
   "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\wiki\\wiki2::generateNodeDocumentation": [
@@ -342,26 +353,28 @@
     "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\wiki\\wiki2::generateNodeDocumentation"
   ],
   "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\wiki\\wiki2::findStartNodes": [],
-  "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\wiki\\wiki2::buildCallGraph": [
+  "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\wiki\\wiki2::buildGraphs": [
     "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\wiki\\wiki2::wikiNode",
     "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\wiki\\wiki2::wikiLink"
   ],
-  "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\wiki\\wiki2::readJson": [
-    "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\wiki\\wiki2::fs2"
-  ],
+  "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\wiki\\wiki2::readJson": [],
   "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\wiki\\wiki2::findFileParent": [
     "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\wiki\\wiki2::wikiNode",
     "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\wiki\\wiki2::findFileParent"
   ],
-  "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\wiki\\wiki2::tokenizer": [
-    "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\wiki\\wiki2::cl100k_base"
-  ],
+  "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\wiki\\wiki2::tokenizer": [],
   "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\wiki\\wiki2::timeElapsedInSecconds": [
     "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\wiki\\wiki2::startTime"
   ],
   "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\wiki\\wiki2::totalTokensUsed": [],
-  "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\wiki\\wiki2::linksPath": [],
-  "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\wiki\\wiki2::nodesPath": [],
+  "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\wiki\\wiki2::linksPath": [
+    "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\wiki\\wiki2::forder_path",
+    "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\wiki\\wiki2::projectId"
+  ],
+  "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\wiki\\wiki2::nodesPath": [
+    "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\wiki\\wiki2::forder_path",
+    "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\wiki\\wiki2::projectId"
+  ],
   "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\wiki\\wiki2::forder_path": [],
   "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\wiki\\wiki2::projectId": [],
   "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\wiki\\wiki2::onlyLogs": [],
@@ -370,25 +383,21 @@
   "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\wiki\\wiki2::temperature": [],
   "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\wiki\\wiki2::model": [],
   "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\wiki\\wiki2::startTime": [],
-  "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\wiki\\wiki2::client2": [
-    "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\wiki\\wiki2::OpenAI2"
-  ],
+  "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\wiki\\wiki2::client2": [],
   "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\wiki\\wiki2::wikiLink": [
     "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\wiki\\wiki2::wikiLink"
   ],
   "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\wiki\\wiki2::wikiNode": [
     "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\wiki\\wiki2::wikiNode"
   ],
-  "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\wiki\\wiki2::cl100k_base": [],
-  "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\wiki\\wiki2::OpenAI2": [],
-  "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\wiki\\wiki2::path2": [],
-  "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\wiki\\wiki2::fs2": [],
   "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\tests\\c.test::nodeAttributes": [],
   "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\tests\\c.test::rootFolderPath": [],
   "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\tests\\java.test::nodeAttributes": [],
   "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\tests\\java.test::rootFolderPath": [],
   "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\tests\\javascript.test::nodeAttributes": [],
   "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\tests\\javascript.test::rootFolderPath": [],
+  "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\tests\\php.test::nodeAttributes": [],
+  "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\tests\\php.test::rootFolderPath": [],
   "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\tests\\python.test::nodeAttributes": [],
   "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\tests\\python.test::rootFolderPath": [],
   "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\wiki::improveWiki": [
@@ -403,6 +412,7 @@
     "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\wiki::folderContents"
   ],
   "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\wiki::createRepoSummary": [
+    "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\wiki::allCode",
     "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\wiki::client"
   ],
   "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\wiki::getSummaryOfAllRepoForContext": [
@@ -412,8 +422,7 @@
   ],
   "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\wiki::processAllFolders": [
     "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\wiki::folderContents",
-    "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\wiki::createFolderSummary",
-    "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\wiki::path"
+    "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\wiki::createFolderSummary"
   ],
   "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\wiki::createFolderSummary": [
     "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\wiki::client"
@@ -436,7 +445,6 @@
     "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\wiki::processFile"
   ],
   "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\wiki::readNodes": [
-    "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\wiki::fs",
     "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\wiki::nodesFilePath"
   ],
   "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\wiki::allCode": [],
@@ -449,10 +457,5 @@
     "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\wiki::wikiNode"
   ],
   "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\wiki::codebasePath": [],
-  "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\wiki::client": [
-    "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\wiki::OpenAI"
-  ],
-  "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\wiki::OpenAI": [],
-  "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\wiki::path": [],
-  "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\wiki::fs": []
+  "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\wiki::client": []
 }

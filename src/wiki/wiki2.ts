@@ -27,6 +27,7 @@ type wikiNode = {
   summary?: string; // optional
   importStatements: string[];
   codeNoBody: string;
+  originFile: string;
 };
 
 type wikiLink = {
@@ -106,15 +107,15 @@ const tokenizer = ({
   const startNodes = findStartNodes(callGraph); //leaf nodes
 
   await fs2.writeFile("startNodes.json", JSON.stringify(startNodes, null, 2));
-  //const usedNodes = await readJson("usedNodes.json");
+  const usedNodes = await readJson("usedNodes.json");
 
-  const usedNodes = await bfs(nodesWithFiles, startNodes, callGraph, nodes); //only nodes with documentation. INcludes "calls" and "defines"
-  await fs2.writeFile("usedNodes.json", JSON.stringify(usedNodes, null, 2));
+  //const usedNodes = await bfs(nodesWithFiles, startNodes, callGraph, nodes); //only nodes with documentation. INcludes "calls" and "defines"
+  //await fs2.writeFile("usedNodes.json", JSON.stringify(usedNodes, null, 2));
 
   const fileToNodes = nodesWithFiles
     .filter((item: wikiNode) => item.type === "file")
     .reduce((acc: any, item: any) => {
-      acc[item.id] = [];
+      acc[item.label] = []; //label so that includes the extension (type of language)
       return acc;
     }, {});
   //console.log(fileToNodes);
@@ -359,13 +360,9 @@ async function classifyAndDocumentFiles(
 ): Promise<{ [filePath: string]: string }> {
   //const files: { [filePath: string]: wikiNode[] } = {};
   for (const node of usedNodes) {
-    const nodePath = node.id;
-    const until = nodePath.lastIndexOf("::");
-    const correspondingFile = nodePath.slice(0, until);
+    const correspondingFile = node.originFile;
     //console.log("CF: ", correspondingFile);
-    if (!fileToNodes[correspondingFile]) {
-      fileToNodes[correspondingFile] = [];
-    }
+
     fileToNodes[correspondingFile].push(node);
   }
   //console.log("FTN: ", fileToNodes);
@@ -375,7 +372,7 @@ async function classifyAndDocumentFiles(
   for (const filePath in fileToNodes) {
     const wikiNodes = fileToNodes[filePath];
     const fileContent = wikiNodes.map((node) => node.summary).join("\n");
-    const fileNode = nodesWithFiles.find((node) => node.id === filePath)!; //it should always be there
+    const fileNode = nodesWithFiles.find((node) => node.label === filePath)!; //it should always be there (.label as it includes extension)
     await generateFileDocumentation(fileNode, filePath, fileContent).then(
       (res) => {
         filesDocumentation[filePath] = res;
@@ -395,6 +392,7 @@ async function generateFileDocumentation(
 ): Promise<string> {
   const FunctionStartTime = new Date();
   //console.log("FILE CONTENT: ", fileContent, filePath);
+  //console.log("FILE NODE LANGUAGE: ", fileNode.language);
   console.log("start generateFileDocumentation", FunctionStartTime);
 
   let systemPrompt = `You are a helpful ${fileNode.language} code assistant that helps to write documentation in just one paragraph

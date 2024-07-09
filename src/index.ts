@@ -38,6 +38,7 @@ app.get("/", async (c) => {
     "parent",
     "importStatements",
     "codeNoBody",
+    "originFile",
   ]); //.filter(c => !['file'].includes(c.type))
   const links = codebase.getLinks();
 

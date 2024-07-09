@@ -663,6 +663,7 @@ export class Node {
       calls: this.calls.map((c) => c.node.id),
       inDegree: this.inDegree,
       outDegree: this.outDegree,
+      originFile: this.originFile,
     };
 
     if (attributes.length === 0) {
