@@ -32,7 +32,7 @@ createGraph.post('/', repoRequestValidator, async (c) => {
     repo_name: repoName,
     branch,
     connection_id: connectionId,
-    gitlab_repo_id: gitlabRepoId,
+    gitlab_repo_id: gitlabRepoId
   } = request
 
   const jwt = c.req.header('Authorization')?.split('Bearer ')[1]
@@ -61,22 +61,30 @@ createGraph.post('/', repoRequestValidator, async (c) => {
   const resOrg = await sql`SELECT org_sel_id FROM profiles WHERE id = ${userId}`
   const userOrgId = resOrg[0].org_sel_id
 
-  const {
-    accessToken,
-    refreshToken
-  } = await getAccessToken(gitProvider, connectionId, userOrgId)
+  const tokens = await getAccessToken(gitProvider, connectionId, userOrgId)
 
-  if (!accessToken) {
+  if (!tokens) {
     console.log('Failed to get access token')
     return c.json({ message: 'Failed to get access token' }, 500)
   }
 
-  const commitHash = await getCommitRepo(gitProvider, repoOrg, repoName, branch, accessToken, refreshToken, connectionId, gitlabRepoId)
+  const { accessToken, refreshToken } = tokens
+
+  const commitHash = await getCommitRepo(
+    gitProvider,
+    repoOrg,
+    repoName,
+    branch,
+    accessToken,
+    refreshToken,
+    connectionId,
+    gitlabRepoId
+  )
+
   if (!commitHash) {
     console.log('Failed to get commit')
     return c.json({ message: 'Failed to get commit' }, 500)
   }
-
 
   // check if repo exists
   const rows = await sql`
@@ -94,7 +102,6 @@ createGraph.post('/', repoRequestValidator, async (c) => {
   let repoId = uuidv4()
 
   if (rows.length == 0) {
-
     const respository: Record<string, string | number> = {
       id: repoId,
       git_provider: gitProvider,
@@ -184,8 +191,8 @@ async function processGraphCreation({
   commitHash: string
   userOrgId: string
   userId: string
-  graphExists: boolean,
-  connectionId: string,
+  graphExists: boolean
+  connectionId: string
   gitlabRepoId?: number
 }) {
   let graphId = uuidv4()
@@ -230,10 +237,12 @@ async function processGraphCreation({
     const codebase = new Codebase(codebasePath)
     const fileNodesMap = await codebase.parseFolder()
     codebase.getCalls(fileNodesMap, false)
+
     const nodes = codebase.simplify()
 
     // create a uuid for each node
     const nodeDBIds: { [key: string]: string } = {}
+
     for (const node of nodes) {
       nodeDBIds[node.id] = uuidv4()
     }
@@ -242,11 +251,33 @@ async function processGraphCreation({
     const insertNodePromises = nodes.map((node) => {
       const fullName = node.id.replace(codebasePath, '')
       return sql`
-    INSERT INTO nodes (id, repo_id, type, language, total_tokens, documentation, code, code_no_body, in_degree, out_degree, full_name, label)
-    VALUES (${nodeDBIds[node.id]}, ${repoId}, ${node.type}, ${node.language}, ${node.totalTokens
-        }, ${node.documentation}, ${node.code}, ${node.codeNoBody}, ${node.inDegree}, ${node.outDegree
-        }, ${fullName}, ${node.label})
-    `
+        INSERT INTO nodes (
+          id,
+          repo_id,
+          type,
+          language,
+          total_tokens,
+          documentation,
+          code,
+          code_no_body,
+          in_degree,
+          out_degree,
+          full_name,
+          label
+        ) VALUES (
+          ${nodeDBIds[node.id]},
+          ${repoId},
+          ${node.type},
+          ${node.language},
+          ${node.totalTokens},
+          ${node.documentation},
+          ${node.code},
+          ${node.codeNoBody},
+          ${node.inDegree},
+          ${node.outDegree},
+          ${fullName}, ${node.label}
+        )
+      `
     })
 
     const links = codebase.getLinks()

@@ -9,9 +9,7 @@ import { v4 as uuidv4 } from 'uuid'
 const graphs = new Hono()
 
 graphs.patch('/:id', async (c) => {
-
   try {
-
     const jwt = c.req.header('Authorization')?.split('Bearer ')[1]
 
     if (!jwt) {
@@ -37,7 +35,6 @@ graphs.patch('/:id', async (c) => {
     }
 
     const graphId = c.req.param('id')
-
 
     const graph = await sql`
       SELECT
@@ -88,17 +85,25 @@ graphs.patch('/:id', async (c) => {
 
     const connectionId = String(connections[gitProvider])
 
-    const {
-      accessToken,
-      refreshToken
-    } = await getAccessToken(gitProvider, connectionId, userOrgId)
+    const tokens = await getAccessToken(gitProvider, connectionId, userOrgId)
 
-    if (!accessToken) {
+    if (!tokens) {
       console.log('Failed to get access token')
-      return c.json({ error: 'Failed to get access token' }, 400)
+      return c.json({ message: 'Failed to get access token' }, 500)
     }
 
-    const commitHash = await getCommitRepo(gitProvider, repoOrg, repoName, branch, accessToken, refreshToken, connectionId, gitlabRepoId)
+    const { accessToken, refreshToken } = tokens
+
+    const commitHash = await getCommitRepo(
+      gitProvider,
+      repoOrg,
+      repoName,
+      branch,
+      accessToken,
+      refreshToken,
+      connectionId,
+      gitlabRepoId
+    )
 
     if (!commitHash) {
       console.log('Failed to get commit')
@@ -115,7 +120,6 @@ graphs.patch('/:id', async (c) => {
         status = 'updating'
       WHERE id = ${graphId}
     `
-
 
     const rows = await sql`
       SELECT 
@@ -152,7 +156,6 @@ graphs.patch('/:id', async (c) => {
     })
 
     return c.json({ message: 'Graph updating' }, 200)
-
   } catch (error) {
     console.log('Error updating graph', error)
     return c.json({ error: 'Error updating graph' }, 500)
@@ -287,7 +290,6 @@ async function updateGraph({
         status = 'completed',
         repo_id = ${repoId}
       WHERE id = ${graphId}`
-
   } catch (error) {
     console.error('Error in background processing:', error)
     await sql`UPDATE graphs SET status = 'failed' WHERE id = ${graphId}`
