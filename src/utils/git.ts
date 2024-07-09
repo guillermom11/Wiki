@@ -63,8 +63,6 @@ export async function downloadAndExtractRepo(
     const zipPath = `${extractPath}.zip`
     await fs.writeFile(zipPath, response.data)
 
-    console.log({ zipPath })
-
     // Extract zip
     const zip = new AdmZip(zipPath)
 
