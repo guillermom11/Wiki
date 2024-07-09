@@ -10,6 +10,8 @@ const cl100k_base = require("tiktoken/encoders/cl100k_base.json");
 -- links include links of files, which were supposed to not be included
 -- how to summarize files that don't have sub nodes so they don't have documentation? (like jest.config.js)
 -- include label "defines" in links
+-- originFile
+
 */
 type wikiNode = {
   id: string;
@@ -99,15 +101,15 @@ const tokenizer = ({
   const { callGraph, defineGraph, wholeGraph } = buildGraphs(nodes, links); //call graph between nodes,not including files.
 
   await fs2.writeFile("callGraph.json", JSON.stringify(callGraph, null, 2));
-  await fs2.writeFile("defineGraph.json", JSON.stringify(defineGraph, null, 2));
-  await fs2.writeFile("wholeGraph.json", JSON.stringify(wholeGraph, null, 2));
-  const startNodes = findStartNodes(wholeGraph); //leaf nodes
+  //await fs2.writeFile("defineGraph.json", JSON.stringify(defineGraph, null, 2));
+  //await fs2.writeFile("wholeGraph.json", JSON.stringify(wholeGraph, null, 2));
+  const startNodes = findStartNodes(callGraph); //leaf nodes
 
   await fs2.writeFile("startNodes.json", JSON.stringify(startNodes, null, 2));
-  const usedNodes = await readJson("usedNodes.json");
+  //const usedNodes = await readJson("usedNodes.json");
 
-  //const usedNodes = await bfs(nodesWithFiles, startNodes, wholeGraph, nodes); //only nodes with documentation. INcludes "calls" and "defines"
-  //await fs2.writeFile("usedNodes.json", JSON.stringify(usedNodes, null, 2));
+  const usedNodes = await bfs(nodesWithFiles, startNodes, callGraph, nodes); //only nodes with documentation. INcludes "calls" and "defines"
+  await fs2.writeFile("usedNodes.json", JSON.stringify(usedNodes, null, 2));
 
   const fileToNodes = nodesWithFiles
     .filter((item: wikiNode) => item.type === "file")
@@ -392,7 +394,7 @@ async function generateFileDocumentation(
   fileContent: string
 ): Promise<string> {
   const FunctionStartTime = new Date();
-
+  //console.log("FILE CONTENT: ", fileContent, filePath);
   console.log("start generateFileDocumentation", FunctionStartTime);
 
   let systemPrompt = `You are a helpful ${fileNode.language} code assistant that helps to write documentation in just one paragraph

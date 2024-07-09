@@ -13,7 +13,7 @@
       "code": "port = 8001",
       "importStatements": [],
       "codeNoBody": "port ={\n          //...\n      }",
-      "summary": "The assignment \"port\" sets the value 8001, which is used for defining the port number for the server to listen on."
+      "summary": "The assignment \"port\" is set to the value 8001, which is used in the file where the import statement for \"writeFile\" from \"node:fs/promises\" is included."
     },
     {
       "id": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\index::fs",
@@ -41,7 +41,7 @@
       "code": "app = new Hono()\napp.use(\"*\", prettyJSON())\napp.use(\"/v1/*\", cors())\napp.get(\"/\", async (c) => {\r\n  console.time(\"codebase\");\r\n  // const codebasePath = path.join(__dirname, '../../../codebase-index')\r\n  const codebasePath =\r\n    \"C:\\\\Users\\\\gmasc\\\\OneDrive\\\\Documentos\\\\CodeGPT\\\\Graphs\\\\codebase-index-ts\";\r\n  const codebase = new Codebase(codebasePath); //\r\n  console.log(`Parsing ${codebasePath}`);\r\n  const fileNodesMap = await codebase.parseFolder();\r\n  console.log(`Found ${Object.keys(codebase.nodesMap).length} nodes`);\r\n  console.log(\"Getting Calls\");\r\n  codebase.getCalls(fileNodesMap, false);\r\n  console.timeEnd(\"codebase\");\r\n  const codebaseSimplified = codebase.simplify([\r\n    \"id\",\r\n    \"language\",\r\n    \"label\",\r\n    \"type\",\r\n    \"parent\",\r\n    \"totalTokens\",\r\n    \"inDegree\",\r\n    \"outDegree\",\r\n    \"code\",\r\n    \"parent\",\r\n    \"importStatements\",\r\n    \"codeNoBody\",\r\n  ]); //.filter(c => !['file'].includes(c.type))\r\n  const links = codebase.getLinks();\r\n\r\n  // console.log(codebaseSimplified)\r\n  await Promise.all([\r\n    writeFile(\"nodes.json\", JSON.stringify(codebaseSimplified, null, 2)),\r\n    writeFile(\"links.json\", JSON.stringify(links, null, 2)),\r\n  ]);\r\n  return c.text(JSON.stringify(codebaseSimplified, null, 2));\r\n\r\n  // return c.text(JSON.stringify(codebase.getLinks(), null, 2))\r\n})\napp.route(\"/v1/repo\", createGraph)\napp.route(\"/v1/graphs\", graphs)\napp.route(\"v1/repo-test\", createGraphTest)",
       "importStatements": [],
       "codeNoBody": "app = \napp.use(\"*\", prettyJSON())\napp.use(\"/v1/*\", cors())\napp.get(\"/\", async (c) => {\r\n  console.time(\"codebase\");\r\n  // const codebasePath = path.join(__dirname, '../../../codebase-index')\r\n  const codebasePath =\r\n    \"C:\\\\Users\\\\gmasc\\\\OneDrive\\\\Documentos\\\\CodeGPT\\\\Graphs\\\\codebase-index-ts\";\r\n  const codebase = new Codebase(codebasePath); //\r\n  console.log(`Parsing ${codebasePath}`);\r\n  const fileNodesMap = await codebase.parseFolder();\r\n  console.log(`Found ${Object.keys(codebase.nodesMap).length} nodes`);\r\n  console.log(\"Getting Calls\");\r\n  codebase.getCalls(fileNodesMap, false);\r\n  console.timeEnd(\"codebase\");\r\n  const codebaseSimplified = codebase.simplify([\r\n    \"id\",\r\n    \"language\",\r\n    \"label\",\r\n    \"type\",\r\n    \"parent\",\r\n    \"totalTokens\",\r\n    \"inDegree\",\r\n    \"outDegree\",\r\n    \"code\",\r\n    \"parent\",\r\n    \"importStatements\",\r\n    \"codeNoBody\",\r\n  ]); //.filter(c => !['file'].includes(c.type))\r\n  const links = codebase.getLinks();\r\n  // console.log(codebaseSimplified)\r\n  await Promise.all([\r\n    writeFile(\"nodes.json\", JSON.stringify(codebaseSimplified, null, 2)),\r\n    writeFile(\"links.json\", JSON.stringify(links, null, 2)),\r\n  ]);\r\n  return c.text(JSON.stringify(codebaseSimplified, null, 2));\r\n\r\n  // return c.text(JSON.stringify(codebase.getLinks(), null, 2))\r\n})\napp.route(\"/v1/repo\", createGraph)\napp.route(\"/v1/graphs\", graphs)\napp.route(\"v1/repo-test\", createGraphTest){\n          //...\n      }",
-      "summary": "Create a new Hono application instance, set up middleware for JSON formatting and CORS, define routes for handling requests related to creating graphs and fetching data, and implement a route to parse a codebase, extract relevant information, simplify the data structure, generate links, and write the results to JSON files."
+      "summary": "Create a new Hono application using the `Hono` class, setting up middleware for JSON formatting and CORS, defining routes for handling requests related to a codebase, repository, and graphs, and executing operations to parse, simplify, and write codebase data to JSON files."
     }
   ],
   "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\calls": [],
@@ -58,7 +58,7 @@
       "code": "enc = encoding_for_model(\"gpt-4-turbo\")",
       "importStatements": [],
       "codeNoBody": "enc ={\n          //...\n      }",
-      "summary": "Import `encoding_for_model` from \"tiktoken\" to assign the result of `encoding_for_model(\"gpt-4-turbo\")` to the variable `enc`."
+      "summary": "The assignment \"enc\" is set to the result of calling the \"encoding_for_model\" function from the \"tiktoken\" module with the argument \"gpt-4-turbo\"."
     }
   ],
   "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\consts": [
@@ -74,7 +74,7 @@
       "code": "treeSitterCommentTypes = ['comment', 'line_comment', 'block_comment']",
       "importStatements": [],
       "codeNoBody": "treeSitterCommentTypes ={\n                 //...\n             }",
-      "summary": "`treeSitterCommentTypes` is an array containing three types of comments: 'comment', 'line_comment', and 'block_comment'. It is used in conjunction with the imports from tree-sitter-javascript, tree-sitter-python, tree-sitter-typescript, tree-sitter-java, and tree-sitter-c."
+      "summary": "`treeSitterCommentTypes` is an array containing three types of comments: 'comment', 'line_comment', and 'block_comment'. It is used in the file where `tree-sitter-javascript`, `tree-sitter-python`, `tree-sitter-typescript`, and `tree-sitter-java` are imported."
     },
     {
       "id": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\consts::indexSuffixesMap",
@@ -88,7 +88,7 @@
       "code": "indexSuffixesMap: Record<string, string> = {\r\n    'python': '/__init__',\r\n    'javascript': '/index',\r\n    'typescript': '/index',\r\n    'tsx': '/index',\r\n    'java': '' // java has no index\r\n}",
       "importStatements": [],
       "codeNoBody": "indexSuffixesMap: Record<string, string> ={\n                 //...\n             }",
-      "summary": "The `indexSuffixesMap` object maps file extensions to their corresponding index suffixes, where JavaScript, TypeScript, and TSX files have an index suffix of '/index', Python files have '/__init__', and Java files have no index suffix. The object is defined in a file that imports tree-sitter parsers for JavaScript, Python, TypeScript, TSX, Java, and C."
+      "summary": "The `indexSuffixesMap` object maps file extensions to their corresponding index suffixes, where JavaScript, TypeScript, and TSX files have \"/index\" as the suffix, Python files have \"/__init__\" as the suffix, and Java files have no suffix. The object is defined in a file that imports tree-sitter parsers for JavaScript, Python, TypeScript, TSX, Java, and C."
     },
     {
       "id": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\consts::itselfClassMap",
@@ -102,7 +102,7 @@
       "code": "itselfClassMap: Record<string, string> = {\r\n    'python': 'self',\r\n    'javascript': 'this',\r\n    'typescript': 'this',\r\n    'tsx': 'this',\r\n    'java': 'this'\r\n}",
       "importStatements": [],
       "codeNoBody": "itselfClassMap: Record<string, string> ={\n                 //...\n             }",
-      "summary": "This assignment `itselfClassMap` is a TypeScript Record that maps programming languages to their respective class context keywords, where the import statements for the necessary tree-sitter languages are `const JavaScript = require(\"tree-sitter-javascript\"); const Python = require(\"tree-sitter-python\"); const TypeScript = require('tree-sitter-typescript').typescript; const TSX = require(\"tree-sitter-typescript\").tsx; const Java = require(\"tree-sitter-java\"); const C = require(\"tree-sitter-c\");`."
+      "summary": "`itselfClassMap` is a TypeScript Record that maps programming languages to their respective class context keywords, including 'python' to 'self', 'javascript' to 'this', 'typescript' to 'this', 'tsx' to 'this', and 'java' to 'this'. The assignment relies on imports from 'tree-sitter-javascript', 'tree-sitter-python', 'tree-sitter-typescript', and 'tree-sitter-java'."
     },
     {
       "id": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\consts::newClassMethodsMap",
@@ -116,7 +116,7 @@
       "code": "newClassMethodsMap: Record<string, string> = {\r\n    'python': '__init__',\r\n    'javascript': 'constructor',\r\n    'typescript': 'constructor',\r\n    'tsx': 'constructor',\r\n    'java': '', // java constructor has the same name as the class\r\n    'rust': 'new'\r\n}",
       "importStatements": [],
       "codeNoBody": "newClassMethodsMap: Record<string, string> ={\n                 //...\n             }",
-      "summary": "The `newClassMethodsMap` object maps programming languages to their respective class constructor method names, including 'python' to '__init__', 'javascript', 'typescript', and 'tsx' to 'constructor', 'java' to an empty string (as Java constructors have the same name as the class), and 'rust' to 'new'. The assignment relies on imports from 'tree-sitter-javascript', 'tree-sitter-python', 'tree-sitter-typescript', 'tree-sitter-java', and 'tree-sitter-c'."
+      "summary": "The `newClassMethodsMap` object maps programming languages to their respective class constructor method names, including 'python' to '__init__', 'javascript', 'typescript', and 'tsx' to 'constructor', 'java' to an empty string (as Java constructors have the same name as the class), and 'rust' to 'new'. The assignment relies on imports from 'tree-sitter-javascript', 'tree-sitter-python', 'tree-sitter-typescript' for TypeScript, 'tree-sitter-java', and 'tree-sitter-c'."
     },
     {
       "id": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\consts::languageExtensionMap",
@@ -130,7 +130,7 @@
       "code": "languageExtensionMap: Record<string, string> = {\r\n  'py': 'python',\r\n  'c': 'c',\r\n  'h': 'c',\r\n  // 'ipynb': 'python',\r\n  'js': 'typescript',\r\n  'mjs': 'typescript',\r\n  'jsx': 'typescript',\r\n  'ts': 'typescript',\r\n  'tsx': 'tsx',\r\n  'java': 'java',\r\n}",
       "importStatements": [],
       "codeNoBody": "languageExtensionMap: Record<string, string> ={\n                 //...\n             }",
-      "summary": "Defines a mapping object `languageExtensionMap` that associates file extensions with their corresponding programming languages using the `Record<string, string>` type, where keys represent file extensions and values represent the associated language. The mapping includes extensions like `.py` for Python, `.js` for TypeScript, and `.java` for Java, among others, with relevant imports from external libraries for each language."
+      "summary": "Defines a mapping object `languageExtensionMap` that associates file extensions with their corresponding programming languages using the tree-sitter library for JavaScript, Python, TypeScript, TSX, and Java, as well as the C language."
     },
     {
       "id": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\consts::languages",
@@ -144,7 +144,7 @@
       "code": "languages = {\r\n    JavaScript,\r\n    Python,\r\n    TypeScript,\r\n    TSX,\r\n    Java,\r\n    C\r\n}",
       "importStatements": [],
       "codeNoBody": "languages ={\n                 //...\n             }",
-      "summary": "The `languages` object contains references to various tree-sitter language parsers imported from external modules using import statements. The languages included are JavaScript, Python, TypeScript, TSX, Java, and C."
+      "summary": "The `languages` object contains references to various tree-sitter language parsers imported from their respective modules using import statements from \"tree-sitter-javascript\", \"tree-sitter-python\", \"tree-sitter-typescript\", \"tree-sitter-java\", and \"tree-sitter-c\"."
     },
     {
       "id": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\consts::excludedExtensions",
@@ -158,7 +158,7 @@
       "code": "excludedExtensions = ['min.js', 'min.css', 'min.css.map', 'min.js.map', 'd.ts', '.config.js']",
       "importStatements": [],
       "codeNoBody": "excludedExtensions ={\n                 //...\n             }",
-      "summary": "`excludedExtensions` is an array that contains file extensions to be excluded, such as 'min.js', 'min.css', 'min.css.map', 'min.js.map', 'd.ts', and '.config.js'."
+      "summary": "The `excludedExtensions` array lists file extensions that should be excluded from processing, including 'min.js', 'min.css', 'min.css.map', 'min.js.map', 'd.ts', and '.config.js'. This assignment is defined in a file that imports tree-sitter libraries for JavaScript, Python, TypeScript, TSX, Java, and C."
     },
     {
       "id": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\consts::excludedFolders",
@@ -172,7 +172,7 @@
       "code": "excludedFolders = ['.git', '.vscode', 'venv', 'node_modules', 'dist', '__pycache__', 'tests', 'build', '_static', 'jest', '__tests__']",
       "importStatements": [],
       "codeNoBody": "excludedFolders ={\n                 //...\n             }",
-      "summary": "`excludedFolders` is an array that contains the names of folders to be excluded, such as '.git', '.vscode', 'venv', 'node_modules', 'dist', '__pycache__', 'tests', 'build', '_static', 'jest', and '__tests__'."
+      "summary": "`excludedFolders` is an array that contains the names of folders to be excluded from certain operations, such as searching or processing files, and includes folders like '.git', '.vscode', 'venv', 'node_modules', 'dist', '__pycache__', 'tests', 'build', '_static', 'jest', and '__tests__'."
     },
     {
       "id": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\consts::C",
@@ -186,7 +186,7 @@
       "code": "C = require(\"tree-sitter-c\")",
       "importStatements": [],
       "codeNoBody": "C ={\n          //...\n      }",
-      "summary": "Import the \"tree-sitter-c\" module to utilize the C language grammar for parsing and analyzing C code."
+      "summary": "Import the \"tree-sitter-c\" module to utilize the C language grammar for parsing and analyzing C code within the project."
     },
     {
       "id": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\consts::Java",
@@ -200,7 +200,7 @@
       "code": "Java = require(\"tree-sitter-java\")",
       "importStatements": [],
       "codeNoBody": "Java ={\n          //...\n      }",
-      "summary": "Import the Tree-sitter Java module to enable parsing and working with Java code, which is required for syntax highlighting, code analysis, and other language-related tasks within the project."
+      "summary": "The assignment \"Java\" imports the tree-sitter-java module, which is used for parsing Java code."
     },
     {
       "id": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\consts::TSX",
@@ -228,7 +228,7 @@
       "code": "TypeScript  = require('tree-sitter-typescript').typescript",
       "importStatements": [],
       "codeNoBody": "TypeScript  ={\n          //...\n      }",
-      "summary": "Import the TypeScript grammar from the 'tree-sitter-typescript' library using the assignment 'TypeScript'."
+      "summary": "Import the TypeScript parser from the 'tree-sitter-typescript' library using the assignment 'TypeScript'."
     },
     {
       "id": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\consts::Python",
@@ -256,7 +256,7 @@
       "code": "JavaScript = require(\"tree-sitter-javascript\")",
       "importStatements": [],
       "codeNoBody": "JavaScript ={\n          //...\n      }",
-      "summary": "Import the JavaScript language grammar from the \"tree-sitter-javascript\" package using the assignment `JavaScript = require(\"tree-sitter-javascript\")`."
+      "summary": "Import the JavaScript language grammar from the \"tree-sitter-javascript\" package using the assignment \"JavaScript = require(\"tree-sitter-javascript\")\"."
     }
   ],
   "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\utils": [
@@ -286,7 +286,7 @@
       "code": "const cleanAndSplitContent = (content: string): string[] => {\r\n  // Remove parentheses and their contents, newlines, and unwanted characters\r\n  // Replace ':' and '|' with ','\r\n  content = content\r\n    .replace(/\\(|\\)|\\n|\\s{2,}/gs, \"\")\r\n    .replace(/[:|]/g, \",\")\r\n    .trim();\r\n\r\n  // Split the content by commas, remove surrounding brackets/braces, and trim each part\r\n  return content\r\n    .split(\",\")\r\n    .map((item) => item.replace(/[\\[\\]\\{\\}]/g, \"\").trim());\r\n};",
       "importStatements": [],
       "codeNoBody": "const cleanAndSplitContent = (content: string): string[] => ;{\n           //...\n       }",
-      "summary": "This function, \"cleanAndSplitContent\", takes a string \"content\" as input and removes parentheses, their contents, newlines, and unwanted characters, replaces ':' and '|' with ',', and splits the content by commas. It then removes surrounding brackets/braces and trims each part before returning an array of strings."
+      "summary": "This function, \"cleanAndSplitContent\", takes a string \"content\" as input and removes parentheses and their contents, newlines, and unwanted characters, replaces ':' and '|' with ',' before splitting the content by commas. It then removes surrounding brackets/braces and trims each part before returning an array of strings."
     },
     {
       "id": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\utils::firstConsecutiveDots",
@@ -300,7 +300,7 @@
       "code": "function firstConsecutiveDots(s: string): number {\r\n  const match = s.match(/^\\.{1,}/);\r\n  return match ? match[0].length : 0;\r\n}",
       "importStatements": [],
       "codeNoBody": "function firstConsecutiveDots(s: string): number{\n    //...\n}",
-      "summary": "The function \"firstConsecutiveDots\" takes a string parameter \"s\" and returns the length of the first consecutive sequence of dots at the beginning of the string."
+      "summary": "The function \"firstConsecutiveDots\" takes a string parameter \"s\" and returns the length of the first consecutive sequence of dots at the beginning of the string. It utilizes a regular expression to match one or more consecutive dots at the start of the input string and returns the length of the matched sequence or 0 if no consecutive dots are found."
     },
     {
       "id": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\utils::cleanDefCaptures",
@@ -328,7 +328,7 @@
       "code": "function getRequiredDefinitions(language: string): {\r\n  parser: Parser;\r\n  queries: treeSitterQueries;\r\n} {\r\n  const parser = new Parser();\r\n  let queries;\r\n  switch (language) {\r\n    case \"javascript\":\r\n      parser.setLanguage(languages.JavaScript);\r\n      queries = languageQueries.Javascript;\r\n      break;\r\n    case \"python\":\r\n      parser.setLanguage(languages.Python);\r\n      queries = languageQueries.Python;\r\n      break;\r\n    case \"typescript\":\r\n      parser.setLanguage(languages.TypeScript);\r\n      queries = languageQueries.Typescript;\r\n      break;\r\n    case \"tsx\":\r\n      parser.setLanguage(languages.TSX);\r\n      queries = languageQueries.Typescript;\r\n      break;\r\n    case \"java\":\r\n      parser.setLanguage(languages.Java);\r\n      queries = languageQueries.Java;\r\n      break;\r\n    case \"c\":\r\n      parser.setLanguage(languages.C);\r\n      queries = languageQueries.C;\r\n      break;\r\n\r\n    default:\r\n      throw new Error(`Language ${language} not supported.`);\r\n  }\r\n  return { parser, queries };\r\n}",
       "importStatements": [],
       "codeNoBody": "function getRequiredDefinitions(language: string): {\r\n  parser: Parser;\r\n  queries: treeSitterQueries;\r\n}{\n           //...\n       }",
-      "summary": "This function `getRequiredDefinitions` takes a `language` parameter to determine the language-specific parser and queries needed, returning an object with the parser and queries. The function initializes a parser based on the provided language, setting the language and queries accordingly for JavaScript, Python, TypeScript, TSX, Java, or C. If the language is not supported, an error is thrown. The function relies on imports from \"./consts\" for language constants and from \"../queries\" for language-specific queries."
+      "summary": "This function `getRequiredDefinitions` takes a `language` parameter to determine the language-specific parser and queries needed, returning an object with the parser and queries. The function initializes a parser based on the provided language, setting the language and queries accordingly for JavaScript, Python, TypeScript, TSX, Java, and C languages. If the language is not supported, an error is thrown. The function relies on imports from `./consts` for language mappings and `../queries` for language-specific queries."
     },
     {
       "id": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\model\\utils::getAllFiles",
@@ -342,7 +342,7 @@
       "code": "async function getAllFiles(rootFolderPath: string): Promise<string[]> {\r\n  const extensionsPattern = Object.keys(languageExtensionMap)\r\n    .map((ext) => `\\\\.${ext}$`)\r\n    .join(\"|\");\r\n  const regex = new RegExp(extensionsPattern);\r\n  const excludedExtensionPattern = new RegExp(\r\n    excludedExtensions.map((ext) => `\\\\.${ext}$`).join(\"|\")\r\n  );\r\n  const excludedFolderPattern = new RegExp(\r\n    excludedFolders.map((f) => `${f}/`).join(\"|\")\r\n  );\r\n  const files = await glob(`**/*`, {\r\n    cwd: rootFolderPath,\r\n    absolute: true,\r\n  });\r\n  // no sync\r\n  const validFiles = await Promise.all(\r\n    files.map(async (file) => (await fs.lstat(file)).isFile())\r\n  );\r\n  const matchingFiles = files.filter(\r\n    (file, i) =>\r\n      regex.test(file) &&\r\n      validFiles[i] &&\r\n      !excludedExtensionPattern.test(file) &&\r\n      !excludedFolderPattern.test(file) &&\r\n      !file.includes(\"@\") &&\r\n      !file.includes(\"node_modules\") //esto para que el Guille pueda correr el codigo de grafos.\r\n  );\r\n  matchingFiles.sort(); // sorted\r\n  //console.log(\"matchingFiles\", matchingFiles);\r\n  return matchingFiles;\r\n}",
       "importStatements": [],
       "codeNoBody": "async function getAllFiles(rootFolderPath: string): Promise<string[]>{\n           //...\n       }",
-      "summary": "Imports `languageExtensionMap`, `excludedFolders`, `excludedExtensions` from \"./consts\" and `glob` from \"glob\". The function `getAllFiles` takes a `rootFolderPath` string parameter, finds all files in the specified folder matching certain criteria, and returns an array of valid file paths after applying various filters based on file extensions, excluded extensions, excluded folders, and specific file content checks."
+      "summary": "This async function named \"getAllFiles\" takes a root folder path as a parameter and returns a promise that resolves to an array of strings representing file paths. It uses various regular expressions to filter files based on their extensions, excluded extensions, and excluded folders. It then reads the file system to get all files in the specified root folder, filters them based on the defined criteria, and sorts the matching files before returning them. The function relies on imports from \"./consts\" for language-related constants and uses \"glob\" for file system operations."
     }
   ],
   "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\queries\\c": [
@@ -358,7 +358,7 @@
       "code": "anyAssignments = `\r\n(declaration\r\n    declarator: (\r\n        init_declarator\r\n            declarator: [\r\n                (identifier) @left\r\n                (pointer_declarator declarator: (identifier) @left)\r\n                ]\r\n            value: (_) @right\r\n        ) \r\n) @assignment\r\n`",
       "importStatements": [],
       "codeNoBody": "anyAssignments ={\n          //...\n      }",
-      "summary": "Import `treeSitterQueries` from './index' and define the `anyAssignments` assignment as a template string representing a tree-sitter query for a declaration with a declarator containing an init_declarator with an identifier on the left and a pointer_declarator with an identifier on the left, assigning a value on the right."
+      "summary": "Import `treeSitterQueries` from './index' and define the `anyAssignments` assignment as a template string representing a tree-sitter query for a declaration with a declarator containing an identifier or a pointer declarator, with the left side marked as '@left' and the right side as '@right'."
     },
     {
       "id": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\queries\\c::calls",
@@ -372,7 +372,7 @@
       "code": "calls = `\r\n(call_expression function: _ @identifier.name)\r\n( _ arguments: (argument_list (identifier) @identifier.name) )\r\n`",
       "importStatements": [],
       "codeNoBody": "calls ={\n          //...\n      }",
-      "summary": "The `calls` assignment contains a template string defining a call expression with a function and arguments, utilizing the `treeSitterQueries` import from './index'."
+      "summary": "The `calls` assignment defines a template for capturing call expressions in the tree-sitter queries, where a function identifier and its arguments are specified using placeholders. The assignment is part of the `treeSitterQueries` module imported from './index'."
     },
     {
       "id": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\queries\\c::extraAssignmentCode",
@@ -386,7 +386,7 @@
       "code": "const extraAssignmentCode = (name: string) => `\r\n( translation_unit\r\n    (expression_statement\r\n        (call_expression function:\r\n        \t[(identifier) @identifier.name\r\n             (field_expression (identifier)  @identifier.name  ) \r\n            ]\r\n        (#eq? @identifier.name \"${name}\")\r\n        ) @code\r\n    )\r\n)\r\n    `",
       "importStatements": [],
       "codeNoBody": "const extraAssignmentCode = (name: string) =>{\n    //...\n}",
-      "summary": "This function `extraAssignmentCode` takes a `name` parameter and generates a specific code snippet using the provided `name` within a predefined template for a translation unit in an abstract syntax tree (AST) representation. The function utilizes the `treeSitterQueries` import from the `index` file to access AST-related functionalities."
+      "summary": "The function \"extraAssignmentCode\" takes a \"name\" parameter and generates a specific code snippet using the provided name within a tree-sitter query template. It utilizes the \"treeSitterQueries\" import from the './index' file to construct the query template with the given name parameter."
     },
     {
       "id": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\queries\\c::exportClauses",
@@ -414,7 +414,7 @@
       "code": "constructorDefinitions = `\r\n(function_definition) @function\r\n(declaration (function_declarator)) @function\r\n(struct_specifier) @struct\r\n(union_specifier) @union\r\n`",
       "importStatements": [],
       "codeNoBody": "constructorDefinitions ={\n          //...\n      }",
-      "summary": "Importing `treeSitterQueries` from './index', the `constructorDefinitions` assignment contains regex patterns for identifying function definitions, declarations, struct specifiers, and union specifiers."
+      "summary": "Importing `treeSitterQueries` from './index', the `constructorDefinitions` assignment contains definitions for function, function declaration, struct, and union specifiers."
     },
     {
       "id": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\queries\\c::definitionTemplate",
@@ -428,7 +428,7 @@
       "code": "definitionTemplate = `\r\n( _\r\n    type: (_)? @return_type\r\n    [\r\n     name: (_) @name\r\n     declarator: (function_declarator declarator: (identifier) @name) \r\n    ]\r\n    parameters: (parameter_list (_) @param)?\r\n    body: (_)? @body\r\n)?\r\n\r\n; For global assignments\r\n(declaration\r\n    declarator: (\r\n        init_declarator\r\n            declarator: [\r\n                (identifier) @name\r\n                (pointer_declarator declarator: (identifier) @name)\r\n                ]\r\n            value: (_) @body\r\n        ) \r\n) \r\n`",
       "importStatements": [],
       "codeNoBody": "definitionTemplate ={\n          //...\n      }",
-      "summary": "The `definitionTemplate` assignment in the `treeSitterQueries` import file defines a template for a function or global assignment with optional type, name, parameters, and body, as well as a global declaration with an optional initializer value."
+      "summary": "The `definitionTemplate` assignment in the `treeSitterQueries` import file defines a template for a function or global assignment, specifying the return type, name, parameters, and body structure."
     },
     {
       "id": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\queries\\c::assignments",
@@ -442,7 +442,7 @@
       "code": "assignments = `\r\n(translation_unit\r\n\t(declaration\r\n    \tdeclarator: (init_declarator\r\n        \t\tdeclarator: (_)\r\n                value: (_)\r\n        \t) \r\n    ) @assignment\r\n)\r\n`",
       "importStatements": [],
       "codeNoBody": "assignments ={\n          //...\n      }",
-      "summary": "The `assignments` assignment in the file imports `treeSitterQueries` from './index' and represents a translation unit with a declaration containing a declarator with an init_declarator, including a declarator and a value, tagged with '@assignment'."
+      "summary": "The `assignments` variable stores a tree-sitter query for identifying declaration nodes with their declarator and value properties within a translation unit, marked with the `@assignment` tag. It relies on the `treeSitterQueries` import from the `index` file."
     },
     {
       "id": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\queries\\c::importStatements",
@@ -456,7 +456,7 @@
       "code": "importStatements = `\r\n( preproc_include path: (system_lib_string) @module) @import_statement\r\n( preproc_include path: (string_literal (_) @module)) @import_statement\r\n\r\n`",
       "importStatements": [],
       "codeNoBody": "importStatements ={\n          //...\n      }",
-      "summary": "The \"importStatements\" assignment contains predefined import statements for including modules and string literals, used in the codebase alongside an import statement for \"treeSitterQueries\" from the './index' file."
+      "summary": "The `importStatements` assignment includes predefined import statements for modules using the `preproc_include` function, with paths specified as system libraries or string literals. Additionally, the file where the assignment is defined imports `treeSitterQueries` from the `index` module."
     }
   ],
   "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\queries\\index": [
@@ -472,7 +472,7 @@
       "code": "languageQueries = {\r\n    Javascript: jsQueries,\r\n    Typescript: tsQueries,\r\n    Python: pyQueries,\r\n    Java: javaQueries,\r\n    C: cQueries\r\n}",
       "importStatements": [],
       "codeNoBody": "languageQueries ={\n                 //...\n             }",
-      "summary": "The `languageQueries` object contains queries for different programming languages, imported from separate files using import statements from \"./javascript\", \"./typescript\", \"./python\", \"./java\", and \"./c\"."
+      "summary": "The `languageQueries` object contains queries for different programming languages, including JavaScript, TypeScript, Python, Java, and C, imported from their respective files using import statements."
     }
   ],
   "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\queries\\java": [
@@ -488,7 +488,7 @@
       "code": "anyAssignments = `\r\n(variable_declarator\r\n\tname: (identifier) @left\r\n    value: [\r\n    (identifier) @right\r\n    (object_creation_expression type: _ @right) \r\n    ] \r\n) @assignment\r\n`",
       "importStatements": [],
       "codeNoBody": "anyAssignments ={\n          //...\n      }",
-      "summary": "Import `treeSitterQueries` from './index' and define the `anyAssignments` assignment as a template string representing a variable declarator with a name (identifier) on the left and either an identifier or an object creation expression on the right, tagged as an assignment."
+      "summary": "The `anyAssignments` assignment in the file imports `treeSitterQueries` from './index' and represents a variable declarator with a name (identifier) on the left and possible values of an identifier or an object creation expression on the right, denoting an assignment."
     },
     {
       "id": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\queries\\java::calls",
@@ -516,7 +516,7 @@
       "code": "const extraAssignmentCode = (name: string) => ``",
       "importStatements": [],
       "codeNoBody": "const extraAssignmentCode = (name: string) =>{\n    //...\n}",
-      "summary": "This function named \"extraAssignmentCode\" takes a parameter \"name\" of type string and returns an empty string."
+      "summary": "The function `extraAssignmentCode` takes a `name` parameter of type string and returns an empty string."
     },
     {
       "id": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\queries\\java::exportClauses",
@@ -544,7 +544,7 @@
       "code": "constructorDefinitions = `\r\n(constructor_declaration)? @function\r\n(method_declaration)? @function\r\n(class_declaration) @class\r\n`",
       "importStatements": [],
       "codeNoBody": "constructorDefinitions ={\n          //...\n      }",
-      "summary": "Importing `treeSitterQueries` from './index', the `constructorDefinitions` assignment defines optional constructor, method, and class declarations for tree-sitter queries, denoting them as functions or classes."
+      "summary": "This assignment defines constructor, method, and class declarations in the `constructorDefinitions` string using tree-sitter queries imported from `index`."
     },
     {
       "id": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\queries\\java::definitionTemplate",
@@ -558,7 +558,7 @@
       "code": "definitionTemplate = `\r\n( _\r\n\t(modifiers) @modifier \r\n    type: (_)? @return_type\r\n    name: (_) @name\r\n    parameters: (formal_parameters (_) @param)?\r\n    body: (_) @body\r\n)?\r\n`",
       "importStatements": [],
       "codeNoBody": "definitionTemplate ={\n          //...\n      }",
-      "summary": "The `definitionTemplate` assignment in the file imports `treeSitterQueries` from './index' and defines a template for a structure that includes modifiers, return type, name, parameters, and body, with optional elements marked by '?'."
+      "summary": "The `definitionTemplate` assignment in the file imports `treeSitterQueries` from './index' and represents a template for defining a code element with optional modifiers, return type, name, parameters, and body."
     },
     {
       "id": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\queries\\java::assignments",
@@ -572,7 +572,7 @@
       "code": "assignments = ``",
       "importStatements": [],
       "codeNoBody": "assignments ={\n          //...\n      }",
-      "summary": "Assignments variable that stores an empty string, defined in the file where the import statement for treeSitterQueries from './index' is required."
+      "summary": "The `assignments` variable is defined in the file where `treeSitterQueries` is imported from './index'."
     },
     {
       "id": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\queries\\java::importStatements",
@@ -586,7 +586,7 @@
       "code": "importStatements = `\r\n(import_declaration \r\n\t[(scoped_identifier\r\n    \tscope: (_) @module\r\n        name: (_) @name)\r\n    (identifier) @module\r\n    ]\r\n) @import_statement\r\n`",
       "importStatements": [],
       "codeNoBody": "importStatements ={\n          //...\n      }",
-      "summary": "The `importStatements` assignment defines the structure of an import statement in a tree-sitter query language, including optional scoped identifiers and module names. An example import statement from the file is `import { treeSitterQueries } from './index';`."
+      "summary": "The `importStatements` assignment defines the structure of an import statement in a tree-sitter query language, including optional scoped identifiers and module names. The code uses an import statement to import `treeSitterQueries` from the `index` file."
     }
   ],
   "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\queries\\javascript": [
@@ -644,7 +644,7 @@
       "code": "exportClauses = `\r\n( export_statement \r\n (export_clause (\r\n    export_specifier\r\n        name: (_) @name\r\n          alias: (_)? @alias\r\n          )\r\n    )\r\n  (string (string_fragment) @module)?\r\n)\r\n`",
       "importStatements": [],
       "codeNoBody": "exportClauses ={\n          //...\n      }",
-      "summary": "ExportClauses is a string template defining the structure of export statements with export specifiers, names, and optional aliases, along with an optional module string, used in conjunction with the import of treeSitterQueries from './index'."
+      "summary": "Export clauses defined in the assignment \"exportClauses\" include export statements with export specifiers for names and aliases, and an optional module string, used in conjunction with the import statement for \"treeSitterQueries\" from './index'."
     },
     {
       "id": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\queries\\javascript::constructorDefinitions",
@@ -686,7 +686,7 @@
       "code": "definitionTemplate = `\r\n( _\r\n    name: (_) @name\r\n    parameters: (formal_parameters (_) @param)?\r\n    [body: (_)\r\n    ; for types\r\n    value: (_)] @body\r\n)?\r\n\r\n; arrow function\r\n(variable_declarator\r\n\tname: (_) @name\r\n\tvalue: (arrow_function\r\n    \tparameters: (formal_parameters (_) @param)?\r\n        body: (_)? @body\r\n\t\t\t)\r\n)?\r\n`",
       "importStatements": [],
       "codeNoBody": "definitionTemplate ={\n          //...\n      }",
-      "summary": "This assignment named \"definitionTemplate\" defines a template for capturing the structure of a function or an arrow function, utilizing tree-sitter queries imported from './index'. It includes placeholders for function name, parameters, body, and value, with optional elements marked by '?'."
+      "summary": "This assignment named \"definitionTemplate\" defines a template for capturing the structure of a function or an arrow function, including the function's name, parameters, and body. It utilizes the \"treeSitterQueries\" import from the './index' file."
     },
     {
       "id": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\queries\\javascript::assignments",
@@ -700,7 +700,7 @@
       "code": "assignments = `\r\n(program\r\n    (_\r\n        (variable_declarator\r\n            name: (identifier)\r\n            value: (_ !body) ; to exclude arrow functions\r\n        ) @assignment\r\n    )\r\n) \r\n\r\n; exportables\r\n(program\r\n    (export_statement\r\n        (_\r\n            (variable_declarator\r\n                name: (identifier)\r\n                value: (_ !body)\r\n            ) @assignment\r\n        )\r\n    )\r\n)\r\n`",
       "importStatements": [],
       "codeNoBody": "assignments ={\n          //...\n      }",
-      "summary": "The \"assignments\" assignment defines the structure for variable declarations excluding arrow functions and exportable variable declarations in a program using the Tree-sitter query language. It is used in conjunction with the \"treeSitterQueries\" import from the './index' file."
+      "summary": "The \"assignments\" assignment defines the structure for variable declarations excluding arrow functions and exportable variable declarations, utilizing the tree-sitter queries imported from './index'."
     },
     {
       "id": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\queries\\javascript::importStatements",
@@ -714,7 +714,7 @@
       "code": "importStatements = `\r\n(import_statement \r\n    (import_clause [\r\n    (namespace_import (identifier) @alias)\r\n    (identifier) @name\r\n    (named_imports (import_specifier\r\n\t\t    name: (_) @name\r\n    \t\talias: (_)? @alias))\r\n    ])?\r\n\tsource: (string (string_fragment) @module)\r\n) @import_statement\r\n\r\n\r\n(lexical_declaration\r\n    (variable_declarator\r\n      name: [\r\n          (identifier) @name\r\n          (object_pattern (_) @name)\r\n      ]\r\n      value: [(call_expression\r\n                  function: _ @function\r\n                  arguments: (arguments (string (string_fragment) @module))\r\n                  (#eq? @function \"require\"))\r\n              ( member_expression\r\n                (call_expression\r\n                    function: _ @function\r\n                    arguments: (arguments (string (string_fragment) @module))\r\n                    (#eq? @function \"require\")\r\n                )\r\n                (property_identifier) @submodule\r\n               )\r\n              ]\r\n    )           \r\n  ) @import_statement\r\n`",
       "importStatements": [],
       "codeNoBody": "importStatements ={\n          //...\n      }",
-      "summary": "The \"importStatements\" assignment defines the structure for import statements in a tree-sitter query language, including namespace imports, named imports, and source module declarations. It also specifies the structure for lexical declarations involving variable declarators with values that include call expressions with the function \"require\" and arguments as string literals representing module imports."
+      "summary": "The \"importStatements\" assignment defines the structure for import statements in a tree-sitter query language, including namespace imports, named imports, and source module declarations. It also specifies the structure for lexical declarations involving variable declarators with values that include call expressions for \"require\" functions with string arguments representing module imports. The provided code uses an import statement to import \"treeSitterQueries\" from the './index' module."
     }
   ],
   "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\queries\\python": [
@@ -744,7 +744,7 @@
       "code": "calls = `\r\n; class and function calls\r\n(call function: ( (identifier) @identifier.name))\r\n\r\n; method calls like Class.method\r\n(call function: ( (attribute) @identifier.name))\r\n\r\n; self.parameter calls like self.parameter\r\n((attribute\r\n    object: (identifier) @object\r\n    attribute: (identifier) @property\r\n    (#eq? @object \"self\")) @identifier.name)\r\n\r\n\r\n; class extensions\r\n(class_definition\r\n    superclasses : (argument_list (_) @class.extends)?\r\n    body: (block\r\n            (function_definition name: _ @class.method)?)) @class.definition\r\n\r\n; pydantic like parameters                                        \r\n(class_definition\r\n        superclasses : (argument_list (_) @class.extends)?\r\n        body: (block\r\n                (expression_statement\r\n                    (assignment type: (_)? @parameter_type) @assignment))\r\n        ) @class.definition\r\n\r\n; typed parameters and return types\r\n(function_definition\r\n    parameters: (parameters( typed_parameter type: _ @parameter_type)?)\r\n    return_type: (_)? @return_type) @function.definiton\r\n\r\n; assignments where they are identifiers\r\n(expression_statement\r\n\t(assignment right: (identifier) @identifier.name)\r\n)\r\n\r\n; keyword arguments\r\n(keyword_argument  value: (identifier) @identifier.name)\r\n\r\n; any attribute\r\n(_ (attribute) @identifier.name)\r\n\r\n; arguments (identifier only)\r\n(argument_list (identifier) @identifier.name)\r\n\r\n; any object name\r\n( _ object: _ @identifier.name)\r\n`",
       "importStatements": [],
       "codeNoBody": "calls ={\n          //...\n      }",
-      "summary": "The \"calls\" assignment in the file imports \"treeSitterQueries\" from './index' and includes definitions for class and function calls, method calls, self.parameter calls, class extensions, pydantic-like parameters, typed parameters and return types, assignments with identifiers, keyword arguments, any attribute, arguments (identifier only), and any object name."
+      "summary": "The \"calls\" assignment in the file, which imports `treeSitterQueries` from './index', includes definitions for class and function calls, method calls, self.parameter calls, class extensions, pydantic-like parameters, typed parameters and return types, assignments with identifiers, keyword arguments, any attribute, arguments, and any object name."
     },
     {
       "id": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\queries\\python::extraAssignmentCode",
@@ -758,7 +758,7 @@
       "code": "const extraAssignmentCode = (name: string) => `\r\n( module\r\n  (expression_statement\r\n      (call function:\r\n        [(identifier) @identifier.name\r\n           (attribute object: (identifier) @identifier.name  ) \r\n          ]\r\n      (#eq? @identifier.name \"${name}\")\r\n      ) @code\r\n  )\r\n) \r\n\r\n; not used\r\n;( module\r\n;  ( decorated_definition\r\n;\t(decorator [\r\n;    \t( call (attribute object: _ @identifier.name)) \r\n;        (attribute object: _ @identifier.name)\r\n;    \t]) @code\r\n;    (#eq? @identifier.name \"${name}\")\r\n;  )\r\n;)\r\n`",
       "importStatements": [],
       "codeNoBody": "const extraAssignmentCode = (name: string) =>{\n    //...\n}",
-      "summary": "The function `extraAssignmentCode` takes a `name` parameter and generates a specific code snippet using the provided `name`. It constructs a module with an expression statement that checks for equality between the identifier name and the input `name`. The function does not use the commented-out section. The function relies on the `treeSitterQueries` import from the `index` file."
+      "summary": "The \"extraAssignmentCode\" function takes a \"name\" parameter and generates a specific code snippet using the provided name. It constructs a module with an expression statement that checks for equality between the identifier name and the input name. The function returns the generated code snippet as a string."
     },
     {
       "id": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\queries\\python::constructorDefinitions",
@@ -772,7 +772,7 @@
       "code": "constructorDefinitions = `\r\n(function_definition) @function\r\n(class_definition) @class\r\n`",
       "importStatements": [],
       "codeNoBody": "constructorDefinitions ={\n          //...\n      }",
-      "summary": "Importing `treeSitterQueries` from './index', the `constructorDefinitions` assignment defines a template for function and class definitions using the specified syntax for function and class definitions."
+      "summary": "Importing `treeSitterQueries` from './index', the `constructorDefinitions` assignment defines a string template containing function and class definitions marked with corresponding annotations for identification."
     },
     {
       "id": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\queries\\python::definitionTemplate",
@@ -786,7 +786,7 @@
       "code": "definitionTemplate = `\r\n( _\r\n      name: (identifier) @name\r\n      parameters: (parameters (_) @param)?\r\n      return_type: _? @return_type\r\n      body: (block . (expression_statement (string) @documentation)? .\r\n          _ ) @body )\r\n\r\n; For global assignments   \r\n(expression_statement\r\n\t(assignment left: (identifier) @name)\r\n      )\r\n`",
       "importStatements": [],
       "codeNoBody": "definitionTemplate ={\n          //...\n      }",
-      "summary": "This assignment named \"definitionTemplate\" defines a template for a function definition in a specific format using Tree-sitter queries. It includes fields for the function name, parameters, return type, body, and optional documentation string. The template is designed for global assignments and involves an import statement for \"treeSitterQueries\" from the './index' file."
+      "summary": "This assignment named \"definitionTemplate\" defines a template for a function definition in a specific format using Tree-sitter queries. It includes fields for the function name, parameters, return type, body, and documentation. Additionally, it provides a structure for global assignments using an expression statement with an identifier. The code relies on the \"treeSitterQueries\" import from the './index' file."
     },
     {
       "id": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\queries\\python::assignments",
@@ -800,7 +800,7 @@
       "code": "assignments = `\r\n(module (expression_statement\r\n\t(assignment left: (identifier)\r\n    \t\t      right: (_)) \r\n      ) @assignment\r\n)\r\n`",
       "importStatements": [],
       "codeNoBody": "assignments ={\n          //...\n      }",
-      "summary": "The `assignments` assignment defines a module for an expression statement with an assignment operation, specifying the left side as an identifier and the right side as an underscore. This module is part of the `treeSitterQueries` imported from the `index` file."
+      "summary": "The `assignments` assignment in the file imports `treeSitterQueries` from './index' and defines a module for an expression statement with an assignment operation, specifying the left side as an identifier and the right side as an underscore."
     },
     {
       "id": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\queries\\python::importStatements",
@@ -814,7 +814,7 @@
       "code": "importStatements = `\r\n(import_statement\r\n\tname: [\r\n      (dotted_name) @module\r\n      (aliased_import name: _ @module alias: _ @alias)\r\n    ] ) @import_statement\r\n\r\n(import_from_statement\r\n\tmodule_name: _ @module\r\n\tname: [\r\n      (dotted_name) @name\r\n      (aliased_import name: _ @name alias: _ @alias)\r\n    ]?\r\n    (wildcard_import _ @wildcard)?\r\n    ) @import_statement\r\n    \r\n(future_import_statement \r\n\tname: [\r\n\t\t(dotted_name) @name\r\n\t\t(aliased_import name: _ @name alias: _ @alias)\r\n    ]) @import_statement\r\n`",
       "importStatements": [],
       "codeNoBody": "importStatements ={\n          //...\n      }",
-      "summary": "Defines a template string `importStatements` containing different types of import statements for tree-sitter queries, including import_statement, import_from_statement, and future_import_statement. The code itself uses an import statement to import `treeSitterQueries` from './index'."
+      "summary": "Defines a template string `importStatements` containing structured import statement patterns for tree-sitter queries, including import_statement, import_from_statement, and future_import_statement, with options for dotted names, aliased imports, module names, and wildcard imports. The assignment relies on an import statement importing `treeSitterQueries` from './index'."
     }
   ],
   "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\queries\\typescript": [
@@ -830,7 +830,7 @@
       "code": "anyAssignments = jsQueries.assignments + `\r\n(function_declaration\r\n\tparameters: (formal_parameters \r\n    \t(_\r\n        \t(identifier) @left\r\n        \t(type_annotation (type_identifier) @right)\r\n        ) @assignment) \r\n)\r\n`",
       "importStatements": [],
       "codeNoBody": "anyAssignments ={\n          //...\n      }",
-      "summary": "`anyAssignments` is a variable that combines the `jsQueries.assignments` with a function declaration template, including parameters with identifiers and type annotations. It relies on imports from './javascript' and './index' for `jsQueries` and `treeSitterQueries`, respectively."
+      "summary": "This assignment appends a function declaration to the existing `jsQueries.assignments` string, defining parameters with identifiers and type annotations, and is stored in the `anyAssignments` variable. It relies on imports from './javascript' and './index' for `jsQueries` and `treeSitterQueries`, respectively."
     },
     {
       "id": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\queries\\typescript::calls",
@@ -844,7 +844,7 @@
       "code": "calls = jsQueries.calls + `\r\n; type identifiers: IMPORTANT! for classes this means a call to itself! we need to remove it\r\n(type_identifier) @parameter_type\r\n`",
       "importStatements": [],
       "codeNoBody": "calls ={\n          //...\n      }",
-      "summary": "Assigns the concatenated value of `jsQueries.calls` and a specific string to the variable `calls`. The string appended includes instructions regarding type identifiers and parameters. The assignment relies on the imported `jsQueries` object from the 'javascript' file."
+      "summary": "The assignment \"calls\" appends a string to the \"jsQueries.calls\" variable, containing information about type identifiers and parameter types. It is important to note that for classes, the call to itself needs to be removed. The assignment relies on the \"jsQueries\" import from the './javascript' file."
     },
     {
       "id": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\queries\\typescript::extraAssignmentCode",
@@ -900,7 +900,7 @@
       "code": "definitionTemplate = `\r\n( _\r\n    name: (_) @name\r\n    parameters: (formal_parameters (_) @param)?\r\n    return_type: (type_annotation)? @return_type\r\n    ; method signatures has no body\r\n    [body: (_)\r\n    ; for types\r\n    value: (_)] @body\r\n)?\r\n\r\n; arrow function\r\n(variable_declarator\r\n\tname: (_) @name\r\n\tvalue: (arrow_function\r\n    \tparameters: (formal_parameters (_) @param)?\r\n        return_type: (type_annotation)? @return_type\r\n        body: (_)? @body\r\n\t\t\t)\r\n)?\r\n`",
       "importStatements": [],
       "codeNoBody": "definitionTemplate ={\n          //...\n      }",
-      "summary": "The `definitionTemplate` assignment in the file imports `jsQueries` from './javascript' and `treeSitterQueries` from './index', defining a template for method signatures and arrow functions with optional parameters, return types, and bodies."
+      "summary": "The `definitionTemplate` assignment in the file imports `jsQueries` from './javascript' and `treeSitterQueries` from './index'. It defines a template for method and arrow function signatures, including name, parameters, return type, and body, with optional formal parameters and type annotations. Method signatures have no body, while arrow functions may have a body."
     },
     {
       "id": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\queries\\typescript::importStatements",
@@ -930,7 +930,7 @@
       "code": "repoRequestValidator = zValidator(\r\n  'json',\r\n  z.object({\r\n    git_provider: z.enum(['github', 'gitlab', 'bitbucket']),\r\n    repo_org: z.string(),\r\n    repo_name: z.string(),\r\n    branch: z.string(),\r\n    connection_id: z.string()\r\n  })\r\n)",
       "importStatements": [],
       "codeNoBody": "repoRequestValidator ={\n          //...\n      }",
-      "summary": "Uses zod for schema validation, the `repoRequestValidator` function validates a JSON object with properties `git_provider`, `repo_org`, `repo_name`, `branch`, and `connection_id`, ensuring `git_provider` is one of 'github', 'gitlab', or 'bitbucket'."
+      "summary": "Uses zod and @hono/zod-validator to define a validation schema named \"repoRequestValidator\" that validates a JSON object with properties git_provider, repo_org, repo_name, branch, and connection_id, where git_provider must be one of 'github', 'gitlab', or 'bitbucket'."
     },
     {
       "id": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\routes\\create_graph-test::secret",
@@ -960,7 +960,7 @@
       "code": "async function processGraphCreation({\r\n  gitProvider,\r\n  repoId,\r\n  userOrgId,\r\n  userId,\r\n  graphExists,\r\n  connectionId,\r\n  codebasePath\r\n}: {\r\n  gitProvider: GitServiceType\r\n  repoId: string\r\n  userOrgId: string\r\n  userId: string\r\n  graphExists: boolean,\r\n  connectionId: string,\r\n  codebasePath: string\r\n}) {\r\n  let graphId = uuidv4()\r\n  try {\r\n    const status = graphExists ? 'completed' : 'pending'\r\n\r\n    // graph does not exist\r\n    if (!codebasePath) {\r\n      console.log('Failed to download repo')\r\n      return\r\n    }\r\n\r\n    const graph: Record<string, string | number> = {\r\n      id: graphId,\r\n      repo_id: repoId,\r\n      status,\r\n      org_id: userOrgId,\r\n      user_id: userId\r\n    }\r\n\r\n    if (gitProvider === 'github') graph.github_connection_id = Number(connectionId)\r\n    else if (gitProvider === 'gitlab') graph.gitlab_connection_id = Number(connectionId)\r\n    else if (gitProvider === 'bitbucket') graph.bitbucket_connection_id = connectionId\r\n\r\n    await sql`INSERT INTO graphs ${sql([graph])}`\r\n\r\n    if (graphExists) {\r\n      console.log('Graph creation completed:', graphId)\r\n      return\r\n    }\r\n\r\n\r\n    const codebase = new Codebase(codebasePath)\r\n    const fileNodesMap = await codebase.parseFolder()\r\n    codebase.getCalls(fileNodesMap, false)\r\n    const nodes = codebase.simplify()\r\n\r\n    // create a uuid for each node\r\n    const nodeDBIds: { [key: string]: string } = {}\r\n    for (const node of nodes) {\r\n      nodeDBIds[node.id] = uuidv4()\r\n    }\r\n\r\n    // Insert nodes into the database, note that the node.id is now the full_name\r\n    const insertNodePromises = nodes.map((node) => {\r\n      const fullName = node.id.replace(codebasePath, '')\r\n      return sql`\r\n    INSERT INTO nodes (id, repo_id, type, language, total_tokens, documentation, code, code_no_body, in_degree, out_degree, full_name, label)\r\n    VALUES (${nodeDBIds[node.id]}, ${repoId}, ${node.type}, ${node.language}, ${node.totalTokens\r\n        }, ${node.documentation}, ${node.code}, ${node.codeNoBody}, ${node.inDegree}, ${node.outDegree\r\n        }, ${fullName}, ${node.label})\r\n    `\r\n    })\r\n\r\n    const links = codebase.getLinks()\r\n    // Insert links into the database\r\n    const insertLinkPromises = links.map((link) => {\r\n      return sql`\r\n    INSERT INTO links (node_source_id, node_target_id, repo_id, label)\r\n    VALUES (${nodeDBIds[link.source]}, ${nodeDBIds[link.target]}, ${repoId}, ${link.label})\r\n    `\r\n    })\r\n\r\n    await Promise.all(insertNodePromises)\r\n    await Promise.all(insertLinkPromises)\r\n\r\n    await sql`UPDATE graphs SET status = 'completed' WHERE id = ${graphId}`\r\n    console.log('Graph creation completed:', graphId)\r\n  } catch (error) {\r\n    console.error('Error in background processing:', error)\r\n    await sql`UPDATE graphs SET status = 'failed' WHERE id = ${graphId}`\r\n  }\r\n}",
       "importStatements": [],
       "codeNoBody": "async function processGraphCreation({\r\n  gitProvider,\r\n  repoId,\r\n  userOrgId,\r\n  userId,\r\n  graphExists,\r\n  connectionId,\r\n  codebasePath\r\n}: {\r\n  gitProvider: GitServiceType\r\n  repoId: string\r\n  userOrgId: string\r\n  userId: string\r\n  graphExists: boolean,\r\n  connectionId: string,\r\n  codebasePath: string\r\n}){\n    //...\n}",
-      "summary": "This async function `processGraphCreation` takes in parameters `gitProvider`, `repoId`, `userOrgId`, `userId`, `graphExists`, `connectionId`, and `codebasePath`. It generates a unique `graphId`, determines the status based on `graphExists`, creates a graph record, inserts it into the database, processes codebase files to extract nodes and links, assigns UUIDs to nodes, inserts nodes and links into the database, updates the graph status, and handles errors. It relies on imports from `../utils/db` and `../model/codebase`."
+      "summary": "This async function `processGraphCreation` takes in parameters `gitProvider`, `repoId`, `userOrgId`, `userId`, `graphExists`, `connectionId`, and `codebasePath` to create a graph in a database based on the provided data. It generates a unique `graphId`, determines the graph's status, inserts graph and node data into the database, and handles errors accordingly. The function utilizes SQL queries for database operations and relies on the `Codebase` class for parsing and simplifying codebase information."
     },
     {
       "id": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\routes\\create_graph::repoRequestValidator",
@@ -974,7 +974,7 @@
       "code": "repoRequestValidator = zValidator(\r\n  'json',\r\n  z.object({\r\n    git_provider: z.enum(['github', 'gitlab', 'bitbucket']),\r\n    repo_org: z.string(),\r\n    repo_name: z.string(),\r\n    branch: z.string(),\r\n    connection_id: z.string(),\r\n    gitlab_repo_id: z.number().optional()\r\n  })\r\n)",
       "importStatements": [],
       "codeNoBody": "repoRequestValidator ={\n          //...\n      }",
-      "summary": "The `repoRequestValidator` assignment, imported from `@hono/zod-validator`, validates a JSON object with properties `git_provider`, `repo_org`, `repo_name`, `branch`, `connection_id`, and an optional `gitlab_repo_id` using Zod schema validation."
+      "summary": "The `repoRequestValidator` assignment, imported from `@hono/zod-validator`, validates a JSON object with properties `git_provider` (enum: 'github', 'gitlab', 'bitbucket'), `repo_org`, `repo_name`, `branch`, `connection_id`, and an optional `gitlab_repo_id` (number)."
     },
     {
       "id": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\routes\\create_graph::secret",
@@ -1005,7 +1005,7 @@
       "code": "async function refreshAccessToken(refreshToken: string): Promise<any> {\r\n  try {\r\n    const rawBody = {\r\n      refresh_token: refreshToken,\r\n      grant_type: 'refresh_token',\r\n      client_id: getEnv('BITBUCKET_KEY'),\r\n      client_secret: getEnv('BITBUCKET_SECRET')\r\n    }\r\n\r\n    const body = Object.entries(rawBody)\r\n      .map(([key, value]) => `${key}=${value}`)\r\n      .join('&')\r\n\r\n    const res = await fetch('https://bitbucket.org/site/oauth2/access_token', {\r\n      method: 'POST',\r\n      headers: {\r\n        'Content-Type': 'application/x-www-form-urlencoded'\r\n      },\r\n      body\r\n    })\r\n\r\n    if (res.ok) {\r\n      const { access_token: newAccessToken, refresh_token: newRefreshToken } = await res.json()\r\n\r\n      return {\r\n        newAccessToken,\r\n        newRefreshToken\r\n      }\r\n    } else {\r\n      const data = await res.json()\r\n      console.error('Error al renovar el token de acceso:', data)\r\n      return null\r\n    }\r\n  } catch (error) {\r\n    console.error('Error al renovar el token de acceso:', error)\r\n    return null\r\n  }\r\n}",
       "importStatements": [],
       "codeNoBody": "async function refreshAccessToken(refreshToken: string): Promise<any>{\n           //...\n       }",
-      "summary": "Imports `getEnv` from \"../utils\". The function `refreshAccessToken` takes a `refreshToken` string as a parameter, sends a POST request to Bitbucket's OAuth2 endpoint to refresh the access token using the provided `refreshToken`, `client_id`, and `client_secret`. If successful, it returns an object with the new access token and refresh token; otherwise, it logs an error message and returns null."
+      "summary": "Imports `getEnv` from \"../utils\". The function `refreshAccessToken` takes a `refreshToken` string as a parameter, sends a POST request to Bitbucket's OAuth2 endpoint to refresh the access token using the provided `refreshToken`, `client_id`, and `client_secret`. If successful, it returns an object with the new access token and refresh token; otherwise, it logs an error and returns null."
     }
   ],
   "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\utils\\db": [
@@ -1021,7 +1021,7 @@
       "code": "sql = postgres({\r\n  host: getEnv('DATABASE_HOST'),\r\n  database: getEnv('DATABASE_NAME'),\r\n  port: Number(getEnv('DATABASE_PORT')),\r\n  user: getEnv('DATABASE_USERNAME'),\r\n  password: getEnv('DATABASE_PASSWORD'),\r\n  prepare: false,\r\n  connect_timeout: 60,\r\n  idle_timeout: 60,\r\n  ssl: {\r\n    ca: getEnv('SUPABASE_CA_CERTIFICATE')\r\n  }\r\n  // ssl: {\r\n  //   rejectUnauthorized: false\r\n  // }\r\n})",
       "importStatements": [],
       "codeNoBody": "sql ={\n                 //...\n             }",
-      "summary": "The `sql` assignment connects to a PostgreSQL database using the `postgres` library with the provided configuration options, including the host, database name, port, username, password, connection settings, and SSL certificate from environment variables using the `getEnv` function imported from './utils'."
+      "summary": "The `sql` assignment connects to a PostgreSQL database using the `postgres` library, with configurations for host, database, port, user, password, connection timeouts, and SSL certificate from environment variables fetched using the `getEnv` function imported from './utils'."
     }
   ],
   "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\utils\\git": [
@@ -1051,7 +1051,7 @@
       "code": "MAXSIZE = 2",
       "importStatements": [],
       "codeNoBody": "MAXSIZE ={\n          //...\n      }",
-      "summary": "The constant `MAXSIZE` is assigned the value of `2`."
+      "summary": "The assignment `MAXSIZE` is set to the value `2`. It is defined in the file where `MAXSIZE` is imported from."
     }
   ],
   "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\utils\\gitlab\\refresh-token": [
@@ -1067,7 +1067,7 @@
       "code": "async function refreshAccessToken(refreshToken: string): Promise<any> {\r\n  try {\r\n    const url = new URL('https://gitlab.com/oauth/token')\r\n    url.searchParams.set('refresh_token', refreshToken)\r\n    url.searchParams.set('grant_type', 'refresh_token')\r\n    url.searchParams.set('client_id', getEnv('GITLAB_APP_ID'))\r\n    url.searchParams.set('client_secret', getEnv('GITLAB_SECRET_ID'))\r\n\r\n    const res = await fetch(url, {\r\n      method: 'POST',\r\n      headers: {\r\n        'Content-Type': 'application/x-www-form-urlencoded',\r\n        Accept: 'application/json'\r\n      }\r\n    })\r\n\r\n    if (res.ok) {\r\n      const { access_token: newAccessToken, refresh_token: newRefreshToken } = await res.json()\r\n\r\n      return {\r\n        newAccessToken,\r\n        newRefreshToken\r\n      }\r\n    } else {\r\n      const data = await res.json()\r\n      console.error('Error al renovar el token de acceso:', data)\r\n      return null\r\n    }\r\n  } catch (error) {\r\n    console.error('Error al renovar el token de acceso:', error)\r\n    return null\r\n  }\r\n}",
       "importStatements": [],
       "codeNoBody": "async function refreshAccessToken(refreshToken: string): Promise<any>{\n           //...\n       }",
-      "summary": "This async function named \"refreshAccessToken\" takes a string parameter \"refreshToken\" and sends a POST request to the GitLab API to refresh the access token using the provided refresh token. It utilizes the \"getEnv\" function to retrieve the GitLab app ID and secret ID, then returns a promise that resolves to an object containing the new access token and refresh token if the request is successful; otherwise, it logs an error message and returns null."
+      "summary": "Imports the `getEnv` function from \"../utils\" to retrieve the GitLab app ID and secret ID, then sends a POST request to \"https://gitlab.com/oauth/token\" with the provided `refreshToken` to refresh the access token. If successful, returns the new access and refresh tokens; otherwise, logs an error message and returns null."
     }
   ],
   "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\utils\\utils": [
@@ -1099,7 +1099,7 @@
       "code": "function findStartNodes(callGraph: { [key: string]: string[] }) {\r\n  return Object.keys(callGraph).filter((node) => callGraph[node].length === 0); //get nodes that don't call anyone.\r\n}",
       "importStatements": [],
       "codeNoBody": "function findStartNodes(callGraph: { [key: string]: string[] }){\n    //...\n}",
-      "summary": "The function \"findStartNodes\" takes a callGraph object as a parameter and returns an array of nodes that do not call any other nodes by filtering the keys of the callGraph object based on the length of their corresponding arrays of called nodes."
+      "summary": "The function \"findStartNodes\" takes a call graph object as a parameter and returns an array of nodes that do not call any other nodes. It uses the Object.keys method to iterate over the keys of the callGraph object and filters out nodes with an empty array of calls."
     },
     {
       "id": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\wiki\\wiki2::totalTokensUsed",
@@ -1113,7 +1113,7 @@
       "code": "totalTokensUsed = 0",
       "importStatements": [],
       "codeNoBody": "totalTokensUsed ={\n        //...\n    }",
-      "summary": "The assignment `totalTokensUsed` initializes a variable to store the total number of tokens used, which is set to 0. The assignment does not require any specific import statements."
+      "summary": "The assignment `totalTokensUsed` initializes a variable to store the total number of tokens used, which is set to 0."
     },
     {
       "id": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\wiki\\wiki2::linksPath",
@@ -1155,7 +1155,7 @@
       "code": "forder_path = `../../test_files/`",
       "importStatements": [],
       "codeNoBody": "forder_path ={\n          //...\n      }",
-      "summary": "The assignment `forder_path` is a string containing the path `../../test_files/` and is defined in a file that imports `AllowedTypes` from \"../model/consts\"."
+      "summary": "The assignment `forder_path` is a string containing the path `../../test_files/` and is defined in the file where `AllowedTypes` is imported from `\"../model/consts\"`."
     },
     {
       "id": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\wiki\\wiki2::projectId",
@@ -1183,7 +1183,7 @@
       "code": "onlyLogs = false",
       "importStatements": [],
       "codeNoBody": "onlyLogs ={\n          //...\n      }",
-      "summary": "The assignment `onlyLogs` is set to `false` and is defined in the file where the following imports are used: `AllowedTypes` from \"../model/consts\", `fs2` from \"fs\", `path2` from \"path\", `OpenAI2` from \"openai\", `{ Tiktoken }` from \"tiktoken/lite\", and `cl100k_base` from \"tiktoken/encoders/cl100k_base.json\"."
+      "summary": "The assignment `onlyLogs` is set to `false` and is defined in the file where the following imports are used: `AllowedTypes` from \"../model/consts\", `fs2` from \"fs\", `path2` from \"path\", `OpenAI2` from \"openai\", `Tiktoken` from \"tiktoken/lite\", and `cl100k_base` from \"tiktoken/encoders/cl100k_base.json\"."
     },
     {
       "id": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\wiki\\wiki2::response_format",
@@ -1197,7 +1197,7 @@
       "code": "response_format = { type: \"json_object\" }",
       "importStatements": [],
       "codeNoBody": "response_format ={\n          //...\n      }",
-      "summary": "The assignment `response_format` is defined as an object with a property `type` set to the string value `\"json_object\"`."
+      "summary": "Defines a constant `response_format` with the value `{ type: \"json_object\" }`."
     },
     {
       "id": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\wiki\\wiki2::max_tokens",
@@ -1225,7 +1225,7 @@
       "code": "temperature = 0",
       "importStatements": [],
       "codeNoBody": "temperature ={\n          //...\n      }",
-      "summary": "The assignment \"temperature\" is initialized with a value of 0. The file imports AllowedTypes from \"../model/consts\"."
+      "summary": "The assignment \"temperature\" is initialized with a value of 0."
     },
     {
       "id": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\wiki\\wiki2::model",
@@ -1239,7 +1239,7 @@
       "code": "model = \"gpt-3.5-turbo\"",
       "importStatements": [],
       "codeNoBody": "model ={\n          //...\n      }",
-      "summary": "The `model` variable is assigned the string value \"gpt-3.5-turbo\" and is used in the file after importing `AllowedTypes` from \"../model/consts\"."
+      "summary": "The `model` variable is assigned the string value \"gpt-3.5-turbo\" and is defined in the file where the `AllowedTypes` import statement is used from \"../model/consts\"."
     },
     {
       "id": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\wiki\\wiki2::startTime",
@@ -1253,7 +1253,7 @@
       "code": "startTime = new Date()",
       "importStatements": [],
       "codeNoBody": "startTime ={\n          //...\n      }",
-      "summary": "Initialize a new Date object to store the current date and time in the variable \"startTime\"."
+      "summary": "Initialize a new Date object to store the current date and time when the `startTime` assignment is executed."
     },
     {
       "id": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\wiki\\wiki2::cl100k_base",
@@ -1267,7 +1267,7 @@
       "code": "cl100k_base = require(\"tiktoken/encoders/cl100k_base.json\")",
       "importStatements": [],
       "codeNoBody": "cl100k_base ={\n          //...\n      }",
-      "summary": "Importing the \"cl100k_base\" JSON file from the \"tiktoken/encoders\" directory, this assignment provides access to the base data for encoding in the CL100K model."
+      "summary": "Import the \"cl100k_base\" assignment from the \"tiktoken/encoders/cl100k_base.json\" file using the require method."
     },
     {
       "id": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\wiki\\wiki2::OpenAI2",
@@ -1281,7 +1281,7 @@
       "code": "OpenAI2 = require(\"openai\")",
       "importStatements": [],
       "codeNoBody": "OpenAI2 ={\n          //...\n      }",
-      "summary": "Importing the \"openai\" library, the assignment \"OpenAI2\" is defined as a variable to access the functionalities provided by the library."
+      "summary": "Importing the \"openai\" library, the assignment \"OpenAI2\" is defined to utilize the functionalities provided by the library for further implementation."
     },
     {
       "id": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\wiki\\wiki2::path2",
@@ -1295,7 +1295,7 @@
       "code": "path2 = require(\"path\")",
       "importStatements": [],
       "codeNoBody": "path2 ={\n          //...\n      }",
-      "summary": "Importing the \"path\" module, the assignment \"path2\" provides access to Node.js's path functionality for handling and transforming file paths."
+      "summary": "Import the \"path\" module using the \"require\" function from Node.js, as shown in the assignment \"path2\"."
     },
     {
       "id": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\src\\wiki\\wiki2::fs2",
@@ -1309,7 +1309,7 @@
       "code": "fs2 = require(\"fs\").promises",
       "importStatements": [],
       "codeNoBody": "fs2 ={\n          //...\n      }",
-      "summary": "Importing the `fs` module with promises enabled, the assignment `fs2` provides an asynchronous file system API for file operations, enhancing readability and simplifying error handling."
+      "summary": "Importing the `fs` module with promises enabled, the assignment `fs2` provides an asynchronous API for file system operations, facilitating non-blocking I/O operations in the application."
     }
   ],
   "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\tests\\c.test": [
@@ -1325,7 +1325,7 @@
       "code": "nodeAttributes = ['id', 'type', 'name', 'label', 'language', 'exportable', 'documentation', 'code', 'parent', 'inDegree', 'outDegree']",
       "importStatements": [],
       "codeNoBody": "nodeAttributes ={\n          //...\n      }",
-      "summary": "The `nodeAttributes` array includes attributes such as id, type, name, label, language, exportable, documentation, code, parent, inDegree, and outDegree, and is used in the file where `Codebase`, `Node`, `ImportStatement`, and `ImportName` are imported from `\"../src/model/codebase\"`."
+      "summary": "The `nodeAttributes` array includes attributes such as id, type, name, label, language, exportable, documentation, code, parent, inDegree, and outDegree, used within the `Node` class defined in the `../src/model/codebase` file."
     },
     {
       "id": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\tests\\c.test::rootFolderPath",
@@ -1339,7 +1339,7 @@
       "code": "rootFolderPath = '/my/path'",
       "importStatements": [],
       "codeNoBody": "rootFolderPath ={\n          //...\n      }",
-      "summary": "The `rootFolderPath` variable is a string that stores the path '/my/path' and is defined in the file where the `Codebase`, `Node`, `ImportStatement`, and `ImportName` classes are imported from the '../src/model/codebase' module."
+      "summary": "The `rootFolderPath` variable is assigned the string `'/my/path'` and is defined in the file where the `Codebase`, `Node`, `ImportStatement`, and `ImportName` imports are used."
     }
   ],
   "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\tests\\java.test": [
@@ -1355,7 +1355,7 @@
       "code": "nodeAttributes = ['id', 'type', 'name', 'label', 'language', 'exportable', 'documentation', 'code', 'parent', 'inDegree', 'outDegree']",
       "importStatements": [],
       "codeNoBody": "nodeAttributes ={\n          //...\n      }",
-      "summary": "`nodeAttributes` is an array containing attributes such as id, type, name, label, language, exportable, documentation, code, parent, inDegree, and outDegree, used within the `Codebase`, `Node`, `ImportStatement`, and `ImportName` classes imported from \"../src/model/codebase\"."
+      "summary": "`nodeAttributes` is an array containing attributes such as id, type, name, label, language, exportable, documentation, code, parent, inDegree, and outDegree, used in the context of the `Node` interface from the `Codebase` model in the file where the import statement `{ Codebase, Node, ImportStatement, ImportName }` is defined."
     },
     {
       "id": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\tests\\java.test::rootFolderPath",
@@ -1369,7 +1369,7 @@
       "code": "rootFolderPath = '/my/path'",
       "importStatements": [],
       "codeNoBody": "rootFolderPath ={\n          //...\n      }",
-      "summary": "The variable `rootFolderPath` is assigned the string `'/my/path'` and is defined in the file where `Codebase`, `Node`, `ImportStatement`, and `ImportName` are imported from `\"../src/model/codebase\"`."
+      "summary": "The variable `rootFolderPath` is assigned the string value `'/my/path'` and is defined in the file where `Codebase`, `Node`, `ImportStatement`, and `ImportName` are imported from `\"../src/model/codebase\"`."
     }
   ],
   "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\tests\\javascript.test": [
@@ -1385,7 +1385,7 @@
       "code": "nodeAttributes = ['id', 'type', 'name', 'label', 'language', 'exportable', 'documentation', 'code', 'parent', 'inDegree', 'outDegree']",
       "importStatements": [],
       "codeNoBody": "nodeAttributes ={\n          //...\n      }",
-      "summary": "The `nodeAttributes` array includes attributes such as id, type, name, label, language, exportable, documentation, code, parent, inDegree, and outDegree, and is used in the file where `Codebase`, `Node`, `ImportStatement`, and `ImportName` are imported from \"../src/model/codebase\"."
+      "summary": "`nodeAttributes` is an array containing attributes such as id, type, name, label, language, exportable, documentation, code, parent, inDegree, and outDegree, used within the context of the `Codebase`, `Node`, `ImportStatement`, and `ImportName` classes imported from \"../src/model/codebase\"."
     },
     {
       "id": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\tests\\javascript.test::rootFolderPath",
@@ -1399,7 +1399,7 @@
       "code": "rootFolderPath = '/my/path'",
       "importStatements": [],
       "codeNoBody": "rootFolderPath ={\n          //...\n      }",
-      "summary": "The `rootFolderPath` variable is a string that stores the path '/my/path' and is defined in the file where the `Codebase`, `Node`, `ImportStatement`, and `ImportName` classes are imported from the '../src/model/codebase' module."
+      "summary": "The `rootFolderPath` variable is assigned the string `'/my/path'` and is used to store the root path of the project. It is defined in the file where the following imports are used: `import { Codebase, Node, ImportStatement, ImportName } from \"../src/model/codebase\"`."
     }
   ],
   "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\tests\\python.test": [
@@ -1415,7 +1415,7 @@
       "code": "nodeAttributes = ['id', 'type', 'name', 'label', 'language', 'exportable', 'documentation', 'code', 'parent', 'inDegree', 'outDegree']",
       "importStatements": [],
       "codeNoBody": "nodeAttributes ={\n          //...\n      }",
-      "summary": "`nodeAttributes` is an array containing attributes such as 'id', 'type', 'name', 'label', 'language', 'exportable', 'documentation', 'code', 'parent', 'inDegree', and 'outDegree', used in the context of the `Codebase`, `Node`, `ImportStatement`, and `ImportName` classes imported from \"../src/model/codebase\"."
+      "summary": "The `nodeAttributes` array includes attributes such as id, type, name, label, language, exportable, documentation, code, parent, inDegree, and outDegree, used within the `Node` class in the `Codebase` model from the \"../src/model/codebase\" file."
     },
     {
       "id": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\tests\\python.test::rootFolderPath",
@@ -1429,7 +1429,7 @@
       "code": "rootFolderPath = '/my/path'",
       "importStatements": [],
       "codeNoBody": "rootFolderPath ={\n          //...\n      }",
-      "summary": "The `rootFolderPath` variable is a string that stores the path '/my/path' and is defined in the file where the `Codebase`, `Node`, `ImportStatement`, and `ImportName` imports are used from the '../src/model/codebase' module."
+      "summary": "The assignment `rootFolderPath` is a string variable that holds the value '/my/path' and is defined in the file where `Codebase`, `Node`, `ImportStatement`, and `ImportName` are imported from '../src/model/codebase'."
     }
   ],
   "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\tests\\utils.test": [],
@@ -1446,7 +1446,7 @@
       "code": "allCode = \"\"",
       "importStatements": [],
       "codeNoBody": "allCode ={\n        //...\n    }",
-      "summary": "The `allCode` variable is declared as an empty string in the file, utilizing the `fs`, `path`, and `OpenAI` import statements for potential functionality."
+      "summary": "The variable `allCode` is declared as an empty string in the file, utilizing the `fs`, `path`, and `OpenAI` import statements for file system operations, path manipulation, and interfacing with the OpenAI API, respectively."
     },
     {
       "id": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\wiki::contents",
@@ -1460,7 +1460,7 @@
       "code": "contents = \"\"",
       "importStatements": [],
       "codeNoBody": "contents ={\n        //...\n    }",
-      "summary": "The variable `contents` is a string that is initially empty and can be used to store text content."
+      "summary": "Assigns an empty string to the variable \"contents\"."
     },
     {
       "id": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\wiki::nodesFilePath",
@@ -1488,7 +1488,7 @@
       "code": "codebasePath =\r\n  \"C:\\\\Users\\\\gmasc\\\\OneDrive\\\\Documentos\\\\CodeGPT\\\\Graphs\\\\codebase-index-ts\\\\\"",
       "importStatements": [],
       "codeNoBody": "codebasePath ={\n          //...\n      }",
-      "summary": "The `codebasePath` variable stores the file path to the codebase directory in the system, specifically pointing to the \"codebase-index-ts\" folder within the Graphs directory."
+      "summary": "The `codebasePath` variable stores the file path to the codebase directory in the system, specifically located at \"C:\\\\Users\\\\gmasc\\\\OneDrive\\\\Documentos\\\\CodeGPT\\\\Graphs\\\\codebase-index-ts\\\\\", using Node.js's `fs` and `path` modules for file system operations and path manipulation."
     },
     {
       "id": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\wiki::OpenAI",
@@ -1502,7 +1502,7 @@
       "code": "OpenAI = require(\"openai\")",
       "importStatements": [],
       "codeNoBody": "OpenAI ={\n          //...\n      }",
-      "summary": "Import the OpenAI library using the `require` function from the \"openai\" package."
+      "summary": "Import the \"OpenAI\" module from the \"openai\" package using the `require` function."
     },
     {
       "id": "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts\\wiki::path",
