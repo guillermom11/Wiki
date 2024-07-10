@@ -1,0 +1,392 @@
+[
+  {
+    "source": "judini-python-main\\judini-python-main\\examples\\chat_completion",
+    "target": "judini-python-main\\judini-python-main\\examples\\chat_completion::chat_example",
+    "label": "defines",
+    "line": 12
+  },
+  {
+    "source": "judini-python-main\\judini-python-main\\examples\\chat_completion",
+    "target": "judini-python-main\\judini-python-main\\examples\\chat_completion::chat_example",
+    "label": "calls",
+    "line": 28
+  },
+  {
+    "source": "judini-python-main\\judini-python-main\\src\\judini\\codegpt::CodeGPTPlus",
+    "target": "judini-python-main\\judini-python-main\\src\\judini\\codegpt::CodeGPTPlus.delete_document",
+    "label": "defines",
+    "line": 524
+  },
+  {
+    "source": "judini-python-main\\judini-python-main\\src\\judini\\codegpt::CodeGPTPlus.delete_document",
+    "target": "judini-python-main\\judini-python-main\\src\\judini\\codegpt::CodeGPTPlus",
+    "label": "calls",
+    "line": 4
+  },
+  {
+    "source": "judini-python-main\\judini-python-main\\src\\judini\\codegpt::CodeGPTPlus.delete_document",
+    "target": "judini-python-main\\judini-python-main\\src\\judini\\codegpt::JUDINI_TUTORIAL",
+    "label": "calls",
+    "line": 9
+  },
+  {
+    "source": "judini-python-main\\judini-python-main\\src\\judini\\codegpt::CodeGPTPlus",
+    "target": "judini-python-main\\judini-python-main\\src\\judini\\codegpt::CodeGPTPlus.upload_document",
+    "label": "defines",
+    "line": 475
+  },
+  {
+    "source": "judini-python-main\\judini-python-main\\src\\judini\\codegpt::CodeGPTPlus.upload_document",
+    "target": "judini-python-main\\judini-python-main\\src\\judini\\codegpt::CodeGPTPlus",
+    "label": "calls",
+    "line": 10
+  },
+  {
+    "source": "judini-python-main\\judini-python-main\\src\\judini\\codegpt::CodeGPTPlus.upload_document",
+    "target": "judini-python-main\\judini-python-main\\src\\judini\\codegpt::JUDINI_TUTORIAL",
+    "label": "calls",
+    "line": 21
+  },
+  {
+    "source": "judini-python-main\\judini-python-main\\src\\judini\\codegpt::CodeGPTPlus.upload_document",
+    "target": "judini-python-main\\judini-python-main\\src\\judini\\codegpt::CodeGPTPlus._generate_document_metadata",
+    "label": "calls",
+    "line": 26
+  },
+  {
+    "source": "judini-python-main\\judini-python-main\\src\\judini\\codegpt::CodeGPTPlus.upload_document",
+    "target": "judini-python-main\\judini-python-main\\src\\judini\\codegpt::CodeGPTPlus.update_document_metadata",
+    "label": "calls",
+    "line": 27
+  },
+  {
+    "source": "judini-python-main\\judini-python-main\\src\\judini\\codegpt::CodeGPTPlus",
+    "target": "judini-python-main\\judini-python-main\\src\\judini\\codegpt::CodeGPTPlus._generate_document_metadata",
+    "label": "defines",
+    "line": 441
+  },
+  {
+    "source": "judini-python-main\\judini-python-main\\src\\judini\\codegpt::CodeGPTPlus._generate_document_metadata",
+    "target": "judini-python-main\\judini-python-main\\src\\judini\\codegpt::CodeGPTPlus",
+    "label": "calls",
+    "line": 9
+  },
+  {
+    "source": "judini-python-main\\judini-python-main\\src\\judini\\codegpt::CodeGPTPlus._generate_document_metadata",
+    "target": "judini-python-main\\judini-python-main\\src\\judini\\codegpt::JUDINI_TUTORIAL",
+    "label": "calls",
+    "line": 20
+  },
+  {
+    "source": "judini-python-main\\judini-python-main\\src\\judini\\codegpt::CodeGPTPlus",
+    "target": "judini-python-main\\judini-python-main\\src\\judini\\codegpt::CodeGPTPlus.update_document_metadata",
+    "label": "defines",
+    "line": 395
+  },
+  {
+    "source": "judini-python-main\\judini-python-main\\src\\judini\\codegpt::CodeGPTPlus.update_document_metadata",
+    "target": "judini-python-main\\judini-python-main\\src\\judini\\codegpt::CodeGPTPlus.get_document",
+    "label": "calls",
+    "line": 9
+  },
+  {
+    "source": "judini-python-main\\judini-python-main\\src\\judini\\codegpt::CodeGPTPlus.update_document_metadata",
+    "target": "judini-python-main\\judini-python-main\\src\\judini\\codegpt::CodeGPTPlus",
+    "label": "calls",
+    "line": 9
+  },
+  {
+    "source": "judini-python-main\\judini-python-main\\src\\judini\\codegpt::CodeGPTPlus.update_document_metadata",
+    "target": "judini-python-main\\judini-python-main\\src\\judini\\codegpt::JUDINI_TUTORIAL",
+    "label": "calls",
+    "line": 30
+  },
+  {
+    "source": "judini-python-main\\judini-python-main\\src\\judini\\codegpt::CodeGPTPlus",
+    "target": "judini-python-main\\judini-python-main\\src\\judini\\codegpt::CodeGPTPlus.get_document",
+    "label": "defines",
+    "line": 366
+  },
+  {
+    "source": "judini-python-main\\judini-python-main\\src\\judini\\codegpt::CodeGPTPlus.get_document",
+    "target": "judini-python-main\\judini-python-main\\src\\judini\\codegpt::CodeGPTPlus",
+    "label": "calls",
+    "line": 4
+  },
+  {
+    "source": "judini-python-main\\judini-python-main\\src\\judini\\codegpt::CodeGPTPlus.get_document",
+    "target": "judini-python-main\\judini-python-main\\src\\judini\\codegpt::JUDINI_TUTORIAL",
+    "label": "calls",
+    "line": 9
+  },
+  {
+    "source": "judini-python-main\\judini-python-main\\src\\judini\\codegpt::CodeGPTPlus",
+    "target": "judini-python-main\\judini-python-main\\src\\judini\\codegpt::CodeGPTPlus.get_documents",
+    "label": "defines",
+    "line": 341
+  },
+  {
+    "source": "judini-python-main\\judini-python-main\\src\\judini\\codegpt::CodeGPTPlus.get_documents",
+    "target": "judini-python-main\\judini-python-main\\src\\judini\\codegpt::CodeGPTPlus",
+    "label": "calls",
+    "line": 4
+  },
+  {
+    "source": "judini-python-main\\judini-python-main\\src\\judini\\codegpt::CodeGPTPlus.get_documents",
+    "target": "judini-python-main\\judini-python-main\\src\\judini\\codegpt::JUDINI_TUTORIAL",
+    "label": "calls",
+    "line": 8
+  },
+  {
+    "source": "judini-python-main\\judini-python-main\\src\\judini\\codegpt::CodeGPTPlus",
+    "target": "judini-python-main\\judini-python-main\\src\\judini\\codegpt::CodeGPTPlus.update_agent_documents",
+    "label": "defines",
+    "line": 316
+  },
+  {
+    "source": "judini-python-main\\judini-python-main\\src\\judini\\codegpt::CodeGPTPlus.update_agent_documents",
+    "target": "judini-python-main\\judini-python-main\\src\\judini\\codegpt::CodeGPTPlus",
+    "label": "calls",
+    "line": 4
+  },
+  {
+    "source": "judini-python-main\\judini-python-main\\src\\judini\\codegpt::CodeGPTPlus.update_agent_documents",
+    "target": "judini-python-main\\judini-python-main\\src\\judini\\codegpt::JUDINI_TUTORIAL",
+    "label": "calls",
+    "line": 10
+  },
+  {
+    "source": "judini-python-main\\judini-python-main\\src\\judini\\codegpt::CodeGPTPlus",
+    "target": "judini-python-main\\judini-python-main\\src\\judini\\codegpt::CodeGPTPlus.delete_agent",
+    "label": "defines",
+    "line": 297
+  },
+  {
+    "source": "judini-python-main\\judini-python-main\\src\\judini\\codegpt::CodeGPTPlus.delete_agent",
+    "target": "judini-python-main\\judini-python-main\\src\\judini\\codegpt::CodeGPTPlus",
+    "label": "calls",
+    "line": 4
+  },
+  {
+    "source": "judini-python-main\\judini-python-main\\src\\judini\\codegpt::CodeGPTPlus.delete_agent",
+    "target": "judini-python-main\\judini-python-main\\src\\judini\\codegpt::JUDINI_TUTORIAL",
+    "label": "calls",
+    "line": 9
+  },
+  {
+    "source": "judini-python-main\\judini-python-main\\src\\judini\\codegpt::CodeGPTPlus",
+    "target": "judini-python-main\\judini-python-main\\src\\judini\\codegpt::CodeGPTPlus.update_agent",
+    "label": "defines",
+    "line": 218
+  },
+  {
+    "source": "judini-python-main\\judini-python-main\\src\\judini\\codegpt::CodeGPTPlus.update_agent",
+    "target": "judini-python-main\\judini-python-main\\src\\judini\\codegpt::CodeGPTPlus",
+    "label": "calls",
+    "line": 40
+  },
+  {
+    "source": "judini-python-main\\judini-python-main\\src\\judini\\codegpt::CodeGPTPlus.update_agent",
+    "target": "judini-python-main\\judini-python-main\\src\\judini\\codegpt::JUDINI_TUTORIAL",
+    "label": "calls",
+    "line": 46
+  },
+  {
+    "source": "judini-python-main\\judini-python-main\\src\\judini\\codegpt::CodeGPTPlus",
+    "target": "judini-python-main\\judini-python-main\\src\\judini\\codegpt::CodeGPTPlus.create_agent",
+    "label": "defines",
+    "line": 167
+  },
+  {
+    "source": "judini-python-main\\judini-python-main\\src\\judini\\codegpt::CodeGPTPlus.create_agent",
+    "target": "judini-python-main\\judini-python-main\\src\\judini\\codegpt::CodeGPTPlus",
+    "label": "calls",
+    "line": 19
+  },
+  {
+    "source": "judini-python-main\\judini-python-main\\src\\judini\\codegpt::CodeGPTPlus.create_agent",
+    "target": "judini-python-main\\judini-python-main\\src\\judini\\codegpt::JUDINI_TUTORIAL",
+    "label": "calls",
+    "line": 24
+  },
+  {
+    "source": "judini-python-main\\judini-python-main\\src\\judini\\codegpt::CodeGPTPlus",
+    "target": "judini-python-main\\judini-python-main\\src\\judini\\codegpt::CodeGPTPlus.get_agent",
+    "label": "defines",
+    "line": 136
+  },
+  {
+    "source": "judini-python-main\\judini-python-main\\src\\judini\\codegpt::CodeGPTPlus.get_agent",
+    "target": "judini-python-main\\judini-python-main\\src\\judini\\codegpt::CodeGPTPlus",
+    "label": "calls",
+    "line": 4
+  },
+  {
+    "source": "judini-python-main\\judini-python-main\\src\\judini\\codegpt::CodeGPTPlus.get_agent",
+    "target": "judini-python-main\\judini-python-main\\src\\judini\\codegpt::JUDINI_TUTORIAL",
+    "label": "calls",
+    "line": 9
+  },
+  {
+    "source": "judini-python-main\\judini-python-main\\src\\judini\\codegpt::CodeGPTPlus",
+    "target": "judini-python-main\\judini-python-main\\src\\judini\\codegpt::CodeGPTPlus.get_agents",
+    "label": "defines",
+    "line": 109
+  },
+  {
+    "source": "judini-python-main\\judini-python-main\\src\\judini\\codegpt::CodeGPTPlus.get_agents",
+    "target": "judini-python-main\\judini-python-main\\src\\judini\\codegpt::CodeGPTPlus",
+    "label": "calls",
+    "line": 4
+  },
+  {
+    "source": "judini-python-main\\judini-python-main\\src\\judini\\codegpt::CodeGPTPlus.get_agents",
+    "target": "judini-python-main\\judini-python-main\\src\\judini\\codegpt::JUDINI_TUTORIAL",
+    "label": "calls",
+    "line": 8
+  },
+  {
+    "source": "judini-python-main\\judini-python-main\\src\\judini\\codegpt::CodeGPTPlus",
+    "target": "judini-python-main\\judini-python-main\\src\\judini\\codegpt::CodeGPTPlus.chat_completion",
+    "label": "defines",
+    "line": 51
+  },
+  {
+    "source": "judini-python-main\\judini-python-main\\src\\judini\\codegpt::CodeGPTPlus.chat_completion",
+    "target": "judini-python-main\\judini-python-main\\src\\judini\\codegpt::CodeGPTPlus",
+    "label": "calls",
+    "line": 12
+  },
+  {
+    "source": "judini-python-main\\judini-python-main\\src\\judini\\codegpt::CodeGPTPlus.chat_completion",
+    "target": "judini-python-main\\judini-python-main\\src\\judini\\codegpt::JUDINI_TUTORIAL",
+    "label": "calls",
+    "line": 27
+  },
+  {
+    "source": "judini-python-main\\judini-python-main\\src\\judini\\codegpt::CodeGPTPlus",
+    "target": "judini-python-main\\judini-python-main\\src\\judini\\codegpt::CodeGPTPlus.__init__",
+    "label": "defines",
+    "line": 15
+  },
+  {
+    "source": "judini-python-main\\judini-python-main\\src\\judini\\codegpt::CodeGPTPlus.__init__",
+    "target": "judini-python-main\\judini-python-main\\src\\judini\\codegpt::CodeGPTPlus",
+    "label": "calls",
+    "line": 13
+  },
+  {
+    "source": "judini-python-main\\judini-python-main\\src\\judini\\codegpt::CodeGPTPlus.__init__",
+    "target": "judini-python-main\\judini-python-main\\src\\judini\\codegpt::base_url",
+    "label": "calls",
+    "line": 29
+  },
+  {
+    "source": "judini-python-main\\judini-python-main\\src\\judini\\codegpt",
+    "target": "judini-python-main\\judini-python-main\\src\\judini\\codegpt::CodeGPTPlus",
+    "label": "defines",
+    "line": 14
+  },
+  {
+    "source": "judini-python-main\\judini-python-main\\src\\judini\\codegpt::CodeGPTPlus",
+    "target": "judini-python-main\\judini-python-main\\src\\judini\\codegpt::base_url",
+    "label": "calls",
+    "line": 30
+  },
+  {
+    "source": "judini-python-main\\judini-python-main\\src\\judini\\codegpt",
+    "target": "judini-python-main\\judini-python-main\\src\\judini\\codegpt::PLAYGROUND_KEYS_URL",
+    "label": "defines",
+    "line": 12
+  },
+  {
+    "source": "judini-python-main\\judini-python-main\\src\\judini\\codegpt",
+    "target": "judini-python-main\\judini-python-main\\src\\judini\\codegpt::JUDINI_TUTORIAL",
+    "label": "defines",
+    "line": 11
+  },
+  {
+    "source": "judini-python-main\\judini-python-main\\src\\judini\\codegpt::JUDINI_TUTORIAL",
+    "target": "judini-python-main\\judini-python-main\\src\\judini\\codegpt::base_url",
+    "label": "calls",
+    "line": 1
+  },
+  {
+    "source": "judini-python-main\\judini-python-main\\src\\judini\\codegpt",
+    "target": "judini-python-main\\judini-python-main\\src\\judini\\codegpt::base_url",
+    "label": "defines",
+    "line": 10
+  },
+  {
+    "source": "judini-python-main\\judini-python-main\\src\\judini\\codegpt",
+    "target": "judini-python-main\\judini-python-main\\src\\judini\\codegpt::base_url",
+    "label": "calls",
+    "line": 11
+  },
+  {
+    "source": "judini-python-main\\judini-python-main\\src\\judini\\types::Document",
+    "target": "judini-python-main\\judini-python-main\\src\\judini\\types::Document.json_loads",
+    "label": "defines",
+    "line": 57
+  },
+  {
+    "source": "judini-python-main\\judini-python-main\\src\\judini\\types",
+    "target": "judini-python-main\\judini-python-main\\src\\judini\\types::Document",
+    "label": "defines",
+    "line": 38
+  },
+  {
+    "source": "judini-python-main\\judini-python-main\\src\\judini\\types",
+    "target": "judini-python-main\\judini-python-main\\src\\judini\\types::DocumentMetadata",
+    "label": "defines",
+    "line": 25
+  },
+  {
+    "source": "judini-python-main\\judini-python-main\\src\\judini\\types",
+    "target": "judini-python-main\\judini-python-main\\src\\judini\\types::Agent",
+    "label": "defines",
+    "line": 5
+  },
+  {
+    "source": "judini-python-main\\judini-python-main\\src\\judini\\utils",
+    "target": "judini-python-main\\judini-python-main\\src\\judini\\utils::handle_non_stream",
+    "label": "defines",
+    "line": 15
+  },
+  {
+    "source": "judini-python-main\\judini-python-main\\src\\judini\\utils",
+    "target": "judini-python-main\\judini-python-main\\src\\judini\\utils::handle_stream",
+    "label": "defines",
+    "line": 5
+  },
+  {
+    "source": "judini-python-main\\judini-python-main\\streamlit",
+    "target": "judini-python-main\\judini-python-main\\streamlit::completion",
+    "label": "defines",
+    "line": 30
+  },
+  {
+    "source": "judini-python-main\\judini-python-main\\streamlit::completion",
+    "target": "judini-python-main\\judini-python-main\\streamlit::CODEGPT_API_KEY",
+    "label": "calls",
+    "line": 1
+  },
+  {
+    "source": "judini-python-main\\judini-python-main\\streamlit",
+    "target": "judini-python-main\\judini-python-main\\streamlit::enable_stream",
+    "label": "defines",
+    "line": 25
+  },
+  {
+    "source": "judini-python-main\\judini-python-main\\streamlit",
+    "target": "judini-python-main\\judini-python-main\\streamlit::AGENT_ID",
+    "label": "defines",
+    "line": 21
+  },
+  {
+    "source": "judini-python-main\\judini-python-main\\streamlit",
+    "target": "judini-python-main\\judini-python-main\\streamlit::CODEGPT_API_KEY",
+    "label": "defines",
+    "line": 17
+  }
+]

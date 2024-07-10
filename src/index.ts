@@ -18,7 +18,9 @@ app.get("/", async (c) => {
   // const codebasePath = path.join(__dirname, '../../../codebase-index')
   const codebasePath =
     "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts";
-  const codebase = new Codebase(codebasePath); //
+  const codebasePath2 =
+    "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\judini-python-main";
+  const codebase = new Codebase(codebasePath2); //
   console.log(`Parsing ${codebasePath}`);
   const fileNodesMap = await codebase.parseFolder();
   console.log(`Found ${Object.keys(codebase.nodesMap).length} nodes`);

@@ -53,11 +53,12 @@ const onlyLogs = false;
 // Prompts
 
 // Folders references
-const projectId = "codebase-index-ts";
-const forder_path = `../../test_files/`;
+//const projectId = "codebase-index-ts";
+const projectId = "judini-python-main";
+const folder_path = `../../test_files/`;
 
-const nodesPath: string = `${forder_path}/${projectId}/nodes.json`;
-const linksPath: string = `${forder_path}/${projectId}/links.json`;
+const nodesPath: string = `${folder_path}/${projectId}/nodes.json`;
+const linksPath: string = `${folder_path}/${projectId}/links.json`;
 
 let totalTokensUsed = 0;
 
@@ -135,6 +136,8 @@ const tokenizer = ({
     "folderDocumentation.json",
     JSON.stringify(folderDocumentation, null, 2)
   );
+  let wikiContent = await buildWiki(filesDocumentation, folderDocumentation);
+  await fs2.writeFile("wikiPage.md", wikiContent);
   console.log("Total tokens used: ", totalTokensUsed);
 })();
 
@@ -500,7 +503,8 @@ async function documentFolders(filesDocumentation: any) {
   const foldersDocumentation: { [folderPath: string]: string } = {};
 
   for (const folderPath in folders) {
-    const folderContent = folders[folderPath].join("\n");
+    //console.log(`Processing folder ${folderPath}:`, folders[folderPath]);
+    const folderContent = folders[folderPath].join("\n\n");
     await generateFolderDocumentation(folderPath, folderContent).then(
       (res) => (foldersDocumentation[folderPath] = res)
     );
@@ -522,7 +526,9 @@ async function generateFolderDocumentation(
 
   systemPrompt += `\nPrevent any prose in your response. Please, be concise.`;
   let userPrompt = `Write a documentation for the following folder called "${folderPath}" in a concise manner.
-  You will be given the documentation of the files that are inside the folder which are the following:\n
+  You will be given the documentation of the files that are inside the folder.
+  What I am going to give you now is the documentation of files inside the folder "${folderPath}". Keep in mind that you should document the folder 
+  using the documentation of the files inside that folder. The documentation of the files inside the folder "${folderPath}" is the following:\n
   ${folderContent}`;
   //console.log(`Folder ${folderPath} has contents: ${folderContent}`);
   let response;
@@ -584,4 +590,53 @@ async function generateFolderDocumentation(
   );*/
 
   return response?.choices[0].message.content;
+}
+
+async function buildWiki(
+  filesDocumentation: {
+    [folderPath: string]: string;
+  },
+  folderDocumentation: {
+    [folderPath: string]: string;
+  }
+) {
+  //console.log("Folder:", folderDocumentation);
+  //console.log("Files:", filesDocumentation);
+  let wikiContent = `# Codebase Documentation`;
+  let promptSystem1 = `You are wikiGPT. You will provide a wikipedia style for the documentation of a repository. Given the folder documentation of and the file documentation of a whole repository , you will generate a wiki page.
+  Take into account that the whole documentation of a repository is made of the documentation of files and folders. Please be systematic and organized in your documentation and remember to give a markdown document and avoid prose.
+  The structure of the input given is 2 dictionaries (one for folders and one for files) where the key is the path of the folder or file and the value is the documentation of the folder or file.`;
+
+  let promptUser1 = `I need you to create a wikipedia page in markdown format given the documentation of all of a repository and it's components (documentation of the folders and files).
+   Avoid prose like in a wikipedia page and remember it has to be in markdown format. Don't add code to the documentation. The documentation of files and folders corresponds to dictionaries where
+   the key is the path of the folder or file and the value is the documentation of the folder or file. Please keep this in mind. The documentation of the folder is the following: \n\n${JSON.stringify(
+     folderDocumentation,
+     null,
+     2
+   )} \n\n
+   The documentation of the files is the following: \n\n${JSON.stringify(
+     filesDocumentation,
+     null,
+     2
+   )} \n\n Remember to use both documentations (files and folders) to create the wiki page. 
+   The most important thing is that the documentation is accurate. The structure of the wiki should be something like an overview of what the whole repo does and then a detailed explanation of each folder but only the most relevant files.`;
+  //console.log("PromptSystem :", promptSystem1);
+  //console.log("PromptUser :", promptUser1);
+
+  const completion = await client2.chat.completions.create({
+    messages: [
+      {
+        role: "system",
+        content: promptSystem1,
+      },
+      {
+        role: "user",
+        content: promptUser1,
+      },
+    ],
+    model: model,
+  });
+
+  wikiContent += completion.choices[0].message.content;
+  return wikiContent;
 }
