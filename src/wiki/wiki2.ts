@@ -13,6 +13,7 @@ const cl100k_base = require("tiktoken/encoders/cl100k_base.json");
 -- originFile
 
 */
+
 type wikiNode = {
   id: string;
   alias: string;
@@ -41,7 +42,6 @@ const client2 = new OpenAI2({
 });
 
 // Settings
-const startTime = new Date();
 
 // LLM settings
 const model = "gpt-3.5-turbo";
@@ -95,6 +95,7 @@ const tokenizer = ({
 };
 
 (async () => {
+  const startTime = new Date();
   const nodesWithFiles: wikiNode[] = await readJson(nodesPath); //nodes including the ones that are files
   const nodes = nodesWithFiles.filter((item: any) => item.type !== "file"); //nodes that are not file
 
@@ -108,10 +109,10 @@ const tokenizer = ({
   const startNodes = findStartNodes(callGraph); //leaf nodes
 
   await fs2.writeFile("startNodes.json", JSON.stringify(startNodes, null, 2));
-  const usedNodes = await readJson("usedNodes.json");
+  //const usedNodes = await readJson("usedNodes.json");
 
-  //const usedNodes = await bfs(nodesWithFiles, startNodes, callGraph, nodes); //only nodes with documentation. INcludes "calls" and "defines"
-  //await fs2.writeFile("usedNodes.json", JSON.stringify(usedNodes, null, 2));
+  const usedNodes = await bfs(nodesWithFiles, startNodes, callGraph, nodes); //only nodes with documentation. INcludes "calls" and "defines"
+  await fs2.writeFile("usedNodes.json", JSON.stringify(usedNodes, null, 2));
 
   const fileToNodes = nodesWithFiles
     .filter((item: wikiNode) => item.type === "file")
@@ -119,7 +120,7 @@ const tokenizer = ({
       acc[item.label] = []; //label so that includes the extension (type of language)
       return acc;
     }, {});
-  //console.log(fileToNodes);
+  console.log(fileToNodes);
   const filesDocumentation = await classifyAndDocumentFiles(
     fileToNodes,
     nodesWithFiles,
@@ -139,6 +140,8 @@ const tokenizer = ({
   let wikiContent = await buildWiki(filesDocumentation, folderDocumentation);
   await fs2.writeFile("wikiPage.md", wikiContent);
   console.log("Total tokens used: ", totalTokensUsed);
+  const endTime = new Date();
+  timeElapsedInSecconds({ fnName: "Total Execution Time", startTime, endTime });
 })();
 
 function findFileParent(nodesWithFiles: wikiNode[], node: wikiNode) {
@@ -233,6 +236,7 @@ async function bfs(
         calledNodesSummary
       );
       currentNode.summary = documentation;
+
       usedNodes.push(currentNode);
       //console.log(`Documentation for ${currentNode}: `, documentation);
 
@@ -278,6 +282,8 @@ ${node.code}
 `;
 
   if (importStatements) {
+    //include only import statements q se usan en el nodo. O hacer regex para verificar.
+    //console.log(`IMPORTS of Node ${node.code}: `, importStatements);
     userPrompt += `You may require to know the import statements of the file where ${node.type} is defined:
 
 \`\`\`${node.language}
