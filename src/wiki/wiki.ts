@@ -1,9 +1,9 @@
-import { AllowedTypes } from "../model/consts";
-import { sql, GraphLink, GraphNode } from "../utils/db";
+import { GraphLink, GraphNode } from "../utils/db";
 import path from 'path'
 import { encoding_for_model } from 'tiktoken'
 const enc = encoding_for_model('gpt-4-turbo')
 import fs from 'node:fs/promises'
+import { findFileParentNode } from "./utils";
 const OpenAI2 = require("openai");
 
 /*Problems:
@@ -103,17 +103,6 @@ const timeElapsedInSecconds = ({
     console.log("Total tokens used: ", totalTokensUsed);
 })();
 
-function findFileParent(nodesWithFiles: GraphNode[], node: GraphNode) {
-    const parentName = node.origin_file.split('.').slice(0, -1).join('.');
-    const parent = nodesWithFiles.filter((n) => n.full_name === parentName)[0];
-    if (parent && parent.type === "file") {
-    return parent;
-    } else if (parent.type !== "file") {
-        return findFileParent(nodesWithFiles, parent);
-    } else {
-        console.log("Parent not found :(");
-    }
-}
 
 async function readJson(filePath: string) {
   let nodeInfo: any[] = [];
@@ -129,87 +118,6 @@ async function readJson(filePath: string) {
   return nodeInfo;
 }
 
-function buildGraphs(nodes: GraphNode[], links: GraphLink[]) {
-  //all nodes appear on links?
-  const callGraph: { [key: string]: string[] } = {};
-  const defineGraph: { [key: string]: string[] } = {};
-  const wholeGraph: { [key: string]: string[] } = {};
-  nodes.forEach((node) => {
-    //nodes that are not files!!!
-    callGraph[node.id] = [];
-    defineGraph[node.id] = [];
-    wholeGraph[node.id] = [];
-  });
-
-  for (const link of links) {
-    if (
-      link.node_source_id.includes("::") && //so that links that include files are not included
-      link.node_target_id.includes("::")
-    ) {
-      if (link.label === "calls") {
-        callGraph[link.node_source_id].push(link.node_target_id);
-      } else if (link.label === "defines") {
-        defineGraph[link.node_source_id].push(link.node_target_id);
-      }
-      wholeGraph[link.node_source_id].push(link.node_target_id);
-    }
-  }
-
-  return { callGraph, defineGraph, wholeGraph };
-}
-function findStartNodes(callGraph: { [key: string]: string[] }) {
-  return Object.keys(callGraph).filter((node) => callGraph[node].length === 0); //get nodes that don't call anyone.
-}
-
-async function bfs(
-  nodesWithFiles: GraphNode[],
-  startNodes: string[],
-  wholeGraph: { [key: string]: string[] },
-  nodes: GraphNode[]
-): Promise<GraphNode[]> {
-  const queue: string[] = startNodes;
-  const visited: Set<string> = new Set();
-  const usedNodes: GraphNode[] = [];
-  if (queue.length === 0) {
-    console.log("There is no start node (no node that doesn't call anyone).");
-  }
-  while (queue.length > 0) {
-    console.log("HERE:", queue.length);
-    const currentNodeId = queue.shift()!;
-    if (visited.has(currentNodeId)) continue;
-
-    visited.add(currentNodeId);
-    const currentNode = nodes.find((node) => node.id === currentNodeId);
-
-    if (currentNode && currentNode.type !== "file") {
-      const calledNodes = wholeGraph[currentNodeId] || []; //defined or called by the current node
-      const calledNodesInfo = calledNodes.map((id) =>
-        nodes.find((node) => node.id === id && node.type !== "file")
-      );
-      const calledNodesSummary = calledNodesInfo
-        .map((node) => node?.generated_documentation)
-        .join("\n");
-
-      const documentation = await generateNodeDocumentation(
-        nodesWithFiles,
-        currentNode,
-        calledNodesSummary
-      );
-      currentNode.generated_documentation = documentation;
-      usedNodes.push(currentNode);
-      //console.log(`Documentation for ${currentNode}: `, documentation);
-
-      for (const calledNodeId of calledNodes) {
-        if (!visited.has(calledNodeId)) {
-          queue.push(calledNodeId);
-        }
-      }
-    }
-  }
-  console.log("FINISHED BFS");
-  return usedNodes;
-}
-
 // 1. Genera la documentacion de un nodo; todos los nodos en node.json pero que no son files y que tienen links con label 'calls'
 async function generateNodeDocumentation(
   nodesWithFiles: GraphNode[],
@@ -219,10 +127,10 @@ async function generateNodeDocumentation(
   const FunctionStartTime = new Date();
   console.log("start generateNodeDocumentation", FunctionStartTime);
 
-  const parentNode = findFileParent(nodesWithFiles, node);
+  const parentNode = findFileParentNode(nodesWithFiles, node);
 
   const importStatements = parentNode
-    ? parentNode.import_statements
+    ? parentNode.importStatements
     : "";
 
   let systemPrompt = `You are a helpful ${node.language} code assistant that helps to write code documentation in just one paragraph.`;
@@ -326,7 +234,7 @@ async function classifyAndDocumentFiles(
 ): Promise<{ [filePath: string]: string }> {
   //const files: { [filePath: string]: GraphNode[] } = {};
   for (const node of usedNodes) {
-    const correspondingFile = node.origin_file;
+    const correspondingFile = node.originFile;
     //console.log("CF: ", correspondingFile);
 
     fileToNodes[correspondingFile].push(node);
@@ -337,7 +245,7 @@ async function classifyAndDocumentFiles(
 
   for (const filePath in fileToNodes) {
     const GraphNodes = fileToNodes[filePath];
-    const fileContent = GraphNodes.map((node) => node.generated_documentation).join("\n");
+    const fileContent = GraphNodes.map((node) => node.generatedDocumentation).join("\n");
     const fileNode = nodesWithFiles.find((node) => node.label === filePath)!; //it should always be there (.label as it includes extension)
     await generateFileDocumentation(fileNode, filePath, fileContent).then(
       (res) => {
@@ -369,7 +277,7 @@ async function generateFileDocumentation(
   let userPrompt = `Write a documentation for the following ${fileNode.type} called "${fileNode.label}" in a concise manner.`;
   userPrompt += `I am going to give you the code of the file in a way that it is digestible for you. 
   The code of the file is the following:\n
-  \`\`\`${fileNode.code_no_body}\`\`\``;
+  \`\`\`${fileNode.codeNoBody}\`\`\``;
 
   if (fileContent) {
     userPrompt += `Lucky for you, I also have individual documentation of the sub components (parts) of the ${fileNode.type}. 
