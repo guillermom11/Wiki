@@ -1,10 +1,10 @@
 import { AllowedTypes } from "../model/consts";
-
-const fs2 = require("fs").promises;
-const path2 = require("path");
+import { sql, GraphLink, GraphNode } from "../utils/db";
+import path from 'path'
+import { encoding_for_model } from 'tiktoken'
+const enc = encoding_for_model('gpt-4-turbo')
+import fs from 'node:fs/promises'
 const OpenAI2 = require("openai");
-const { Tiktoken } = require("tiktoken/lite");
-const cl100k_base = require("tiktoken/encoders/cl100k_base.json");
 
 /*Problems:
 -- links include links of files, which were supposed to not be included
@@ -13,28 +13,7 @@ const cl100k_base = require("tiktoken/encoders/cl100k_base.json");
 -- originFile
 
 */
-type wikiNode = {
-  id: string;
-  alias: string;
-  language: string;
-  label: string;
-  type: AllowedTypes;
-  parent?: string; // optional
-  totalTokens: number;
-  inDegree: number;
-  outDegree: number;
-  code: string;
-  summary?: string; // optional
-  importStatements: string[];
-  codeNoBody: string;
-  originFile: string;
-};
 
-type wikiLink = {
-  source: string;
-  target: string;
-  label: string;
-};
 
 const client2 = new OpenAI2({
   apiKey: "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",
@@ -77,86 +56,70 @@ const timeElapsedInSecconds = ({
   return timeElapsed.toFixed(2);
 };
 
-const tokenizer = ({
-  fnName,
-  content,
-}: {
-  fnName: string;
-  content: string;
-}) => {
-  const encoding = new Tiktoken(
-    cl100k_base.bpe_ranks,
-    cl100k_base.special_tokens,
-    cl100k_base.pat_str
-  );
-  const tokens = encoding.encode(content);
-  console.log(fnName, tokens.length);
-  encoding.free();
-};
-
 (async () => {
-  const nodesWithFiles: wikiNode[] = await readJson(nodesPath); //nodes including the ones that are files
-  const nodes = nodesWithFiles.filter((item: any) => item.type !== "file"); //nodes that are not file
+    const nodesWithFiles: GraphNode[] = await readJson(nodesPath); //nodes including the ones that are files
+    const nodes = nodesWithFiles.filter((item: any) => item.type !== "file"); //nodes that are not file
 
-  await fs2.writeFile("myNodes.json", JSON.stringify(nodes, null, 2));
-  const links: wikiLink[] = await readJson(linksPath);
-  const { callGraph, defineGraph, wholeGraph } = buildGraphs(nodes, links); //call graph between nodes,not including files.
+    await fs.writeFile("myNodes.json", JSON.stringify(nodes, null, 2));
+    const links: GraphLink[] = await readJson(linksPath);
+    const { callGraph, defineGraph, wholeGraph } = buildGraphs(nodes, links); //call graph between nodes,not including files.
 
-  await fs2.writeFile("callGraph.json", JSON.stringify(callGraph, null, 2));
-  //await fs2.writeFile("defineGraph.json", JSON.stringify(defineGraph, null, 2));
-  //await fs2.writeFile("wholeGraph.json", JSON.stringify(wholeGraph, null, 2));
-  const startNodes = findStartNodes(callGraph); //leaf nodes
+    await fs.writeFile("callGraph.json", JSON.stringify(callGraph, null, 2));
+    //await fs.writeFile("defineGraph.json", JSON.stringify(defineGraph, null, 2));
+    //await fs.writeFile("wholeGraph.json", JSON.stringify(wholeGraph, null, 2));
+    const startNodes = findStartNodes(callGraph); //leaf nodes
 
-  await fs2.writeFile("startNodes.json", JSON.stringify(startNodes, null, 2));
-  // const usedNodes = await readJson("usedNodes.json");
+    await fs.writeFile("startNodes.json", JSON.stringify(startNodes, null, 2));
+    // const usedNodes = await readJson("usedNodes.json");
 
-  const usedNodes = await bfs(nodesWithFiles, startNodes, callGraph, nodes); //only nodes with documentation. INcludes "calls" and "defines"
-  await fs2.writeFile("usedNodes.json", JSON.stringify(usedNodes, null, 2));
+    const usedNodes = await bfs(nodesWithFiles, startNodes, callGraph, nodes); //only nodes with documentation. INcludes "calls" and "defines"
+    await fs.writeFile("usedNodes.json", JSON.stringify(usedNodes, null, 2));
 
-  const fileToNodes = nodesWithFiles
-    .filter((item: wikiNode) => item.type === "file")
+    const fileToNodes = nodesWithFiles
+    .filter((item: GraphNode) => item.type === "file")
     .reduce((acc: any, item: any) => {
-      acc[item.label] = []; //label so that includes the extension (type of language)
-      return acc;
+        acc[item.label] = []; //label so that includes the extension (type of language)
+        return acc;
     }, {});
-  //console.log(fileToNodes);
-  const filesDocumentation = await classifyAndDocumentFiles(
+    //console.log(fileToNodes);
+    const filesDocumentation = await classifyAndDocumentFiles(
     fileToNodes,
     nodesWithFiles,
     usedNodes
-  );
-  await fs2.writeFile(
+    );
+    await fs.writeFile(
     "filesDocumentation.json",
     JSON.stringify(filesDocumentation, null, 2)
-  );
-  //console.log("Files Doc: ", filesDocumentation);
-  const folderDocumentation = await documentFolders(filesDocumentation);
-  //console.log("Folder Doc:", folderDocumentation);
-  await fs2.writeFile(
+    );
+    //console.log("Files Doc: ", filesDocumentation);
+    const folderDocumentation = await documentFolders(filesDocumentation);
+    //console.log("Folder Doc:", folderDocumentation);
+    await fs.writeFile(
     "folderDocumentation.json",
     JSON.stringify(folderDocumentation, null, 2)
-  );
-  let wikiContent = await buildWiki(filesDocumentation, folderDocumentation);
-  await fs2.writeFile("wikiPage.md", wikiContent);
-  console.log("Total tokens used: ", totalTokensUsed);
+    );
+    let wikiContent = await buildWiki(filesDocumentation, folderDocumentation);
+    await fs.writeFile("wikiPage.md", wikiContent);
+    console.log("Total tokens used: ", totalTokensUsed);
 })();
 
-function findFileParent(nodesWithFiles: wikiNode[], node: wikiNode) {
-  const parent = nodesWithFiles.filter((n) => n.id == node.parent)[0];
-  if (parent && parent.type === "file") {
+function findFileParent(nodesWithFiles: GraphNode[], node: GraphNode) {
+    const parentName = node.origin_file.split('.').slice(0, -1).join('.');
+    const parent = nodesWithFiles.filter((n) => n.full_name === parentName)[0];
+    if (parent && parent.type === "file") {
     return parent;
-  } else if (parent.type !== "file") {
-    return findFileParent(nodesWithFiles, parent);
-  } else {
-    console.log("Parent not found :(");
-  }
+    } else if (parent.type !== "file") {
+        return findFileParent(nodesWithFiles, parent);
+    } else {
+        console.log("Parent not found :(");
+    }
 }
 
 async function readJson(filePath: string) {
   let nodeInfo: any[] = [];
 
   try {
-    const data = await fs2.readFile(filePath, "utf8");
+    const data = await fs.readFile(filePath, "utf8");
     nodeInfo = JSON.parse(data);
     //console.log(nodes);
   } catch (err) {
@@ -166,7 +129,7 @@ async function readJson(filePath: string) {
   return nodeInfo;
 }
 
-function buildGraphs(nodes: wikiNode[], links: wikiLink[]) {
+function buildGraphs(nodes: GraphNode[], links: GraphLink[]) {
   //all nodes appear on links?
   const callGraph: { [key: string]: string[] } = {};
   const defineGraph: { [key: string]: string[] } = {};
@@ -180,15 +143,15 @@ function buildGraphs(nodes: wikiNode[], links: wikiLink[]) {
 
   for (const link of links) {
     if (
-      link.source.includes("::") && //so that links that include files are not included
-      link.target.includes("::")
+      link.node_source_id.includes("::") && //so that links that include files are not included
+      link.node_target_id.includes("::")
     ) {
       if (link.label === "calls") {
-        callGraph[link.source].push(link.target);
+        callGraph[link.node_source_id].push(link.node_target_id);
       } else if (link.label === "defines") {
-        defineGraph[link.source].push(link.target);
+        defineGraph[link.node_source_id].push(link.node_target_id);
       }
-      wholeGraph[link.source].push(link.target);
+      wholeGraph[link.node_source_id].push(link.node_target_id);
     }
   }
 
@@ -199,14 +162,14 @@ function findStartNodes(callGraph: { [key: string]: string[] }) {
 }
 
 async function bfs(
-  nodesWithFiles: wikiNode[],
+  nodesWithFiles: GraphNode[],
   startNodes: string[],
   wholeGraph: { [key: string]: string[] },
-  nodes: wikiNode[]
-): Promise<wikiNode[]> {
+  nodes: GraphNode[]
+): Promise<GraphNode[]> {
   const queue: string[] = startNodes;
   const visited: Set<string> = new Set();
-  const usedNodes: wikiNode[] = [];
+  const usedNodes: GraphNode[] = [];
   if (queue.length === 0) {
     console.log("There is no start node (no node that doesn't call anyone).");
   }
@@ -224,7 +187,7 @@ async function bfs(
         nodes.find((node) => node.id === id && node.type !== "file")
       );
       const calledNodesSummary = calledNodesInfo
-        .map((node) => node?.summary)
+        .map((node) => node?.generated_documentation)
         .join("\n");
 
       const documentation = await generateNodeDocumentation(
@@ -232,7 +195,7 @@ async function bfs(
         currentNode,
         calledNodesSummary
       );
-      currentNode.summary = documentation;
+      currentNode.generated_documentation = documentation;
       usedNodes.push(currentNode);
       //console.log(`Documentation for ${currentNode}: `, documentation);
 
@@ -249,8 +212,8 @@ async function bfs(
 
 // 1. Genera la documentacion de un nodo; todos los nodos en node.json pero que no son files y que tienen links con label 'calls'
 async function generateNodeDocumentation(
-  nodesWithFiles: wikiNode[],
-  node: wikiNode,
+  nodesWithFiles: GraphNode[],
+  node: GraphNode,
   calledNodesSummary: string
 ) {
   const FunctionStartTime = new Date();
@@ -259,7 +222,7 @@ async function generateNodeDocumentation(
   const parentNode = findFileParent(nodesWithFiles, node);
 
   const importStatements = parentNode
-    ? parentNode.importStatements.join("\n")
+    ? parentNode.import_statements
     : "";
 
   let systemPrompt = `You are a helpful ${node.language} code assistant that helps to write code documentation in just one paragraph.`;
@@ -356,25 +319,25 @@ If the code uses an import statement, mention it in the documentation.
 
 async function classifyAndDocumentFiles(
   fileToNodes: {
-    [filePath: string]: wikiNode[];
+    [filePath: string]: GraphNode[];
   },
-  nodesWithFiles: wikiNode[],
-  usedNodes: wikiNode[]
+  nodesWithFiles: GraphNode[],
+  usedNodes: GraphNode[]
 ): Promise<{ [filePath: string]: string }> {
-  //const files: { [filePath: string]: wikiNode[] } = {};
+  //const files: { [filePath: string]: GraphNode[] } = {};
   for (const node of usedNodes) {
-    const correspondingFile = node.originFile;
+    const correspondingFile = node.origin_file;
     //console.log("CF: ", correspondingFile);
 
     fileToNodes[correspondingFile].push(node);
   }
   //console.log("FTN: ", fileToNodes);
-  await fs2.writeFile("fileToNodes.json", JSON.stringify(fileToNodes, null, 2));
+  await fs.writeFile("fileToNodes.json", JSON.stringify(fileToNodes, null, 2));
   const filesDocumentation: { [filePath: string]: string } = {};
 
   for (const filePath in fileToNodes) {
-    const wikiNodes = fileToNodes[filePath];
-    const fileContent = wikiNodes.map((node) => node.summary).join("\n");
+    const GraphNodes = fileToNodes[filePath];
+    const fileContent = GraphNodes.map((node) => node.generated_documentation).join("\n");
     const fileNode = nodesWithFiles.find((node) => node.label === filePath)!; //it should always be there (.label as it includes extension)
     await generateFileDocumentation(fileNode, filePath, fileContent).then(
       (res) => {
@@ -389,7 +352,7 @@ async function classifyAndDocumentFiles(
 
 // 2. generateFileDocumentation: Genera la documentacion de un archivo.
 async function generateFileDocumentation(
-  fileNode: wikiNode,
+  fileNode: GraphNode,
   filePath: string,
   fileContent: string
 ): Promise<string> {
@@ -406,7 +369,7 @@ async function generateFileDocumentation(
   let userPrompt = `Write a documentation for the following ${fileNode.type} called "${fileNode.label}" in a concise manner.`;
   userPrompt += `I am going to give you the code of the file in a way that it is digestible for you. 
   The code of the file is the following:\n
-  \`\`\`${fileNode.codeNoBody}\`\`\``;
+  \`\`\`${fileNode.code_no_body}\`\`\``;
 
   if (fileContent) {
     userPrompt += `Lucky for you, I also have individual documentation of the sub components (parts) of the ${fileNode.type}. 
@@ -453,7 +416,7 @@ async function generateFileDocumentation(
     endTime: FunctionEndTime,
   });
 
-  /*console.log(
+  console.log(
     "\ngenerateFileDocumentation\n",
     "prompt:",
     systemPrompt,
@@ -465,12 +428,12 @@ async function generateFileDocumentation(
     response?.choices[0].message.content,
     "\n\n",
     "Tokenized:",
-    tokenizer({ fnName: "generateFileDocumentation", content: systemPrompt }),
+    enc.encode(systemPrompt).length,
     "prompt_tokens:",
     inputTokens,
     "total_tokens:",
     response?.usage.total_tokens
-  );*/
+  );
 
   return response?.choices[0].message.content;
 }
@@ -478,13 +441,13 @@ async function generateFileDocumentation(
 async function documentFolders(filesDocumentation: any) {
   const folders: { [folderPath: string]: string[] } = {};
   for (const filePath in filesDocumentation) {
-    let currentFolderPath = path2.dirname(filePath);
+    let currentFolderPath = path.dirname(filePath);
     //console.log("Processing filePath:", filePath);
 
     while (
       currentFolderPath &&
       currentFolderPath.includes(projectId) && // Only process files that are in the project we want
-      currentFolderPath !== path2.parse(currentFolderPath).root //do not go past root folder
+      currentFolderPath !== path.parse(currentFolderPath).root //do not go past root folder
     ) {
       //console.log("Adding to folder:", currentFolderPath);
       if (!folders[currentFolderPath]) {
@@ -492,7 +455,7 @@ async function documentFolders(filesDocumentation: any) {
       }
       folders[currentFolderPath].push(filesDocumentation[filePath]); // Push the documentation of the file
 
-      const nextPath = path2.dirname(currentFolderPath);
+      const nextPath = path.dirname(currentFolderPath);
       if (nextPath === currentFolderPath) {
         break; //Prevent inf loop
       }
@@ -582,7 +545,7 @@ async function generateFolderDocumentation(
     response?.choices[0].message.content,
     "\n\n",
     "Tokenized:",
-    tokenizer({ fnName: "generateFolderDocumentation", content: systemPrompt }),
+    enc.encode(systemPrompt).length,
     "prompt_tokens:",
     inputTokens,
     "total_tokens:",

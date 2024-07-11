@@ -1,3 +1,4 @@
+import { AllowedTypes } from '../model/consts'
 import { getEnv } from './utils'
 import postgres from 'postgres'
 
@@ -17,3 +18,29 @@ export const sql = postgres({
   //   rejectUnauthorized: false
   // }
 })
+
+
+export interface GraphNode {
+  id: string
+  full_name: string
+  type: AllowedTypes
+  language: string
+  documentation: string
+  code: string
+  code_no_body: string
+  total_tokens: number
+  in_degree: number
+  out_degree: number
+  label: string
+  origin_file: string
+  generated_documentation: string
+  import_statements: string
+}
+
+export interface GraphLink {
+  id: string
+  node_source_id: string
+  node_target_id: string
+  label: string
+  line: number
+}
