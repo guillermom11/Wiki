@@ -227,8 +227,6 @@ async function processGraphCreation({
       codebase.getCalls(fileNodesMap, false)
       const nodes = codebase.simplify()
 
-      const nodeDBIds: Record<string, string> = {}
-
       // Insert nodes into the database, note that the node.id is now the full_name
       const insertNodePromises = nodes.map(async (node) => {
         const fullName = node.id.replace(codebasePath, '')
@@ -260,11 +258,19 @@ async function processGraphCreation({
             ${node.label}
           ) RETURNING id
         `
-
-        nodeDBIds[node.id] = rows[0].id
+        return {
+          dbId: rows[0].id,
+          nodeId: node.id
+        }
       })
 
-      await Promise.all(insertNodePromises)
+      const responseNodes = await Promise.all(insertNodePromises)
+
+      const nodeDBIds: Record<string, string> = {}
+
+      for (const node of responseNodes) {
+        nodeDBIds[node.nodeId] = node.dbId
+      }
 
       const links = codebase.getLinks()
       // Insert links into the database
