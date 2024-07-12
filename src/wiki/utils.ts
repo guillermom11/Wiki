@@ -124,7 +124,8 @@ export function generateNodePrompts(node: GraphNode, nodes: GraphNode[], graph: 
         systemPrompt += ` The documentation must include how each parameter is used and what the ${node.type} does.`;
     }
 
-    systemPrompt += ` Prevent any prose in your response. Please, be concise and don't talk about the file.`;
+    if (node.type !== 'file')
+        systemPrompt += ` Prevent any prose in your response. Please, be concise and don't talk about the file.`;
 
     const parentFileString = originFileNode ? `from file "${originFileNode.label}" ` : ''
     let userPrompt = '';
@@ -147,7 +148,7 @@ export function generateNodePrompts(node: GraphNode, nodes: GraphNode[], graph: 
     const linkedNodes = graph[node.id].map(linkedNodeId => nodes.find(node => node.id === linkedNodeId));
 
     if (graph[node.id].length > 0 && linkedNodes.some(n => n?.generatedDocumentation) ) {
-        userPrompt += `Use the following information to a better description of what ${node.label} does:`
+        userPrompt += `Use the following information to generate a better description of what ${node.label} does:`
         systemPrompt += ` Do not verbose about the extra information, just use them as a reference to explain what ${node.label} does.`
 
         graph[node.id].forEach(linkedNodeId => {
@@ -206,4 +207,69 @@ export async function documentNodesByLevels(nodeIdsByLevels: {[key: number]: str
         })
         await Promise.all(promises);
     }
+}
+
+export async function documentFolders(nodes: GraphNode[], links: GraphLink[]) {
+
+    const fileNodes = nodes.filter(n => n.type === 'file')
+    const folderNames = fileNodes.map(n => n.fullName.split('/').slice(0, -1).join('/'))
+    const uniqueFolderNames = [...new Set(folderNames)]
+
+    // sort by level (number of '/')
+    uniqueFolderNames.sort((a, b) => b.split('/').length - a.split('/').length)
+    console.log(fileNodes)
+
+    const documentedFolders: {[key: string]: string} = {}
+    uniqueFolderNames.forEach(foldername => documentedFolders[foldername] = '')
+
+    for (const folderName of uniqueFolderNames) {
+        let systemPrompt = `You are a helpful code assistant that helps to write wikis for folders. The user will pass you a sort of wiki of each file and subfolder.`
+        systemPrompt += `The wiki must describe the main features of the folder and the final purpose of the folder. Prevent any prose in your response. Please, be concise.`
+
+        const fileNodesInFolder = fileNodes.filter(n => n.fullName.startsWith(folderName))
+        const subfoldersDocumentations = Object.fromEntries(
+            Object.entries(documentedFolders).filter(([key]) => {
+                key.startsWith(folderName) && key.split('/').length == folderName.split('/').length + 1
+            })
+        )
+
+        let userPrompt = `Generate a wiki for the folder "${folderName}". Use the following information to generate a better response:\n\n`
+
+        for (const [subfolder, subfolderDoc] of Object.entries(subfoldersDocumentations)) {
+            if (subfolderDoc) {
+                userPrompt += `Wiki from subfolder ${subfolder}:\n${subfolderDoc}`
+                userPrompt += `\n------------------------------------------------\n\n`
+            }
+        }
+
+        for (const fileNode of fileNodesInFolder) {
+            const callLinks = links.filter(l => l.source === fileNode.id && l.label == 'calls')
+            const defineLinks = links.filter(l => l.source === fileNode.id && l.label == 'defines')
+            userPrompt += `Documentation from file ${fileNode.label}:\n${fileNode.generatedDocumentation ?? ''}\n`
+            if (callLinks.length) {
+                userPrompt += `  It Calls:\n`
+                callLinks.forEach(l => {
+                    const calledNode = nodes.find(n => n.id === l.target)
+                    if (calledNode) {
+                        userPrompt += `   - ${calledNode.label}${": " + calledNode.generatedDocumentation ?? ''}\n` 
+                    }
+                })
+            }
+            
+            if (defineLinks.length) {
+                userPrompt += `  It Defines:\n`
+                defineLinks.forEach(l => {
+                    const definingNode = nodes.find(n => n.id === l.target)
+                    if (definingNode) {
+                        userPrompt += `   - ${definingNode.label}${": " + definingNode.generatedDocumentation ?? ''}\n`
+                    }
+                })
+            userPrompt += `\n------------------------------------------------\n\n`
+            }
+            
+        }
+
+
+    }
+
 }
