@@ -1,11 +1,10 @@
-// import { serve } from '@hono/node-server'
+import { serve } from '@hono/node-server'
 import { Hono } from 'hono'
 import { cors } from 'hono/cors'
 import { prettyJSON } from 'hono/pretty-json'
 import { createGraph } from './routes/create_graph'
 import { createGraphTest } from './routes/create_graph-test'
 import { graphs } from './routes/graphs'
-import { handle } from 'hono/aws-lambda'
 
 // const
 const app = new Hono()
@@ -24,4 +23,7 @@ app.route('v1/repo-test', createGraphTest)
 const port = Number(process.env.PORT ?? 8001)
 console.log(`Server is running on port ${port}`)
 
-export const handler = handle(app)
+serve({
+  fetch: app.fetch,
+  port
+})

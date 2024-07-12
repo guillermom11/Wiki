@@ -4,7 +4,6 @@ import { zValidator } from '@hono/zod-validator'
 import { sql } from '../utils/db'
 import { downloadAndExtractRepo, getAccessToken, getCommitRepo } from '../utils/git'
 import { Codebase } from '../model/codebase'
-import { v4 as uuidv4 } from 'uuid'
 import { jwtVerify } from 'jose'
 import { getEnv } from '../utils/utils'
 import { GitServiceType } from '../utils/git'
@@ -98,7 +97,7 @@ createGraph.post('/', repoRequestValidator, async (c) => {
         AND commit_hash = ${commitHash}
     `
 
-  let repoId = uuidv4()
+  let repoId = crypto.randomUUID()
 
   if (rows.length == 0) {
     const respository: Record<string, string | number> = {
@@ -192,7 +191,7 @@ async function processGraphCreation({
   connectionId: string
   codebasePath: string
 }) {
-  let graphId = uuidv4()
+  let graphId = crypto.randomUUID()
   try {
     const status = graphExists ? 'completed' : 'pending'
 
@@ -221,80 +220,74 @@ async function processGraphCreation({
       return
     }
 
-    await sql.begin(async (sql) => {
-      const codebase = new Codebase(codebasePath)
-      const fileNodesMap = await codebase.parseFolder()
-      codebase.getCalls(fileNodesMap, false)
-      const nodes = codebase.simplify()
+    const codebase = new Codebase(codebasePath)
+    const fileNodesMap = await codebase.parseFolder()
+    codebase.getCalls(fileNodesMap, false)
+    const nodes = codebase.simplify()
 
-      // Insert nodes into the database, note that the node.id is now the full_name
-      const insertNodePromises = nodes.map(async (node) => {
-        const fullName = node.id.replace(codebasePath, '')
-        const rows = await sql`
+    const nodeDBIds: Record<string, string> = {}
+
+    for (const node of nodes) {
+      nodeDBIds[node.id] = crypto.randomUUID()
+    }
+
+    // Insert nodes into the database, note that the node.id is now the full_name
+    const insertNodePromises = nodes.map((node) => {
+      const fullName = node.id.replace(codebasePath, '')
+      return sql`
           INSERT INTO nodes (
-            repo_id, 
-            type, 
-            language, 
-            total_tokens, 
-            documentation, 
-            code, 
-            code_no_body, 
-            in_degree, 
-            out_degree, 
-            full_name, 
+            id,
+            repo_id,
+            type,
+            language,
+            total_tokens,
+            documentation,
+            code,
+            code_no_body,
+            in_degree,
+            out_degree,
+            full_name,
             label
           )
           VALUES (
+            ${nodeDBIds[node.id]},
             ${repoId},
-            ${node.type}, 
-            ${node.language}, 
-            ${node.totalTokens}, 
-            ${node.documentation}, 
-            ${node.code}, 
-            ${node.codeNoBody}, 
-            ${node.inDegree}, 
-            ${node.outDegree}, 
-            ${fullName}, 
+            ${node.type},
+            ${node.language},
+            ${node.totalTokens},
+            ${node.documentation},
+            ${node.code},
+            ${node.codeNoBody},
+            ${node.inDegree},
+            ${node.outDegree},
+            ${fullName},
             ${node.label}
-          ) RETURNING id
-        `
-        return {
-          dbId: rows[0].id,
-          nodeId: node.id
-        }
-      })
-
-      const responseNodes = await Promise.all(insertNodePromises)
-
-      const nodeDBIds: Record<string, string> = {}
-
-      for (const node of responseNodes) {
-        nodeDBIds[node.nodeId] = node.dbId
-      }
-
-      const links = codebase.getLinks()
-      // Insert links into the database
-      const insertLinkPromises = links.map((link) => {
-        return sql`
-          INSERT INTO links (
-            node_source_id, 
-            node_target_id, 
-            repo_id, 
-            label, 
-            line
-          ) VALUES (
-            ${nodeDBIds[link.source]}, 
-            ${nodeDBIds[link.target]}, 
-            ${repoId}, 
-            ${link.label}, 
-            ${link.line}
           )
         `
-      })
-      await Promise.all(insertLinkPromises)
-      await sql`UPDATE graphs SET status = 'completed' WHERE id = ${graphId}`
-      console.log('Graph creation completed:', graphId)
     })
+
+    const links = codebase.getLinks()
+    // Insert links into the database
+    const insertLinkPromises = links.map((link) => {
+      return sql`
+        INSERT INTO links (
+          node_source_id,
+          node_target_id,
+          repo_id,
+          label,
+          line
+        ) VALUES (
+          ${nodeDBIds[link.source]},
+          ${nodeDBIds[link.target]},
+          ${repoId},
+          ${link.label},
+          ${link.line}
+        )
+      `
+    })
+    await Promise.all([...insertNodePromises, ...insertLinkPromises])
+    await sql`UPDATE graphs SET status = 'completed' WHERE id = ${graphId}`
+    console.log('Graph creation completed:', graphId)
   } catch (error) {
     console.error('Error in background processing:', error)
     await sql`UPDATE graphs SET status = 'failed' WHERE id = ${graphId}`
