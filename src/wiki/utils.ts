@@ -129,21 +129,21 @@ export function generateNodePrompts(node: GraphNode, nodes: GraphNode[], graph: 
 
     systemPrompt += ` Prevent any prose in your response. Please, be concise and don't talk about the file.`;
 
-    let userPrompt = `Write a documentation for the following ${node.type} called "${node.label}" in just one paragraph. Mention the principal features of the code:`
-    userPrompt += `\n\`\`\`${node.language}\n${node.code}\n\`\`\`\n\n`
-
-
+    const parentFileString = originFileNode ? `from file "${originFileNode.label}" ` : ''
+    let userPrompt = `Write a documentation for the  ${node.type} called "${node.label}" ${parentFileString}in just one paragraph, mention it the principal features of the code:`
+    
     if (originFileNode && graph[node.id].length > 0 && originFileNode.importStatements) {
-        userPrompt += `You may require to know the import statements of the file where ${node.type} is defined:\n\n`
-        userPrompt += `\`\`\`${node.language}\n${originFileNode.importStatements}\n\`\`\`\n`
-        userPrompt += `If "${node.label}" uses an import statement, mention it in the documentation.\n\n`;
+        userPrompt += `\n\`\`\`${node.language}\n${originFileNode.importStatements}\n\n${node.code}\n\`\`\`\n\n`
+        systemPrompt += ` You must mention the import statements ONLY IF "${node.label}" is using them in its code. In any other case do not mention anything.`
+    } else {
+        userPrompt += `\n\`\`\`${node.language}\n${node.code}\n\`\`\`\n\n`
     }
 
 
     const calledNodes = graph[node.id].map(calledNodeId => nodes.find(node => node.id === calledNodeId));
 
     if (graph[node.id].length > 0 && calledNodes.some(n => n?.generatedDocumentation) ) {
-        userPrompt += `To put more context, here is the documentation of other components used by the code:\n`
+        userPrompt += `You can use the following information just to get more context:`
         
         graph[node.id].forEach(calledNodeId => {
             const calledNode = nodes.find((n) => n.id === calledNodeId);
@@ -153,6 +153,7 @@ export function generateNodePrompts(node: GraphNode, nodes: GraphNode[], graph: 
         })
     }
 
+    userPrompt += `\n\nDon0"${node.label}"`
     return { systemPrompt, userPrompt }
 }
 

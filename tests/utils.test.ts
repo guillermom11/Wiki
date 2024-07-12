@@ -14,17 +14,17 @@ describe('Common', () => {
 
 describe('Wiki', () => {
     const nodes: GraphNode[] = [
-        { id: '1', fullName: 'File1::Node1', type: 'function', language: 'typescript', code: 'myCode1',
-            codeNoBody: '', totalTokens: 0, inDegree: 2, outDegree: 1, label: 'Node1', generatedDocumentation: 'Node1 summary' },
+        { id: '1', fullName: 'File1::fun1', type: 'function', language: 'typescript', code: 'function fun1(x,y) { return fun3(x,y)}',
+            codeNoBody: '', totalTokens: 0, inDegree: 2, outDegree: 1, label: 'fun1', generatedDocumentation: 'Node1 summary' },
         { id: '2', fullName: 'File1::Node2', type: 'function', language: 'typescript', code: 'myCode2',
             codeNoBody: '', totalTokens: 0, inDegree: 0, outDegree: 1, label: 'Node2', generatedDocumentation: 'Node2 summary' },
-        { id: '3', fullName: 'File1::Node3', type: 'function', language: 'typescript', code: 'myCode3',
-            codeNoBody: '', totalTokens: 0, inDegree: 1, outDegree: 0, label: 'Node3', generatedDocumentation: 'Node3 summary' },
+        { id: '3', fullName: 'File1::fun3', type: 'function', language: 'typescript', code: 'function fun3(x,y) { return Math.round(x+y)}',
+            codeNoBody: '', totalTokens: 0, inDegree: 1, outDegree: 0, label: 'fun3', generatedDocumentation: 'Return the sum of x and y rounded using Math.round' },
         { id: '4', fullName: 'File1::Node4', type: 'function', language: 'typescript', code: 'myCode4',
             codeNoBody: '', totalTokens: 0, inDegree: 0, outDegree: 1, label: 'Node4', generatedDocumentation: 'Node4 summary' },
         { id: '5', fullName: 'File1', type: 'file', language: 'typescript', code: 'fileContent',
             codeNoBody: 'fileContent-short', totalTokens: 0, inDegree: 0, outDegree: 1, label: 'File1', generatedDocumentation: '',
-            importStatements: 'import1\nimport2' },
+            importStatements: 'import a' },
     ];
     
 
@@ -108,16 +108,17 @@ describe('Wiki', () => {
         expect(wikiutils.bfsLevels(nodes, callGraph)).toStrictEqual(expectedResults)
     })
 
-    test('generateNodePrompts', () => {
+    test('generateNodePrompts', async () => {
         const links: GraphLink[] = [
             { id: 'l1', source: '2', target: '3', label: 'calls' },
             { id: 'l2', source: '1', target: '3', label: 'calls' },
-            { id: 'l3', source: '1', target: '4', label: 'calls' },
         ];
         const { callGraph } = wikiutils.buildGraphs(nodes, links) 
-        const { systemPrompt, userPrompt } = wikiutils.generateNodePrompts(nodes[0], nodes, callGraph)
+
+        const { systemPrompt, userPrompt } = wikiutils.generateNodePrompts(nodes[0], nodes, callGraph);
         console.log(systemPrompt)
         console.log(userPrompt)
+        await wikiutils.generateNodeDocumentation(nodes[0], nodes, callGraph)
     })
 })
 
