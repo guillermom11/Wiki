@@ -227,8 +227,15 @@ async function processGraphCreation({
 
     const nodeDBIds: Record<string, string> = {}
 
+    const set = new Set()
     for (const node of nodes) {
+      set.add(node.id)
       nodeDBIds[node.id] = crypto.randomUUID()
+    }
+
+    if (set.size !== nodes.length) {
+      console.log('Duplicate nodes found for graph creation with id:', graphId)
+      return
     }
 
     // Insert nodes into the database, note that the node.id is now the full_name
