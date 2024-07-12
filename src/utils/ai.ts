@@ -17,6 +17,7 @@ export async function getOpenAIChatCompletion(messages: chatCompletionMessages, 
     const chatCompletion = await openai.chat.completions.create({
         model: model,
         messages: messages,
+        temperature: 0.3
     })
 
     if (chatCompletion.choices[0].message.content) {
