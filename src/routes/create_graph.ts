@@ -221,46 +221,74 @@ async function processGraphCreation({
       return
     }
 
-    const codebase = new Codebase(codebasePath)
-    const fileNodesMap = await codebase.parseFolder()
-    codebase.getCalls(fileNodesMap, false)
-    const nodes = codebase.simplify()
+    await sql.begin(async (sql) => {
+      const codebase = new Codebase(codebasePath)
+      const fileNodesMap = await codebase.parseFolder()
+      codebase.getCalls(fileNodesMap, false)
+      const nodes = codebase.simplify()
 
-    // create a uuid for each node
-    const nodeDBIds: { [key: string]: string } = {}
-    for (const node of nodes) {
-      nodeDBIds[node.id] = uuidv4()
-    }
+      const nodeDBIds: Record<string, string> = {}
 
-    // Insert nodes into the database, note that the node.id is now the full_name
-    const insertNodePromises = nodes.map((node) => {
-      const fullName = node.id.replace(codebasePath, '')
-      return sql`
-    INSERT INTO nodes (id, repo_id, type, language, total_tokens, documentation, code, code_no_body, in_degree, out_degree, full_name, label)
-    VALUES (${nodeDBIds[node.id]}, ${repoId}, ${node.type}, ${node.language}, ${
-        node.totalTokens
-      }, ${node.documentation}, ${node.code}, ${node.codeNoBody}, ${node.inDegree}, ${
-        node.outDegree
-      }, ${fullName}, ${node.label})
-    `
-    })
+      // Insert nodes into the database, note that the node.id is now the full_name
+      const insertNodePromises = nodes.map(async (node) => {
+        const fullName = node.id.replace(codebasePath, '')
+        const rows = await sql`
+          INSERT INTO nodes (
+            repo_id, 
+            type, 
+            language, 
+            total_tokens, 
+            documentation, 
+            code, 
+            code_no_body, 
+            in_degree, 
+            out_degree, 
+            full_name, 
+            label
+          )
+          VALUES (
+            ${repoId},
+            ${node.type}, 
+            ${node.language}, 
+            ${node.totalTokens}, 
+            ${node.documentation}, 
+            ${node.code}, 
+            ${node.codeNoBody}, 
+            ${node.inDegree}, 
+            ${node.outDegree}, 
+            ${fullName}, 
+            ${node.label}
+          ) RETURNING id
+        `
 
-    const links = codebase.getLinks()
-    // Insert links into the database
-    const insertLinkPromises = links.map((link) => {
-      return sql`
-    INSERT INTO links (node_source_id, node_target_id, repo_id, label, line)
-    VALUES (${nodeDBIds[link.source]}, ${nodeDBIds[link.target]}, ${repoId}, ${link.label}, ${
-        link.line
+        nodeDBIds[node.id] = rows[0].id
       })
-    `
+
+      await Promise.all(insertNodePromises)
+
+      const links = codebase.getLinks()
+      // Insert links into the database
+      const insertLinkPromises = links.map((link) => {
+        return sql`
+          INSERT INTO links (
+            node_source_id, 
+            node_target_id, 
+            repo_id, 
+            label, 
+            line
+          ) VALUES (
+            ${nodeDBIds[link.source]}, 
+            ${nodeDBIds[link.target]}, 
+            ${repoId}, 
+            ${link.label}, 
+            ${link.line}
+          )
+        `
+      })
+      await Promise.all(insertLinkPromises)
+      await sql`UPDATE graphs SET status = 'completed' WHERE id = ${graphId}`
+      console.log('Graph creation completed:', graphId)
     })
-
-    await Promise.all(insertNodePromises)
-    await Promise.all(insertLinkPromises)
-
-    await sql`UPDATE graphs SET status = 'completed' WHERE id = ${graphId}`
-    console.log('Graph creation completed:', graphId)
   } catch (error) {
     console.error('Error in background processing:', error)
     await sql`UPDATE graphs SET status = 'failed' WHERE id = ${graphId}`
