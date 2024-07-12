@@ -49,8 +49,8 @@ export function buildGraphs(nodes: GraphNode[], links: GraphLink[]) {
 }
 
 
-function bfsLevels(nodes: GraphNode[], graph: { [key: string]: string[] }): {[key: number]: GraphNode[]} {
-    const results: { [key: number]: GraphNode[] } = {};
+export function bfsLevels(nodes: GraphNode[], graph: { [key: string]: string[] }): {[key: number]: string[]} {
+    const results: { [key: number]: string[] } = {};
     const levels: { [key: string]: number } = {};
     const inDegree: { [key: string]: number } = {};
 
@@ -80,10 +80,8 @@ function bfsLevels(nodes: GraphNode[], graph: { [key: string]: string[] }): {[ke
             if (!results[currentLevel]) {
                 results[currentLevel] = [];
             }
-            const node = nodes.find(n => n.id === nodeId);
-            if (node) {
-                results[currentLevel].push(node);
-            }
+
+            results[currentLevel].push(nodeId);
 
             for (const neighbor of graph[nodeId] || []) {
                 inDegree[neighbor]--;
@@ -107,38 +105,9 @@ function bfsLevels(nodes: GraphNode[], graph: { [key: string]: string[] }): {[ke
             if (!results[levels[node.id]]) {
                 results[levels[node.id]] = [];
             }
-            results[levels[node.id]].push(node);
+            results[levels[node.id]].push(node.id);
         }
     }
 
     return results;
 }
-
-
-
-
-
-export interface GraphNode {
-    id: string
-    fullName: string
-    type: AllowedTypes
-    language: string
-    documentation?: string
-    code: string
-    codeNoBody: string
-    totalTokens: number
-    inDegree: number
-    outDegree: number
-    label: string
-    originFile?: string
-    generatedDocumentation?: string
-    importStatements?: string
-  }
-  
-  export interface GraphLink {
-    id: string
-    source: string
-    target: string
-    label: string
-    line?: number
-  }
