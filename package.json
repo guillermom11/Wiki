@@ -1,7 +1,7 @@
 {
   "scripts": {
     "dev": "node --env-file=.env --import=tsx --watch ./src/index.ts",
-    "test": "jest --verbose"
+    "test": "jest --setupFiles dotenv/config --verbose"
   },
   "dependencies": {
     "@hono/node-server": "1.11.2",
@@ -11,9 +11,11 @@
     "@libsql/client": "0.6.2",
     "adm-zip": "0.5.13",
     "axios": "1.7.2",
+    "dotenv": "^16.4.5",
     "glob": "10.4.1",
     "hono": "4.4.3",
     "jose": "5.4.0",
+    "openai": "^4.52.7",
     "postgres": "3.4.4",
     "tiktoken": "1.0.15",
     "tree-sitter": "0.21.1",
