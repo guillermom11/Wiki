@@ -134,7 +134,7 @@ export function generateNodePrompts(node: GraphNode, nodes: GraphNode[], graph: 
     
     if (originFileNode && graph[node.id].length > 0 && originFileNode.importStatements) {
         userPrompt += `\n\`\`\`${node.language}\n${originFileNode.importStatements}\n\n${node.code}\n\`\`\`\n\n`
-        systemPrompt += ` You must mention the import statements ONLY IF "${node.label}" is using them in its code. In any other case do not mention anything.`
+        systemPrompt += ` Don't mention about the imports if "${node.label}" is not using it directly in its implementation.`
     } else {
         userPrompt += `\n\`\`\`${node.language}\n${node.code}\n\`\`\`\n\n`
     }
@@ -143,16 +143,19 @@ export function generateNodePrompts(node: GraphNode, nodes: GraphNode[], graph: 
     const calledNodes = graph[node.id].map(calledNodeId => nodes.find(node => node.id === calledNodeId));
 
     if (graph[node.id].length > 0 && calledNodes.some(n => n?.generatedDocumentation) ) {
-        userPrompt += `You can use the following information just to get more context:`
-        
+        userPrompt += `Use the following information to a better description of what ${node.label} does:`
+        systemPrompt += ` Do not verbose about the called functions, just use them as a reference to explain what ${node.label} does.`
+
         graph[node.id].forEach(calledNodeId => {
             const calledNode = nodes.find((n) => n.id === calledNodeId);
             if (calledNode && calledNode.generatedDocumentation) {
                 userPrompt += `\n- ${calledNode.label}: ${calledNode.generatedDocumentation}`;
             }
         })
+        
     }
 
+    userPrompt += `Remember to not verbose about the called functions, just use them as a reference to explain what ${node.label} does.`
     return { systemPrompt, userPrompt }
 }
 
@@ -165,11 +168,35 @@ export async function generateNodeDocumentation(node: GraphNode, nodes: GraphNod
             { role: "system", content: systemPrompt },
             { role: "user", content: userPrompt },
         ]
-        const { response, tokens } = await getOpenAIChatCompletion(messages);
-    
-        // node.generatedDocumentation = response;
-        console.log({ response, tokens })
+
+        if (['class', 'function', 'method'].includes(node.type) || node.code.split('\n').length >= 2) {
+            const { response, tokens } = await getOpenAIChatCompletion(messages);
+            node.generatedDocumentation = response;
+        } else {
+            node.generatedDocumentation = `Code: ${node.code}`
+        }
+        // console.log(`#### ${node.label} ####`)
+        // console.log({ systemPrompt, userPrompt } )
+        // console.log({ response, tokens })
+
     } catch (error: any) {
         console.error(`Error generating documentation for ${node.label}: ${error.message}`)
     }
-  }
+}
+
+export async function documentNodesByLevels(nodeIdsByLevels: {[key: number]: string[]}, nodes: GraphNode[], graph: Graph) {
+    const levels = Object.keys(nodeIdsByLevels)
+    levels.sort((a, b) => parseInt(b) - parseInt(a))
+
+    for (const l of levels) {
+        const level = parseInt(l);  // Convert the key back to a number if needed
+        const nodeIds = nodeIdsByLevels[level];
+        const promises = nodeIds.map(nodeId => {
+            const node = nodes.find(n => n.id === nodeId);
+            if (node) {
+                return generateNodeDocumentation(node, nodes, graph);
+            }
+        })
+        await Promise.all(promises);
+    }
+}
