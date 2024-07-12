@@ -37,6 +37,7 @@ describe('Wiki', () => {
             importStatements: 'import { round } from "@mathutils"', },
     ];
     
+    const repoName = 'mathUtils-test'
 
     test('BFS v1', () => {
 
@@ -159,11 +160,11 @@ describe('Wiki', () => {
         // const { systemPrompt, userPrompt } = wikiutils.generateNodePrompts(nodes[0], nodes, graph);
         // console.log(systemPrompt)
         // console.log(userPrompt)
-        // await wikiutils.generateNodeDocumentation(nodes[0], nodes, graph)
+        // await wikiutils.generateNodeDocumentation(nodes[0], nodes, graph, repoName)
 
-        await wikiutils.documentNodesByLevels(nodesByLevels, nodes, graph)
+        await wikiutils.documentNodesByLevels(nodesByLevels, nodes, graph, repoName)
 
-        wikiutils.documentFolders(nodes, links)
+        wikiutils.documentFolders(nodes, links, repoName)
         // console.log({nodes: nodes.map(n => {return { name: n.fullName, generatedDocumentation: n.generatedDocumentation}})})
     }, 20000)
 })
