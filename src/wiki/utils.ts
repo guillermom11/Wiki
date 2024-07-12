@@ -1,4 +1,5 @@
 import { GraphLink, GraphNode } from "../utils/db";
+import { chatCompletionMessages, getOpenAIChatCompletion } from "../utils/ai";
 
 type Graph = { [key: string]: string[] }
 
@@ -155,3 +156,20 @@ export function generateNodePrompts(node: GraphNode, nodes: GraphNode[], graph: 
     return { systemPrompt, userPrompt }
 }
 
+export async function generateNodeDocumentation(node: GraphNode, nodes: GraphNode[], graph: Graph) {
+    const { systemPrompt, userPrompt } = generateNodePrompts(node, nodes, graph);
+  
+    try {
+
+        const messages: chatCompletionMessages = [
+            { role: "system", content: systemPrompt },
+            { role: "user", content: userPrompt },
+        ]
+        const { response, tokens } = await getOpenAIChatCompletion(messages);
+    
+        // node.generatedDocumentation = response;
+        console.log({ response, tokens })
+    } catch (error: any) {
+        console.error(`Error generating documentation for ${node.label}: ${error.message}`)
+    }
+  }
