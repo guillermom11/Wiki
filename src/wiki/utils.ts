@@ -153,7 +153,6 @@ export function generateNodePrompts(node: GraphNode, nodes: GraphNode[], graph: 
         })
     }
 
-    userPrompt += `\n\nDon0"${node.label}"`
     return { systemPrompt, userPrompt }
 }
 
