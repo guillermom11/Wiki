@@ -163,7 +163,7 @@ describe('Wiki', () => {
 
         await wikiutils.documentNodesByLevels(nodesByLevels, nodes, graph)
 
-        console.log({nodes})
+        console.log({nodes: nodes.map(n => {return { name: n.fullName, generatedDocumentation: n.generatedDocumentation}})})
     })
 })
 
