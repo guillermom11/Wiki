@@ -23,12 +23,9 @@ export function findFileParentNode(nodes: GraphNode[], node: GraphNode) {
 
 export function buildGraphs(nodes: GraphNode[], links: GraphLink[]) {
     //all nodes appear on links?
-    const callGraph: Graph = {};
-    const defineGraph: Graph = {};
+    const graph: Graph = {};
     nodes.forEach((node) => {
-      // map each node id to an empty array
-      callGraph[node.id] = [];
-      defineGraph[node.id] = [];
+      graph[node.id] = [];
     });
   
     for (const link of links) {
@@ -38,17 +35,12 @@ export function buildGraphs(nodes: GraphNode[], links: GraphLink[]) {
         const sourceNode = nodes.find((node) => node.id === link.source);
         const targetNode = nodes.find((node) => node.id === link.target);
         // only save the links between nodes and not files
-        if (sourceNode && targetNode && sourceNode.type !== "file" && targetNode.type !== "file") {
-            // save call and define links on the respective graphs
-            if (link.label === "calls") {
-                callGraph[link.source].push(link.target);
-            } else if (link.label === "defines") {
-                defineGraph[link.source].push(link.target);
-            }
+        if (sourceNode && targetNode) {
+                graph[link.source].push(link.target);
       }
     }
   
-    return { callGraph, defineGraph };
+    return { graph };
 }
 
 
@@ -59,7 +51,7 @@ export function bfsLevels(nodes: GraphNode[], graph: Graph): {[key: number]: str
 
     // Initialize in-degree for each node
     for (const node of nodes) {
-        if (node.type === 'file') continue;
+
         inDegree[node.id] = 0;
     }
 
@@ -71,7 +63,7 @@ export function bfsLevels(nodes: GraphNode[], graph: Graph): {[key: number]: str
     }
 
     // Find start nodes (nodes with in-degree 0)
-    const queue = nodes.filter(node => inDegree[node.id] === 0 && node.type !== 'file').map(node => node.id);
+    const queue = nodes.filter(node => inDegree[node.id] === 0).map(node => node.id);
     
     // Perform topological sort and assign levels
     let currentLevel = 0;
@@ -99,7 +91,6 @@ export function bfsLevels(nodes: GraphNode[], graph: Graph): {[key: number]: str
 
     // Handle cycles by assigning remaining nodes to the highest level of their dependencies
     for (const node of nodes) {
-        if (node.type === 'file') continue;
         if (levels[node.id] === undefined) {
             const dependencyLevels = (graph[node.id] || [])
                 .map(dep => levels[dep] || 0)
@@ -121,41 +112,57 @@ export function bfsLevels(nodes: GraphNode[], graph: Graph): {[key: number]: str
 export function generateNodePrompts(node: GraphNode, nodes: GraphNode[], graph: Graph): { systemPrompt: string, userPrompt: string } {
 
     const originFileNode = findFileParentNode(nodes, node);
-    let systemPrompt = `You are a helpful ${node.language} code assistant that helps to write code documentation in just one paragraph, mentioning the principal features of the code.`;
+
+    let systemPrompt = '';
+    if (node.type !== 'file') {
+        systemPrompt = `You are a helpful ${node.language} code assistant that helps to write code documentation in just one paragraph, mentioning the principal features of the code.`;
+    } else {
+        systemPrompt = `You are a helpful ${node.language} code assistant that helps to write wikis for files. I will pass a reduced version of the file content and you must explain the main features and purpose of the file.`;
+    }
 
     if (["function", "class", "method"].includes(node.type)) {
         systemPrompt += ` The documentation must include how each parameter is used and what the ${node.type} does.`;
-        }
+    }
 
     systemPrompt += ` Prevent any prose in your response. Please, be concise and don't talk about the file.`;
 
     const parentFileString = originFileNode ? `from file "${originFileNode.label}" ` : ''
-    let userPrompt = `Write a documentation for the  ${node.type} called "${node.label}" ${parentFileString}in just one paragraph, mention it the principal features of the code:`
+    let userPrompt = '';
+    if (node.type !== 'file') {
+        userPrompt = `Write a documentation for the ${node.type} called "${node.fullName}" ${parentFileString}in just one paragraph, mention it the principal features of the code:`
+    } else {
+        const folder = node.fullName.split('/').slice(0, -1).join('/');
+        userPrompt = `Write a wiki for the file "${node.label}" from folder "${folder}", explain it the main features and purpose of the file:`
+    }
     
+    const code = ['method', 'function', 'interface', 'assignment', 'type', 'enum', 'struct', 'union'].includes(node.type) ? node.code : node.codeNoBody
+
     if (originFileNode && graph[node.id].length > 0 && originFileNode.importStatements) {
-        userPrompt += `\n\`\`\`${node.language}\n${originFileNode.importStatements}\n\n${node.code}\n\`\`\`\n\n`
+        userPrompt += `\n\`\`\`${node.language}\n${originFileNode.importStatements}\n\n${code}\n\`\`\`\n\n`
         systemPrompt += ` Don't mention about the imports if "${node.label}" is not using it directly in its implementation.`
     } else {
-        userPrompt += `\n\`\`\`${node.language}\n${node.code}\n\`\`\`\n\n`
+        userPrompt += `\n\`\`\`${node.language}\n${code}\n\`\`\`\n\n`
     }
 
+    const linkedNodes = graph[node.id].map(linkedNodeId => nodes.find(node => node.id === linkedNodeId));
 
-    const calledNodes = graph[node.id].map(calledNodeId => nodes.find(node => node.id === calledNodeId));
-
-    if (graph[node.id].length > 0 && calledNodes.some(n => n?.generatedDocumentation) ) {
+    if (graph[node.id].length > 0 && linkedNodes.some(n => n?.generatedDocumentation) ) {
         userPrompt += `Use the following information to a better description of what ${node.label} does:`
-        systemPrompt += ` Do not verbose about the called functions, just use them as a reference to explain what ${node.label} does.`
+        systemPrompt += ` Do not verbose about the extra information, just use them as a reference to explain what ${node.label} does.`
 
-        graph[node.id].forEach(calledNodeId => {
-            const calledNode = nodes.find((n) => n.id === calledNodeId);
-            if (calledNode && calledNode.generatedDocumentation) {
-                userPrompt += `\n- ${calledNode.label}: ${calledNode.generatedDocumentation}`;
+        graph[node.id].forEach(linkedNodeId => {
+            const linkedNode = nodes.find((n) => n.id === linkedNodeId);
+            if (linkedNode && linkedNode.generatedDocumentation) {
+                userPrompt += `\n- ${linkedNode.label}: ${linkedNode.generatedDocumentation}`;
             }
         })
         
     }
 
-    userPrompt += `Remember to not verbose about the called functions, just use them as a reference to explain what ${node.label} does.`
+    userPrompt += `Remember to not verbose about the extra information, just use them as a reference to explain what "${node.label}" does.`
+    if (node.type === 'file') {
+        userPrompt += ' Remember also to explain the purpose of the file.'
+    }
     return { systemPrompt, userPrompt }
 }
 
