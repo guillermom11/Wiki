@@ -223,8 +223,14 @@ export async function documentFolders(nodes: GraphNode[], links: GraphLink[]) {
     uniqueFolderNames.forEach(foldername => documentedFolders[foldername] = '')
 
     for (const folderName of uniqueFolderNames) {
-        let systemPrompt = `You are a helpful code assistant that helps to write wikis for folders. The user will pass you a sort of wiki of each file and subfolder.`
-        systemPrompt += `The wiki must describe the main features of the folder and the final purpose of the folder. Prevent any prose in your response. Please, be concise.`
+        let systemPrompt = `You are a helpful code assistant that helps to write wikis for folders. The user will pass you a sort of wiki of each file and subfolder, and you have to generate a final wiki..`
+        systemPrompt += `The wiki must describe the main features of the folder and the final purpose of the folder, having the following headers:
+        
+        # Title
+        ## Overview
+        ## Main features
+        `
+
 
         const fileNodesInFolder = fileNodes.filter(n => n.fullName.startsWith(folderName))
         const subfoldersDocumentations = Object.fromEntries(
@@ -245,9 +251,9 @@ export async function documentFolders(nodes: GraphNode[], links: GraphLink[]) {
         for (const fileNode of fileNodesInFolder) {
             const callLinks = links.filter(l => l.source === fileNode.id && l.label == 'calls')
             const defineLinks = links.filter(l => l.source === fileNode.id && l.label == 'defines')
-            userPrompt += `Documentation from file ${fileNode.label}:\n${fileNode.generatedDocumentation ?? ''}\n`
+            userPrompt += `# Documentation from file ${fileNode.label}:\n${fileNode.generatedDocumentation ?? ''}\n`
             if (callLinks.length) {
-                userPrompt += `  It Calls:\n`
+                userPrompt += `  ${fileNode.label} Calls:\n`
                 callLinks.forEach(l => {
                     const calledNode = nodes.find(n => n.id === l.target)
                     if (calledNode) {
@@ -257,7 +263,7 @@ export async function documentFolders(nodes: GraphNode[], links: GraphLink[]) {
             }
             
             if (defineLinks.length) {
-                userPrompt += `  It Defines:\n`
+                userPrompt += `  ${fileNode.label} Defines:\n`
                 defineLinks.forEach(l => {
                     const definingNode = nodes.find(n => n.id === l.target)
                     if (definingNode) {
@@ -269,7 +275,15 @@ export async function documentFolders(nodes: GraphNode[], links: GraphLink[]) {
             
         }
 
+        const messages: chatCompletionMessages = [
+            { role: "system", content: systemPrompt },
+            { role: "user", content: userPrompt },
+        ]
 
+        const { response, tokens } = await getOpenAIChatCompletion(messages);
+        subfoldersDocumentations[folderName] = response
+
+        console.log({subfoldersDocumentations})
     }
 
 }

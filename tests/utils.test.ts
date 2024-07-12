@@ -163,8 +163,9 @@ describe('Wiki', () => {
 
         await wikiutils.documentNodesByLevels(nodesByLevels, nodes, graph)
 
-        console.log({nodes: nodes.map(n => {return { name: n.fullName, generatedDocumentation: n.generatedDocumentation}})})
-    })
+        wikiutils.documentFolders(nodes, links)
+        // console.log({nodes: nodes.map(n => {return { name: n.fullName, generatedDocumentation: n.generatedDocumentation}})})
+    }, 20000)
 })
 
 // // renameSource
