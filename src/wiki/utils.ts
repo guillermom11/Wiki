@@ -1,8 +1,9 @@
 import { GraphLink, GraphNode } from "../utils/db";
 import { chatCompletionMessages, getOpenAIChatCompletion } from "../utils/ai";
 
-type Graph = { [key: string]: string[] }
+let totalTokens = 0
 
+type Graph = { [key: string]: string[] }
 
 export function findFileParentNode(nodes: GraphNode[], node: GraphNode) {
     let parentName = ''
@@ -16,8 +17,6 @@ export function findFileParentNode(nodes: GraphNode[], node: GraphNode) {
         return parent;
     } else if (parent && parent.type !== "file") {
         return findFileParentNode(nodes, parent);
-    } else {
-        console.log("Parent not found :(");
     }
 }
 
@@ -45,6 +44,7 @@ export function buildGraphs(nodes: GraphNode[], links: GraphLink[]) {
 
 
 export function bfsLevels(nodes: GraphNode[], graph: Graph): {[key: number]: string[]} {
+    console.log('Building BFS Levels ..')
     const results: { [key: number]: string[] } = {};
     const levels: { [key: string]: number } = {};
     const inDegree: { [key: string]: number } = {};
@@ -109,15 +109,15 @@ export function bfsLevels(nodes: GraphNode[], graph: Graph): {[key: number]: str
 }
 
 
-export function generateNodePrompts(node: GraphNode, nodes: GraphNode[], graph: Graph): { systemPrompt: string, userPrompt: string } {
+export function generateNodePrompts(node: GraphNode, nodes: GraphNode[], graph: Graph, repoName: string): { systemPrompt: string, userPrompt: string } {
 
     const originFileNode = findFileParentNode(nodes, node);
 
     let systemPrompt = '';
     if (node.type !== 'file') {
-        systemPrompt = `You are a helpful ${node.language} code assistant that helps to write code documentation in just one paragraph, mentioning the principal features of the code.`;
+        systemPrompt = `You are a helpful ${node.language} code assistant that helps to write code documentation for the repository ${repoName} in just one paragraph, mentioning the principal features of the code.`;
     } else {
-        systemPrompt = `You are a helpful ${node.language} code assistant that helps to write wikis for files. I will pass a reduced version of the file content and you must explain the main features and purpose of the file.`;
+        systemPrompt = `You are a helpful ${node.language} code assistant that helps to write wikis for files from the repository ${repoName}. I will pass a reduced version of the file content and you must explain the main features and purpose of the file.`;
     }
 
     if (["function", "class", "method"].includes(node.type)) {
@@ -167,8 +167,8 @@ export function generateNodePrompts(node: GraphNode, nodes: GraphNode[], graph: 
     return { systemPrompt, userPrompt }
 }
 
-export async function generateNodeDocumentation(node: GraphNode, nodes: GraphNode[], graph: Graph) {
-    const { systemPrompt, userPrompt } = generateNodePrompts(node, nodes, graph);
+export async function generateNodeDocumentation(node: GraphNode, nodes: GraphNode[], graph: Graph, repoName: string) {
+    const { systemPrompt, userPrompt } = generateNodePrompts(node, nodes, graph, repoName);
   
     try {
 
@@ -179,6 +179,7 @@ export async function generateNodeDocumentation(node: GraphNode, nodes: GraphNod
 
         if (['class', 'function', 'method'].includes(node.type) || node.code.split('\n').length >= 2) {
             const { response, tokens } = await getOpenAIChatCompletion(messages);
+            totalTokens += tokens ?? 0
             node.generatedDocumentation = response;
         } else {
             node.generatedDocumentation = `Code: ${node.code}`
@@ -192,7 +193,9 @@ export async function generateNodeDocumentation(node: GraphNode, nodes: GraphNod
     }
 }
 
-export async function documentNodesByLevels(nodeIdsByLevels: {[key: number]: string[]}, nodes: GraphNode[], graph: Graph) {
+export async function documentNodesByLevels(nodeIdsByLevels: {[key: number]: string[]}, nodes: GraphNode[],
+                        graph: Graph, repoName: string) {
+    console.log('Generating documentation for each node ..')
     const levels = Object.keys(nodeIdsByLevels)
     levels.sort((a, b) => parseInt(b) - parseInt(a))
 
@@ -202,33 +205,39 @@ export async function documentNodesByLevels(nodeIdsByLevels: {[key: number]: str
         const promises = nodeIds.map(nodeId => {
             const node = nodes.find(n => n.id === nodeId);
             if (node) {
-                return generateNodeDocumentation(node, nodes, graph);
+                return generateNodeDocumentation(node, nodes, graph, repoName);
             }
         })
         await Promise.all(promises);
     }
+    console.log('Used tokens: ', totalTokens)
 }
 
-export async function documentFolders(nodes: GraphNode[], links: GraphLink[]) {
-
+export async function documentFolders(nodes: GraphNode[], links: GraphLink[], repoName: string) {
+    console.log('Generating documentation for each folder ..')
     const fileNodes = nodes.filter(n => n.type === 'file')
     const folderNames = fileNodes.map(n => n.fullName.split('/').slice(0, -1).join('/'))
     const uniqueFolderNames = [...new Set(folderNames)]
 
     // sort by level (number of '/')
     uniqueFolderNames.sort((a, b) => b.split('/').length - a.split('/').length)
-    console.log(fileNodes)
 
     const documentedFolders: {[key: string]: string} = {}
     uniqueFolderNames.forEach(foldername => documentedFolders[foldername] = '')
 
     for (const folderName of uniqueFolderNames) {
-        let systemPrompt = `You are a helpful code assistant that helps to write wikis for folders. The user will pass you a sort of wiki of each file and subfolder, and you have to generate a final wiki..`
+        let systemPrompt = `You are a helpful code assistant that helps to write wikis for folders from repository ${repoName}. The user will pass you a sort of wiki of each file and subfolder, and you have to generate a final wiki..`
         systemPrompt += `The wiki must describe the main features of the folder and the final purpose of the folder, having the following headers:
         
         # Title
         ## Overview
         ## Main features
+        ## subfolders
+        ### 1. subfolder1
+         ... repeat for each subfolder
+        ## files
+        ### 1. file1
+         ... repeat for each file
         `
 
 
@@ -239,7 +248,7 @@ export async function documentFolders(nodes: GraphNode[], links: GraphLink[]) {
             })
         )
 
-        let userPrompt = `Generate a wiki for the folder "${folderName}". Use the following information to generate a better response:\n\n`
+        let userPrompt = `Generate a wiki for the folder "${folderName ?? '. (root)'}". Use the following information to generate a better response:\n\n`
 
         for (const [subfolder, subfolderDoc] of Object.entries(subfoldersDocumentations)) {
             if (subfolderDoc) {
@@ -249,29 +258,30 @@ export async function documentFolders(nodes: GraphNode[], links: GraphLink[]) {
         }
 
         for (const fileNode of fileNodesInFolder) {
-            const callLinks = links.filter(l => l.source === fileNode.id && l.label == 'calls')
-            const defineLinks = links.filter(l => l.source === fileNode.id && l.label == 'defines')
             userPrompt += `# Documentation from file ${fileNode.label}:\n${fileNode.generatedDocumentation ?? ''}\n`
-            if (callLinks.length) {
-                userPrompt += `  ${fileNode.label} Calls:\n`
-                callLinks.forEach(l => {
-                    const calledNode = nodes.find(n => n.id === l.target)
-                    if (calledNode) {
-                        userPrompt += `   - ${calledNode.label}${": " + calledNode.generatedDocumentation ?? ''}\n` 
-                    }
-                })
-            }
+            // const callLinks = links.filter(l => l.source === fileNode.id && l.label == 'calls')
+            // const defineLinks = links.filter(l => l.source === fileNode.id && l.label == 'defines')
             
-            if (defineLinks.length) {
-                userPrompt += `  ${fileNode.label} Defines:\n`
-                defineLinks.forEach(l => {
-                    const definingNode = nodes.find(n => n.id === l.target)
-                    if (definingNode) {
-                        userPrompt += `   - ${definingNode.label}${": " + definingNode.generatedDocumentation ?? ''}\n`
-                    }
-                })
-            userPrompt += `\n------------------------------------------------\n\n`
-            }
+            // if (callLinks.length) {
+            //     userPrompt += `  ${fileNode.label} Calls:\n`
+            //     callLinks.forEach(l => {
+            //         const calledNode = nodes.find(n => n.id === l.target)
+            //         if (calledNode) {
+            //             userPrompt += `   - ${calledNode.label}${": " + calledNode.generatedDocumentation ?? ''}\n` 
+            //         }
+            //     })
+            // }
+            
+            // if (defineLinks.length) {
+            //     userPrompt += `  ${fileNode.label} Defines:\n`
+            //     defineLinks.forEach(l => {
+            //         const definingNode = nodes.find(n => n.id === l.target)
+            //         if (definingNode) {
+            //             userPrompt += `   - ${definingNode.label}${": " + definingNode.generatedDocumentation ?? ''}\n`
+            //         }
+            //     })
+            // userPrompt += `\n------------------------------------------------\n\n`
+            // }
             
         }
 
@@ -281,9 +291,10 @@ export async function documentFolders(nodes: GraphNode[], links: GraphLink[]) {
         ]
 
         const { response, tokens } = await getOpenAIChatCompletion(messages);
-        subfoldersDocumentations[folderName] = response
-
-        console.log({subfoldersDocumentations})
+        totalTokens += tokens ?? 0
+        documentedFolders[folderName] = response
     }
 
+    console.log('Total used tokens: ', totalTokens)
+    return documentedFolders;
 }
