@@ -179,7 +179,12 @@ const calls = `
 (new_expression (identifier) @identifier.name)
 
 ; keyword arguments
-(pair value: (identifier) @identifier.name)
+(pair value: [(identifier) @identifier.name
+               ; bynary_expressions, different levels
+			   (( _ (identifier) @identifier.name )) 
+               (( _ ( _ (identifier) @identifier.name )))
+               (( _ ( _ ( _ (identifier) @identifier.name ))))
+			 ])
 ( variable_declarator value: (identifier) @identifier.name)
 
 ; any object
@@ -187,6 +192,9 @@ const calls = `
 
 ; format strings
 (template_substitution _ @identifier.name)
+
+; shorthand identifier
+(shorthand_property_identifier) @identifer.name
 `
 
 ///////////
