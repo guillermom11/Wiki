@@ -194,7 +194,7 @@ const calls = `
 (template_substitution _ @identifier.name)
 
 ; shorthand identifier
-(shorthand_property_identifier) @identifer.name
+(shorthand_property_identifier) @identifier.name
 `
 
 ///////////
