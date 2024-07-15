@@ -305,7 +305,7 @@ export class Node {
     this.importStatements = importStatements.reverse()
   }
 
-  parseExportClauses(nodesMap: { [id: string]: Node } = {}) {
+  parseExportClauses(codebaseNodesMap: { [id: string]: Node }, fileNodesMap: { [id: string]: Node }) {
     // only js, ts have the "export { ... }" clause
     if (!['javascript', 'typescript', 'tsx'].includes(this.language)) return
     const captures = captureQuery(this.language, 'exportClauses', this.code)
@@ -317,10 +317,17 @@ export class Node {
     let name = ''
     let alias = ''
     let moduleName = this.id
+    let exportCode = ''
+    let node: Node
     captures.forEach((c) => {
       switch (c.name) {
+        case 'export_clause':
+          exportCode = c.node.text
+          if (node) node.code += `\n\n${exportCode}`
+          break
         case 'module':
           moduleName = path.join(this.id.split('/').slice(0, -1).join('/'), c.node.text)
+          break
         case 'alias':
           alias = c.node.text
           break
@@ -331,13 +338,17 @@ export class Node {
             i.names.map((n) => n.alias).includes(name)
           )[0]
           if (importedName) moduleName = importedName.path
-          const node = this.children[`${this.id}::${name}`] || nodesMap[`${moduleName}::${name}`]
+          node = this.children[`${this.id}::${name}`] || codebaseNodesMap[`${moduleName}::${name}`]
           if (node) {
             node.exportable = true
             node.alias = alias ? alias : name
             // if the export clause includes an alias, then we have to update the id
             // since this is used to resolve imports and get calls
+            delete fileNodesMap[node.id]
             node.id = `${this.id}::${node.alias}`
+            const previousCode = fileNodesMap[node.id].code
+            node.code = `${previousCode}\n\n${node.code}`
+            fileNodesMap[node.id] = node
 
             // the node is exported from the same file
             if (moduleName === this.id) {
@@ -666,7 +677,7 @@ export class Codebase {
     fileNode.alias = filePath.split('/').pop() || ''
     const nodesMap = fileNode.getChildrenDefinitions()
     fileNode.generateImports()
-    fileNode.parseExportClauses(this.nodesMap)
+    fileNode.parseExportClauses(this.nodesMap, nodesMap)
     nodesMap[fileNode.id] = fileNode
 
     Object.values(nodesMap).forEach((n) => {
