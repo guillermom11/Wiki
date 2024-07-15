@@ -139,7 +139,7 @@ const exportClauses = `
           )
     )
   (string (string_fragment) @module)?
-)
+) @export_clause
 `
 
 // ASSIGNMENT SPECIAL CASE
