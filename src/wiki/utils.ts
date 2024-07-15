@@ -118,6 +118,12 @@ export function generateNodePrompts(node: GraphNode, nodes: GraphNode[], graph: 
         systemPrompt = `You are a helpful ${node.language} code assistant that helps to write code documentation for the repository ${repoName} in just one paragraph, mentioning the principal features of the code.`;
     } else {
         systemPrompt = `You are a helpful ${node.language} code assistant that helps to write wikis for files from the repository ${repoName}. I will pass a reduced version of the file content and you must explain the main features and purpose of the file.`;
+        systemPrompt += `The wiki must describe the main features of the folder and the final purpose of the folder, i.e.:
+        
+        - An overview of the complete folder
+        - Main features of subfolders and files
+        - Important definitions inside files`
+        systemPrompt += '\nThe idea is to explain how the different components are used inside the folder. You can add anything you also consider important to the wiki.'
     }
 
     if (["function", "class", "method"].includes(node.type)) {
@@ -128,6 +134,7 @@ export function generateNodePrompts(node: GraphNode, nodes: GraphNode[], graph: 
         systemPrompt += ` Prevent any prose in your response. Please, be concise and don't talk about the file.`;
 
     const parentFileString = originFileNode ? `from file "${originFileNode.label}" ` : ''
+
     let userPrompt = '';
     if (node.type !== 'file') {
         userPrompt = `Write a documentation for the ${node.type} called "${node.fullName}" ${parentFileString}in just one paragraph, mention it the principal features of the code:`
@@ -167,7 +174,8 @@ export function generateNodePrompts(node: GraphNode, nodes: GraphNode[], graph: 
     return { systemPrompt, userPrompt }
 }
 
-export async function generateNodeDocumentation(node: GraphNode, nodes: GraphNode[], graph: Graph, repoName: string) {
+export async function generateNodeDocumentation(node: GraphNode, nodes: GraphNode[], graph: Graph,
+                                                repoName: string, model: string) {
     const { systemPrompt, userPrompt } = generateNodePrompts(node, nodes, graph, repoName);
   
     try {
@@ -178,7 +186,7 @@ export async function generateNodeDocumentation(node: GraphNode, nodes: GraphNod
         ]
 
         if (['class', 'function', 'method'].includes(node.type) || node.code.split('\n').length >= 2) {
-            const { response, tokens } = await getOpenAIChatCompletion(messages);
+            const { response, tokens } = await getOpenAIChatCompletion(messages, node.type === 'file' ? 'gpt-4o' : model);
             totalTokens += tokens ?? 0
             node.generatedDocumentation = response;
         } else {
@@ -194,7 +202,7 @@ export async function generateNodeDocumentation(node: GraphNode, nodes: GraphNod
 }
 
 export async function documentNodesByLevels(nodeIdsByLevels: {[key: number]: string[]}, nodes: GraphNode[],
-                        graph: Graph, repoName: string) {
+                        graph: Graph, repoName: string, model: string) {
     console.log('Generating documentation for each node ..')
     const levels = Object.keys(nodeIdsByLevels)
     levels.sort((a, b) => parseInt(b) - parseInt(a))
@@ -205,7 +213,7 @@ export async function documentNodesByLevels(nodeIdsByLevels: {[key: number]: str
         const promises = nodeIds.map(nodeId => {
             const node = nodes.find(n => n.id === nodeId);
             if (node) {
-                return generateNodeDocumentation(node, nodes, graph, repoName);
+                return generateNodeDocumentation(node, nodes, graph, repoName, model);
             }
         })
         await Promise.all(promises);
@@ -213,42 +221,36 @@ export async function documentNodesByLevels(nodeIdsByLevels: {[key: number]: str
     console.log('Used tokens: ', totalTokens)
 }
 
-export async function documentFolders(nodes: GraphNode[], links: GraphLink[], repoName: string) {
+export async function documentFolders(nodes: GraphNode[], links: GraphLink[], repoName: string, model: string) {
     console.log('Generating documentation for each folder ..')
     const fileNodes = nodes.filter(n => n.type === 'file')
     const folderNames = fileNodes.map(n => n.fullName.split('/').slice(0, -1).join('/'))
     const uniqueFolderNames = [...new Set(folderNames)]
 
     // sort by level (number of '/')
-    uniqueFolderNames.sort((a, b) => b.split('/').length - a.split('/').length)
-
+    uniqueFolderNames.sort((a, b) => b.split('/').length - a.split('/').length || b.length - a.length)
     const documentedFolders: {[key: string]: string} = {}
     uniqueFolderNames.forEach(foldername => documentedFolders[foldername] = '')
 
     for (const folderName of uniqueFolderNames) {
         let systemPrompt = `You are a helpful code assistant that helps to write wikis for folders from repository ${repoName}. The user will pass you a sort of wiki of each file and subfolder, and you have to generate a final wiki..`
-        systemPrompt += `The wiki must describe the main features of the folder and the final purpose of the folder, having the following headers:
+        systemPrompt += `The wiki must describe the main features of the folder and the final purpose of the folder, i.e.:
         
-        # Title
-        ## Overview
-        ## Main features
-        ## subfolders
-        ### 1. subfolder1
-         ... repeat for each subfolder
-        ## files
-        ### 1. file1
-         ... repeat for each file
-        `
+        - An overview of the complete folder
+        - Main features of subfolders and files
+        - Important definitions inside files`
+        systemPrompt += '\nThe idea is to explain how the different components are used inside the folder. You can add anything you also consider important to the wiki.'
 
-
-        const fileNodesInFolder = fileNodes.filter(n => n.fullName.startsWith(folderName))
+        
+        const fileNodesInFolder = fileNodes.filter(n => n.fullName.startsWith(folderName) && n.fullName.split('/').length == (folderName ? folderName.split('/').length + 1 : 1))
         const subfoldersDocumentations = Object.fromEntries(
             Object.entries(documentedFolders).filter(([key]) => {
-                key.startsWith(folderName) && key.split('/').length == folderName.split('/').length + 1
+                return key.startsWith(folderName) && key != folderName  // && key.split('/').length == folderName.split('/').length + 1 && key != folderName 
             })
         )
 
-        let userPrompt = `Generate a wiki for the folder "${folderName ?? '. (root)'}". Use the following information to generate a better response:\n\n`
+        const folderContext = folderName.length > 0 ? `folder "${folderName}"` : `main folder of ${repoName}`
+        let userPrompt = `Generate a wiki for the ${folderContext}. Use the following information to generate a better response:\n\n`
 
         for (const [subfolder, subfolderDoc] of Object.entries(subfoldersDocumentations)) {
             if (subfolderDoc) {
@@ -258,7 +260,7 @@ export async function documentFolders(nodes: GraphNode[], links: GraphLink[], re
         }
 
         for (const fileNode of fileNodesInFolder) {
-            userPrompt += `# Documentation from file ${fileNode.label}:\n${fileNode.generatedDocumentation ?? ''}\n`
+            userPrompt += `Documentation from file ${fileNode.label}:\n${fileNode.generatedDocumentation ?? ''}\n`
             // const callLinks = links.filter(l => l.source === fileNode.id && l.label == 'calls')
             // const defineLinks = links.filter(l => l.source === fileNode.id && l.label == 'defines')
             
@@ -290,9 +292,12 @@ export async function documentFolders(nodes: GraphNode[], links: GraphLink[], re
             { role: "user", content: userPrompt },
         ]
 
-        const { response, tokens } = await getOpenAIChatCompletion(messages);
+        // console.log(systemPrompt)
+        // console.log(userPrompt)
+
+        const { response, tokens } = await getOpenAIChatCompletion(messages, model);
         totalTokens += tokens ?? 0
-        documentedFolders[folderName] = response
+        documentedFolders[folderName ?? repoName] = response
     }
 
     console.log('Total used tokens: ', totalTokens)
