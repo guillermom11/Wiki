@@ -170,7 +170,7 @@ export class Node {
     }
   }
 
-  getCodeWithoutBody(considerLines: boolean = false) {
+  getCodeWithoutBody(considerLines: boolean = false, excludeAssignmentsFile: boolean = false) {
     let code = this.code
 
     if (
@@ -203,21 +203,25 @@ export class Node {
                 )
               }
             }
-          } else if (this.type === 'file' && !['assignment', 'type', 'enum'].includes(n.type)) {
-            if (n.body) {
-              let bodyToRemove = n.body
+          } else if (this.type === 'file') {
+            const isAssignment = ['assignment', 'type', 'enum'].includes(n.type)
+            if (!excludeAssignmentsFile && isAssignment) {
+              return
+            }
+            let bodyToRemove = isAssignment ? n.code : n.body
+            if (bodyToRemove) {
               bodyToRemove = bodyToRemove.replace(n.documentation, '')
               let bodyTotalLines = considerLines ? bodyToRemove.split('\n').length : 1
               const spaces = ' '.repeat(n.startPosition.column)
               if (this.language === 'python') {
                 code = code.replace(
                   bodyToRemove,
-                  `${spaces}...` + '\n'.repeat(Math.max(bodyTotalLines - 1, 0))
+                  (isAssignment ? `${n.alias} = `: '') + `${spaces}...` + '\n'.repeat(Math.max(bodyTotalLines - 1, 0))
                 )
               } else {
                 code = code.replace(
                   bodyToRemove,
-                  `{\n${spaces}//...\n${spaces}}` + '\n'.repeat(Math.max(bodyTotalLines - 3, 0))
+                  (isAssignment ? `\n${n.alias} = ...\n` : `{\n${spaces}//...\n${spaces}}`) + '\n'.repeat(Math.max(bodyTotalLines - 3, 0))
                 )
               }
             }
