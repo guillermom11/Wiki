@@ -346,8 +346,9 @@ export class Node {
             // since this is used to resolve imports and get calls
             delete fileNodesMap[node.id]
             node.id = `${this.id}::${node.alias}`
-            const previousCode = fileNodesMap[node.id].code
-            node.code = `${previousCode}\n\n${node.code}`
+            const prevNode = this.children[node.id] || codebaseNodesMap[node.id]
+            const previousCode = prevNode ? `${prevNode.code}\n\n` : ''
+            node.code = `${previousCode}${node.code}`
             fileNodesMap[node.id] = node
 
             // the node is exported from the same file
