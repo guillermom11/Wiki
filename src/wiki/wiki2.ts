@@ -459,25 +459,6 @@ async function generateFileDocumentation(
     endTime: FunctionEndTime,
   });
 
-  /*console.log(
-    "\ngenerateFileDocumentation\n",
-    "prompt:",
-    systemPrompt,
-    "\n",
-    "userPrompt:",
-    userPrompt,
-    "\n",
-    "response:",
-    response?.choices[0].message.content,
-    "\n\n",
-    "Tokenized:",
-    tokenizer({ fnName: "generateFileDocumentation", content: systemPrompt }),
-    "prompt_tokens:",
-    inputTokens,
-    "total_tokens:",
-    response?.usage.total_tokens
-  );*/
-
   return response?.choices[0].message.content;
 }
 
