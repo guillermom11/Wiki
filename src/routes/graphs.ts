@@ -1,10 +1,11 @@
 import { Hono } from 'hono'
-import { sql } from '../utils/db'
+import { getGraphFolderById, getGraphLinksById, getGraphNodesById, GraphLink, GraphNode, sql } from '../utils/db'
 import { getEnv } from '../utils/utils'
 import { jwtVerify } from 'jose'
 import { GitServiceType, downloadAndExtractRepo, getAccessToken, getCommitRepo } from '../utils/git'
 import { Codebase } from '../model/codebase'
 import { v4 as uuidv4 } from 'uuid'
+import { generateAndUpdateDocumentation } from '../wiki/wiki'
 
 const graphs = new Hono()
 
@@ -35,6 +36,7 @@ graphs.patch('/:id', async (c) => {
     }
 
     const graphId = c.req.param('id')
+    const generateDocBool = Boolean(c.req.query('generate_documentation')) || false
 
     const graph = await sql`
       SELECT
@@ -111,6 +113,33 @@ graphs.patch('/:id', async (c) => {
     }
 
     if (commitHash === repoCommitHash) {
+      if (generateDocBool) {
+        const rows = await sql`
+        SELECT 
+          id
+        FROM repositories
+        WHERE git_provider = ${gitProvider}
+          AND repo_org = ${repoOrg}
+          AND repo_name = ${repoName}
+          AND branch = ${branch}
+          AND commit_hash = ${commitHash}
+        `
+  
+        if (rows.length > 0) {
+            const repoId = rows[0].id
+            const res = await Promise.all([
+              getGraphNodesById({userOrgId, graphId}),
+              getGraphLinksById({userOrgId, graphId}),
+              getGraphFolderById({userOrgId, graphId})])
+
+            const graphNodes = res[0]
+            const graphLinks = res[1]
+            const graphFolders = res[2]
+            if (graphNodes.length > 0 && graphLinks.length > 0 ) {
+              await generateAndUpdateDocumentation(repoName, repoId, graphNodes, graphLinks, graphFolders)
+            }
+        }
+      }
       return c.json({ message: 'Graph already up to date' }, 200)
     }
 
@@ -152,7 +181,8 @@ graphs.patch('/:id', async (c) => {
       accessToken,
       commitHash,
       gitlabRepoId,
-      graphId
+      graphId,
+      generateDocBool
     })
 
     return c.json({ message: 'Graph updating' }, 200)
@@ -171,6 +201,7 @@ interface UpdateGraph {
   commitHash: string
   gitlabRepoId?: number
   graphId: string
+  generateDocBool: boolean
 }
 
 async function updateGraph({
@@ -181,7 +212,8 @@ async function updateGraph({
   accessToken,
   commitHash,
   gitlabRepoId,
-  graphId
+  graphId,
+  generateDocBool
 }: UpdateGraph) {
   try {
     const codebasePath = await downloadAndExtractRepo(
@@ -232,7 +264,7 @@ async function updateGraph({
     }
 
     const insertNodePromises = nodes.map((node) => {
-      const fullName = node.id.replace(codebasePath, '')
+      const fullName = node.id
 
       return sql`
         INSERT INTO nodes (
@@ -247,7 +279,9 @@ async function updateGraph({
           in_degree, 
           out_degree, 
           full_name, 
-          label
+          label,
+          origin_file,
+          import_statements
         ) VALUES (
           ${nodeDBIds[node.id]},
           ${repoId},
@@ -259,7 +293,10 @@ async function updateGraph({
           ${node.codeNoBody},
           ${node.inDegree},
           ${node.outDegree},
-          ${fullName}, ${node.label}
+          ${fullName},
+          ${node.label},
+          ${node.originFile},
+          ${node.importStatements.join('\n')}
         )
       `
     })
@@ -285,6 +322,39 @@ async function updateGraph({
     })
 
     await Promise.all([...insertNodePromises, ...insertLinkPromises])
+
+    if(generateDocBool) {
+      
+      const graphNodes: GraphNode[] = nodes.map(n => {
+        return {
+          id: nodeDBIds[n.id],
+          fullName: n.id,
+          type: n.type,
+          language: n.language,
+          documentation: n.documentation,
+          code: n.code,
+          codeNoBody: n.codeNoBody,
+          totalTokens: 0,
+          inDegree: 0,
+          outDegree: 0,
+          label: n.label,
+          originFile: n.originFile,
+          generatedDocumentation: '',
+          importStatements: n.importStatements.join('\n')
+          }
+      })
+
+      const graphLinks: GraphLink[] = links.map(l => {
+          return {
+              id: '0',
+              source: nodeDBIds[l.source],
+              target: nodeDBIds[l.target],
+              label: l.label,
+              line: l.line
+          }
+      } )
+      await generateAndUpdateDocumentation(repoName, repoId, graphNodes, graphLinks)
+    }
 
     await sql`
       UPDATE graphs 

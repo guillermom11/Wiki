@@ -1,12 +1,13 @@
 import { Hono } from 'hono'
 import { z } from 'zod'
 import { zValidator } from '@hono/zod-validator'
-import { sql } from '../utils/db'
+import { GraphLink, GraphNode, sql } from '../utils/db'
 import { downloadAndExtractRepo, getAccessToken, getCommitRepo } from '../utils/git'
 import { Codebase } from '../model/codebase'
 import { jwtVerify } from 'jose'
 import { getEnv } from '../utils/utils'
 import { GitServiceType } from '../utils/git'
+import { generateAndUpdateDocumentation } from '../wiki/wiki'
 const secret = getEnv('SUPABASE_JWT')
 
 const repoRequestValidator = zValidator(
@@ -17,7 +18,8 @@ const repoRequestValidator = zValidator(
     repo_name: z.string(),
     branch: z.string(),
     connection_id: z.string(),
-    gitlab_repo_id: z.number().optional()
+    gitlab_repo_id: z.number().optional(),
+    generate_documentation: z.boolean().optional()
   })
 )
 
@@ -31,7 +33,8 @@ createGraph.post('/', repoRequestValidator, async (c) => {
     repo_name: repoName,
     branch,
     connection_id: connectionId,
-    gitlab_repo_id: gitlabRepoId
+    gitlab_repo_id: gitlabRepoId,
+    generate_documentation: generateDocBool
   } = request
 
   const jwt = c.req.header('Authorization')?.split('Bearer ')[1]
@@ -165,7 +168,9 @@ createGraph.post('/', repoRequestValidator, async (c) => {
       userId,
       graphExists,
       connectionId,
-      codebasePath
+      codebasePath,
+      repoName,
+      generateDocBool
     })
 
     return c.json({ message: 'Graph creation started' })
@@ -181,7 +186,9 @@ async function processGraphCreation({
   userId,
   graphExists,
   connectionId,
-  codebasePath
+  codebasePath,
+  repoName,
+  generateDocBool
 }: {
   gitProvider: GitServiceType
   repoId: string
@@ -190,6 +197,8 @@ async function processGraphCreation({
   graphExists: boolean
   connectionId: string
   codebasePath: string
+  repoName: string
+  generateDocBool?: boolean
 }) {
   let graphId = crypto.randomUUID()
   try {
@@ -240,7 +249,7 @@ async function processGraphCreation({
 
     // Insert nodes into the database, note that the node.id is now the full_name
     const insertNodePromises = nodes.map((node) => {
-      const fullName = node.id.replace(codebasePath, '')
+      const fullName = node.id
       return sql`
           INSERT INTO nodes (
             id,
@@ -254,7 +263,9 @@ async function processGraphCreation({
             in_degree,
             out_degree,
             full_name,
-            label
+            label,
+            origin_file,
+            import_statements
           )
           VALUES (
             ${nodeDBIds[node.id]},
@@ -268,7 +279,9 @@ async function processGraphCreation({
             ${node.inDegree},
             ${node.outDegree},
             ${fullName},
-            ${node.label}
+            ${node.label},
+            ${node.originFile},
+            ${node.importStatements.join('\n')}
           )
         `
     })
@@ -292,7 +305,46 @@ async function processGraphCreation({
         )
       `
     })
+
     await Promise.all([...insertNodePromises, ...insertLinkPromises])
+
+    
+    if (generateDocBool) {
+
+      const graphNodes: GraphNode[] = nodes.map(n => {
+        return {
+          id: nodeDBIds[n.id],
+          fullName: n.id,
+          type: n.type,
+          language: n.language,
+          documentation: n.documentation,
+          code: n.code,
+          codeNoBody: n.codeNoBody,
+          totalTokens: 0,
+          inDegree: 0,
+          outDegree: 0,
+          label: n.label,
+          originFile: n.originFile,
+          generatedDocumentation: '',
+          importStatements: n.importStatements.join('\n')
+          }
+      })
+
+      const graphLinks: GraphLink[] = links.map(l => {
+          return {
+              id: '0',
+              source: nodeDBIds[l.source],
+              target: nodeDBIds[l.target],
+              label: l.label,
+              line: l.line
+          }
+      } )
+      await generateAndUpdateDocumentation(repoName, repoId, graphNodes, graphLinks)
+    }
+ 
+
+
+
     await sql`UPDATE graphs SET status = 'completed' WHERE id = ${graphId}`
     console.log('Graph creation completed:', graphId)
   } catch (error) {
