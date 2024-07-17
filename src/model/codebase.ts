@@ -589,9 +589,9 @@ export class Node {
     return nodesMap
   }
 
-  simplify(attributes: string[] = []) {
+  simplify(attributes: string[] = [], rootFolderPath?: string) {
     const allAttributes: { [key: string]: any } = {
-      id: this.id,
+      id: rootFolderPath ? this.id.replace(rootFolderPath, '') : this.id,
       type: this.type,
       name: this.name,
       label: this.alias,
@@ -610,7 +610,7 @@ export class Node {
       calls: this.calls.map((c) => c.node.id),
       inDegree: this.inDegree,
       outDegree: this.outDegree,
-      originFile: this.originFile
+      originFile: rootFolderPath ? this.originFile.replace(rootFolderPath, '') : this.originFile
     }
 
     if (attributes.length === 0) {
@@ -681,6 +681,7 @@ export class Codebase {
     }
     fileNode.name = filePath
     fileNode.alias = filePath.split('/').pop() || ''
+    fileNode.originFile = filePath
     const nodesMap = fileNode.getChildrenDefinitions()
     fileNode.generateImports()
     fileNode.parseExportClauses(this.nodesMap, nodesMap)
@@ -793,7 +794,7 @@ export class Codebase {
   }
 
   simplify(attributes: string[] = []) {
-    return Object.values(this.nodesMap).map((n) => n.simplify(attributes))
+    return Object.values(this.nodesMap).map((n) => n.simplify(attributes, this.rootFolderPath))
   }
 
   getLinks(): Link[] {
@@ -802,13 +803,18 @@ export class Codebase {
     for (const n of nodes) {
       if (n.parent) {
         // const label = n.parent.type === 'file' ? `defines`: `from ${n.parent.type}`
-        const label = 'defines'
-        links.push({ source: n.parent.id, target: n.id, label, line: n.startPosition.row + 1 })
+        links.push({ source: n.parent.id.replace(this.rootFolderPath, ''),
+                      target: n.id.replace(this.rootFolderPath, ''),
+                      label: 'defines',
+                      line: n.startPosition.row + 1 })
       }
       if (n.calls.length > 0)
-        n.calls.forEach((c) =>
-          links.push({ source: n.id, target: c.node.id, label: 'calls', line: c.lines[0] + 1 })
-        )
+        n.calls.forEach((c) => {
+          links.push({ source: n.id.replace(this.rootFolderPath, ''),
+                        target: c.node.id.replace(this.rootFolderPath, ''),
+                        label: 'calls',
+                        line: c.lines[0] + 1 })
+        })
     }
     return links
   }
