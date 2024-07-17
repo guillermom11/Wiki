@@ -609,7 +609,8 @@ export class Node {
       children: Object.keys(this.children),
       calls: this.calls.map((c) => c.node.id),
       inDegree: this.inDegree,
-      outDegree: this.outDegree
+      outDegree: this.outDegree,
+      originFile: this.originFile
     }
 
     if (attributes.length === 0) {

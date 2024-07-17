@@ -58,7 +58,8 @@ export const excludedFolders = [
   'build',
   '_static',
   'jest',
-  '__tests__'
+  '__tests__',
+  'tmp'
 ]
 export const excludedExtensions = [
   'min.js',
