@@ -68,8 +68,8 @@ const assignments = `
             name: (identifier)
             value: (_ !body) @v ; !body to exclude arrow functions
             (#not-match? @v "require*") ; to exclude require imports
-        ) @assignment
-    )
+        ) 
+    ) @assignment
 ) 
 
 ; exportables
@@ -79,9 +79,9 @@ const assignments = `
             (variable_declarator
                 name: (identifier)
                 value: (_ !body)
-            ) @assignment
-        )
-    )
+            ) 
+        ) 
+    ) @assignment
 )
 `
 
@@ -139,7 +139,7 @@ const exportClauses = `
           )
     )
   (string (string_fragment) @module)?
-)
+) @export_clause
 `
 
 // ASSIGNMENT SPECIAL CASE
