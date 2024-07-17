@@ -1,9 +1,57 @@
 import { GraphLink, GraphNode } from "../utils/db";
 import { chatCompletionMessages, getOpenAIChatCompletion } from "../utils/ai";
+import { AllowedTypes } from "../model/consts";
 
 let totalTokens = 0
 
 type Graph = { [key: string]: string[] }
+
+
+function calculateLanguagePercentages(nodesPerType: Record<AllowedTypes, GraphNode[]>) {
+    const allLanguages = nodesPerType['file'].map((n) => n.language)
+    const total = allLanguages.length
+    const counts: Record<string, number> = {}
+  
+    allLanguages.forEach((language) => {
+      counts[language] = (counts[language] || 0) + 1
+    })
+  
+    const percentages: Record<string, string> = {}
+    for (const [language, count] of Object.entries(counts)) {
+      percentages[language] = (count / total * 100).toFixed(2) + '%'
+    }
+  
+    const sortedPercentagesArray = Object.entries(percentages).sort((a, b) =>
+      parseFloat(b[1]) - parseFloat(a[1])
+    )
+    const sortedPercentages = Object.fromEntries(sortedPercentagesArray)
+    return sortedPercentages
+  }
+
+function getNodesPerType(nodes: GraphNode[]) {
+    const nodesPerType = nodes.reduce((acc, node) => {
+        if (!acc[node.type]) {
+          acc[node.type] = []
+        }
+        acc[node.type].push(node)
+        return acc
+      }, {} as Record<AllowedTypes, GraphNode[]>)
+
+    return nodesPerType
+}
+
+function getMostUsedNodesPerType(nodesPerType: Record<AllowedTypes, GraphNode[]>) {
+    // sort mostUsedNodesPerType by in_degree + out_degree and return 5 max values
+    const mostUsedNodesPerType = Object.keys(nodesPerType).reduce((acc, type) => {
+        if (!['file', 'namespace', 'package', 'mod', 'assignment', 'header'].includes(type)) 
+            acc[type as AllowedTypes] = nodesPerType[type as AllowedTypes].sort(
+            (a, b) => (b.outDegree + b.inDegree) - (a.outDegree + a.inDegree),
+            ).slice(0, 5).map((n) => `### From ${n.originFile}:\n\`\`\`${n.language}\n${n.codeNoBody}\n\`\`\``)
+        return acc
+    }, {} as Record<AllowedTypes, (string | number)[]>)
+
+    return mostUsedNodesPerType
+}
 
 export function findFileParentNode(nodes: GraphNode[], node: GraphNode) {
     let parentName = ''
@@ -116,13 +164,7 @@ export function generateNodePrompts(node: GraphNode, nodes: GraphNode[], graph: 
     if (node.type !== 'file') {
         systemPrompt = `You are a helpful ${node.language} code assistant that helps to write code documentation for the repository ${repoName} in just one paragraph, mentioning the principal features of the code.`;
     } else {
-        systemPrompt = `You are a helpful ${node.language} code assistant that helps to write wikis for files from the repository ${repoName}. I will pass a reduced version of the file content and you must explain the main features and purpose of the file.`;
-        systemPrompt += `The wiki must describe the main features of the folder and the final purpose of the folder, i.e.:
-        
-        - An overview of the complete folder
-        - Main features of subfolders and files
-        - Important definitions inside files`
-        systemPrompt += '\nThe idea is to explain how the different components are used inside the folder. You can add anything you also consider important to the wiki.'
+        systemPrompt = `You are a helpful ${node.language} code assistant that helps to write summaries for files from the repository ${repoName}. The user will pass you a reduced version of the file content and you must explain the main features and purpose of the file.`;
     }
 
     if (["function", "class", "method"].includes(node.type)) {
@@ -136,10 +178,10 @@ export function generateNodePrompts(node: GraphNode, nodes: GraphNode[], graph: 
 
     let userPrompt = '';
     if (node.type !== 'file') {
-        userPrompt = `Write a documentation for the ${node.type} called "${node.fullName}" ${parentFileString}in just one paragraph, mention it the principal features of the code:`
+        userPrompt = `Write a documentation for the ${node.type} called "${node.fullName}" ${parentFileString}in just one paragraph, mentioning the principal features of the code:`
     } else {
         const folder = node.fullName.split('/').slice(0, -1).join('/');
-        userPrompt = `Write a wiki for the file "${node.label}" from folder "${folder}", explain it the main features and purpose of the file:`
+        userPrompt = `Write a brief summary for the file "${node.label}" from folder "${folder}", explaining the main features and purpose of the file:`
     }
     
     const code = ['method', 'function', 'interface', 'assignment', 'type', 'enum', 'struct', 'union'].includes(node.type) ? node.code : node.codeNoBody
@@ -221,6 +263,17 @@ export async function documentNodesByLevels(nodeIdsByLevels: {[key: number]: str
 }
 
 export async function documentFolders(nodes: GraphNode[], links: GraphLink[], repoName: string, model: string) {
+
+    const nodesPerType = getNodesPerType(nodes)
+    const allLanguages = calculateLanguagePercentages(nodesPerType)
+    const allLanguagesString = Object.entries(allLanguages).map(([name, pct]) =>
+        `${name} (${pct})`
+      ).join(', ')
+    const mostUsedNodesPerType = getMostUsedNodesPerType(nodesPerType)
+    const mostUsedNodesPerTypeString = Object.keys(mostUsedNodesPerType).map((type) => {
+        return mostUsedNodesPerType[type as AllowedTypes].join('\n\n')
+      }).join('\n')
+
     console.log('Generating documentation for each folder ..')
     const fileNodes = nodes.filter(n => n.type === 'file')
     const folderNames = fileNodes.map(n => n.fullName.split('/').slice(0, -1).join('/'))
@@ -232,12 +285,14 @@ export async function documentFolders(nodes: GraphNode[], links: GraphLink[], re
     uniqueFolderNames.forEach(foldername => documentedFolders[foldername] = '')
 
     for (const folderName of uniqueFolderNames) {
-        let systemPrompt = `You are a helpful code assistant that helps to write wikis for folders from repository ${repoName}. The user will pass you a sort of wiki of each file and subfolder, and you have to generate a final wiki.`
+        let systemPrompt = `You are a helpful code assistant that helps to write wikis for folders from repository ${repoName}, which uses the following languages: ${allLanguagesString}.`
+        systemPrompt += `\nThese are the most common elements from the repository:\n${mostUsedNodesPerTypeString}\n\n`
+        systemPrompt += `Use them to give usage examples inside the wiki.\nThe user will pass you a sort of wiki of each file and subfolder, and you have to generate a final wiki.`
         systemPrompt += ` The wiki must describe the main features of the folder and the final purpose of the folder, i.e.:
         
         - An overview of the complete folder
-        - Main features of subfolders and files
-        - Important definitions inside files`
+        - Main features of subfolders and files`
+        if (folderName.length > 0) systemPrompt +='\n        - Examples of most used elements'
         systemPrompt += '\nThe idea is to explain how the different components are used inside the folder. You can add anything you also consider important to the wiki.'
 
         
@@ -264,11 +319,11 @@ export async function documentFolders(nodes: GraphNode[], links: GraphLink[], re
             // const defineLinks = links.filter(l => l.source === fileNode.id && l.label == 'defines')
             
             // if (callLinks.length) {
-            //     userPrompt += `  ${fileNode.label} Calls:\n`
+            //     userPrompt += `  ${fileNode.label} Uses:\n`
             //     callLinks.forEach(l => {
             //         const calledNode = nodes.find(n => n.id === l.target)
             //         if (calledNode) {
-            //             userPrompt += `   - ${calledNode.label}${": " + calledNode.generatedDocumentation ?? ''}\n` 
+            //             userPrompt += `   - ${calledNode.type} ${calledNode.label}${": " + calledNode.generatedDocumentation ?? ''}\n` 
             //         }
             //     })
             // }
@@ -276,9 +331,9 @@ export async function documentFolders(nodes: GraphNode[], links: GraphLink[], re
             // if (defineLinks.length) {
             //     userPrompt += `  ${fileNode.label} Defines:\n`
             //     defineLinks.forEach(l => {
-            //         const definingNode = nodes.find(n => n.id === l.target)
-            //         if (definingNode) {
-            //             userPrompt += `   - ${definingNode.label}${": " + definingNode.generatedDocumentation ?? ''}\n`
+            //         const definedNode = nodes.find(n => n.id === l.target)
+            //         if (definedNode) {
+            //             userPrompt += `   - ${definedNode.type} ${definedNode.label}${": " + definedNode.generatedDocumentation ?? ''}\n`
             //         }
             //     })
             // userPrompt += `\n------------------------------------------------\n\n`
