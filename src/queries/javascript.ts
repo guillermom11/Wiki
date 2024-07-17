@@ -11,7 +11,7 @@
 // - member expressions like this.my_method and Class.my_method
 // - Arguments
 
-import { treeSitterQueries } from './index';
+import { treeSitterQueries } from "./index";
 
 ///////////////////////
 // IMPORT_STATEMENTS //
@@ -52,7 +52,7 @@ const importStatements = `
               ]
     )           
   ) @import_statement
-`
+`;
 
 /////////////////
 // ASSIGNMENTS //
@@ -83,7 +83,7 @@ const assignments = `
         ) 
     ) @assignment
 )
-`
+`;
 
 //////////////////////////
 // DEFINITIONS TEMPLATE //
@@ -106,9 +106,10 @@ const definitionTemplate = `
         body: (_)? @body
 			)
 )?
-`
+`;
 
-const arrowFunctionConstructor = "(lexical_declaration (variable_declarator value: (arrow_function) ) )"
+const arrowFunctionConstructor =
+  "(lexical_declaration (variable_declarator value: (arrow_function) ) )";
 
 // The only way to detect if is async is to check if the function definition contains "async"
 const constructorDefinitions = `
@@ -124,7 +125,7 @@ ${arrowFunctionConstructor} @function
 ; classes
 (method_definition)? @method
 (class_declaration) @class
-`
+`;
 
 ////////////////////
 // EXPORTS_CLAUSES //
@@ -140,7 +141,7 @@ const exportClauses = `
     )
   (string (string_fragment) @module)?
 ) @export_clause
-`
+`;
 
 // ASSIGNMENT SPECIAL CASE
 // this is for example if I use something like
@@ -160,7 +161,7 @@ const extraAssignmentCode = (name: string) => `
         ) @code
     )
 ) 
-`
+`;
 
 const calls = `
 ; any call
@@ -194,8 +195,9 @@ const calls = `
 (template_substitution _ @identifier.name)
 
 ; shorthand identifier
-(shorthand_property_identifier) @identifier.name
-`
+(shorthand_property_identifier) @identifer.name
+
+`;
 
 ///////////
 // Assignments are necessary to get the correct calls. For example:
@@ -253,15 +255,15 @@ const anyAssignments = `
          )
     ) 
 ) @assignment
-`
+`;
 
 export const jsQueries: treeSitterQueries = {
-    importStatements,
-    constructorDefinitions: assignments + constructorDefinitions,
-    definitionTemplate,
-    exportClauses,
-    extraAssignmentCode,
-    calls,
-    assignments: anyAssignments,
-    spaceDeclaration: ''
-}
+  importStatements,
+  constructorDefinitions: assignments + constructorDefinitions,
+  definitionTemplate,
+  exportClauses,
+  extraAssignmentCode,
+  calls,
+  assignments: anyAssignments,
+  spaceDeclaration: "",
+};
