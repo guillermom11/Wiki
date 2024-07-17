@@ -44,7 +44,6 @@ export function buildGraphs(nodes: GraphNode[], links: GraphLink[]) {
 
 
 export function bfsLevels(nodes: GraphNode[], graph: Graph): {[key: number]: string[]} {
-    console.log('Building BFS Levels ..')
     const results: { [key: number]: string[] } = {};
     const levels: { [key: string]: number } = {};
     const inDegree: { [key: string]: number } = {};
@@ -212,13 +211,13 @@ export async function documentNodesByLevels(nodeIdsByLevels: {[key: number]: str
         const nodeIds = nodeIdsByLevels[level];
         const promises = nodeIds.map(nodeId => {
             const node = nodes.find(n => n.id === nodeId);
-            if (node) {
+            if (node && node.generatedDocumentation?.length === 0) {
                 return generateNodeDocumentation(node, nodes, graph, repoName, model);
             }
         })
         await Promise.all(promises);
     }
-    console.log('Used tokens: ', totalTokens)
+    console.log(`${repoName} - Used tokens for node documentation:`, totalTokens)
 }
 
 export async function documentFolders(nodes: GraphNode[], links: GraphLink[], repoName: string, model: string) {
@@ -233,8 +232,8 @@ export async function documentFolders(nodes: GraphNode[], links: GraphLink[], re
     uniqueFolderNames.forEach(foldername => documentedFolders[foldername] = '')
 
     for (const folderName of uniqueFolderNames) {
-        let systemPrompt = `You are a helpful code assistant that helps to write wikis for folders from repository ${repoName}. The user will pass you a sort of wiki of each file and subfolder, and you have to generate a final wiki..`
-        systemPrompt += `The wiki must describe the main features of the folder and the final purpose of the folder, i.e.:
+        let systemPrompt = `You are a helpful code assistant that helps to write wikis for folders from repository ${repoName}. The user will pass you a sort of wiki of each file and subfolder, and you have to generate a final wiki.`
+        systemPrompt += ` The wiki must describe the main features of the folder and the final purpose of the folder, i.e.:
         
         - An overview of the complete folder
         - Main features of subfolders and files
@@ -254,13 +253,13 @@ export async function documentFolders(nodes: GraphNode[], links: GraphLink[], re
 
         for (const [subfolder, subfolderDoc] of Object.entries(subfoldersDocumentations)) {
             if (subfolderDoc) {
-                userPrompt += `Wiki from subfolder ${subfolder}:\n${subfolderDoc}`
+                userPrompt += `Wiki for subfolder ${subfolder}:\n${subfolderDoc}`
                 userPrompt += `\n------------------------------------------------\n\n`
             }
         }
 
         for (const fileNode of fileNodesInFolder) {
-            userPrompt += `Documentation from file ${fileNode.label}:\n${fileNode.generatedDocumentation ?? ''}\n`
+            userPrompt += `Documentation for file ${fileNode.label}:\n${fileNode.generatedDocumentation ?? ''}\n`
             // const callLinks = links.filter(l => l.source === fileNode.id && l.label == 'calls')
             // const defineLinks = links.filter(l => l.source === fileNode.id && l.label == 'defines')
             
@@ -297,9 +296,9 @@ export async function documentFolders(nodes: GraphNode[], links: GraphLink[], re
 
         const { response, tokens } = await getOpenAIChatCompletion(messages, model);
         totalTokens += tokens ?? 0
-        documentedFolders[folderName ?? repoName] = response
+        documentedFolders[folderName] = response
     }
 
-    console.log('Total used tokens: ', totalTokens)
+    console.log(`${repoName} - Total tokens used:`, totalTokens)
     return documentedFolders;
 }
