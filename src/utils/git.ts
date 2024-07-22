@@ -54,7 +54,10 @@ export async function downloadAndExtractRepo(
     const tmpFolderPath = `${process.cwd()}/tmp`
     await fs.mkdir(tmpFolderPath, { recursive: true })
 
-    const extractPath = path.join(tmpFolderPath, `${commitSha}_${repoOrg}_${repoName}_${branch}`)
+    const extractPath = path.join(
+      tmpFolderPath,
+      `${commitSha}_${repoOrg}_${repoName}_${branch}_${performance.now()}`
+    )
 
     // Save zip
     const zipPath = `${extractPath}.zip`
@@ -77,12 +80,14 @@ export async function downloadAndExtractRepo(
     await fs.unlink(zipPath)
 
     const finalPath = path.join(extractPath, mainFolderPath ?? '')
-    const totalSize = await getTotalSize(finalPath) / 1024 / 1024
+    const totalSize = (await getTotalSize(finalPath)) / 1024 / 1024
     console.log(`${totalSize} MB`)
     if (totalSize >= MAXSIZE) {
       await fs.rm(extractPath, { recursive: true, force: true })
-      throw new Error(`Repository size is too large: ${totalSize.toFixed(2)} MB. Max size is ${MAXSIZE} MB.`)
-   }
+      throw new Error(
+        `Repository size is too large: ${totalSize.toFixed(2)} MB. Max size is ${MAXSIZE} MB.`
+      )
+    }
     return finalPath
   } catch (error) {
     console.log(error)
@@ -98,7 +103,7 @@ export async function getCommitRepo(
   accessToken: string,
   refreshToken: string,
   connectionId: string,
-  gitlabRepoId?: number,
+  gitlabRepoId?: number
 ): Promise<string> {
   let commitUrl
 
@@ -169,17 +174,13 @@ export async function getCommitRepo(
         })
 
         data = await res.json()
-
       } else {
         console.log({ error })
         throw new Error('Error fetching commit')
-
       }
-
     } else {
       data = await res.json()
     }
-
 
     const commitSha = getCommitHash(gitService, data)
     return commitSha
@@ -206,7 +207,7 @@ export async function getAccessToken(
   connectionId: string,
   UserOrgId: string
 ): Promise<{
-  accessToken: string,
+  accessToken: string
   refreshToken: string
 } | null> {
   if (connectionId === '-1') {

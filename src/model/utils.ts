@@ -1,15 +1,10 @@
-import {
-  languageExtensionMap,
-  excludedFolders,
-  excludedExtensions,
-  languages,
-} from "./consts";
-import { treeSitterQueries, languageQueries } from "../queries";
-import { glob } from "glob";
-import fs from "node:fs/promises";
-import path from "path";
-import Parser from "tree-sitter";
-import { Node, ImportStatement } from "./codebase";
+import { languageExtensionMap, excludedFolders, excludedExtensions, languages } from './consts'
+import { treeSitterQueries, languageQueries } from '../queries'
+import { glob } from 'glob'
+import fs from 'node:fs/promises'
+import path from 'path'
+import Parser from 'tree-sitter'
+import { Node, ImportStatement } from './codebase'
 
 /**
  * Get a list of all files in a given folder, including only files with the given extensions
@@ -21,34 +16,28 @@ import { Node, ImportStatement } from "./codebase";
 export async function getAllFiles(rootFolderPath: string): Promise<string[]> {
   const extensionsPattern = Object.keys(languageExtensionMap)
     .map((ext) => `\\.${ext}$`)
-    .join("|");
-  const regex = new RegExp(extensionsPattern);
+    .join('|')
+  const regex = new RegExp(extensionsPattern)
   const excludedExtensionPattern = new RegExp(
-    excludedExtensions.map((ext) => `\\.${ext}$`).join("|")
-  );
-  const excludedFolderPattern = new RegExp(
-    excludedFolders.map((f) => `${f}/`).join("|")
-  );
+    excludedExtensions.map((ext) => `\\.${ext}$`).join('|')
+  )
+  const excludedFolderPattern = new RegExp(excludedFolders.map((f) => `${f}/`).join('|'))
   const files = await glob(`**/*`, {
     cwd: rootFolderPath,
-    absolute: true,
-  });
+    absolute: true
+  })
   // no sync
-  const validFiles = await Promise.all(
-    files.map(async (file) => (await fs.lstat(file)).isFile())
-  );
+  const validFiles = await Promise.all(files.map(async (file) => (await fs.lstat(file)).isFile()))
   const matchingFiles = files.filter(
     (file, i) =>
       regex.test(file) &&
       validFiles[i] &&
       !excludedExtensionPattern.test(file) &&
       !excludedFolderPattern.test(file) &&
-      !file.includes("@") &&
-      !file.includes("node_modules") //esto para que el Guille pueda correr el codigo de grafos.
-  );
-  matchingFiles.sort(); // sorted
-  //console.log("matchingFiles", matchingFiles);
-  return matchingFiles;
+      !file.includes('@')
+  )
+  matchingFiles.sort() // sorted
+  return matchingFiles
 }
 
 /**
@@ -58,15 +47,15 @@ export async function getAllFiles(rootFolderPath: string): Promise<string[]> {
  * @returns - The total size in bytes of the matching files
  */
 export async function getTotalSize(rootFolderPath: string): Promise<number> {
-  const matchingFiles = await getAllFiles(rootFolderPath);
+  const matchingFiles = await getAllFiles(rootFolderPath)
   const sizes = await Promise.all(
     matchingFiles.map(async (file) => {
-      const { size } = await fs.stat(file);
-      return size;
+      const { size } = await fs.stat(file)
+      return size
     })
-  );
-  const totalSize = sizes.reduce((acc, size) => acc + size, 0);
-  return totalSize;
+  )
+  const totalSize = sizes.reduce((acc, size) => acc + size, 0)
+  return totalSize
 }
 
 /**
@@ -75,44 +64,44 @@ export async function getTotalSize(rootFolderPath: string): Promise<number> {
  * @returns - The parser and queries for the given language
  */
 export function getRequiredDefinitions(language: string): {
-  parser: Parser;
-  queries: treeSitterQueries;
+  parser: Parser
+  queries: treeSitterQueries
 } {
-  const parser = new Parser();
-  let queries;
+  const parser = new Parser()
+  let queries
   switch (language) {
-    case "javascript":
-      parser.setLanguage(languages.JavaScript);
-      queries = languageQueries.Javascript;
-      break;
-    case "python":
-      parser.setLanguage(languages.Python);
-      queries = languageQueries.Python;
-      break;
-    case "typescript":
-      parser.setLanguage(languages.TypeScript);
-      queries = languageQueries.Typescript;
-      break;
-    case "tsx":
-      parser.setLanguage(languages.TSX);
-      queries = languageQueries.Typescript;
-      break;
-    case "java":
-      parser.setLanguage(languages.Java);
-      queries = languageQueries.Java;
-      break;
-    case "c":
-      parser.setLanguage(languages.C);
-      queries = languageQueries.C;
-      break;
-    case "php":
-      parser.setLanguage(languages.PHP);
-      queries = languageQueries.PHP;
-      break;
+    case 'javascript':
+      parser.setLanguage(languages.JavaScript)
+      queries = languageQueries.Javascript
+      break
+    case 'python':
+      parser.setLanguage(languages.Python)
+      queries = languageQueries.Python
+      break
+    case 'typescript':
+      parser.setLanguage(languages.TypeScript)
+      queries = languageQueries.Typescript
+      break
+    case 'tsx':
+      parser.setLanguage(languages.TSX)
+      queries = languageQueries.Typescript
+      break
+    case 'java':
+      parser.setLanguage(languages.Java)
+      queries = languageQueries.Java
+      break
+    case 'c':
+      parser.setLanguage(languages.C)
+      queries = languageQueries.C
+      break
+    case 'php':
+      parser.setLanguage(languages.PHP)
+      queries = languageQueries.PHP
+      break
     default:
-      throw new Error(`Language ${language} not supported.`);
+      throw new Error(`Language ${language} not supported.`)
   }
-  return { parser, queries };
+  return { parser, queries }
 }
 
 /**
@@ -130,35 +119,35 @@ export function captureQuery(
   code: string,
   queryArg?: string
 ): Parser.QueryCapture[] {
-  const { parser, queries } = getRequiredDefinitions(language);
+  const { parser, queries } = getRequiredDefinitions(language)
   const treeSitterQuery =
-    queryName === "extraAssignmentCode"
-      ? queries[queryName](queryArg || "")
-      : (queries[queryName] as string);
-  let uniqueCaptures = [];
+    queryName === 'extraAssignmentCode'
+      ? queries[queryName](queryArg || '')
+      : (queries[queryName] as string)
+  let uniqueCaptures = []
   try {
-    const query = new Parser.Query(parser.getLanguage(), treeSitterQuery);
-    if (language === "php" && !code.includes("<?php")) {
-      code = `<?php\n${code}`;
+    const query = new Parser.Query(parser.getLanguage(), treeSitterQuery)
+    if (language === 'php' && !code.includes('<?php')) {
+      code = `<?php\n${code}`
     }
-    const tree = parser.parse(code, undefined, { bufferSize: 512 * 1024 });
-    const captures = query.captures(tree.rootNode);
-    const uniqueMap = new Map();
+    const tree = parser.parse(code, undefined, { bufferSize: 512 * 1024 })
+    const captures = query.captures(tree.rootNode)
+    const uniqueMap = new Map()
     captures.forEach((c) => {
-      const key = `${c.name}|${c.node.text}|${c.node.startPosition.row}|${c.node.startPosition.column}`; // Create a unique key based on `name` and `text`
+      const key = `${c.name}|${c.node.text}|${c.node.startPosition.row}|${c.node.startPosition.column}` // Create a unique key based on `name` and `text`
       if (!uniqueMap.has(key)) {
-        uniqueMap.set(key, c);
+        uniqueMap.set(key, c)
       }
-    });
+    })
 
-    uniqueCaptures = Array.from(uniqueMap.values());
+    uniqueCaptures = Array.from(uniqueMap.values())
   } catch (error: any) {
     const errorMessage = `${language} captureQuery ${queryName}${
-      queryArg ? "(" + queryArg + ")" : ""
-    }: ${error.message}`;
-    throw Error(errorMessage);
+      queryArg ? '(' + queryArg + ')' : ''
+    }: ${error.message}`
+    throw Error(errorMessage)
   }
-  return uniqueCaptures;
+  return uniqueCaptures
 }
 
 /**
@@ -168,27 +157,27 @@ export function captureQuery(
  */
 export function cleanDefCaptures(
   captures: Parser.QueryCapture[],
-  keyword: string = "name"
+  keyword: string = 'name'
 ): Parser.QueryCapture[] {
   captures.sort(
     (a, b) =>
       a.node.startPosition.row - b.node.startPosition.row ||
       a.node.startPosition.column - b.node.startPosition.column
-  );
-  let keywordSeen = false;
+  )
+  let keywordSeen = false
 
-  const updatedCaptures = [];
+  const updatedCaptures = []
   for (let i = 0; i < captures.length; i++) {
     if (captures[i].name === keyword) {
       if (!keywordSeen) {
-        updatedCaptures.push(captures[i]);
-        keywordSeen = true;
-      } else break;
+        updatedCaptures.push(captures[i])
+        keywordSeen = true
+      } else break
     } else {
-      updatedCaptures.push(captures[i]);
+      updatedCaptures.push(captures[i])
     }
   }
-  return updatedCaptures;
+  return updatedCaptures
 }
 
 /**
@@ -198,78 +187,63 @@ export function cleanDefCaptures(
  * @param language - The language to rename from
  * @returns The renamed sourceName
  */
-export function renameSource(
-  filePath: string,
-  sourceName: string,
-  language: string
-): string {
-  let newSourceName = sourceName;
-  const sourceNameSplit = sourceName.split(".");
-  const sourceNameExtension = sourceNameSplit.slice(-1)[0];
+export function renameSource(filePath: string, sourceName: string, language: string): string {
+  let newSourceName = sourceName
+  const sourceNameSplit = sourceName.split('.')
+  const sourceNameExtension = sourceNameSplit.slice(-1)[0]
   // remove extension if is in languageExtensionMap
   if (Object.keys(languageExtensionMap).includes(sourceNameExtension))
-    newSourceName = sourceNameSplit.slice(0, -1).join(".");
-  const fileDirectory = filePath.split("/").slice(0, -1).join("/");
+    newSourceName = sourceNameSplit.slice(0, -1).join('.')
+  const fileDirectory = filePath.split('/').slice(0, -1).join('/')
 
   if (
-    (["javascript", "typescript", "tsx", "java", "c", "cpp", "csharp"].includes(
-      language
-    ) &&
-      newSourceName.startsWith(".")) ||
-    (["c", "cpp", "csharp"].includes(language) &&
-      !newSourceName.startsWith("<"))
+    (['javascript', 'typescript', 'tsx', 'java', 'c', 'cpp', 'csharp'].includes(language) &&
+      newSourceName.startsWith('.')) ||
+    (['c', 'cpp', 'csharp'].includes(language) && !newSourceName.startsWith('<'))
   ) {
-    newSourceName = path.join(fileDirectory, newSourceName);
-    if (["c", "cpp"].includes(language) && sourceNameExtension == "h") {
-      newSourceName += "::header";
+    newSourceName = path.join(fileDirectory, newSourceName)
+    if (['c', 'cpp'].includes(language) && sourceNameExtension == 'h') {
+      newSourceName += '::header'
     }
-  } else if (language == "python") {
-    const dotCount = firstConsecutiveDots(newSourceName);
-    newSourceName = newSourceName.replace(/\./g, "/");
+  } else if (language == 'python') {
+    const dotCount = firstConsecutiveDots(newSourceName)
+    newSourceName = newSourceName.replace(/\./g, '/')
     if (dotCount) {
       if (dotCount == 1) {
-        newSourceName = path.join(fileDirectory, newSourceName);
+        newSourceName = path.join(fileDirectory, newSourceName)
       } else {
-        const moveUpCount = dotCount - 1;
-        const newDirectory = fileDirectory
-          .split("/")
-          .slice(0, -moveUpCount)
-          .join("/");
-        newSourceName = path.join(newDirectory, newSourceName);
+        const moveUpCount = dotCount - 1
+        const newDirectory = fileDirectory.split('/').slice(0, -moveUpCount).join('/')
+        newSourceName = path.join(newDirectory, newSourceName)
       }
     }
   }
-  return newSourceName;
+  return newSourceName
 }
 
 function firstConsecutiveDots(s: string): number {
-  const match = s.match(/^\.{1,}/);
-  return match ? match[0].length : 0;
+  const match = s.match(/^\.{1,}/)
+  return match ? match[0].length : 0
 }
 
 export const cleanAndSplitContent = (content: string): string[] => {
   // Remove parentheses and their contents, newlines, and unwanted characters
   // Replace ':' and '|' with ','
   content = content
-    .replace(/\(|\)|\n|\s{2,}/gs, "")
-    .replace(/[:|]/g, ",")
-    .trim();
+    .replace(/\(|\)|\n|\s{2,}/gs, '')
+    .replace(/[:|]/g, ',')
+    .trim()
 
   // Split the content by commas, remove surrounding brackets/braces, and trim each part
-  return content
-    .split(",")
-    .map((item) => item.replace(/[\[\]\{\}]/g, "").trim());
-};
+  return content.split(',').map((item) => item.replace(/[\[\]\{\}]/g, '').trim())
+}
 
 export function getCalledNode(
   callName: string,
   importFrom: string,
-  importedFileNodes: Record<
-    string,
-    { fileNode: Node; importStatement: ImportStatement }
-  >
+  importedFileNodes: Record<string, { fileNode: Node; importStatement: ImportStatement }>
 ) {
-  const importedFile = importedFileNodes[importFrom].fileNode;
-  const calledNode = importedFile?.getChild(`${importedFile.id}::${callName}`);
-  return calledNode;
+  const importedFile = importedFileNodes[importFrom].fileNode
+  const calledNode = importedFile?.getChild(`${importedFile.id}::${callName}`)
+  return calledNode
 }

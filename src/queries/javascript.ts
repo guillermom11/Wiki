@@ -11,7 +11,7 @@
 // - member expressions like this.my_method and Class.my_method
 // - Arguments
 
-import { treeSitterQueries } from './index';
+import { treeSitterQueries } from "./index";
 
 ///////////////////////
 // IMPORT_STATEMENTS //
@@ -52,7 +52,7 @@ const importStatements = `
               ]
     )           
   ) @import_statement
-`
+`;
 
 /////////////////
 // ASSIGNMENTS //
@@ -68,8 +68,8 @@ const assignments = `
             name: (identifier)
             value: (_ !body) @v ; !body to exclude arrow functions
             (#not-match? @v "require*") ; to exclude require imports
-        ) @assignment
-    )
+        ) 
+    ) @assignment
 ) 
 
 ; exportables
@@ -79,11 +79,11 @@ const assignments = `
             (variable_declarator
                 name: (identifier)
                 value: (_ !body)
-            ) @assignment
-        )
-    )
+            ) 
+        ) 
+    ) @assignment
 )
-`
+`;
 
 //////////////////////////
 // DEFINITIONS TEMPLATE //
@@ -106,9 +106,10 @@ const definitionTemplate = `
         body: (_)? @body
 			)
 )?
-`
+`;
 
-const arrowFunctionConstructor = "(lexical_declaration (variable_declarator value: (arrow_function) ) )"
+const arrowFunctionConstructor =
+  "(lexical_declaration (variable_declarator value: (arrow_function) ) )";
 
 // The only way to detect if is async is to check if the function definition contains "async"
 const constructorDefinitions = `
@@ -124,7 +125,7 @@ ${arrowFunctionConstructor} @function
 ; classes
 (method_definition)? @method
 (class_declaration) @class
-`
+`;
 
 ////////////////////
 // EXPORTS_CLAUSES //
@@ -139,8 +140,8 @@ const exportClauses = `
           )
     )
   (string (string_fragment) @module)?
-)
-`
+) @export_clause
+`;
 
 // ASSIGNMENT SPECIAL CASE
 // this is for example if I use something like
@@ -160,7 +161,7 @@ const extraAssignmentCode = (name: string) => `
         ) @code
     )
 ) 
-`
+`;
 
 const calls = `
 ; any call
@@ -179,7 +180,12 @@ const calls = `
 (new_expression (identifier) @identifier.name)
 
 ; keyword arguments
-(pair value: (identifier) @identifier.name)
+(pair value: [(identifier) @identifier.name
+               ; bynary_expressions, different levels
+			   (( _ (identifier) @identifier.name )) 
+               (( _ ( _ (identifier) @identifier.name )))
+               (( _ ( _ ( _ (identifier) @identifier.name ))))
+			 ])
 ( variable_declarator value: (identifier) @identifier.name)
 
 ; any object
@@ -187,7 +193,11 @@ const calls = `
 
 ; format strings
 (template_substitution _ @identifier.name)
-`
+
+; shorthand identifier
+(shorthand_property_identifier) @identifer.name
+
+`;
 
 ///////////
 // Assignments are necessary to get the correct calls. For example:
@@ -245,15 +255,15 @@ const anyAssignments = `
          )
     ) 
 ) @assignment
-`
+`;
 
 export const jsQueries: treeSitterQueries = {
-    importStatements,
-    constructorDefinitions: assignments + constructorDefinitions,
-    definitionTemplate,
-    exportClauses,
-    extraAssignmentCode,
-    calls,
-    assignments: anyAssignments,
-    spaceDeclaration: ''
-}
+  importStatements,
+  constructorDefinitions: assignments + constructorDefinitions,
+  definitionTemplate,
+  exportClauses,
+  extraAssignmentCode,
+  calls,
+  assignments: anyAssignments,
+  spaceDeclaration: "",
+};

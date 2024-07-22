@@ -4,7 +4,6 @@ import { zValidator } from '@hono/zod-validator'
 import { sql } from '../utils/db'
 import { downloadAndExtractRepo, getAccessToken, getCommitRepo } from '../utils/git'
 import { Codebase } from '../model/codebase'
-import { v4 as uuidv4 } from 'uuid'
 import { jwtVerify } from 'jose'
 import { getEnv } from '../utils/utils'
 import { GitServiceType } from '../utils/git'
@@ -32,7 +31,7 @@ createGraph.post('/', repoRequestValidator, async (c) => {
     repo_name: repoName,
     branch,
     connection_id: connectionId,
-    gitlab_repo_id: gitlabRepoId,
+    gitlab_repo_id: gitlabRepoId
   } = request
 
   const jwt = c.req.header('Authorization')?.split('Bearer ')[1]
@@ -61,22 +60,29 @@ createGraph.post('/', repoRequestValidator, async (c) => {
   const resOrg = await sql`SELECT org_sel_id FROM profiles WHERE id = ${userId}`
   const userOrgId = resOrg[0].org_sel_id
 
-  const {
-    accessToken,
-    refreshToken
-  } = await getAccessToken(gitProvider, connectionId, userOrgId)
+  const tokens = await getAccessToken(gitProvider, connectionId, userOrgId)
 
-  if (!accessToken) {
+  if (!tokens) {
     console.log('Failed to get access token')
     return c.json({ message: 'Failed to get access token' }, 500)
   }
 
-  const commitHash = await getCommitRepo(gitProvider, repoOrg, repoName, branch, accessToken, refreshToken, connectionId, gitlabRepoId)
+  const { accessToken, refreshToken } = tokens
+
+  const commitHash = await getCommitRepo(
+    gitProvider,
+    repoOrg,
+    repoName,
+    branch,
+    accessToken,
+    refreshToken,
+    connectionId,
+    gitlabRepoId
+  )
   if (!commitHash) {
     console.log('Failed to get commit')
     return c.json({ message: 'Failed to get commit' }, 500)
   }
-
 
   // check if repo exists
   const rows = await sql`
@@ -91,10 +97,9 @@ createGraph.post('/', repoRequestValidator, async (c) => {
         AND commit_hash = ${commitHash}
     `
 
-  let repoId = uuidv4()
+  let repoId = crypto.randomUUID()
 
   if (rows.length == 0) {
-
     const respository: Record<string, string | number> = {
       id: repoId,
       git_provider: gitProvider,
@@ -167,8 +172,6 @@ createGraph.post('/', repoRequestValidator, async (c) => {
   } catch (error: any) {
     return c.json({ message: error.message }, 500)
   }
-
-
 })
 
 async function processGraphCreation({
@@ -184,11 +187,11 @@ async function processGraphCreation({
   repoId: string
   userOrgId: string
   userId: string
-  graphExists: boolean,
-  connectionId: string,
+  graphExists: boolean
+  connectionId: string
   codebasePath: string
 }) {
-  let graphId = uuidv4()
+  let graphId = crypto.randomUUID()
   try {
     const status = graphExists ? 'completed' : 'pending'
 
@@ -217,41 +220,79 @@ async function processGraphCreation({
       return
     }
 
-
     const codebase = new Codebase(codebasePath)
     const fileNodesMap = await codebase.parseFolder()
     codebase.getCalls(fileNodesMap, false)
     const nodes = codebase.simplify()
 
-    // create a uuid for each node
-    const nodeDBIds: { [key: string]: string } = {}
+    const nodeDBIds: Record<string, string> = {}
+
+    const set = new Set()
     for (const node of nodes) {
-      nodeDBIds[node.id] = uuidv4()
+      set.add(node.id)
+      nodeDBIds[node.id] = crypto.randomUUID()
+    }
+
+    if (set.size !== nodes.length) {
+      console.log('Duplicate nodes found for graph creation with id:', graphId)
+      return
     }
 
     // Insert nodes into the database, note that the node.id is now the full_name
     const insertNodePromises = nodes.map((node) => {
       const fullName = node.id.replace(codebasePath, '')
       return sql`
-    INSERT INTO nodes (id, repo_id, type, language, total_tokens, documentation, code, code_no_body, in_degree, out_degree, full_name, label)
-    VALUES (${nodeDBIds[node.id]}, ${repoId}, ${node.type}, ${node.language}, ${node.totalTokens
-        }, ${node.documentation}, ${node.code}, ${node.codeNoBody}, ${node.inDegree}, ${node.outDegree
-        }, ${fullName}, ${node.label})
-    `
+          INSERT INTO nodes (
+            id,
+            repo_id,
+            type,
+            language,
+            total_tokens,
+            documentation,
+            code,
+            code_no_body,
+            in_degree,
+            out_degree,
+            full_name,
+            label
+          )
+          VALUES (
+            ${nodeDBIds[node.id]},
+            ${repoId},
+            ${node.type},
+            ${node.language},
+            ${node.totalTokens},
+            ${node.documentation},
+            ${node.code},
+            ${node.codeNoBody},
+            ${node.inDegree},
+            ${node.outDegree},
+            ${fullName},
+            ${node.label}
+          )
+        `
     })
 
     const links = codebase.getLinks()
     // Insert links into the database
     const insertLinkPromises = links.map((link) => {
       return sql`
-    INSERT INTO links (node_source_id, node_target_id, repo_id, label, line)
-    VALUES (${nodeDBIds[link.source]}, ${nodeDBIds[link.target]}, ${repoId}, ${link.label}, ${link.line})
-    `
+        INSERT INTO links (
+          node_source_id,
+          node_target_id,
+          repo_id,
+          label,
+          line
+        ) VALUES (
+          ${nodeDBIds[link.source]},
+          ${nodeDBIds[link.target]},
+          ${repoId},
+          ${link.label},
+          ${link.line}
+        )
+      `
     })
-
-    await Promise.all(insertNodePromises)
-    await Promise.all(insertLinkPromises)
-
+    await Promise.all([...insertNodePromises, ...insertLinkPromises])
     await sql`UPDATE graphs SET status = 'completed' WHERE id = ${graphId}`
     console.log('Graph creation completed:', graphId)
   } catch (error) {
