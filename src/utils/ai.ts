@@ -9,7 +9,7 @@ interface chatResponse {
     tokens?: number
 }
 
-export async function getOpenAIChatCompletion(messages: chatCompletionMessages, model: string = 'gpt-3.5-turbo') : Promise<chatResponse> {
+export async function getOpenAIChatCompletion(messages: chatCompletionMessages, model: string = 'gpt-4o-mini') : Promise<chatResponse> {
     const openai = new OpenAI({
         apiKey: process.env.OPENAI_API_KEY,
     });

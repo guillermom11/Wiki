@@ -3,7 +3,7 @@ import { bfsLevels, buildGraphs, documentFolders, documentNodesByLevels } from "
 import { sql } from "../utils/db";
 
 export async function generateDocumentation(nodes: GraphNode[], links: GraphLink[],
-                                            repoName: string, model: string = 'gpt-3.5-turbo') {
+                                            repoName: string, model: string = 'gpt-4o-mini') {
   const { graph } = buildGraphs(nodes, links)
   const nodesByLevels = bfsLevels(nodes, graph)
 
@@ -19,7 +19,7 @@ export async function generateAndUpdateDocumentation(
   graphNodes: GraphNode[],
   graphLinks: GraphLink[],
   graphFolders?: GraphFolder[],
-  model: string = 'gpt-3.5-turbo') {
+  model: string = 'gpt-4o-mini') {
 
   const documentedFolders = await generateDocumentation(graphNodes, graphLinks, repoName, model)
 

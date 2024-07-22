@@ -40,11 +40,17 @@ function getNodesPerType(nodes: GraphNode[]) {
     return nodesPerType
 }
 
-function getMostUsedNodesPerType(nodesPerType: Record<AllowedTypes, GraphNode[]>) {
+function getMostUsedNodesPerType(nodesPerType: Record<AllowedTypes, GraphNode[]>, discardMethods: boolean = false) {
     // sort mostUsedNodesPerType by in_degree + out_degree and return 5 max values
     const mostUsedNodesPerType = Object.keys(nodesPerType).reduce((acc, type) => {
+        if (discardMethods && type === 'method') {
+            return acc
+        }
+
         if (!['file', 'namespace', 'package', 'mod', 'assignment', 'header'].includes(type)) 
-            acc[type as AllowedTypes] = nodesPerType[type as AllowedTypes].sort(
+            acc[type as AllowedTypes] = nodesPerType[type as AllowedTypes]
+        .filter(n => n.outDegree > 0)
+        .sort(
             (a, b) => (b.outDegree + b.inDegree) - (a.outDegree + a.inDegree),
             ).slice(0, 5).map((n) => `### From ${n.originFile}:\n\`\`\`${n.language}\n${n.codeNoBody}\n\`\`\``)
         return acc
@@ -269,10 +275,7 @@ export async function documentFolders(nodes: GraphNode[], links: GraphLink[], re
     const allLanguagesString = Object.entries(allLanguages).map(([name, pct]) =>
         `${name} (${pct})`
       ).join(', ')
-    const mostUsedNodesPerType = getMostUsedNodesPerType(nodesPerType)
-    const mostUsedNodesPerTypeString = Object.keys(mostUsedNodesPerType).map((type) => {
-        return mostUsedNodesPerType[type as AllowedTypes].join('\n\n')
-      }).join('\n')
+
 
     console.log('Generating documentation for each folder ..')
     const fileNodes = nodes.filter(n => n.type === 'file')
@@ -285,16 +288,30 @@ export async function documentFolders(nodes: GraphNode[], links: GraphLink[], re
     uniqueFolderNames.forEach(foldername => documentedFolders[foldername] = '')
 
     for (const folderName of uniqueFolderNames) {
-        let systemPrompt = `You are a helpful code assistant that helps to write wikis for folders from repository ${repoName}, which uses the following languages: ${allLanguagesString}.`
+        const filteredNodes = folderName.length > 0 ? nodes.filter(n => n.originFile?.startsWith(folderName)) : nodes
+        const fileNodesPerType = getNodesPerType(filteredNodes)
+        const mostUsedNodesPerType = getMostUsedNodesPerType(fileNodesPerType)
+        const mostUsedNodesPerTypeString = Object.keys(mostUsedNodesPerType).map((type) => {
+            return mostUsedNodesPerType[type as AllowedTypes].join('\n\n')
+          }).join('\n')
+        let systemPrompt = `You are a helpful code expert and wikipedia editor who is writing a publication for repository ${repoName}, which uses the following languages: ${allLanguagesString}.`
         systemPrompt += `\nThese are the most common elements from the repository:\n${mostUsedNodesPerTypeString}\n\n`
-        systemPrompt += `Use them to give usage examples inside the wiki.\nThe user will pass you a sort of wiki of each file and subfolder, and you have to generate a final wiki.`
-        systemPrompt += ` The wiki must describe the main features of the folder and the final purpose of the folder, i.e.:
+        systemPrompt += `The user will pass you information about files and subfolders of the repo, and you have to generate a final wiki.`
         
-        - An overview of the complete folder
-        - Main features of subfolders and files`
-        if (folderName.length > 0) systemPrompt +='\n        - Examples of most used elements'
-        systemPrompt += '\nThe idea is to explain how the different components are used inside the folder. You can add anything you also consider important to the wiki.'
-
+        if (folderName.length === 0) {
+        systemPrompt += ` The wiki must describe the main features of the repo and its final purpose, i.e.:\n
+        1. **Introduction**: Brief description of the project, its purpose, and main functionalities.
+        2. **Getting Started**: List of software, libraries, and tools needed. Step-by-step instructions on how to install and set up the project.
+        3. **Project Structure**: Description of the main directories and their purposes. Explanation of important files and their roles.
+        4. **Code Examples**: Use cases demonstrating the core functionalities.
+        5. (optional) **Configuration** : Explanation of default configuration settings.
+        6. (optional) **Glossary**:  Definitions of key terms and concepts used in the project.`
+        } else {
+            systemPrompt += ` The wiki must describe the main features of the folder and its final purpose, i.e.:\n
+            1. **Introduction**: Brief description of the folder, its purpose, and main functionalities.
+            3. **Directory structure**:  Explanation of important files/directories and their roles.
+            5. **Code Examples**: Use cases demonstrating the core functionalities.` 
+        }
         
         const fileNodesInFolder = fileNodes.filter(n => n.fullName.startsWith(folderName) && n.fullName.split('/').length == (folderName ? folderName.split('/').length + 1 : 1))
         const subfoldersDocumentations = Object.fromEntries(
@@ -303,12 +320,12 @@ export async function documentFolders(nodes: GraphNode[], links: GraphLink[], re
             })
         )
 
-        const folderContext = folderName.length > 0 ? `folder "${folderName}"` : `main folder of ${repoName}`
-        let userPrompt = `Generate a wiki for the ${folderContext}. Use the following information to generate a better response:\n\n`
+        const folderContext = folderName.length > 0 ? `folder "${folderName}"` : `repository ${repoName}`
+        let userPrompt = `Generate a publication for the ${folderContext}. Use the following information to generate a better response:\n\n`
 
         for (const [subfolder, subfolderDoc] of Object.entries(subfoldersDocumentations)) {
             if (subfolderDoc) {
-                userPrompt += `Wiki for subfolder ${subfolder}:\n${subfolderDoc}`
+                userPrompt += `Subfolder ${subfolder} information:\n${subfolderDoc}`
                 userPrompt += `\n------------------------------------------------\n\n`
             }
         }
@@ -346,9 +363,11 @@ export async function documentFolders(nodes: GraphNode[], links: GraphLink[], re
             { role: "user", content: userPrompt },
         ]
 
-        // console.log(systemPrompt)
-        // console.log(userPrompt)
-
+        if (folderName.length === 0) {
+            console.log(systemPrompt)
+            console.log(userPrompt)
+        }
+        
         const { response, tokens } = await getOpenAIChatCompletion(messages, model);
         totalTokens += tokens ?? 0
         documentedFolders[folderName] = response

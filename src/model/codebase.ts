@@ -110,11 +110,11 @@ export class Node {
   }
 
   addChild(child: Node) {
-    // child -> this
+    // this -> "defines" -> child
     this.children[child.id] = child
     child.parent = this
-    this.inDegree++
-    child.outDegree++
+    this.outDegree++
+    child.inDegree++
   }
 
   removeChild(child: Node) {
@@ -127,7 +127,7 @@ export class Node {
   }
 
   addCall(node: Node, lines: number[] = []) {
-    // this -> node
+    // this -> "calls" -> node
     this.calls.push({ node, lines })
     node.inDegree++
     this.outDegree++
@@ -720,7 +720,7 @@ export class Codebase {
           this.nodesMap[n.parent.id].removeChild(n)
           // add it to parent without changing the parent
           this.nodesMap[n.parent.id].children[globalNode.id] = globalNode
-          this.nodesMap[n.parent.id].inDegree++
+          this.nodesMap[n.parent.id].outDegree++
           delete this.nodesMap[n.id]
           this.nodesMap[globalNode.id] = globalNode
         }
@@ -894,7 +894,7 @@ export class Codebase {
         // headerNode.addChild(nodeRef)
         // add it to headerNode without changing the parent
         headerNode.children[nodeRef.id] = nodeRef
-        headerNode.inDegree++
+        headerNode.outDegree++
       }
     })
   }
