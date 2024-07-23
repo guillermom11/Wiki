@@ -301,16 +301,13 @@ export async function documentFolders(nodes: GraphNode[], links: GraphLink[], re
         if (folderName.length === 0) {
         systemPrompt += ` The wiki must describe the main features of the repo and its final purpose, i.e.:\n
         1. **Introduction**: Brief description of the project, its purpose, and main functionalities.
-        2. **Getting Started**: List of software, libraries, and tools needed. Step-by-step instructions on how to install and set up the project.
+        2. **Getting Started**: List of software, libraries, and tools needed.
         3. **Project Structure**: Description of the main directories and their purposes. Explanation of important files and their roles.
-        4. **Code Examples**: Use cases demonstrating the core functionalities.
-        5. (optional) **Configuration** : Explanation of default configuration settings.
-        6. (optional) **Glossary**:  Definitions of key terms and concepts used in the project.`
+        4. **Glossary**:  Definitions of key terms and concepts used in the project.`
         } else {
             systemPrompt += ` The wiki must describe the main features of the folder and its final purpose, i.e.:\n
             1. **Introduction**: Brief description of the folder, its purpose, and main functionalities.
-            3. **Directory structure**:  Explanation of important files/directories and their roles.
-            5. **Code Examples**: Use cases demonstrating the core functionalities.` 
+            2. **Directory structure**:  Explanation of important files/directories and their roles.` 
         }
         
         const fileNodesInFolder = fileNodes.filter(n => n.fullName.startsWith(folderName) && n.fullName.split('/').length == (folderName ? folderName.split('/').length + 1 : 1))

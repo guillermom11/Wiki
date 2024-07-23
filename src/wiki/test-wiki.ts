@@ -1,5 +1,6 @@
-import { fstat } from "fs";
+
 import { Codebase } from "../model/codebase";
+
 import { GraphLink, GraphNode } from "../utils/db";
 import { generateDocumentation } from "./wiki";
 import { v4 as uuidv4 } from 'uuid'
@@ -8,7 +9,7 @@ import fs from 'fs/promises'
 (async () => {
 
     // const codebasePath = '/home/pudu/MISC/judini/codebase-index-ts/'
-    const repoName = 'codebase-index-ts'
+    const repoName = 'judini-python'
     const codebasePath = `/home/pudu/MISC/judini/${repoName}/`
     const codebase = new Codebase(codebasePath)
     console.log('Parsing folders ..')
@@ -28,7 +29,7 @@ import fs from 'fs/promises'
         
         return {
         id: nodeDBIds[n.id],
-        fullName: n.id.replace(codebasePath, ''),
+        fullName: n.id,
         type: n.type,
         language: n.language,
         documentation: n.documentation,
@@ -56,14 +57,14 @@ import fs from 'fs/promises'
         }
     } )
 
-    const model = 'gpt-3.5-turbo' 
+    const model = 'gpt-4o-mini' 
     // const model = 'gpt-4o'
     
     const documentedFolders = await generateDocumentation(grapNodes, graphLinks, repoName, model)
 
-    const modelNoDots = model.replaceAll('.', '')
+    const modelNoDots = model.replace(/\./g, '-')
     
-    fs.writeFile(`./grapNodes-${repoName}-${modelNoDots}.json`, JSON.stringify(grapNodes, null, 2))
+    fs.writeFile(`./graphNodes-${repoName}-${modelNoDots}.json`, JSON.stringify(grapNodes, null, 2))
     // fs.writeFile("./graphLinks.json", JSON.stringify(graphLinks, null, 2))
     fs.writeFile(`./graphFolders-${repoName}-${modelNoDots}.json`, JSON.stringify(documentedFolders, null, 2))
 })()
