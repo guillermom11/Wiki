@@ -227,10 +227,8 @@ async function updateGraphDocumentation({
 
         const graphNodes = await getGraphNodesById({userOrgId, graphId})
         const graphLinks = await getGraphLinksById({userOrgId, graphId})
-        const graphFolders = await getGraphFolderById({userOrgId, graphId})
-
         if (graphNodes.length > 0 && graphLinks.length > 0 ) {
-          await generateAndUpdateDocumentation(repoName, repoId, graphNodes, graphLinks, graphFolders)
+          await generateAndUpdateDocumentation(repoName, repoId, graphNodes, graphLinks)
         }
     }
   }  catch (error) {
@@ -357,7 +355,21 @@ async function updateGraph({
       `
     })
 
-    await Promise.all([...insertNodePromises, ...insertLinkPromises])
+    const folderNames = nodes.map(n => n.originFile.split('/').slice(0, -1).join('/'))
+    const uniqueFolderNames = [...new Set(folderNames)]
+    const insertFolderPromises = uniqueFolderNames.map((folderName) => {
+      return sql`
+        INSERT INTO graph_folders (
+          repo_id,
+          name
+        ) VALUES (
+          ${repoId},
+          ${folderName}
+        )
+      `
+    })
+
+    await Promise.all([...insertNodePromises, ...insertLinkPromises, ...insertFolderPromises])
 
     if(generateDocBool) {
       
