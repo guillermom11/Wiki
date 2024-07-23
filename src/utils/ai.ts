@@ -31,3 +31,25 @@ export async function getOpenAIChatCompletion(messages: chatCompletionMessages, 
         }
     }
 }
+
+export async function createEmbeddings(input: string[], model: string = 'text-embedding-3-small' ): Promise<number[][]> {
+    const openai = new OpenAI({
+        apiKey: process.env.OPENAI_API_KEY,
+    });
+
+
+    const batchSize = 16;
+    const allPromises = []
+
+    for (let i = 0; i < input.length; i += batchSize) {
+        const batch = input.slice(i, i + batchSize);
+        const embeddingPromise = openai.embeddings.create({
+            model: model,
+            input: batch,
+        });
+        allPromises.push(embeddingPromise);
+    }
+
+    const embeddings = await Promise.all(allPromises)
+    return embeddings.map(e => e.data.map(item => item.embedding))[0]
+}
