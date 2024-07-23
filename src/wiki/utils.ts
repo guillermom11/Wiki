@@ -259,7 +259,7 @@ export async function documentNodesByLevels(nodeIdsByLevels: {[key: number]: str
         const nodeIds = nodeIdsByLevels[level];
         const promises = nodeIds.map(nodeId => {
             const node = nodes.find(n => n.id === nodeId);
-            if (node && node.generatedDocumentation?.length === 0) {
+            if (node && !node.generatedDocumentation) {
                 return generateNodeDocumentation(node, nodes, graph, repoName, model);
             }
         })
@@ -360,10 +360,10 @@ export async function documentFolders(nodes: GraphNode[], links: GraphLink[], re
             { role: "user", content: userPrompt },
         ]
 
-        if (folderName.length === 0) {
-            console.log(systemPrompt)
-            console.log(userPrompt)
-        }
+        // if (folderName.length === 0) {
+        //     console.log(systemPrompt)
+        //     console.log(userPrompt)
+        // }
         
         const { response, tokens } = await getOpenAIChatCompletion(messages, model);
         totalTokens += tokens ?? 0
