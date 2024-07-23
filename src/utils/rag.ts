@@ -2,7 +2,7 @@ import { createEmbeddings } from "./ai";
 import { GraphNode, GraphFolder, sql } from "./db";
 
 
-export async function insertNodesEmbeddings(nodes: GraphNode[]) {
+export async function insertNodesEmbeddings(nodes: GraphNode[], repoId: string) {
     const nodesWithDoc = nodes.filter(node => node.generatedDocumentation);
 
     const embeddings = await createEmbeddings(nodesWithDoc.map(node => node.generatedDocumentation as string));
@@ -21,8 +21,8 @@ export async function insertNodesEmbeddings(nodes: GraphNode[]) {
 
     const insertPromises = embeddingsWithMetadata.map(({ embedding, metadata }) => {
         return sql`
-            INSERT INTO vecs.chunks_graph (embedding, metadata)
-            VALUES (${embedding}, ${metadata})
+            INSERT INTO vecs.chunks_graph (embedding, metadata, repo_id)
+            VALUES (${embedding}, ${metadata}, ${repoId})
         `;
     })
 
@@ -30,7 +30,7 @@ export async function insertNodesEmbeddings(nodes: GraphNode[]) {
     return
 }
 
-export async function insertGrahpFolderEmbeddings(folders: GraphFolder[]) {
+export async function insertGraphFolderEmbeddings(folders: GraphFolder[], repoId: string) {
     const foldersWithDoc = folders.filter(folder => folder.wiki);
 
     const embeddings = await createEmbeddings(foldersWithDoc.map(f => f.wiki));
@@ -49,8 +49,8 @@ export async function insertGrahpFolderEmbeddings(folders: GraphFolder[]) {
 
     const insertPromises = embeddingsWithMetadata.map(({ embedding, metadata }) => {
         return sql`
-            INSERT INTO vecs.chunks_graph (embedding, metadata)
-            VALUES (${embedding}, ${metadata})
+            INSERT INTO vecs.chunks_graph (embedding, metadata, repo_id)
+            VALUES (${embedding}, ${metadata}, ${repoId})
         `;
     })
 
