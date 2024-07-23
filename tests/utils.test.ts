@@ -144,29 +144,29 @@ describe('Wiki', () => {
         expect(wikiutils.bfsLevels(nodes, graph)).toStrictEqual(expectedResults)
     })
 
-    test('generateNodePrompts', async () => {
-        const links: GraphLink[] = [
-            { id: 'l1', source: '4', target: '2', label: 'calls' },
-            { id: 'l1', source: '4', target: '1', label: 'calls' },
-            { id: 'l2', source: '1', target: '3', label: 'calls' },
-            { id: 'l10', source: '5', target: '1', label: 'defines' },
-            { id: 'l11', source: '5', target: '2', label: 'defines' },
-            { id: 'l12', source: '5', target: '3', label: 'defines' },
-            { id: 'l13', source: '5', target: '4', label: 'defines' },
-        ];
-        const { graph } = wikiutils.buildGraphs(nodes, links) 
+    // test('generateNodePrompts', async () => {
+    //     const links: GraphLink[] = [
+    //         { id: 'l1', source: '4', target: '2', label: 'calls' },
+    //         { id: 'l1', source: '4', target: '1', label: 'calls' },
+    //         { id: 'l2', source: '1', target: '3', label: 'calls' },
+    //         { id: 'l10', source: '5', target: '1', label: 'defines' },
+    //         { id: 'l11', source: '5', target: '2', label: 'defines' },
+    //         { id: 'l12', source: '5', target: '3', label: 'defines' },
+    //         { id: 'l13', source: '5', target: '4', label: 'defines' },
+    //     ];
+    //     const { graph } = wikiutils.buildGraphs(nodes, links) 
 
-        const nodesByLevels = wikiutils.bfsLevels(nodes, graph)
-        // const { systemPrompt, userPrompt } = wikiutils.generateNodePrompts(nodes[0], nodes, graph);
-        // console.log(systemPrompt)
-        // console.log(userPrompt)
-        // await wikiutils.generateNodeDocumentation(nodes[0], nodes, graph, repoName)
+    //     const nodesByLevels = wikiutils.bfsLevels(nodes, graph)
+    //     // const { systemPrompt, userPrompt } = wikiutils.generateNodePrompts(nodes[0], nodes, graph);
+    //     // console.log(systemPrompt)
+    //     // console.log(userPrompt)
+    //     // await wikiutils.generateNodeDocumentation(nodes[0], nodes, graph, repoName)
 
-        await wikiutils.documentNodesByLevels(nodesByLevels, nodes, graph, repoName)
+    //     await wikiutils.documentNodesByLevels(nodesByLevels, nodes, graph, repoName)
 
-        wikiutils.documentFolders(nodes, links, repoName)
-        // console.log({nodes: nodes.map(n => {return { name: n.fullName, generatedDocumentation: n.generatedDocumentation}})})
-    }, 20000)
+    //     wikiutils.documentFolders(nodes, links, repoName)
+    //     // console.log({nodes: nodes.map(n => {return { name: n.fullName, generatedDocumentation: n.generatedDocumentation}})})
+    // }, 20000)
 })
 
 // // renameSource

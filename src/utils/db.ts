@@ -45,9 +45,15 @@ export interface GraphLink {
   line?: number
 }
 
+export interface GraphFolder {
+  id: string
+  name: string
+  wiki: string
+}
+
 export async function getGraphNodesById({
   userOrgId,
-  graphId,
+  graphId
 }: {
   userOrgId: string
   graphId: string
@@ -56,19 +62,19 @@ export async function getGraphNodesById({
     const rows = await sql<GraphNode[]>`
       SELECT
         n.id,
-        n.full_name AS fullName,
-        n.type as,
+        n.full_name AS "fullName",
+        n.type,
         n.language,
         n.documentation,
         n.code,
-        n.code_no_body AS codeNoBody,
-        n.total_tokens AS totalTokens,
-        n.in_degree AS inDegree,
-        n.out_degree AS outDegree,
+        n.code_no_body AS "codeNoBody",
+        n.total_tokens AS "totalTokens",
+        n.in_degree AS "inDegree",
+        n.out_degree AS "outDegree",
         n.label,
-        n.origin_file AS originFile,
-        n.generated_documentation AS generatedDocumentation,
-        n.import_statements AS importStatements
+        n.origin_file AS "originFile",
+        n.generated_documentation AS "generatedDocumentation",
+        n.import_statements AS "importStatements"
       FROM graphs g
       JOIN repositories r
         ON r.id = g.repo_id
@@ -88,7 +94,7 @@ export async function getGraphNodesById({
 
 export async function getGraphLinksById({
   userOrgId,
-  graphId,
+  graphId
 }: {
   userOrgId: string
   graphId: string
@@ -114,6 +120,35 @@ export async function getGraphLinksById({
     return rows
   } catch (error) {
     console.log('Error getting graph links by id', error)
+    return []
+  }
+}
+
+export async function getGraphFolderById({
+  userOrgId,
+  graphId,
+}: {
+  userOrgId: string
+  graphId: string
+}): Promise<GraphFolder[]> {
+  try {
+    const rows = await sql<GraphFolder[]>`
+      SELECT
+        f.id,
+        f.name,
+        f.wiki
+      FROM graphs g
+      JOIN repositories r
+        ON r.id = g.repo_id
+      JOIN graph_folders f
+        ON f.repo_id = r.id
+      WHERE g.id = ${graphId}
+        AND g.org_id = ${userOrgId}
+        AND g.status = 'completed'
+    `
+    return rows
+  } catch (error) {
+    console.log('Error getting graph folder by id', error)
     return []
   }
 }
