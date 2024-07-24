@@ -223,6 +223,12 @@ export function generateNodePrompts(node: GraphNode, nodes: GraphNode[], graph: 
 
 export async function generateNodeDocumentation(node: GraphNode, nodes: GraphNode[], graph: Graph,
                                                 repoName: string, model: string) {
+
+    if (node.language === 'markdown') {
+        node.generatedDocumentation = node.code
+        return
+    }
+
     const { systemPrompt, userPrompt } = generateNodePrompts(node, nodes, graph, repoName);
   
     try {
@@ -300,16 +306,17 @@ export async function documentFolders(nodes: GraphNode[], links: GraphLink[], re
         
         if (folderName.length === 0) {
         systemPrompt += ` The wiki must describe the main features of the repo and its final purpose, i.e.:\n
-        1. **Introduction**: Brief description of the project, its purpose, and main functionalities.
+        1. **Introduction**: Brief description of the project, its purpose, and main functionalities
         2. **Getting Started**: List of software, libraries, and tools needed.
-        3. **Project Structure**: Description of the main directories and their purposes. Explanation of important files and their roles.
+        3. **Project Structure**: Description of the main directories and their purposes. Explanation of important files and their roles, mentioning important classes/functions/methods if necessary.
         4. **Glossary**:  Definitions of key terms and concepts used in the project.`
         } else {
             systemPrompt += ` The wiki must describe the main features of the folder and its final purpose, i.e.:\n
             1. **Introduction**: Brief description of the folder, its purpose, and main functionalities.
-            2. **Directory structure**:  Explanation of important files/directories and their roles.` 
+            2. **Directory structure**:  Explanation of important files/directories and their roles, mentioning important classes/functions/methods if necessary.` 
         }
         
+        systemPrompt += `You can enhance the wiki by adding new sections based on markdown files if you think is necessary.`
         const fileNodesInFolder = fileNodes.filter(n => n.fullName.startsWith(folderName) && n.fullName.split('/').length == (folderName ? folderName.split('/').length + 1 : 1))
         const subfoldersDocumentations = Object.fromEntries(
             Object.entries(documentedFolders).filter(([key]) => {
@@ -328,7 +335,11 @@ export async function documentFolders(nodes: GraphNode[], links: GraphLink[], re
         }
 
         for (const fileNode of fileNodesInFolder) {
-            userPrompt += `Documentation for file ${fileNode.label}:\n${fileNode.generatedDocumentation ?? ''}\n`
+            if (fileNode.language === 'markdown') {
+                userPrompt += `Use the content of the following markdown file ${fileNode.label} to enhance the publication:\n${fileNode.generatedDocumentation ?? ''}\n`
+            } else {
+                userPrompt += `Documentation for ${fileNode.language} file ${fileNode.label}:\n${fileNode.generatedDocumentation ?? ''}\n`
+            }
             // const callLinks = links.filter(l => l.source === fileNode.id && l.label == 'calls')
             // const defineLinks = links.filter(l => l.source === fileNode.id && l.label == 'defines')
             

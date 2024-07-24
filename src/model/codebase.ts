@@ -259,7 +259,7 @@ export class Node {
   }
 
   generateImports() {
-    if (this.type !== 'file') return
+    if (this.type !== 'file' || this.language === 'markdown') return
     const captures = captureQuery(this.language, 'importStatements', this.code)
     captures.sort(
       (a, b) =>
@@ -424,7 +424,7 @@ export class Node {
   }
 
   getChildrenDefinitions(): { [id: string]: Node } {
-    if (!['file', 'header'].includes(this.type)) return {}
+    if (!['file', 'header'].includes(this.type) || this.language === 'markdown') return {}
     const unnecessaryNodeTypes = ['export'] // exclude it from the analysis
     const captures = captureQuery(this.language, 'constructorDefinitions', this.code)
     captures.sort(
