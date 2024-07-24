@@ -20,8 +20,12 @@ app.get("/", async (c) => {
     "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\Graphs\\codebase-index-ts";
   const codebasePath2 =
     "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\judini-python-main\\judini-python-main";
-  const codebase = new Codebase(codebasePath); //
-  console.log(`Parsing ${codebasePath}`);
+  const codebasePath3 =
+    "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\danielavila.me-main";
+  const codebasePath4 =
+    "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\api-vicuna-deno-main";
+  const codebase = new Codebase(codebasePath4); //
+  console.log(`Parsing ${codebasePath4}`);
   const fileNodesMap = await codebase.parseFolder();
   console.log(`Found ${Object.keys(codebase.nodesMap).length} nodes`);
   console.log("Getting Calls");

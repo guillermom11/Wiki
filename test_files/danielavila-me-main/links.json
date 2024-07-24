@@ -1,0 +1,686 @@
+[
+  {
+    "source": "\\app\\api\\sentry-example-api\\route",
+    "target": "\\app\\api\\sentry-example-api\\route::GET",
+    "label": "defines",
+    "line": 6
+  },
+  {
+    "source": "\\app\\api\\sentry-example-api\\route",
+    "target": "\\app\\api\\sentry-example-api\\route::dynamic",
+    "label": "defines",
+    "line": 3
+  },
+  {
+    "source": "\\app\\global-error",
+    "target": "\\app\\global-error::GlobalError",
+    "label": "defines",
+    "line": 7
+  },
+  {
+    "source": "\\app\\layout",
+    "target": "\\app\\layout::RootLayout",
+    "label": "defines",
+    "line": 13
+  },
+  {
+    "source": "\\app\\layout::RootLayout",
+    "target": "\\app\\layout::inter",
+    "label": "calls",
+    "line": 8
+  },
+  {
+    "source": "\\app\\layout",
+    "target": "\\app\\layout::metadata",
+    "label": "defines",
+    "line": 8
+  },
+  {
+    "source": "\\app\\layout",
+    "target": "\\app\\layout::inter",
+    "label": "defines",
+    "line": 6
+  },
+  {
+    "source": "\\app\\page",
+    "target": "\\app\\page::Home",
+    "label": "defines",
+    "line": 10
+  },
+  {
+    "source": "\\app\\provider",
+    "target": "\\app\\provider::ThemeProvider",
+    "label": "defines",
+    "line": 7
+  },
+  {
+    "source": "\\app\\sentry-example-page\\page",
+    "target": "\\app\\sentry-example-page\\page::Page",
+    "label": "defines",
+    "line": 6
+  },
+  {
+    "source": "\\components\\Footer",
+    "target": "\\components\\Footer::Footer",
+    "label": "defines",
+    "line": 8
+  },
+  {
+    "source": "\\components\\Grid",
+    "target": "\\components\\Grid::Grid",
+    "label": "defines",
+    "line": 5
+  },
+  {
+    "source": "\\components\\Hero",
+    "target": "\\components\\Hero::Hero",
+    "label": "defines",
+    "line": 8
+  },
+  {
+    "source": "\\components\\RecentProjects",
+    "target": "\\components\\RecentProjects::RecentProjects",
+    "label": "defines",
+    "line": 6
+  },
+  {
+    "source": "\\components\\Scroll",
+    "target": "\\components\\Scroll::Scroll",
+    "label": "defines",
+    "line": 102
+  },
+  {
+    "source": "\\components\\Scroll::Scroll",
+    "target": "\\components\\Scroll::dummyContent",
+    "label": "calls",
+    "line": 18
+  },
+  {
+    "source": "\\components\\Scroll",
+    "target": "\\components\\Scroll::dummyContent",
+    "label": "defines",
+    "line": 10
+  },
+  {
+    "source": "\\components\\ui\\3d-pin",
+    "target": "\\components\\ui\\3d-pin::PinPerspective",
+    "label": "defines",
+    "line": 62
+  },
+  {
+    "source": "\\components\\ui\\3d-pin::PinContainer",
+    "target": "\\components\\ui\\3d-pin::onMouseLeave",
+    "label": "defines",
+    "line": 27
+  },
+  {
+    "source": "\\components\\ui\\3d-pin::PinContainer",
+    "target": "\\components\\ui\\3d-pin::onMouseEnter",
+    "label": "defines",
+    "line": 24
+  },
+  {
+    "source": "\\components\\ui\\3d-pin",
+    "target": "\\components\\ui\\3d-pin::PinContainer",
+    "label": "defines",
+    "line": 7
+  },
+  {
+    "source": "\\components\\ui\\3d-pin::PinContainer",
+    "target": "\\utils\\cn::cn",
+    "label": "calls",
+    "line": 27
+  },
+  {
+    "source": "\\components\\ui\\BentoGrid::BentoGridItem",
+    "target": "\\components\\ui\\BentoGrid::handleCalendly",
+    "label": "defines",
+    "line": 64
+  },
+  {
+    "source": "\\components\\ui\\BentoGrid",
+    "target": "\\components\\ui\\BentoGrid::BentoGridItem",
+    "label": "defines",
+    "line": 33
+  },
+  {
+    "source": "\\components\\ui\\BentoGrid::BentoGridItem",
+    "target": "\\utils\\cn::cn",
+    "label": "calls",
+    "line": 40
+  },
+  {
+    "source": "\\components\\ui\\BentoGrid",
+    "target": "\\components\\ui\\BentoGrid::BentoGrid",
+    "label": "defines",
+    "line": 14
+  },
+  {
+    "source": "\\components\\ui\\BentoGrid::BentoGrid",
+    "target": "\\utils\\cn::cn",
+    "label": "calls",
+    "line": 10
+  },
+  {
+    "source": "\\components\\ui\\FloatingNav1",
+    "target": "\\components\\ui\\FloatingNav1::FloatingNav",
+    "label": "defines",
+    "line": 12
+  },
+  {
+    "source": "\\components\\ui\\FloatingNav1::FloatingNav",
+    "target": "\\utils\\cn::cn",
+    "label": "calls",
+    "line": 47
+  },
+  {
+    "source": "\\components\\ui\\Globe",
+    "target": "\\components\\ui\\Globe::genRandomNumbers",
+    "label": "defines",
+    "line": 297
+  },
+  {
+    "source": "\\components\\ui\\Globe",
+    "target": "\\components\\ui\\Globe::hexToRgb",
+    "label": "defines",
+    "line": 281
+  },
+  {
+    "source": "\\components\\ui\\Globe",
+    "target": "\\components\\ui\\Globe::World",
+    "label": "defines",
+    "line": 245
+  },
+  {
+    "source": "\\components\\ui\\Globe::World",
+    "target": "\\components\\ui\\Globe::WorldProps",
+    "label": "calls",
+    "line": 1
+  },
+  {
+    "source": "\\components\\ui\\Globe",
+    "target": "\\components\\ui\\Globe::WebGLRendererConfig",
+    "label": "defines",
+    "line": 233
+  },
+  {
+    "source": "\\components\\ui\\Globe::Globe",
+    "target": "\\components\\ui\\Globe::startAnimation",
+    "label": "defines",
+    "line": 167
+  },
+  {
+    "source": "\\components\\ui\\Globe::startAnimation",
+    "target": "\\components\\ui\\Globe::RING_PROPAGATION_SPEED",
+    "label": "calls",
+    "line": 33
+  },
+  {
+    "source": "\\components\\ui\\Globe::Globe",
+    "target": "\\components\\ui\\Globe::_buildData",
+    "label": "defines",
+    "line": 116
+  },
+  {
+    "source": "\\components\\ui\\Globe::_buildData",
+    "target": "\\components\\ui\\Globe::hexToRgb",
+    "label": "calls",
+    "line": 6
+  },
+  {
+    "source": "\\components\\ui\\Globe::Globe",
+    "target": "\\components\\ui\\Globe::_buildMaterial",
+    "label": "defines",
+    "line": 101
+  },
+  {
+    "source": "\\components\\ui\\Globe",
+    "target": "\\components\\ui\\Globe::Globe",
+    "label": "defines",
+    "line": 63
+  },
+  {
+    "source": "\\components\\ui\\Globe::Globe",
+    "target": "\\components\\ui\\Globe::WorldProps",
+    "label": "calls",
+    "line": 1
+  },
+  {
+    "source": "\\components\\ui\\Globe::Globe",
+    "target": "\\components\\ui\\Globe::_buildData",
+    "label": "calls",
+    "line": 34
+  },
+  {
+    "source": "\\components\\ui\\Globe::Globe",
+    "target": "\\components\\ui\\Globe::_buildMaterial",
+    "label": "calls",
+    "line": 35
+  },
+  {
+    "source": "\\components\\ui\\Globe::Globe",
+    "target": "\\components\\ui\\Globe::hexToRgb",
+    "label": "calls",
+    "line": 59
+  },
+  {
+    "source": "\\components\\ui\\Globe::Globe",
+    "target": "\\components\\ui\\Globe::startAnimation",
+    "label": "calls",
+    "line": 101
+  },
+  {
+    "source": "\\components\\ui\\Globe::Globe",
+    "target": "\\components\\ui\\Globe::RING_PROPAGATION_SPEED",
+    "label": "calls",
+    "line": 137
+  },
+  {
+    "source": "\\components\\ui\\Globe::Globe",
+    "target": "\\components\\ui\\Globe::genRandomNumbers",
+    "label": "calls",
+    "line": 148
+  },
+  {
+    "source": "\\components\\ui\\Globe::Globe",
+    "target": "\\components\\ui\\Globe::numbersOfRings",
+    "label": "calls",
+    "line": 155
+  },
+  {
+    "source": "\\components\\ui\\Globe",
+    "target": "\\components\\ui\\Globe::numbersOfRings",
+    "label": "defines",
+    "line": 61
+  },
+  {
+    "source": "\\components\\ui\\Globe",
+    "target": "\\components\\ui\\Globe::WorldProps",
+    "label": "defines",
+    "line": 56
+  },
+  {
+    "source": "\\components\\ui\\Globe::WorldProps",
+    "target": "\\components\\ui\\Globe::WorldProps",
+    "label": "calls",
+    "line": 1
+  },
+  {
+    "source": "\\components\\ui\\Globe::WorldProps",
+    "target": "\\components\\ui\\Globe::GlobeConfig",
+    "label": "calls",
+    "line": 2
+  },
+  {
+    "source": "\\components\\ui\\Globe::WorldProps",
+    "target": "\\components\\ui\\Globe::Position",
+    "label": "calls",
+    "line": 3
+  },
+  {
+    "source": "\\components\\ui\\Globe",
+    "target": "\\components\\ui\\Globe::GlobeConfig",
+    "label": "defines",
+    "line": 30
+  },
+  {
+    "source": "\\components\\ui\\Globe::GlobeConfig",
+    "target": "\\components\\ui\\Globe::GlobeConfig",
+    "label": "calls",
+    "line": 1
+  },
+  {
+    "source": "\\components\\ui\\Globe",
+    "target": "\\components\\ui\\Globe::Position",
+    "label": "defines",
+    "line": 20
+  },
+  {
+    "source": "\\components\\ui\\Globe::Position",
+    "target": "\\components\\ui\\Globe::Position",
+    "label": "calls",
+    "line": 1
+  },
+  {
+    "source": "\\components\\ui\\Globe",
+    "target": "\\components\\ui\\Globe::cameraZ",
+    "label": "defines",
+    "line": 18
+  },
+  {
+    "source": "\\components\\ui\\Globe",
+    "target": "\\components\\ui\\Globe::const",
+    "label": "defines",
+    "line": 17
+  },
+  {
+    "source": "\\components\\ui\\Globe",
+    "target": "\\components\\ui\\Globe::RING_PROPAGATION_SPEED",
+    "label": "defines",
+    "line": 16
+  },
+  {
+    "source": "\\components\\ui\\Globe",
+    "target": "\\components\\ui\\Globe::ThreeElements",
+    "label": "defines",
+    "line": 9
+  },
+  {
+    "source": "\\components\\ui\\Globe::ThreeElements",
+    "target": "\\components\\ui\\Globe::ThreeElements",
+    "label": "calls",
+    "line": 1
+  },
+  {
+    "source": "\\components\\ui\\Globe",
+    "target": "\\components\\ui\\Globe::ThreeElements",
+    "label": "calls",
+    "line": 9
+  },
+  {
+    "source": "\\components\\ui\\Globe",
+    "target": "\\components\\ui\\Globe::WorldProps",
+    "label": "calls",
+    "line": 62
+  },
+  {
+    "source": "\\components\\ui\\GradientBg::BackgroundGradientAnimation",
+    "target": "\\components\\ui\\GradientBg::handleMouseMove",
+    "label": "defines",
+    "line": 76
+  },
+  {
+    "source": "\\components\\ui\\GradientBg::BackgroundGradientAnimation",
+    "target": "\\components\\ui\\GradientBg::move",
+    "label": "defines",
+    "line": 62
+  },
+  {
+    "source": "\\components\\ui\\GradientBg",
+    "target": "\\components\\ui\\GradientBg::BackgroundGradientAnimation",
+    "label": "defines",
+    "line": 5
+  },
+  {
+    "source": "\\components\\ui\\GradientBg::BackgroundGradientAnimation",
+    "target": "\\components\\ui\\GradientBg::move",
+    "label": "calls",
+    "line": 69
+  },
+  {
+    "source": "\\components\\ui\\GradientBg::BackgroundGradientAnimation",
+    "target": "\\utils\\cn::cn",
+    "label": "calls",
+    "line": 87
+  },
+  {
+    "source": "\\components\\ui\\GridGlobe",
+    "target": "\\components\\ui\\GridGlobe::GridGlobe",
+    "label": "defines",
+    "line": 10
+  },
+  {
+    "source": "\\components\\ui\\GridGlobe",
+    "target": "\\components\\ui\\GridGlobe::World",
+    "label": "defines",
+    "line": 6
+  },
+  {
+    "source": "\\components\\ui\\LampEffect",
+    "target": "\\components\\ui\\LampEffect::LampContainer",
+    "label": "defines",
+    "line": 28
+  },
+  {
+    "source": "\\components\\ui\\LampEffect::LampContainer",
+    "target": "\\utils\\cn::cn",
+    "label": "calls",
+    "line": 10
+  },
+  {
+    "source": "\\components\\ui\\LampEffect",
+    "target": "\\components\\ui\\LampEffect::LampDemo",
+    "label": "defines",
+    "line": 7
+  },
+  {
+    "source": "\\components\\ui\\MacbookScroll",
+    "target": "\\components\\ui\\MacbookScroll::AceternityLogo",
+    "label": "defines",
+    "line": 648
+  },
+  {
+    "source": "\\components\\ui\\MacbookScroll",
+    "target": "\\components\\ui\\MacbookScroll::OptionKey",
+    "label": "defines",
+    "line": 614
+  },
+  {
+    "source": "\\components\\ui\\MacbookScroll",
+    "target": "\\components\\ui\\MacbookScroll::SpeakerGrid",
+    "label": "defines",
+    "line": 601
+  },
+  {
+    "source": "\\components\\ui\\MacbookScroll",
+    "target": "\\components\\ui\\MacbookScroll::Row",
+    "label": "defines",
+    "line": 593
+  },
+  {
+    "source": "\\components\\ui\\MacbookScroll",
+    "target": "\\components\\ui\\MacbookScroll::KBtn",
+    "label": "defines",
+    "line": 551
+  },
+  {
+    "source": "\\components\\ui\\MacbookScroll::KBtn",
+    "target": "\\utils\\cn::cn",
+    "label": "calls",
+    "line": 14
+  },
+  {
+    "source": "\\components\\ui\\MacbookScroll",
+    "target": "\\components\\ui\\MacbookScroll::Keypad",
+    "label": "defines",
+    "line": 190
+  },
+  {
+    "source": "\\components\\ui\\MacbookScroll",
+    "target": "\\components\\ui\\MacbookScroll::Trackpad",
+    "label": "defines",
+    "line": 179
+  },
+  {
+    "source": "\\components\\ui\\MacbookScroll",
+    "target": "\\components\\ui\\MacbookScroll::Lid",
+    "label": "defines",
+    "line": 122
+  },
+  {
+    "source": "\\components\\ui\\MacbookScroll",
+    "target": "\\components\\ui\\MacbookScroll::MacbookScroll",
+    "label": "defines",
+    "line": 28
+  },
+  {
+    "source": "\\components\\ui\\MagicButton",
+    "target": "\\components\\ui\\MagicButton::MagicButton",
+    "label": "defines",
+    "line": 1
+  },
+  {
+    "source": "\\components\\ui\\Spotlight",
+    "target": "\\components\\ui\\Spotlight::Spotlight",
+    "label": "defines",
+    "line": 9
+  },
+  {
+    "source": "\\components\\ui\\Spotlight::Spotlight",
+    "target": "\\components\\ui\\Spotlight::SpotlightProps",
+    "label": "calls",
+    "line": 1
+  },
+  {
+    "source": "\\components\\ui\\Spotlight::Spotlight",
+    "target": "\\utils\\cn::cn",
+    "label": "calls",
+    "line": 4
+  },
+  {
+    "source": "\\components\\ui\\Spotlight",
+    "target": "\\components\\ui\\Spotlight::SpotlightProps",
+    "label": "defines",
+    "line": 4
+  },
+  {
+    "source": "\\components\\ui\\Spotlight::SpotlightProps",
+    "target": "\\components\\ui\\Spotlight::SpotlightProps",
+    "label": "calls",
+    "line": 1
+  },
+  {
+    "source": "\\components\\ui\\Spotlight",
+    "target": "\\components\\ui\\Spotlight::SpotlightProps",
+    "label": "calls",
+    "line": 9
+  },
+  {
+    "source": "\\components\\ui\\StickyScrollReveal",
+    "target": "\\components\\ui\\StickyScrollReveal::StickyScroll",
+    "label": "defines",
+    "line": 7
+  },
+  {
+    "source": "\\components\\ui\\StickyScrollReveal::StickyScroll",
+    "target": "\\lib\\utils::cn",
+    "label": "calls",
+    "line": 98
+  },
+  {
+    "source": "\\components\\ui\\TextGenerateEffect::TextGenerateEffect",
+    "target": "\\components\\ui\\TextGenerateEffect::renderWords",
+    "label": "defines",
+    "line": 28
+  },
+  {
+    "source": "\\components\\ui\\TextGenerateEffect",
+    "target": "\\components\\ui\\TextGenerateEffect::TextGenerateEffect",
+    "label": "defines",
+    "line": 6
+  },
+  {
+    "source": "\\components\\ui\\TextGenerateEffect::TextGenerateEffect",
+    "target": "\\utils\\cn::cn",
+    "label": "calls",
+    "line": 41
+  },
+  {
+    "source": "\\components\\ui\\TextGenerateEffect::TextGenerateEffect",
+    "target": "\\components\\ui\\TextGenerateEffect::renderWords",
+    "label": "calls",
+    "line": 44
+  },
+  {
+    "source": "\\components\\ui\\TracingBeam",
+    "target": "\\components\\ui\\TracingBeam::TracingBeam",
+    "label": "defines",
+    "line": 12
+  },
+  {
+    "source": "\\components\\ui\\TracingBeam::TracingBeam",
+    "target": "\\lib\\utils::cn",
+    "label": "calls",
+    "line": 57
+  },
+  {
+    "source": "\\data\\index",
+    "target": "\\data\\index::socialMedia",
+    "label": "defines",
+    "line": 194
+  },
+  {
+    "source": "\\data\\index",
+    "target": "\\data\\index::workExperience",
+    "label": "defines",
+    "line": 163
+  },
+  {
+    "source": "\\data\\index",
+    "target": "\\data\\index::companies",
+    "label": "defines",
+    "line": 130
+  },
+  {
+    "source": "\\data\\index",
+    "target": "\\data\\index::testimonials",
+    "label": "defines",
+    "line": 97
+  },
+  {
+    "source": "\\data\\index",
+    "target": "\\data\\index::projects",
+    "label": "defines",
+    "line": 62
+  },
+  {
+    "source": "\\data\\index",
+    "target": "\\data\\index::gridItems",
+    "label": "defines",
+    "line": 7
+  },
+  {
+    "source": "\\data\\index",
+    "target": "\\data\\index::navItems",
+    "label": "defines",
+    "line": 1
+  },
+  {
+    "source": "\\instrumentation",
+    "target": "\\instrumentation::register",
+    "label": "defines",
+    "line": 1
+  },
+  {
+    "source": "\\lib\\utils",
+    "target": "\\lib\\utils::cn",
+    "label": "defines",
+    "line": 4
+  },
+  {
+    "source": "\\next.config",
+    "target": "\\next.config::nextConfig",
+    "label": "defines",
+    "line": 3
+  },
+  {
+    "source": "\\next.config",
+    "target": "\\next.config::nextConfig",
+    "label": "calls",
+    "line": 7
+  },
+  {
+    "source": "\\postcss.config",
+    "target": "\\postcss.config::config",
+    "label": "defines",
+    "line": 2
+  },
+  {
+    "source": "\\tailwind.config",
+    "target": "\\tailwind.config::addVariablesForColors",
+    "label": "defines",
+    "line": 193
+  },
+  {
+    "source": "\\tailwind.config",
+    "target": "\\tailwind.config::addVariablesForColors",
+    "label": "calls",
+    "line": 167
+  },
+  {
+    "source": "\\utils\\cn",
+    "target": "\\utils\\cn::cn",
+    "label": "defines",
+    "line": 4
+  }
+]
