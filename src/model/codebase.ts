@@ -481,7 +481,7 @@ export class Node {
           // Fix bug with methods
           code = `function ${n.code}`
           n.type = 'function'
-        } else if (n.type === 'assignment') code = `const ${n.code}`
+        }
       } else if (['java'].includes(this.language)) {
         if (n.type == 'function') {
           const firstLine = code.split('(')[0]
