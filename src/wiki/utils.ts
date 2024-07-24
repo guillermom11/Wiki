@@ -165,36 +165,54 @@ export async function documentNodesByLevels(nodeIdsByLevels: {[key: number]: str
     console.log(`${repoName} - Used tokens for node documentation:`, totalTokens)
 }
 
-export async function documentFolders(nodes: GraphNode[], links: GraphLink[], repoName: string, model: string) {
+async function generateFolderDocumentation(nodes: GraphNode[],
+                                           repoName: string,
+                                           folderName: string,
+                                           documentedFolders: {[key: string]: string},
+                                           model: string) {
+    const {systemPrompt, userPrompt} = generateFolderPrompts(nodes, repoName, folderName, documentedFolders)
+    const messages: chatCompletionMessages = [
+        { role: "system", content: systemPrompt },
+        { role: "user", content: userPrompt },
+    ]
+    
+    const { response, tokens } = await getOpenAIChatCompletion(messages, model)
+    totalTokens += tokens ?? 0
+    documentedFolders[folderName] = response
+}
 
+export async function documentFolders(nodes: GraphNode[], repoName: string, model: string) {
     console.log('Generating documentation for each folder ..')
     const fileNodes = nodes.filter(n => n.type === 'file')
     const folderNames = fileNodes.map(n => n.fullName.split('/').slice(0, -1).join('/'))
     const uniqueFolderNames = [...new Set(folderNames)]
 
-    // sort by level (number of '/')
-    uniqueFolderNames.sort((a, b) => b.split('/').length - a.split('/').length || b.length - a.length)
+    // Group folders by their level
+    const foldersByLevel: { [key: number]: string[] } = {}
+    uniqueFolderNames.forEach(folder => {
+        const level = folder.split('/').length
+        if (!foldersByLevel[level]) {
+            foldersByLevel[level] = []
+        }
+        if (folder.length > 0) foldersByLevel[level].push(folder)
+    })
+    foldersByLevel[0] = ['']
+
+    // Sort levels from deepest to shallowest
+    const levels = Object.keys(foldersByLevel).map(Number).sort((a, b) => b - a)
+
     const documentedFolders: {[key: string]: string} = {}
     uniqueFolderNames.forEach(foldername => documentedFolders[foldername] = '')
 
-    for (const folderName of uniqueFolderNames) {
-        const {systemPrompt, userPrompt} = generateFolderPrompts(nodes, repoName, folderName, documentedFolders)
-
-        const messages: chatCompletionMessages = [
-            { role: "system", content: systemPrompt },
-            { role: "user", content: userPrompt },
-        ]
-
-        // if (folderName.length === 0) {
-        //     console.log(systemPrompt)
-        //     console.log(userPrompt)
-        // }
-        
-        const { response, tokens } = await getOpenAIChatCompletion(messages, model);
-        totalTokens += tokens ?? 0
-        documentedFolders[folderName] = response
+    for (const level of levels) {
+        const foldersAtLevel = foldersByLevel[level]
+        const promises = foldersAtLevel.map(async folderName => {
+            return generateFolderDocumentation(nodes, repoName, folderName, documentedFolders, model)
+        })
+           
+        await Promise.all(promises)
     }
 
     console.log(`${repoName} - Total tokens used:`, totalTokens)
-    return documentedFolders;
+    return documentedFolders
 }
