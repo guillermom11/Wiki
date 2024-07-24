@@ -61,7 +61,10 @@ export async function generateAndUpdateDocumentation(
         DELETE FROM vecs.chunks_graph
         WHERE repo_id = ${repoId}
     `;
-  await Promise.all([insertNodesEmbeddings(graphNodes, repoId), insertGraphFolderEmbeddings(graphFoldersToInsert, repoId)])
+  await Promise.all([
+                    insertNodesEmbeddings(graphNodes, repoId),
+                    // insertGraphFolderEmbeddings(graphFoldersToInsert, repoId)
+                  ])
 
   await sql`UPDATE repositories SET has_autowiki = true WHERE id = ${repoId}`
 }
