@@ -134,7 +134,7 @@ export async function generateNodeDocumentation(node: GraphNode, nodes: GraphNod
             totalTokens += tokens ?? 0
             node.generatedDocumentation = response;
         } else {
-            node.generatedDocumentation = `Code: ${node.code}`
+            node.generatedDocumentation = `(${node.type}) Code: ${node.code}`
         }
         // console.log(`#### ${node.label} ####`)
         // console.log({ systemPrompt, userPrompt } )

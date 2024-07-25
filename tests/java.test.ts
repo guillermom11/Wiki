@@ -119,7 +119,7 @@ public class FooClass {
             language: 'java',
             exportable: true,
             documentation: '',
-            code: "public class FooClass {\n    private int foo = 1;\n\n    public FooClass() {\n        this.foo = 1;\n    }\n\n    public int bar() {\n        return 1;\n    }\n}",
+            code: "public class FooClass {\n    private int foo = 1;\n\n    //...\n\n    public int bar() {\n        return 1;\n    }\n}",
             parent: `${fileNode.id}::FooClass`,
             inDegree: 1,
             outDegree: 0
@@ -239,6 +239,6 @@ public class Test {
     const method2Calls = codebase.getNode(`file1::Foo.method2`)?.simplify(['calls']);
     const mainCalls = codebase.getNode(`${rootFolderPath}/file2::Test.main`)?.simplify(['calls']);
 
-    expect(method2Calls?.calls).toStrictEqual([`file1::Foo.method`, `file1::Foo`]);
+    expect(method2Calls?.calls).toStrictEqual([`file1::Foo.method`, `file1::Foo.Foo`]);
     expect(mainCalls?.calls).toStrictEqual([`file1::Foo`, `file1::Foo.method`]);
 });

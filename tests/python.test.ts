@@ -172,7 +172,7 @@ class Foo:
             language: 'python',
             exportable: true,
             documentation: '',
-            code: "class Foo:\n    \n    foo: int = 1\n\n    def __init__(self):\n        self.foo=1\n\n    def bar(self):\n        return 1",
+            code: "class Foo:\n    \n    foo: int = 1\n\n    ...\n\n    def bar(self):\n        return 1",
             parent: `${fileNode.id}::Foo`,
             inDegree: 1,
             outDegree: 0
@@ -281,6 +281,6 @@ def foo(param: Foo):
     
     expect(file2Calls?.calls).toStrictEqual([`${rootFolderPath}/file1::Foo`, `${rootFolderPath}/file1::Foo.method`])
     expect(fooVarCalls?.calls).toStrictEqual([`${rootFolderPath}/file1::Foo`])
-    expect(method2Calls?.calls).toStrictEqual([`${rootFolderPath}/file1::Foo.method`, `${rootFolderPath}/file1::Foo`])
+    expect(method2Calls?.calls).toStrictEqual([`${rootFolderPath}/file1::Foo.method`, `${rootFolderPath}/file1::Foo.__init__`])
     expect(fooCalls?.calls).toStrictEqual([`${rootFolderPath}/file1::Foo`, `${rootFolderPath}/file1::Foo.method2`])
 })

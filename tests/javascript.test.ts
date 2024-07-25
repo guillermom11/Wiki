@@ -196,7 +196,7 @@ export { Foo as MyFoo }
             language: 'javascript',
             exportable: false,
             documentation: '',
-            code:"class Foo {\n    foo = 1;\n\n    constructor() {\n        this.foo = 1;\n    }\n\n    bar() {\n        return 1;\n    }\n}",
+            code:"class Foo {\n    foo = 1;\n\n    //...\n\n    bar() {\n        return 1;\n    }\n}",
             parent: `${fileNode.id}::MyFoo`,
             inDegree: 1,
             outDegree: 0
@@ -315,6 +315,6 @@ function foo(param: Foo) {
     const fooCalls = codebase.getNode(`${rootFolderPath}/file2::foo`)?.simplify(['calls'])
     expect(file2Calls?.calls).toStrictEqual([`${rootFolderPath}/file1::Foo`, `${rootFolderPath}/file1::Foo.method`])
     expect(fooVarCalls?.calls).toStrictEqual([`${rootFolderPath}/file1::Foo`])
-    expect(method2Calls?.calls).toStrictEqual([`${rootFolderPath}/file1::Foo.method`, `${rootFolderPath}/file1::Foo`])
+    expect(method2Calls?.calls).toStrictEqual([`${rootFolderPath}/file1::Foo.method`, `${rootFolderPath}/file1::Foo.constructor`])
     expect(fooCalls?.calls).toStrictEqual([`${rootFolderPath}/file1::Foo`, `${rootFolderPath}/file1::Foo.method2`])
 });

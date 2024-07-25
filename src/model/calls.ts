@@ -23,6 +23,7 @@ export class CallsCapturer {
     fileNode: Node
     verbose: boolean = true
     nodesMap: {[key: string]: Node} = {}
+    // methodsNodesMap: {[key: string]: Node} = {}
 
     constructor(fileNode: Node, verbose: boolean = false) {
         this.fileNode = fileNode
@@ -30,17 +31,24 @@ export class CallsCapturer {
         fileNode.getAllChildren().forEach( c => {
             if (['namespace', 'package', 'mod'].includes(c.type)) return
             this.nodesMap[c.alias] = c 
+            // if (c.type === 'method') {
+            //     this.methodsNodesMap[c.alias.split('.').slice(-1)[0]] = c
+            // }
         })
         fileNode.importStatements.forEach( i => {
             i.names.forEach(n => {
                 if (n.node) {
                     this.nodesMap[n.alias] = n.node
+                    // if (n.node.type === 'method') {
+                    //     this.methodsNodesMap[n.alias.split('.').slice(-1)[0]] = n.node
+                    // }
                 }
             })
         })
         // console.log(`/////${fileNode.id}`)
         // console.log({keys: Object.keys(this.nodesMap)})
         // Object.keys(this.nodesMap).forEach(k => console.log(k, this.nodesMap[k].id))
+        // Object.keys(this.methodsNodesMap).forEach(k => console.log(k, this.methodsNodesMap[k].id))
     }
 
     captureAssignments(code: string, language: string): VariableAssignment[] {
@@ -109,10 +117,15 @@ export class CallsCapturer {
                     // Remove "$" and change "->" to "." for php
                     let callName = c.replace(/\?/g, '').replace(/\$/g, '').replace(/\-\>/g, '.')
                     const calledNode = this.nodesMap[callName]
+                    // Maybe is a method
+                    // if (!calledNode && callName.includes('.')) {
+                    //     calledNode = this.methodsNodesMap[callName.split('.').slice(-1)[0]]
+                    // }
                     // console.log({nodeRef: nodeRef.id, callName, id: calledNode?.id ?? ''})
                     if (calledNode) {
                         results.push(new CallIdentifier(calledNode.id, startLine))
                     }
+                    // All other cases
                     if (callName.includes('.')) {
                         const callNameSplit = callName.split('.')
                         for ( let i = 2; i < callNameSplit.length; i++) {

@@ -38,6 +38,8 @@ export function generateNodePrompts(node: GraphNode,
     
     const code = ['method', 'function', 'interface', 'assignment', 'type', 'enum', 'struct', 'union'].includes(node.type) ? node.code : node.codeNoBody
 
+    userPrompt += node.documentation ? `Documentation:\n${node.documentation}\n\n` : ''
+
     if (originFileNode && graph[node.id].length > 0 && originFileNode.importStatements) {
         userPrompt += `\n\`\`\`${node.language}\n${originFileNode.importStatements}\n\n${code}\n\`\`\`\n\n`
         systemPrompt += ` Don't mention about the imports if "${node.label}" is not using it directly in its implementation.`
@@ -59,6 +61,7 @@ export function generateNodePrompts(node: GraphNode,
         })
         
     }
+    systemPrompt += `\n\nIf the code uses some predefined value or constant, mention the exact value in the documentation.`;
 
     userPrompt += `Remember to not verbose about the extra information, just use them as a reference to explain what "${node.label}" does.`
     if (node.type === 'file') {

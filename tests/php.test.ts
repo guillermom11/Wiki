@@ -195,7 +195,7 @@ class Foo {
             language: 'php',
             exportable: true,
             documentation: '',
-            code: "class Foo {\n    public $bar = 1;\n\n    /**\n     * The constructor documentation\n     * @param int $x\n     */\n    public function __construct($x) {\n        $this->bar = $x;\n    }\n\n    public function baz() {\n        return $this->bar;\n    }\n}",
+            code: "class Foo {\n    public $bar = 1;\n\n    \n    //...\n\n    public function baz() {\n        return $this->bar;\n    }\n}",
             parent: `${fileNode.id}::Foo`,
             inDegree: 1,
             outDegree: 0
@@ -208,7 +208,7 @@ class Foo {
             language: 'php',
             exportable: true,
             documentation: '/**\n     * The constructor documentation\n     * @param int $x\n     */',
-            code: "class Foo {\n    public $bar = 1;\n\n    /**\n     * The constructor documentation\n     * @param int $x\n     */\n    public function __construct($x) {\n        $this->bar = $x;\n    }\n\n}",
+            code: "class Foo {\n    public $bar = 1;\n\n    \n    public function __construct($x) {\n        $this->bar = $x;\n    }\n\n}",
             parent: `${fileNode.id}::Foo`,
             inDegree: 1,
             outDegree: 0
@@ -418,7 +418,7 @@ function foo(Foo $param) {
     const fileCalls = codebase.getNode(`${rootFolderPath}/file2`)?.simplify(['calls']);
     const fooCalls = codebase.getNode(`${rootFolderPath}/file2::foo`)?.simplify(['calls']);
 
-    expect(method2Calls?.calls).toStrictEqual([`MyNamespace::Foo.method`, `MyNamespace::Foo`]);
+    expect(method2Calls?.calls).toStrictEqual([`MyNamespace::Foo.method`, `MyNamespace::Foo.__construct`]);
     expect(fileCalls?.calls).toStrictEqual([`MyNamespace::Foo.method`, `MyNamespace::Foo`]);
     expect(fooCalls?.calls).toStrictEqual([`MyNamespace::Foo`, `MyNamespace::Foo.method2`]);
 });

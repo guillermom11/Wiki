@@ -86,16 +86,9 @@ export class Node {
   }
 
   getChild(childId: string): Node | undefined {
-    // recursive search over children, only if is a file
-    if (this.children[childId]) {
-      return this.children[childId]
-    } else if (this.type === 'file') {
-      for (const child of Object.values(this.children)) {
-        const result = child.getChild(childId)
-        if (result) return result
-      }
-    }
-    return
+    // recursive search over children
+    const child = this.getAllChildren().find(child => child.id === childId)
+    return child
   }
 
   getAllChildren(parentTypes?: AllowedTypes[]): Node[] {
@@ -184,17 +177,19 @@ export class Node {
     let code = classNode.code
 
     let isFirstMethod = true
+    let spaces = ''
     Object.values(classNode.children).forEach(child => {
-        if (child.id === this.id || child.id === constructorNode?.id) {
-            return
-        }
-        const spaces = ' '.repeat(child.startPosition.column)
-        if (isFirstMethod && constructorNode?.id !== this.id) {
-          code = child.language === 'python' ? code.replace(child.code, `${spaces}...`) : code.replace(child.code, `//...`)
-          isFirstMethod = false
-        } else {
-          code = code.replace(`\n${spaces}${child.code}`, '')
-        }
+      code = code.replace(child.documentation, '')
+      if (child.id === this.id) {
+          return
+      }
+      spaces = ' '.repeat(child.startPosition.column)
+      if (isFirstMethod && constructorNode?.id !== this.id) {
+        code = child.language === 'python' ? code.replace(child.code, `...`) : code.replace(child.code, `//...`)
+        isFirstMethod = false
+      } else {
+        code = code.replace(`\n${spaces}${child.code}`, '')
+      }
     })
 
     if (['javascript', 'typescript', 'tsx'].includes(this.language)){
@@ -204,6 +199,8 @@ export class Node {
         code = code.substring(0, index);
       }
     }
+
+    code = code.replace(/(\/\/\s.*\n\s*|\/\/\/.*\n\s*|#\s.*\n\s*|##.*\n\s*)/g, '')
     return code
   }
 
@@ -740,17 +737,21 @@ export class Codebase {
   resolveSpaces() {
     const globalSpaceMap: { [spaceName: string]: Node[] } = {}
     Object.entries(this.spaceMap).forEach(([spaceName, nodes]) => {
+      // define a new space node
       const globalNode = new Node(`${spaceName}`, '', nodes[0].type, nodes[0].language)
       globalNode.name = spaceName
       globalNode.alias = spaceName
       globalNode.parent = nodes[0].parent
       // globalNode.originFile = nodes[0].originFile
+      // for each node inside the space node
       nodes.forEach((n) => {
         globalNode.code += n.code + '\n\n'
+        // for each children of that node
         for (const c of n.getAllChildren()) {
           const oldId = c.id
           delete this.nodesMap[oldId]
           c.id = `${spaceName}::${c.name}`
+          // update references
           if (c.parent && ['file', 'package', 'mod', 'namespace'].includes(c.parent.type))
             globalNode.addChild(c)
 
@@ -819,7 +820,17 @@ export class Codebase {
           const calledNode = this.nodesMap[nodeId]
           if (calledNode && !['package', 'mod', 'namespace'].includes(calledNode.type)) {
             // console.log({calledNode: calledNode.id, type: calledNode.type})
-            n.addCall(calledNode, lines) // first line
+            if (n.parent?.id === calledNode.id && n.type === 'method' ) {
+              const classNode = n.parent
+              const constructorDef = newClassMethodsMap[classNode.language] || classNode.name
+              const constructorNode = classNode.getChild(`${classNode.id}.${constructorDef}`)
+              // point to the constructor, not the class
+              if (constructorNode && constructorNode.id !== n.id) {
+                n.addCall(constructorNode, lines)
+              }
+            } else {
+              n.addCall(calledNode, lines)
+            }
             // console.log(`Added call from ${n.id} to ${calledNode.id}`)
           } else {
             if (verbose)
