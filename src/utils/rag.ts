@@ -17,13 +17,13 @@ function splitMarkdownByHeaders(markdown: string, minChars: number = 2000): stri
 
         currentChunk = line + '\n';
         } else {
-        // If it's not a header, add the line to the current chunk
-        if (currentChunk) {
-            currentChunk += line + '\n';
-        } else {
-            // If there's no current chunk, create one for content before any headers
-            currentChunk = line + '\n';
-        }
+            // If it's not a header, add the line to the current chunk
+            if (currentChunk) {
+                currentChunk += line + '\n';
+            } else {
+                // If there's no current chunk, create one for content before any headers
+                currentChunk = line + '\n';
+            }
         }
     }
 
