@@ -50,8 +50,8 @@ bar = baz
             documentation: '# the bar documentation',
             code: 'bar = baz',
             parent: fileNode.id,
-            inDegree: 0,
-            outDegree: 1
+            inDegree: 1,
+            outDegree: 0
         },
         {
             id: `${fileNode.id}::foo`,
@@ -63,12 +63,12 @@ bar = baz
             documentation: '',
             code: 'foo = 1',
             parent: fileNode.id,
-            inDegree: 0,
-            outDegree: 1
+            inDegree: 1,
+            outDegree: 0
         },
     ]
     expect(fileNodeChildrenSimplified).toStrictEqual(expectedFileChildren)
-    expect(fileNode.inDegree).toBe(2)
+    expect(fileNode.outDegree).toBe(2)
 })
 
 
@@ -114,13 +114,13 @@ def bar():
             documentation: `'''The foo documentation'''`,
             code: '@decorator\ndef foo():\n    \n    return bar',
             parent: fileNode.id,
-            inDegree: 0,
-            outDegree: 1,
+            inDegree: 1,
+            outDegree: 0,
             children: []
         },
     ]
     expect(fileNodeChildrenSimplified).toStrictEqual(expectedChildren)
-    expect(fileNode.inDegree).toBe(2)
+    expect(fileNode.outDegree).toBe(2)
     expect(firstNodeChildren).toStrictEqual({
         id: `${rootFolderPath}/file::baz`,
         parent: `${fileNode.id}::bar`,
@@ -157,8 +157,8 @@ class Foo:
             documentation: "'''The foo class'''",
             code: "class Foo:\n    \n    foo: int = 1\n\n    def __init__(self):\n        self.foo=1\n\n    def bar(self):\n        return 1",
             parent: fileNode.id,
-            inDegree: 2,
-            outDegree: 1,
+            inDegree: 1,
+            outDegree: 2,
             children: [`${fileNode.id}::Foo.bar`, `${fileNode.id}::Foo.__init__`]
         },
     ]
@@ -172,10 +172,10 @@ class Foo:
             language: 'python',
             exportable: true,
             documentation: '',
-            code: "class Foo:\n    ...\n    def bar(self):\n        return 1",
+            code: "class Foo:\n    \n    foo: int = 1\n\n    def __init__(self):\n        self.foo=1\n\n    def bar(self):\n        return 1",
             parent: `${fileNode.id}::Foo`,
-            inDegree: 0,
-            outDegree: 1
+            inDegree: 1,
+            outDegree: 0
         },
         {
             id: `${fileNode.id}::Foo.__init__`,
@@ -185,15 +185,15 @@ class Foo:
             language: 'python',
             exportable: true,
             documentation: '',
-            code: "class Foo:\n    ...\n    def __init__(self):\n        self.foo=1",
+            code: "class Foo:\n    \n    foo: int = 1\n\n    def __init__(self):\n        self.foo=1\n",
             parent: `${fileNode.id}::Foo`,
-            inDegree: 0,
-            outDegree: 1
+            inDegree: 1,
+            outDegree: 0
         },
 
     ]
     expect(fileNodeChildrenSimplified).toStrictEqual(expectedFileChildren)
-    expect(fileNode.inDegree).toBe(1)
+    expect(fileNode.outDegree).toBe(1)
     expect(classNodeMethodsSimplified).toStrictEqual(expectedMethods)
 })
 

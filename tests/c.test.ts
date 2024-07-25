@@ -45,8 +45,8 @@ int* p = &x;
             documentation: '',
             code: 'int* p = &x;',
             parent: '/my/path/file',
-            inDegree: 0,
-            outDegree: 1
+            inDegree: 1,
+            outDegree: 0
         },
         {
             id: `${fileNode.id}::y`,
@@ -58,8 +58,8 @@ int* p = &x;
             documentation: '',
             code: 'float y = 3.14;',
             parent: '/my/path/file',
-            inDegree: 0,
-            outDegree: 1
+            inDegree: 1,
+            outDegree: 0
         },
         {
             id: `${fileNode.id}::x`,
@@ -71,14 +71,14 @@ int* p = &x;
             documentation: '',
             code: 'int x = 10;',
             parent: '/my/path/file',
-            inDegree: 0,
-            outDegree: 1
+            inDegree: 1,
+            outDegree: 0
         }
     ];
 
     const fileNodeChildrenSimplified = Object.values(fileNode.children).map(n => n.simplify(nodeAttributes));
     expect(fileNodeChildrenSimplified).toStrictEqual(expectedFileChildren);
-    expect(fileNode.inDegree).toBe(3);
+    expect(fileNode.outDegree).toBe(3);
 });
 
 test("Function Definition", () => {
@@ -107,8 +107,8 @@ int add(int a, int b) {
       documentation: `/**\n * Calculates the sum of two integers.\n * @param a The first integer.\n * @param b The second integer.\n * @return The sum of a and b.\n */`,
       code: "int add(int a, int b) {\n    return a + b;\n}",
       parent: fileNode.id,
-      inDegree: 0,
-      outDegree: 1,
+      inDegree: 1,
+      outDegree: 0,
       children: [],
     },
   ];
@@ -118,7 +118,7 @@ int add(int a, int b) {
   );
 
   expect(fileNodeChildrenSimplified).toStrictEqual(expectedChildren);
-  expect(fileNode.inDegree).toBe(1);
+  expect(fileNode.outDegree).toBe(1);
 });
 
 
@@ -146,8 +146,8 @@ struct Point {
       documentation: `/**\n * Represents a point in a 2D plane.\n */`,
       code: "struct Point {\n    int x;\n    int y;\n}",
       parent: fileNode.id,
-      inDegree: 0,
-      outDegree: 1,
+      inDegree: 1,
+      outDegree: 0,
       children: []
     }
   ];
@@ -157,7 +157,7 @@ struct Point {
   );
 
   expect(fileNodeChildrenSimplified).toStrictEqual(expectedChildren);
-  expect(fileNode.inDegree).toBe(1);
+  expect(fileNode.outDegree).toBe(1);
 });
 
 
@@ -185,8 +185,8 @@ union Value {
       documentation: `/**\n * Represents a value that can be either an integer or a floating-point number.\n */`,
       code: "union Value {\n    int intValue;\n    double floatValue;\n}",
       parent: fileNode.id,
-      inDegree: 0,
-      outDegree: 1,
+      inDegree: 1,
+      outDegree: 0,
       children: []
     }
   ];
@@ -196,7 +196,7 @@ union Value {
   );
 
   expect(fileNodeChildrenSimplified).toStrictEqual(expectedChildren);
-  expect(fileNode.inDegree).toBe(1);
+  expect(fileNode.outDegree).toBe(1);
 });
 
 
@@ -240,7 +240,7 @@ void function();
   );
 
   expect(fileNodeChildrenSimplified).toStrictEqual(expectedChildren);
-  expect(node.inDegree).toBe(3);
+  expect(node.outDegree).toBe(3);
 })
 
 test('Calls', () => {

@@ -105,8 +105,8 @@ public class FooClass {
             documentation: "/**\n * The FooClass documentation\n */",
             code: "public class FooClass {\n    private int foo = 1;\n\n    public FooClass() {\n        this.foo = 1;\n    }\n\n    public int bar() {\n        return 1;\n    }\n}",
             parent: `${fileNode.id}::file`,
-            inDegree: 2,
-            outDegree: 1,
+            inDegree: 1,
+            outDegree: 2,
             children: [`${fileNode.id}::FooClass.bar`, `${fileNode.id}::FooClass.FooClass`],
         };
 
@@ -119,10 +119,10 @@ public class FooClass {
             language: 'java',
             exportable: true,
             documentation: '',
-            code: "public class FooClass\n    ...\n    public int bar() {\n        return 1;\n    }",
+            code: "public class FooClass {\n    private int foo = 1;\n\n    public FooClass() {\n        this.foo = 1;\n    }\n\n    public int bar() {\n        return 1;\n    }\n}",
             parent: `${fileNode.id}::FooClass`,
-            inDegree: 0,
-            outDegree: 1
+            inDegree: 1,
+            outDegree: 0
         },
         {
             id: `${fileNode.id}::FooClass.FooClass`,
@@ -132,15 +132,15 @@ public class FooClass {
             language: 'java',
             exportable: true,
             documentation: '',
-            code: "public class FooClass\n    ...\n    public FooClass() {\n        this.foo = 1;\n    }",
+            code: "public class FooClass {\n    private int foo = 1;\n\n    public FooClass() {\n        this.foo = 1;\n    }\n\n}",
             parent: `${fileNode.id}::FooClass`,
-            inDegree: 0,
-            outDegree: 1
+            inDegree: 1,
+            outDegree: 0
         },
 
     ];
     expect(fileNodeChildrenSimplified).toStrictEqual(expectedFileChildren);
-    expect(fileNode.inDegree).toBe(1);
+    expect(fileNode.outDegree).toBe(1);
     expect(classChildrenSimplified).toStrictEqual(expectedClass);
     expect(classNodeMethodsSimplified).toStrictEqual(expectedMethods);
 });
