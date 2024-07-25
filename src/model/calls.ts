@@ -132,7 +132,7 @@ export class CallsCapturer {
 
     getCallsFromNode(node: Node) : {[key: string]: number[]} {
         // console.log(`///${node.name}///`)
-        let code  = Object.keys(node.children).length > 0 ? node.getCodeWithoutBody(true, true) : node.code
+        let code  = Object.keys(node.children).length > 0 ? node.getCodeWithoutBody(true, false, true) : node.code
         const nameAliasReplacements: { [key: string]: string }  = {}
         Object.values(this.fileNode.importStatements).forEach(i  =>  {
 
