@@ -170,7 +170,44 @@ export class Node {
     }
   }
 
-  getCodeWithoutBody(considerLines: boolean = false, excludeAssignmentsFile: boolean = false) {
+  /**
+   * Returns the code of a method within the class and its constructor
+   */
+  getClassMethodCode() {
+    if (this.type !== 'method') return
+    if (!this.parent) return
+    if (this.parent.type !== 'class') return
+
+    const classNode = this.parent
+    const constructorDef = newClassMethodsMap[classNode.language] || classNode.name
+    const constructorNode = classNode.getChild(`${classNode.id}.${constructorDef}`)
+    let code = classNode.code
+
+    let isFirstMethod = true
+    Object.values(classNode.children).forEach(child => {
+        if (child.id === this.id || child.id === constructorNode?.id) {
+            return
+        }
+        const spaces = ' '.repeat(child.startPosition.column)
+        if (isFirstMethod && constructorNode?.id !== this.id) {
+          code = child.language === 'python' ? code.replace(child.code, `${spaces}...`) : code.replace(child.code, `//...`)
+          isFirstMethod = false
+        } else {
+          code = code.replace(`\n${spaces}${child.code}`, '')
+        }
+    })
+
+    if (['javascript', 'typescript', 'tsx'].includes(this.language)){
+      // remove export clause if necessary
+      let index = code.indexOf('\n\nexport {');
+      if (index !== -1) {
+        code = code.substring(0, index);
+      }
+    }
+    return code
+  }
+
+  getCodeWithoutBody(considerLines: boolean = false, excludeAssignmentsFile: boolean = false, excludeDefinition: boolean = false) {
     let code = this.code
 
     if (
@@ -208,7 +245,7 @@ export class Node {
             if (!excludeAssignmentsFile && isAssignment) {
               return
             }
-            let bodyToRemove = isAssignment ? n.code : n.body
+            let bodyToRemove = isAssignment || excludeDefinition ? n.code : n.body
             if (bodyToRemove) {
               bodyToRemove = bodyToRemove.replace(n.documentation, '')
               let bodyTotalLines = considerLines ? bodyToRemove.split('\n').length : 1
@@ -257,6 +294,7 @@ export class Node {
     }
     return code
   }
+
 
   generateImports() {
     if (this.type !== 'file' || this.language === 'markdown') return
@@ -327,7 +365,10 @@ export class Node {
       switch (c.name) {
         case 'export_clause':
           exportCode = c.node.text
-          if (node) node.code += `\n\n${exportCode}`
+          if (node) {
+            node.code += `\n\n${exportCode}`
+            node.body += `\n\n${exportCode}`
+          }
           break
         case 'module':
           moduleName = path.join(this.id.split('/').slice(0, -1).join('/'), c.node.text)
@@ -601,8 +642,7 @@ export class Node {
       documentation: this.documentation,
       code:
         this.parent && ['class', 'interface'].includes(this.parent?.type)
-          ? `${this.parent.code.replace(this.parent.body, '').trim()}\n    ...\n    ${this.code}`
-          : this.code,
+          ? this.getClassMethodCode() : this.code,
       codeNoBody: this.getCodeWithoutBody(),
       importStatements: this.importStatements.map((i) => i.code),
       parent: this.parent?.id,
