@@ -218,8 +218,27 @@ const anyAssignments = `
     (identifier) @right
     (member_expression) @right
     (new_expression constructor: _ @right )
+    (array (_) @right)
     ] 
 ) @assignment
+
+(call_expression
+    function:
+    ( member_expression .
+      object: (identifier) @left
+      property: (property_identifier) @property
+      (#any-of? @property "push")
+    )
+    arguments:
+     (arguments [
+    (identifier) @right
+    (member_expression) @right
+    (new_expression constructor: _ @right )
+    (array (_) @right)
+    ]
+   )
+) @assignment
+
 
 ; experimental, cases like object.forEach( o => ...), supports forEach, map and reduce
 (call_expression
@@ -231,9 +250,11 @@ const anyAssignments = `
     )
      arguments:
      (arguments
-          (arrow_function parameters:
-            (formal_parameters . ((_) @right) ;first param
-           )
+          (arrow_function 
+          [parameters:
+           (formal_parameters . ((_) @right)) ;first param
+           (identifier) @right 
+          ]
          )
     ) 
 ) @assignment
@@ -247,9 +268,11 @@ const anyAssignments = `
     )
      arguments:
      (arguments
-          (arrow_function parameters:
-            (formal_parameters  ( (_) @right) . ;last param
-           )
+          (arrow_function 
+          [parameters:
+           (formal_parameters  ( (_) @right) . );last param
+           (identifier) @right 
+          ]
          )
     ) 
 ) @assignment
