@@ -4,6 +4,7 @@
     "test": "jest --setupFiles dotenv/config --verbose"
   },
   "dependencies": {
+    "@azure/openai": "^2.0.0-beta.1",
     "@hono/node-server": "1.11.2",
     "@hono/swagger-ui": "0.2.2",
     "@hono/zod-openapi": "0.14.2",
