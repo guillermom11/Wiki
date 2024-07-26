@@ -11,6 +11,7 @@ export async function generateDocumentation(nodes: GraphNode[], links: GraphLink
   await documentNodesByLevels(nodesByLevels, nodes, graph, repoName, model)
   
   // const documentedFolders = await documentFolders(nodes, repoName, 'gpt-4o')
+  // rembember to set has_autowiki = true again!
   const documentedFolders : { [key: number]: string[] } = {}
   return documentedFolders
 }
@@ -48,13 +49,13 @@ export async function generateAndUpdateDocumentation(
 
   await Promise.all(updateNodeDocsPromises)
 
-  const graphFoldersToInsert: GraphFolder[] = Object.entries(documentedFolders).map(([name, wiki], index) => {
-    return {
-      id: folderIds[index],
-      name: name,
-      wiki: wiki,
-    }
-  })
+  // const graphFoldersToInsert: GraphFolder[] = Object.entries(documentedFolders).map(([name, wiki], index) => {
+  //   return {
+  //     id: folderIds[index],
+  //     name: name,
+  //     wiki: wiki,
+  //   }
+  // })
 
   console.log('Inserting embeddings ..')
   // Delete old embeddings
@@ -67,5 +68,5 @@ export async function generateAndUpdateDocumentation(
                     // insertGraphFolderEmbeddings(graphFoldersToInsert, repoId)
                   ])
 
-  await sql`UPDATE repositories SET has_autowiki = true WHERE id = ${repoId}`
+  await sql`UPDATE repositories SET has_autowiki = false WHERE id = ${repoId}`
 }
