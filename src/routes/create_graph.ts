@@ -306,7 +306,21 @@ async function processGraphCreation({
       `
     })
 
-    await Promise.all([...insertNodePromises, ...insertLinkPromises])
+    const folderNames = nodes.map(n => n.originFile.split('/').slice(0, -1).join('/'))
+    const uniqueFolderNames = [...new Set(folderNames)]
+    const insertFolderPromises = uniqueFolderNames.map((folderName) => {
+      return sql`
+        INSERT INTO graph_folders (
+          repo_id,
+          name
+        ) VALUES (
+          ${repoId},
+          ${folderName}
+        )
+      `
+    })
+
+    await Promise.all([...insertNodePromises, ...insertLinkPromises, ...insertFolderPromises])
 
     
     if (generateDocBool) {

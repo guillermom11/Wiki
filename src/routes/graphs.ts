@@ -49,7 +49,8 @@ graphs.patch('/:id', async (c) => {
         g.github_connection_id,
         g.gitlab_connection_id,
         g.bitbucket_connection_id,
-        p.org_sel_id
+        p.org_sel_id,
+        r.has_autowiki
       FROM profiles p
       JOIN graphs g ON g.org_id = p.org_sel_id
       JOIN repositories r ON g.repo_id = r.id
@@ -76,7 +77,8 @@ graphs.patch('/:id', async (c) => {
       gitlab_repo_id: gitlabRepoId,
       github_connection_id,
       gitlab_connection_id,
-      bitbucket_connection_id
+      bitbucket_connection_id,
+      has_autowiki: hasAutoWiki
     } = graph[0]
 
     const connections: Record<string, string | number> = {
@@ -113,34 +115,19 @@ graphs.patch('/:id', async (c) => {
     }
 
     if (commitHash === repoCommitHash) {
-      if (generateDocBool) {
-        const rows = await sql`
-        SELECT 
-          id
-        FROM repositories
-        WHERE git_provider = ${gitProvider}
-          AND repo_org = ${repoOrg}
-          AND repo_name = ${repoName}
-          AND branch = ${branch}
-          AND commit_hash = ${commitHash}
-        `
-  
-        if (rows.length > 0) {
-            const repoId = rows[0].id
-            const res = await Promise.all([
-              getGraphNodesById({userOrgId, graphId}),
-              getGraphLinksById({userOrgId, graphId}),
-              getGraphFolderById({userOrgId, graphId})])
-
-            const graphNodes = res[0]
-            const graphLinks = res[1]
-            const graphFolders = res[2]
-            if (graphNodes.length > 0 && graphLinks.length > 0 ) {
-              await generateAndUpdateDocumentation(repoName, repoId, graphNodes, graphLinks, graphFolders)
-            }
-        }
+      if (generateDocBool && !hasAutoWiki) {
+        updateGraphDocumentation({
+          gitProvider,
+          repoOrg,
+          repoName,
+          branch,
+          commitHash,
+          userOrgId,
+          graphId
+        })
+      } else {
+        return c.json({ message: 'Graph already up to date' }, 200)
       }
-      return c.json({ message: 'Graph already up to date' }, 200)
     }
 
     await sql`
@@ -202,6 +189,53 @@ interface UpdateGraph {
   gitlabRepoId?: number
   graphId: string
   generateDocBool: boolean
+}
+
+
+interface UpdateGraphDocumentation {
+  gitProvider: GitServiceType
+  repoOrg: string
+  repoName: string
+  branch: string
+  commitHash: string
+  userOrgId: string
+  graphId: string
+}
+
+async function updateGraphDocumentation({
+  gitProvider,
+  repoOrg,
+  repoName,
+  branch,
+  commitHash,
+  userOrgId,
+  graphId
+}: UpdateGraphDocumentation) {
+  try {
+    const rows = await sql`
+    SELECT 
+      id
+    FROM repositories
+    WHERE git_provider = ${gitProvider}
+      AND repo_org = ${repoOrg}
+      AND repo_name = ${repoName}
+      AND branch = ${branch}
+      AND commit_hash = ${commitHash}
+    `
+    if (rows.length > 0) {
+        const repoId = rows[0].id
+
+        const graphNodes = await getGraphNodesById({userOrgId, graphId})
+        const graphLinks = await getGraphLinksById({userOrgId, graphId})
+        if (graphNodes.length > 0 && graphLinks.length > 0 ) {
+          await generateAndUpdateDocumentation(repoName, repoId, graphNodes, graphLinks)
+        }
+    }
+  }  catch (error) {
+    console.error('Error in background processing:', error)
+  }
+
+  console.log(`Documentation for Graph ${graphId} updated`)
 }
 
 async function updateGraph({
@@ -321,7 +355,21 @@ async function updateGraph({
       `
     })
 
-    await Promise.all([...insertNodePromises, ...insertLinkPromises])
+    const folderNames = nodes.map(n => n.originFile.split('/').slice(0, -1).join('/'))
+    const uniqueFolderNames = [...new Set(folderNames)]
+    const insertFolderPromises = uniqueFolderNames.map((folderName) => {
+      return sql`
+        INSERT INTO graph_folders (
+          repo_id,
+          name
+        ) VALUES (
+          ${repoId},
+          ${folderName}
+        )
+      `
+    })
+
+    await Promise.all([...insertNodePromises, ...insertLinkPromises, ...insertFolderPromises])
 
     if(generateDocBool) {
       
@@ -366,6 +414,8 @@ async function updateGraph({
     console.error('Error in background processing:', error)
     await sql`UPDATE graphs SET status = 'failed' WHERE id = ${graphId}`
   }
+
+  console.log(`Graph ${graphId} updated`)
 }
 
 export { graphs }

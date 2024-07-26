@@ -90,7 +90,8 @@ export const languageExtensionMap: Record<string, string> = {
   ts: 'typescript',
   tsx: 'tsx',
   java: 'java',
-  php: 'php'
+  php: 'php',
+  md: 'markdown'
 }
 
 export const newClassMethodsMap: Record<string, string> = {
