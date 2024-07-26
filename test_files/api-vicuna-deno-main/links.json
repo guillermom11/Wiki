@@ -31,7 +31,31 @@
   },
   {
     "source": "\\gen-env",
-    "target": "\\gen-env::const",
+    "target": "\\gen-env::keys",
+    "label": "defines",
+    "line": 4
+  },
+  {
+    "source": "\\gen-env::keys",
+    "target": "\\gen-env::envs",
+    "label": "calls",
+    "line": 1
+  },
+  {
+    "source": "\\gen-env",
+    "target": "\\gen-env::envs",
+    "label": "defines",
+    "line": 2
+  },
+  {
+    "source": "\\gen-env::envs",
+    "target": "\\gen-env::file",
+    "label": "calls",
+    "line": 1
+  },
+  {
+    "source": "\\gen-env",
+    "target": "\\gen-env::file",
     "label": "defines",
     "line": 1
   },
@@ -39,13 +63,13 @@
     "source": "\\gen-env",
     "target": "\\gen-env::envText",
     "label": "calls",
-    "line": 28
+    "line": 30
   },
   {
     "source": "\\gen-env",
     "target": "\\gen-env::envExample",
     "label": "calls",
-    "line": 29
+    "line": 31
   },
   {
     "source": "\\lib\\ai\\metadata",
@@ -1129,6 +1153,12 @@
   },
   {
     "source": "\\lib\\integrations\\discord-app\\redirector::redirector",
+    "target": "\\lib\\integrations\\discord-app\\redirector::rest",
+    "label": "calls",
+    "line": 4
+  },
+  {
+    "source": "\\lib\\integrations\\discord-app\\redirector::redirector",
     "target": "\\lib\\integrations\\discord-app\\commands\\chat::handleChatCommand",
     "label": "calls",
     "line": 15
@@ -1141,7 +1171,7 @@
   },
   {
     "source": "\\lib\\integrations\\discord-app\\redirector",
-    "target": "\\lib\\integrations\\discord-app\\redirector::const",
+    "target": "\\lib\\integrations\\discord-app\\redirector::rest",
     "label": "defines",
     "line": 9
   },
@@ -3151,75 +3181,141 @@
   },
   {
     "source": "\\routes\\chat\\extension",
-    "target": "\\routes\\chat\\extension::const",
+    "target": "\\routes\\chat\\extension::chatExtension",
     "label": "defines",
     "line": 20
+  },
+  {
+    "source": "\\routes\\chat\\extension::chatExtension",
+    "target": "\\lib\\utils::getAuthorization",
+    "label": "calls",
+    "line": 5
+  },
+  {
+    "source": "\\routes\\chat\\extension::chatExtension",
+    "target": "\\schemas\\chat::messageCreateSchema",
+    "label": "calls",
+    "line": 9
+  },
+  {
+    "source": "\\routes\\chat\\extension::chatExtension",
+    "target": "\\lib\\db\\index::sql",
+    "label": "calls",
+    "line": 40
+  },
+  {
+    "source": "\\routes\\chat\\extension::chatExtension",
+    "target": "\\services\\supabase\\agents::getUserAgentById",
+    "label": "calls",
+    "line": 41
+  },
+  {
+    "source": "\\routes\\chat\\extension::chatExtension",
+    "target": "\\services\\db\\mixpanel::getOwnerInfoByAgentId",
+    "label": "calls",
+    "line": 42
+  },
+  {
+    "source": "\\routes\\chat\\extension::chatExtension",
+    "target": "\\lib\\chat\\tools-knowledge::getToolsKnowledge",
+    "label": "calls",
+    "line": 97
+  },
+  {
+    "source": "\\routes\\chat\\extension::chatExtension",
+    "target": "\\lib\\ip::getIp",
+    "label": "calls",
+    "line": 108
+  },
+  {
+    "source": "\\routes\\chat\\extension::chatExtension",
+    "target": "\\lib\\consts::freePlanId",
+    "label": "calls",
+    "line": 131
+  },
+  {
+    "source": "\\routes\\chat\\extension::chatExtension",
+    "target": "\\lib\\mixpanel\\providers::getModelProvider",
+    "label": "calls",
+    "line": 136
+  },
+  {
+    "source": "\\routes\\chat\\extension::chatExtension",
+    "target": "\\lib\\chat\\streaming::createResponse",
+    "label": "calls",
+    "line": 171
+  },
+  {
+    "source": "\\routes\\chat\\extension::chatExtension",
+    "target": "\\services\\supabase\\organizations::updateOrganizationsInteractions",
+    "label": "calls",
+    "line": 207
   },
   {
     "source": "\\routes\\chat\\extension",
     "target": "\\lib\\utils::getAuthorization",
     "label": "calls",
-    "line": 27
+    "line": 25
   },
   {
     "source": "\\routes\\chat\\extension",
     "target": "\\schemas\\chat::messageCreateSchema",
     "label": "calls",
-    "line": 31
+    "line": 29
   },
   {
     "source": "\\routes\\chat\\extension",
     "target": "\\lib\\db\\index::sql",
     "label": "calls",
-    "line": 62
+    "line": 60
   },
   {
     "source": "\\routes\\chat\\extension",
     "target": "\\services\\supabase\\agents::getUserAgentById",
     "label": "calls",
-    "line": 63
+    "line": 61
   },
   {
     "source": "\\routes\\chat\\extension",
     "target": "\\services\\db\\mixpanel::getOwnerInfoByAgentId",
     "label": "calls",
-    "line": 64
+    "line": 62
   },
   {
     "source": "\\routes\\chat\\extension",
     "target": "\\lib\\chat\\tools-knowledge::getToolsKnowledge",
     "label": "calls",
-    "line": 119
+    "line": 117
   },
   {
     "source": "\\routes\\chat\\extension",
     "target": "\\lib\\ip::getIp",
     "label": "calls",
-    "line": 130
+    "line": 128
   },
   {
     "source": "\\routes\\chat\\extension",
     "target": "\\lib\\consts::freePlanId",
     "label": "calls",
-    "line": 153
+    "line": 151
   },
   {
     "source": "\\routes\\chat\\extension",
     "target": "\\lib\\mixpanel\\providers::getModelProvider",
     "label": "calls",
-    "line": 158
+    "line": 156
   },
   {
     "source": "\\routes\\chat\\extension",
     "target": "\\lib\\chat\\streaming::createResponse",
     "label": "calls",
-    "line": 193
+    "line": 191
   },
   {
     "source": "\\routes\\chat\\extension",
     "target": "\\services\\supabase\\organizations::updateOrganizationsInteractions",
     "label": "calls",
-    "line": 229
+    "line": 227
   },
   {
     "source": "\\routes\\chat\\freeplan",
@@ -3433,81 +3529,153 @@
   },
   {
     "source": "\\routes\\chat\\index",
-    "target": "\\routes\\chat\\index::const",
+    "target": "\\routes\\chat\\index::chat",
     "label": "defines",
     "line": 18
+  },
+  {
+    "source": "\\routes\\chat\\index::chat",
+    "target": "\\lib\\utils::getAuthorization",
+    "label": "calls",
+    "line": 4
+  },
+  {
+    "source": "\\routes\\chat\\index::chat",
+    "target": "\\schemas\\chat::messageCreateSchema",
+    "label": "calls",
+    "line": 8
+  },
+  {
+    "source": "\\routes\\chat\\index::chat",
+    "target": "\\lib\\db\\index::sql",
+    "label": "calls",
+    "line": 35
+  },
+  {
+    "source": "\\routes\\chat\\index::chat",
+    "target": "\\services\\supabase\\agents::getUserAgentById",
+    "label": "calls",
+    "line": 36
+  },
+  {
+    "source": "\\routes\\chat\\index::chat",
+    "target": "\\services\\db\\mixpanel::getOwnerInfoByAgentId",
+    "label": "calls",
+    "line": 37
+  },
+  {
+    "source": "\\routes\\chat\\index::chat",
+    "target": "\\lib\\consts::channels",
+    "label": "calls",
+    "line": 69
+  },
+  {
+    "source": "\\routes\\chat\\index::chat",
+    "target": "\\lib\\chat\\tools-knowledge::getToolsKnowledge",
+    "label": "calls",
+    "line": 114
+  },
+  {
+    "source": "\\routes\\chat\\index::chat",
+    "target": "\\lib\\ip::getIp",
+    "label": "calls",
+    "line": 127
+  },
+  {
+    "source": "\\routes\\chat\\index::chat",
+    "target": "\\lib\\consts::freePlanId",
+    "label": "calls",
+    "line": 148
+  },
+  {
+    "source": "\\routes\\chat\\index::chat",
+    "target": "\\lib\\mixpanel\\providers::getModelProvider",
+    "label": "calls",
+    "line": 153
+  },
+  {
+    "source": "\\routes\\chat\\index::chat",
+    "target": "\\lib\\chat\\streaming::createResponse",
+    "label": "calls",
+    "line": 189
+  },
+  {
+    "source": "\\routes\\chat\\index::chat",
+    "target": "\\services\\supabase\\organizations::updateOrganizationsInteractions",
+    "label": "calls",
+    "line": 224
   },
   {
     "source": "\\routes\\chat\\index",
     "target": "\\lib\\utils::getAuthorization",
     "label": "calls",
-    "line": 24
+    "line": 22
   },
   {
     "source": "\\routes\\chat\\index",
     "target": "\\schemas\\chat::messageCreateSchema",
     "label": "calls",
-    "line": 28
+    "line": 26
   },
   {
     "source": "\\routes\\chat\\index",
     "target": "\\lib\\db\\index::sql",
     "label": "calls",
-    "line": 55
+    "line": 53
   },
   {
     "source": "\\routes\\chat\\index",
     "target": "\\services\\supabase\\agents::getUserAgentById",
     "label": "calls",
-    "line": 56
+    "line": 54
   },
   {
     "source": "\\routes\\chat\\index",
     "target": "\\services\\db\\mixpanel::getOwnerInfoByAgentId",
     "label": "calls",
-    "line": 57
+    "line": 55
   },
   {
     "source": "\\routes\\chat\\index",
     "target": "\\lib\\consts::channels",
     "label": "calls",
-    "line": 89
+    "line": 87
   },
   {
     "source": "\\routes\\chat\\index",
     "target": "\\lib\\chat\\tools-knowledge::getToolsKnowledge",
     "label": "calls",
-    "line": 134
+    "line": 132
   },
   {
     "source": "\\routes\\chat\\index",
     "target": "\\lib\\ip::getIp",
     "label": "calls",
-    "line": 147
+    "line": 145
   },
   {
     "source": "\\routes\\chat\\index",
     "target": "\\lib\\consts::freePlanId",
     "label": "calls",
-    "line": 168
+    "line": 166
   },
   {
     "source": "\\routes\\chat\\index",
     "target": "\\lib\\mixpanel\\providers::getModelProvider",
     "label": "calls",
-    "line": 173
+    "line": 171
   },
   {
     "source": "\\routes\\chat\\index",
     "target": "\\lib\\chat\\streaming::createResponse",
     "label": "calls",
-    "line": 209
+    "line": 207
   },
   {
     "source": "\\routes\\chat\\index",
     "target": "\\services\\supabase\\organizations::updateOrganizationsInteractions",
     "label": "calls",
-    "line": 244
+    "line": 242
   },
   {
     "source": "\\routes\\chat\\lib\\codestral",
@@ -3889,159 +4057,303 @@
   },
   {
     "source": "\\routes\\chat\\marketplace\\agents",
-    "target": "\\routes\\chat\\marketplace\\agents::const",
+    "target": "\\routes\\chat\\marketplace\\agents::chatMarketplace",
     "label": "defines",
     "line": 16
+  },
+  {
+    "source": "\\routes\\chat\\marketplace\\agents::chatMarketplace",
+    "target": "\\lib\\utils::getAuthorization",
+    "label": "calls",
+    "line": 4
+  },
+  {
+    "source": "\\routes\\chat\\marketplace\\agents::chatMarketplace",
+    "target": "\\schemas\\chat::messageCreateShareAgentSchema",
+    "label": "calls",
+    "line": 8
+  },
+  {
+    "source": "\\routes\\chat\\marketplace\\agents::chatMarketplace",
+    "target": "\\lib\\db\\index::sql",
+    "label": "calls",
+    "line": 39
+  },
+  {
+    "source": "\\routes\\chat\\marketplace\\agents::chatMarketplace",
+    "target": "\\services\\supabase\\agents::getMarketplaceAgentById",
+    "label": "calls",
+    "line": 40
+  },
+  {
+    "source": "\\routes\\chat\\marketplace\\agents::chatMarketplace",
+    "target": "\\services\\db\\mixpanel::getOwnerInfoByAgentId",
+    "label": "calls",
+    "line": 41
+  },
+  {
+    "source": "\\routes\\chat\\marketplace\\agents::chatMarketplace",
+    "target": "\\services\\supabase\\subscription::getActiveSubscriptionByOrgId",
+    "label": "calls",
+    "line": 58
+  },
+  {
+    "source": "\\routes\\chat\\marketplace\\agents::chatMarketplace",
+    "target": "\\lib\\chat\\tools-knowledge::getToolsKnowledge",
+    "label": "calls",
+    "line": 133
+  },
+  {
+    "source": "\\routes\\chat\\marketplace\\agents::chatMarketplace",
+    "target": "\\lib\\ip::getIp",
+    "label": "calls",
+    "line": 150
+  },
+  {
+    "source": "\\routes\\chat\\marketplace\\agents::chatMarketplace",
+    "target": "\\lib\\consts::freePlanId",
+    "label": "calls",
+    "line": 153
+  },
+  {
+    "source": "\\routes\\chat\\marketplace\\agents::chatMarketplace",
+    "target": "\\lib\\mixpanel\\providers::getModelProvider",
+    "label": "calls",
+    "line": 158
+  },
+  {
+    "source": "\\routes\\chat\\marketplace\\agents::chatMarketplace",
+    "target": "\\lib\\chat\\streaming::createResponse",
+    "label": "calls",
+    "line": 225
+  },
+  {
+    "source": "\\routes\\chat\\marketplace\\agents::chatMarketplace",
+    "target": "\\services\\supabase\\organizations::updateOrganizationsInteractions",
+    "label": "calls",
+    "line": 266
   },
   {
     "source": "\\routes\\chat\\marketplace\\agents",
     "target": "\\lib\\utils::getAuthorization",
     "label": "calls",
-    "line": 22
+    "line": 20
   },
   {
     "source": "\\routes\\chat\\marketplace\\agents",
     "target": "\\schemas\\chat::messageCreateShareAgentSchema",
     "label": "calls",
-    "line": 26
+    "line": 24
   },
   {
     "source": "\\routes\\chat\\marketplace\\agents",
     "target": "\\lib\\db\\index::sql",
     "label": "calls",
-    "line": 57
+    "line": 55
   },
   {
     "source": "\\routes\\chat\\marketplace\\agents",
     "target": "\\services\\supabase\\agents::getMarketplaceAgentById",
     "label": "calls",
-    "line": 58
+    "line": 56
   },
   {
     "source": "\\routes\\chat\\marketplace\\agents",
     "target": "\\services\\db\\mixpanel::getOwnerInfoByAgentId",
     "label": "calls",
-    "line": 59
+    "line": 57
   },
   {
     "source": "\\routes\\chat\\marketplace\\agents",
     "target": "\\services\\supabase\\subscription::getActiveSubscriptionByOrgId",
     "label": "calls",
-    "line": 76
+    "line": 74
   },
   {
     "source": "\\routes\\chat\\marketplace\\agents",
     "target": "\\lib\\chat\\tools-knowledge::getToolsKnowledge",
     "label": "calls",
-    "line": 151
+    "line": 149
   },
   {
     "source": "\\routes\\chat\\marketplace\\agents",
     "target": "\\lib\\ip::getIp",
     "label": "calls",
-    "line": 168
+    "line": 166
   },
   {
     "source": "\\routes\\chat\\marketplace\\agents",
     "target": "\\lib\\consts::freePlanId",
     "label": "calls",
-    "line": 171
+    "line": 169
   },
   {
     "source": "\\routes\\chat\\marketplace\\agents",
     "target": "\\lib\\mixpanel\\providers::getModelProvider",
     "label": "calls",
-    "line": 176
+    "line": 174
   },
   {
     "source": "\\routes\\chat\\marketplace\\agents",
     "target": "\\lib\\chat\\streaming::createResponse",
     "label": "calls",
-    "line": 243
+    "line": 241
   },
   {
     "source": "\\routes\\chat\\marketplace\\agents",
     "target": "\\services\\supabase\\organizations::updateOrganizationsInteractions",
     "label": "calls",
-    "line": 284
+    "line": 282
   },
   {
     "source": "\\routes\\chat\\playground",
-    "target": "\\routes\\chat\\playground::const",
+    "target": "\\routes\\chat\\playground::chatPlayground",
     "label": "defines",
     "line": 21
+  },
+  {
+    "source": "\\routes\\chat\\playground::chatPlayground",
+    "target": "\\lib\\utils::getAuthorization",
+    "label": "calls",
+    "line": 5
+  },
+  {
+    "source": "\\routes\\chat\\playground::chatPlayground",
+    "target": "\\schemas\\chat::messageCreateSchema",
+    "label": "calls",
+    "line": 9
+  },
+  {
+    "source": "\\routes\\chat\\playground::chatPlayground",
+    "target": "\\lib\\db\\index::sql",
+    "label": "calls",
+    "line": 36
+  },
+  {
+    "source": "\\routes\\chat\\playground::chatPlayground",
+    "target": "\\services\\supabase\\agents::getUserAgentById",
+    "label": "calls",
+    "line": 37
+  },
+  {
+    "source": "\\routes\\chat\\playground::chatPlayground",
+    "target": "\\services\\db\\mixpanel::getOwnerInfoByAgentId",
+    "label": "calls",
+    "line": 38
+  },
+  {
+    "source": "\\routes\\chat\\playground::chatPlayground",
+    "target": "\\lib\\chat\\tools-knowledge::getToolsKnowledge",
+    "label": "calls",
+    "line": 113
+  },
+  {
+    "source": "\\routes\\chat\\playground::chatPlayground",
+    "target": "\\lib\\ip::getIp",
+    "label": "calls",
+    "line": 128
+  },
+  {
+    "source": "\\routes\\chat\\playground::chatPlayground",
+    "target": "\\lib\\consts::freePlanId",
+    "label": "calls",
+    "line": 149
+  },
+  {
+    "source": "\\routes\\chat\\playground::chatPlayground",
+    "target": "\\lib\\mixpanel\\providers::getModelProvider",
+    "label": "calls",
+    "line": 154
+  },
+  {
+    "source": "\\routes\\chat\\playground::chatPlayground",
+    "target": "\\lib\\chat\\streaming::createResponse",
+    "label": "calls",
+    "line": 198
+  },
+  {
+    "source": "\\routes\\chat\\playground::chatPlayground",
+    "target": "\\services\\supabase\\organizations::updateOrganizationsInteractions",
+    "label": "calls",
+    "line": 238
+  },
+  {
+    "source": "\\routes\\chat\\playground::chatPlayground",
+    "target": "\\lib\\bugsnag::reportError",
+    "label": "calls",
+    "line": 247
   },
   {
     "source": "\\routes\\chat\\playground",
     "target": "\\lib\\utils::getAuthorization",
     "label": "calls",
-    "line": 28
+    "line": 26
   },
   {
     "source": "\\routes\\chat\\playground",
     "target": "\\schemas\\chat::messageCreateSchema",
     "label": "calls",
-    "line": 32
+    "line": 30
   },
   {
     "source": "\\routes\\chat\\playground",
     "target": "\\lib\\db\\index::sql",
     "label": "calls",
-    "line": 59
+    "line": 57
   },
   {
     "source": "\\routes\\chat\\playground",
     "target": "\\services\\supabase\\agents::getUserAgentById",
     "label": "calls",
-    "line": 60
+    "line": 58
   },
   {
     "source": "\\routes\\chat\\playground",
     "target": "\\services\\db\\mixpanel::getOwnerInfoByAgentId",
     "label": "calls",
-    "line": 61
+    "line": 59
   },
   {
     "source": "\\routes\\chat\\playground",
     "target": "\\lib\\chat\\tools-knowledge::getToolsKnowledge",
     "label": "calls",
-    "line": 136
+    "line": 134
   },
   {
     "source": "\\routes\\chat\\playground",
     "target": "\\lib\\ip::getIp",
     "label": "calls",
-    "line": 151
+    "line": 149
   },
   {
     "source": "\\routes\\chat\\playground",
     "target": "\\lib\\consts::freePlanId",
     "label": "calls",
-    "line": 172
+    "line": 170
   },
   {
     "source": "\\routes\\chat\\playground",
     "target": "\\lib\\mixpanel\\providers::getModelProvider",
     "label": "calls",
-    "line": 177
+    "line": 175
   },
   {
     "source": "\\routes\\chat\\playground",
     "target": "\\lib\\chat\\streaming::createResponse",
     "label": "calls",
-    "line": 221
+    "line": 219
   },
   {
     "source": "\\routes\\chat\\playground",
     "target": "\\services\\supabase\\organizations::updateOrganizationsInteractions",
     "label": "calls",
-    "line": 261
+    "line": 259
   },
   {
     "source": "\\routes\\chat\\playground",
     "target": "\\lib\\bugsnag::reportError",
     "label": "calls",
-    "line": 270
+    "line": 268
   },
   {
     "source": "\\routes\\chat\\share",
@@ -4057,87 +4369,165 @@
   },
   {
     "source": "\\routes\\chat\\share",
-    "target": "\\routes\\chat\\share::const",
+    "target": "\\routes\\chat\\share::chatShare",
     "label": "defines",
     "line": 20
+  },
+  {
+    "source": "\\routes\\chat\\share::chatShare",
+    "target": "\\schemas\\chat::messageCreateShareAgentSchema",
+    "label": "calls",
+    "line": 6
+  },
+  {
+    "source": "\\routes\\chat\\share::chatShare",
+    "target": "\\routes\\chat\\share::getUserId",
+    "label": "calls",
+    "line": 24
+  },
+  {
+    "source": "\\routes\\chat\\share::chatShare",
+    "target": "\\services\\supabase\\agents::getPublicAgentById",
+    "label": "calls",
+    "line": 36
+  },
+  {
+    "source": "\\routes\\chat\\share::chatShare",
+    "target": "\\services\\supabase\\subscription::getActiveSubscriptionByOrgId",
+    "label": "calls",
+    "line": 50
+  },
+  {
+    "source": "\\routes\\chat\\share::chatShare",
+    "target": "\\services\\db\\mixpanel::getOwnerInfoByAgentId",
+    "label": "calls",
+    "line": 51
+  },
+  {
+    "source": "\\routes\\chat\\share::chatShare",
+    "target": "\\lib\\db\\index::sql",
+    "label": "calls",
+    "line": 56
+  },
+  {
+    "source": "\\routes\\chat\\share::chatShare",
+    "target": "\\lib\\chat\\tools-knowledge::getToolsKnowledge",
+    "label": "calls",
+    "line": 138
+  },
+  {
+    "source": "\\routes\\chat\\share::chatShare",
+    "target": "\\services\\supabase\\organizations::getOrganizationOwnerDistinctId",
+    "label": "calls",
+    "line": 147
+  },
+  {
+    "source": "\\routes\\chat\\share::chatShare",
+    "target": "\\lib\\ip::getIp",
+    "label": "calls",
+    "line": 151
+  },
+  {
+    "source": "\\routes\\chat\\share::chatShare",
+    "target": "\\lib\\consts::freePlanId",
+    "label": "calls",
+    "line": 179
+  },
+  {
+    "source": "\\routes\\chat\\share::chatShare",
+    "target": "\\lib\\mixpanel\\providers::getModelProvider",
+    "label": "calls",
+    "line": 184
+  },
+  {
+    "source": "\\routes\\chat\\share::chatShare",
+    "target": "\\lib\\chat\\streaming::createResponse",
+    "label": "calls",
+    "line": 225
+  },
+  {
+    "source": "\\routes\\chat\\share::chatShare",
+    "target": "\\services\\supabase\\organizations::updateOrganizationsInteractions",
+    "label": "calls",
+    "line": 261
   },
   {
     "source": "\\routes\\chat\\share",
     "target": "\\schemas\\chat::messageCreateShareAgentSchema",
     "label": "calls",
-    "line": 28
+    "line": 26
   },
   {
     "source": "\\routes\\chat\\share",
     "target": "\\routes\\chat\\share::getUserId",
     "label": "calls",
-    "line": 46
+    "line": 44
   },
   {
     "source": "\\routes\\chat\\share",
     "target": "\\services\\supabase\\agents::getPublicAgentById",
     "label": "calls",
-    "line": 58
+    "line": 56
   },
   {
     "source": "\\routes\\chat\\share",
     "target": "\\services\\supabase\\subscription::getActiveSubscriptionByOrgId",
     "label": "calls",
-    "line": 72
+    "line": 70
   },
   {
     "source": "\\routes\\chat\\share",
     "target": "\\services\\db\\mixpanel::getOwnerInfoByAgentId",
     "label": "calls",
-    "line": 73
+    "line": 71
   },
   {
     "source": "\\routes\\chat\\share",
     "target": "\\lib\\db\\index::sql",
     "label": "calls",
-    "line": 78
+    "line": 76
   },
   {
     "source": "\\routes\\chat\\share",
     "target": "\\lib\\chat\\tools-knowledge::getToolsKnowledge",
     "label": "calls",
-    "line": 160
+    "line": 158
   },
   {
     "source": "\\routes\\chat\\share",
     "target": "\\services\\supabase\\organizations::getOrganizationOwnerDistinctId",
     "label": "calls",
-    "line": 169
+    "line": 167
   },
   {
     "source": "\\routes\\chat\\share",
     "target": "\\lib\\ip::getIp",
     "label": "calls",
-    "line": 173
+    "line": 171
   },
   {
     "source": "\\routes\\chat\\share",
     "target": "\\lib\\consts::freePlanId",
     "label": "calls",
-    "line": 201
+    "line": 199
   },
   {
     "source": "\\routes\\chat\\share",
     "target": "\\lib\\mixpanel\\providers::getModelProvider",
     "label": "calls",
-    "line": 206
+    "line": 204
   },
   {
     "source": "\\routes\\chat\\share",
     "target": "\\lib\\chat\\streaming::createResponse",
     "label": "calls",
-    "line": 247
+    "line": 245
   },
   {
     "source": "\\routes\\chat\\share",
     "target": "\\services\\supabase\\organizations::updateOrganizationsInteractions",
     "label": "calls",
-    "line": 283
+    "line": 281
   },
   {
     "source": "\\routes\\chat\\status\\index",
@@ -4183,75 +4573,141 @@
   },
   {
     "source": "\\routes\\chat\\widget",
-    "target": "\\routes\\chat\\widget::const",
+    "target": "\\routes\\chat\\widget::chatWidget",
     "label": "defines",
     "line": 16
+  },
+  {
+    "source": "\\routes\\chat\\widget::chatWidget",
+    "target": "\\schemas\\chat::messageCreateWidgetSchema",
+    "label": "calls",
+    "line": 6
+  },
+  {
+    "source": "\\routes\\chat\\widget::chatWidget",
+    "target": "\\lib\\db\\index::sql",
+    "label": "calls",
+    "line": 28
+  },
+  {
+    "source": "\\routes\\chat\\widget::chatWidget",
+    "target": "\\services\\supabase\\subscription::getActiveSubscriptionByOrgId",
+    "label": "calls",
+    "line": 54
+  },
+  {
+    "source": "\\routes\\chat\\widget::chatWidget",
+    "target": "\\services\\db\\mixpanel::getOwnerInfoByAgentId",
+    "label": "calls",
+    "line": 55
+  },
+  {
+    "source": "\\routes\\chat\\widget::chatWidget",
+    "target": "\\lib\\chat\\tools-knowledge::getToolsKnowledge",
+    "label": "calls",
+    "line": 101
+  },
+  {
+    "source": "\\routes\\chat\\widget::chatWidget",
+    "target": "\\services\\supabase\\organizations::getOrganizationOwnerDistinctId",
+    "label": "calls",
+    "line": 113
+  },
+  {
+    "source": "\\routes\\chat\\widget::chatWidget",
+    "target": "\\lib\\ip::getIp",
+    "label": "calls",
+    "line": 117
+  },
+  {
+    "source": "\\routes\\chat\\widget::chatWidget",
+    "target": "\\lib\\consts::freePlanId",
+    "label": "calls",
+    "line": 139
+  },
+  {
+    "source": "\\routes\\chat\\widget::chatWidget",
+    "target": "\\lib\\mixpanel\\providers::getModelProvider",
+    "label": "calls",
+    "line": 144
+  },
+  {
+    "source": "\\routes\\chat\\widget::chatWidget",
+    "target": "\\lib\\chat\\streaming::createResponse",
+    "label": "calls",
+    "line": 182
+  },
+  {
+    "source": "\\routes\\chat\\widget::chatWidget",
+    "target": "\\services\\supabase\\organizations::updateOrganizationsInteractions",
+    "label": "calls",
+    "line": 217
   },
   {
     "source": "\\routes\\chat\\widget",
     "target": "\\schemas\\chat::messageCreateWidgetSchema",
     "label": "calls",
-    "line": 24
+    "line": 22
   },
   {
     "source": "\\routes\\chat\\widget",
     "target": "\\lib\\db\\index::sql",
     "label": "calls",
-    "line": 46
+    "line": 44
   },
   {
     "source": "\\routes\\chat\\widget",
     "target": "\\services\\supabase\\subscription::getActiveSubscriptionByOrgId",
     "label": "calls",
-    "line": 72
+    "line": 70
   },
   {
     "source": "\\routes\\chat\\widget",
     "target": "\\services\\db\\mixpanel::getOwnerInfoByAgentId",
     "label": "calls",
-    "line": 73
+    "line": 71
   },
   {
     "source": "\\routes\\chat\\widget",
     "target": "\\lib\\chat\\tools-knowledge::getToolsKnowledge",
     "label": "calls",
-    "line": 119
+    "line": 117
   },
   {
     "source": "\\routes\\chat\\widget",
     "target": "\\services\\supabase\\organizations::getOrganizationOwnerDistinctId",
     "label": "calls",
-    "line": 131
+    "line": 129
   },
   {
     "source": "\\routes\\chat\\widget",
     "target": "\\lib\\ip::getIp",
     "label": "calls",
-    "line": 135
+    "line": 133
   },
   {
     "source": "\\routes\\chat\\widget",
     "target": "\\lib\\consts::freePlanId",
     "label": "calls",
-    "line": 157
+    "line": 155
   },
   {
     "source": "\\routes\\chat\\widget",
     "target": "\\lib\\mixpanel\\providers::getModelProvider",
     "label": "calls",
-    "line": 162
+    "line": 160
   },
   {
     "source": "\\routes\\chat\\widget",
     "target": "\\lib\\chat\\streaming::createResponse",
     "label": "calls",
-    "line": 200
+    "line": 198
   },
   {
     "source": "\\routes\\chat\\widget",
     "target": "\\services\\supabase\\organizations::updateOrganizationsInteractions",
     "label": "calls",
-    "line": 235
+    "line": 233
   },
   {
     "source": "\\routes\\discord",
@@ -4873,75 +5329,135 @@
   },
   {
     "source": "\\routes\\ip",
-    "target": "\\routes\\ip::const",
+    "target": "\\routes\\ip::ip",
     "label": "defines",
+    "line": 5
+  },
+  {
+    "source": "\\routes\\ip::ip",
+    "target": "\\lib\\utils::getAuthorization",
+    "label": "calls",
+    "line": 3
+  },
+  {
+    "source": "\\routes\\ip::ip",
+    "target": "\\lib\\ip::getIp",
+    "label": "calls",
     "line": 5
   },
   {
     "source": "\\routes\\ip",
     "target": "\\lib\\utils::getAuthorization",
     "label": "calls",
-    "line": 11
+    "line": 9
   },
   {
     "source": "\\routes\\ip",
     "target": "\\lib\\ip::getIp",
     "label": "calls",
-    "line": 13
+    "line": 11
   },
   {
     "source": "\\routes\\me",
-    "target": "\\routes\\me::const",
+    "target": "\\routes\\me::me",
     "label": "defines",
     "line": 12
+  },
+  {
+    "source": "\\routes\\me::me",
+    "target": "\\lib\\utils::getAuthorization",
+    "label": "calls",
+    "line": 3
+  },
+  {
+    "source": "\\routes\\me::me",
+    "target": "\\services\\supabase\\plan::getFreePlan",
+    "label": "calls",
+    "line": 7
+  },
+  {
+    "source": "\\routes\\me::me",
+    "target": "\\lib\\ip::getIp",
+    "label": "calls",
+    "line": 15
+  },
+  {
+    "source": "\\routes\\me::me",
+    "target": "\\lib\\redis::redis",
+    "label": "calls",
+    "line": 24
+  },
+  {
+    "source": "\\routes\\me::me",
+    "target": "\\lib\\db\\index::sql",
+    "label": "calls",
+    "line": 45
+  },
+  {
+    "source": "\\routes\\me::me",
+    "target": "\\services\\supabase\\profiles::getUserProfile",
+    "label": "calls",
+    "line": 48
+  },
+  {
+    "source": "\\routes\\me::me",
+    "target": "\\services\\supabase\\organizations::getOrganization",
+    "label": "calls",
+    "line": 49
+  },
+  {
+    "source": "\\routes\\me::me",
+    "target": "\\lib\\bugsnag::reportError",
+    "label": "calls",
+    "line": 80
   },
   {
     "source": "\\routes\\me",
     "target": "\\lib\\utils::getAuthorization",
     "label": "calls",
-    "line": 17
+    "line": 15
   },
   {
     "source": "\\routes\\me",
     "target": "\\services\\supabase\\plan::getFreePlan",
     "label": "calls",
-    "line": 21
+    "line": 19
   },
   {
     "source": "\\routes\\me",
     "target": "\\lib\\ip::getIp",
     "label": "calls",
-    "line": 29
+    "line": 27
   },
   {
     "source": "\\routes\\me",
     "target": "\\lib\\redis::redis",
     "label": "calls",
-    "line": 38
+    "line": 36
   },
   {
     "source": "\\routes\\me",
     "target": "\\lib\\db\\index::sql",
     "label": "calls",
-    "line": 59
+    "line": 57
   },
   {
     "source": "\\routes\\me",
     "target": "\\services\\supabase\\profiles::getUserProfile",
     "label": "calls",
-    "line": 62
+    "line": 60
   },
   {
     "source": "\\routes\\me",
     "target": "\\services\\supabase\\organizations::getOrganization",
     "label": "calls",
-    "line": 63
+    "line": 61
   },
   {
     "source": "\\routes\\me",
     "target": "\\lib\\bugsnag::reportError",
     "label": "calls",
-    "line": 94
+    "line": 92
   },
   {
     "source": "\\routes\\metadata",
@@ -5245,57 +5761,99 @@
   },
   {
     "source": "\\routes\\text",
-    "target": "\\routes\\text::const",
+    "target": "\\routes\\text::text",
     "label": "defines",
     "line": 5
+  },
+  {
+    "source": "\\routes\\text::text",
+    "target": "\\lib\\utils::getAuthorization",
+    "label": "calls",
+    "line": 3
+  },
+  {
+    "source": "\\routes\\text::text",
+    "target": "\\lib\\utils::getTextFromFile",
+    "label": "calls",
+    "line": 22
+  },
+  {
+    "source": "\\routes\\text::text",
+    "target": "\\lib\\utils::getConvertedText",
+    "label": "calls",
+    "line": 41
   },
   {
     "source": "\\routes\\text",
     "target": "\\lib\\utils::getAuthorization",
     "label": "calls",
-    "line": 11
+    "line": 9
   },
   {
     "source": "\\routes\\text",
     "target": "\\lib\\utils::getTextFromFile",
     "label": "calls",
-    "line": 30
+    "line": 28
   },
   {
     "source": "\\routes\\text",
     "target": "\\lib\\utils::getConvertedText",
     "label": "calls",
-    "line": 50
+    "line": 48
   },
   {
     "source": "\\routes\\user",
-    "target": "\\routes\\user::const",
+    "target": "\\routes\\user::user",
     "label": "defines",
     "line": 8
+  },
+  {
+    "source": "\\routes\\user::user",
+    "target": "\\lib\\utils::getAuthorization",
+    "label": "calls",
+    "line": 3
+  },
+  {
+    "source": "\\routes\\user::user",
+    "target": "\\lib\\utils::sendError",
+    "label": "calls",
+    "line": 15
+  },
+  {
+    "source": "\\routes\\user::user",
+    "target": "\\schemas\\user::userUpdateSchema",
+    "label": "calls",
+    "line": 23
+  },
+  {
+    "source": "\\routes\\user::user",
+    "target": "\\lib\\consts::ACCEPTED_IMAGE_FILES",
+    "label": "calls",
+    "line": 66
   },
   {
     "source": "\\routes\\user",
     "target": "\\lib\\utils::getAuthorization",
     "label": "calls",
-    "line": 13
+    "line": 11
   },
   {
     "source": "\\routes\\user",
     "target": "\\lib\\utils::sendError",
     "label": "calls",
-    "line": 25
+    "line": 23
   },
   {
     "source": "\\routes\\user",
     "target": "\\schemas\\user::userUpdateSchema",
     "label": "calls",
-    "line": 34
+    "line": 32
   },
   {
     "source": "\\routes\\user",
     "target": "\\lib\\consts::ACCEPTED_IMAGE_FILES",
     "label": "calls",
-    "line": 79
+    "line": 77
   },
   {
     "source": "\\routes\\vscode\\index",
@@ -5341,39 +5899,69 @@
   },
   {
     "source": "\\routes\\web",
-    "target": "\\routes\\web::const",
+    "target": "\\routes\\web::web",
     "label": "defines",
     "line": 10
+  },
+  {
+    "source": "\\routes\\web::web",
+    "target": "\\lib\\utils::getAuthorization",
+    "label": "calls",
+    "line": 3
+  },
+  {
+    "source": "\\routes\\web::web",
+    "target": "\\schemas\\document::webLinkSchema",
+    "label": "calls",
+    "line": 8
+  },
+  {
+    "source": "\\routes\\web::web",
+    "target": "\\lib\\db\\index::sql",
+    "label": "calls",
+    "line": 34
+  },
+  {
+    "source": "\\routes\\web::web",
+    "target": "\\lib\\env::getEnv",
+    "label": "calls",
+    "line": 48
+  },
+  {
+    "source": "\\routes\\web::web",
+    "target": "\\lib\\ip::getIp",
+    "label": "calls",
+    "line": 76
   },
   {
     "source": "\\routes\\web",
     "target": "\\lib\\utils::getAuthorization",
     "label": "calls",
-    "line": 16
+    "line": 14
   },
   {
     "source": "\\routes\\web",
     "target": "\\schemas\\document::webLinkSchema",
     "label": "calls",
-    "line": 21
+    "line": 19
   },
   {
     "source": "\\routes\\web",
     "target": "\\lib\\db\\index::sql",
     "label": "calls",
-    "line": 47
+    "line": 45
   },
   {
     "source": "\\routes\\web",
     "target": "\\lib\\env::getEnv",
     "label": "calls",
-    "line": 61
+    "line": 59
   },
   {
     "source": "\\routes\\web",
     "target": "\\lib\\ip::getIp",
     "label": "calls",
-    "line": 89
+    "line": 87
   },
   {
     "source": "\\routes\\webhooks\\models",
@@ -5820,154 +6408,430 @@
     "line": 113
   },
   {
+    "source": "\\server::handler",
+    "target": "\\server::app",
+    "label": "calls",
+    "line": 7
+  },
+  {
     "source": "\\server",
-    "target": "\\server::const",
+    "target": "\\server::app",
     "label": "defines",
     "line": 43
+  },
+  {
+    "source": "\\server::app",
+    "target": "\\routes\\agents\\marketplace-favorites\\index::marketplaceFavoriteAgents",
+    "label": "calls",
+    "line": 24
+  },
+  {
+    "source": "\\server::app",
+    "target": "\\routes\\agents\\marketplace\\index::marketplaceAgents",
+    "label": "calls",
+    "line": 26
+  },
+  {
+    "source": "\\server::app",
+    "target": "\\routes\\agents\\index::agents",
+    "label": "calls",
+    "line": 28
+  },
+  {
+    "source": "\\server::app",
+    "target": "\\routes\\agents\\widget\\index::widgetAgent",
+    "label": "calls",
+    "line": 30
+  },
+  {
+    "source": "\\server::app",
+    "target": "\\routes\\widgets\\index::widgets",
+    "label": "calls",
+    "line": 31
+  },
+  {
+    "source": "\\server::app",
+    "target": "\\routes\\chat\\playground::chatPlayground",
+    "label": "calls",
+    "line": 32
+  },
+  {
+    "source": "\\server::app",
+    "target": "\\routes\\chat\\share::chatShare",
+    "label": "calls",
+    "line": 33
+  },
+  {
+    "source": "\\server::app",
+    "target": "\\routes\\chat\\widget::chatWidget",
+    "label": "calls",
+    "line": 34
+  },
+  {
+    "source": "\\server::app",
+    "target": "\\routes\\chat\\marketplace\\agents::chatMarketplace",
+    "label": "calls",
+    "line": 35
+  },
+  {
+    "source": "\\server::app",
+    "target": "\\routes\\chat\\index::chat",
+    "label": "calls",
+    "line": 36
+  },
+  {
+    "source": "\\server::app",
+    "target": "\\routes\\chat\\extension::chatExtension",
+    "label": "calls",
+    "line": 37
+  },
+  {
+    "source": "\\server::app",
+    "target": "\\routes\\chat\\completion::chatCompletion",
+    "label": "calls",
+    "line": 38
+  },
+  {
+    "source": "\\server::app",
+    "target": "\\routes\\chat\\freeplan::freePlanCompletion",
+    "label": "calls",
+    "line": 40
+  },
+  {
+    "source": "\\server::app",
+    "target": "\\routes\\documents::documents",
+    "label": "calls",
+    "line": 41
+  },
+  {
+    "source": "\\server::app",
+    "target": "\\routes\\metadata::metadata",
+    "label": "calls",
+    "line": 42
+  },
+  {
+    "source": "\\server::app",
+    "target": "\\routes\\text::text",
+    "label": "calls",
+    "line": 43
+  },
+  {
+    "source": "\\server::app",
+    "target": "\\routes\\github::github",
+    "label": "calls",
+    "line": 44
+  },
+  {
+    "source": "\\server::app",
+    "target": "\\routes\\web::web",
+    "label": "calls",
+    "line": 45
+  },
+  {
+    "source": "\\server::app",
+    "target": "\\routes\\user::user",
+    "label": "calls",
+    "line": 46
+  },
+  {
+    "source": "\\server::app",
+    "target": "\\routes\\ip::ip",
+    "label": "calls",
+    "line": 47
+  },
+  {
+    "source": "\\server::app",
+    "target": "\\routes\\webhooks\\models::modelsPricing",
+    "label": "calls",
+    "line": 48
+  },
+  {
+    "source": "\\server::app",
+    "target": "\\routes\\telemetry::telemetry",
+    "label": "calls",
+    "line": 49
+  },
+  {
+    "source": "\\server::app",
+    "target": "\\routes\\me::me",
+    "label": "calls",
+    "line": 50
+  },
+  {
+    "source": "\\server::app",
+    "target": "\\routes\\slack::slack",
+    "label": "calls",
+    "line": 51
+  },
+  {
+    "source": "\\server::app",
+    "target": "\\routes\\discord::discord",
+    "label": "calls",
+    "line": 52
+  },
+  {
+    "source": "\\server::app",
+    "target": "\\routes\\chat\\autocomplete::autocomplete",
+    "label": "calls",
+    "line": 53
+  },
+  {
+    "source": "\\server::app",
+    "target": "\\routes\\github-app::githubApp",
+    "label": "calls",
+    "line": 54
+  },
+  {
+    "source": "\\server::app",
+    "target": "\\routes\\bitbucket::bitbucketApp",
+    "label": "calls",
+    "line": 55
+  },
+  {
+    "source": "\\server::app",
+    "target": "\\routes\\gitlab::gitlabApp",
+    "label": "calls",
+    "line": 56
+  },
+  {
+    "source": "\\server::app",
+    "target": "\\routes\\vscode\\index::vscode",
+    "label": "calls",
+    "line": 57
+  },
+  {
+    "source": "\\server::app",
+    "target": "\\routes\\extensions\\index::extensions",
+    "label": "calls",
+    "line": 58
+  },
+  {
+    "source": "\\server::app",
+    "target": "\\routes\\chat\\status\\index::chatStatus",
+    "label": "calls",
+    "line": 59
+  },
+  {
+    "source": "\\server::app",
+    "target": "\\routes\\apikeys\\index::apiKeys",
+    "label": "calls",
+    "line": 60
+  },
+  {
+    "source": "\\server::app",
+    "target": "\\routes\\organizations\\index::organizations",
+    "label": "calls",
+    "line": 61
   },
   {
     "source": "\\server",
     "target": "\\routes\\agents\\marketplace-favorites\\index::marketplaceFavoriteAgents",
     "label": "calls",
-    "line": 74
+    "line": 72
   },
   {
     "source": "\\server",
     "target": "\\routes\\agents\\marketplace\\index::marketplaceAgents",
     "label": "calls",
-    "line": 76
+    "line": 74
   },
   {
     "source": "\\server",
     "target": "\\routes\\agents\\index::agents",
     "label": "calls",
-    "line": 78
+    "line": 76
   },
   {
     "source": "\\server",
     "target": "\\routes\\agents\\widget\\index::widgetAgent",
     "label": "calls",
-    "line": 80
+    "line": 78
   },
   {
     "source": "\\server",
     "target": "\\routes\\widgets\\index::widgets",
     "label": "calls",
+    "line": 79
+  },
+  {
+    "source": "\\server",
+    "target": "\\routes\\chat\\playground::chatPlayground",
+    "label": "calls",
+    "line": 80
+  },
+  {
+    "source": "\\server",
+    "target": "\\routes\\chat\\share::chatShare",
+    "label": "calls",
     "line": 81
+  },
+  {
+    "source": "\\server",
+    "target": "\\routes\\chat\\widget::chatWidget",
+    "label": "calls",
+    "line": 82
+  },
+  {
+    "source": "\\server",
+    "target": "\\routes\\chat\\marketplace\\agents::chatMarketplace",
+    "label": "calls",
+    "line": 83
+  },
+  {
+    "source": "\\server",
+    "target": "\\routes\\chat\\index::chat",
+    "label": "calls",
+    "line": 84
+  },
+  {
+    "source": "\\server",
+    "target": "\\routes\\chat\\extension::chatExtension",
+    "label": "calls",
+    "line": 85
   },
   {
     "source": "\\server",
     "target": "\\routes\\chat\\completion::chatCompletion",
     "label": "calls",
-    "line": 88
+    "line": 86
   },
   {
     "source": "\\server",
     "target": "\\routes\\chat\\freeplan::freePlanCompletion",
     "label": "calls",
-    "line": 90
+    "line": 88
   },
   {
     "source": "\\server",
     "target": "\\routes\\documents::documents",
     "label": "calls",
-    "line": 91
+    "line": 89
   },
   {
     "source": "\\server",
     "target": "\\routes\\metadata::metadata",
     "label": "calls",
-    "line": 92
+    "line": 90
+  },
+  {
+    "source": "\\server",
+    "target": "\\routes\\text::text",
+    "label": "calls",
+    "line": 91
   },
   {
     "source": "\\server",
     "target": "\\routes\\github::github",
     "label": "calls",
+    "line": 92
+  },
+  {
+    "source": "\\server",
+    "target": "\\routes\\web::web",
+    "label": "calls",
+    "line": 93
+  },
+  {
+    "source": "\\server",
+    "target": "\\routes\\user::user",
+    "label": "calls",
     "line": 94
+  },
+  {
+    "source": "\\server",
+    "target": "\\routes\\ip::ip",
+    "label": "calls",
+    "line": 95
   },
   {
     "source": "\\server",
     "target": "\\routes\\webhooks\\models::modelsPricing",
     "label": "calls",
-    "line": 98
+    "line": 96
   },
   {
     "source": "\\server",
     "target": "\\routes\\telemetry::telemetry",
     "label": "calls",
-    "line": 99
+    "line": 97
+  },
+  {
+    "source": "\\server",
+    "target": "\\routes\\me::me",
+    "label": "calls",
+    "line": 98
   },
   {
     "source": "\\server",
     "target": "\\routes\\slack::slack",
     "label": "calls",
-    "line": 101
+    "line": 99
   },
   {
     "source": "\\server",
     "target": "\\routes\\discord::discord",
     "label": "calls",
-    "line": 102
+    "line": 100
   },
   {
     "source": "\\server",
     "target": "\\routes\\chat\\autocomplete::autocomplete",
     "label": "calls",
-    "line": 103
+    "line": 101
   },
   {
     "source": "\\server",
     "target": "\\routes\\github-app::githubApp",
     "label": "calls",
-    "line": 104
+    "line": 102
   },
   {
     "source": "\\server",
     "target": "\\routes\\bitbucket::bitbucketApp",
     "label": "calls",
-    "line": 105
+    "line": 103
   },
   {
     "source": "\\server",
     "target": "\\routes\\gitlab::gitlabApp",
     "label": "calls",
-    "line": 106
+    "line": 104
   },
   {
     "source": "\\server",
     "target": "\\routes\\vscode\\index::vscode",
     "label": "calls",
-    "line": 107
+    "line": 105
   },
   {
     "source": "\\server",
     "target": "\\routes\\extensions\\index::extensions",
     "label": "calls",
-    "line": 108
+    "line": 106
   },
   {
     "source": "\\server",
     "target": "\\routes\\chat\\status\\index::chatStatus",
     "label": "calls",
-    "line": 109
+    "line": 107
   },
   {
     "source": "\\server",
     "target": "\\routes\\apikeys\\index::apiKeys",
     "label": "calls",
-    "line": 110
+    "line": 108
   },
   {
     "source": "\\server",
     "target": "\\routes\\organizations\\index::organizations",
     "label": "calls",
-    "line": 111
+    "line": 109
   },
   {
     "source": "\\server",
     "target": "\\server::handler",
     "label": "calls",
-    "line": 124
+    "line": 122
   },
   {
     "source": "\\services\\ai\\aws\\chat",
