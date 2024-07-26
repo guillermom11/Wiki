@@ -51,5 +51,5 @@ export async function createEmbeddings(input: string[], model: string = 'text-em
     }
 
     const embeddings = await Promise.all(allPromises)
-    return embeddings.map(e => e.data.map(item => item.embedding))[0]
+    return embeddings.map(e => e.data.map(item => item.embedding)).flat()
 }
