@@ -1,5 +1,7 @@
 import { GraphLink, GraphNode } from "../utils/db";
-import { chatCompletionMessages, getOpenAIChatCompletion } from "../utils/ai";
+import { chatCompletionMessages,
+         getOpenAIChatCompletion,
+         } from "../utils/ai";
 import { AllowedTypes } from "../model/consts";
 import { generateFolderPrompts, generateNodePrompts } from "./prompts";
 

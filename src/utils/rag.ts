@@ -1,4 +1,4 @@
-import { createEmbeddings } from "./ai";
+import { createEmbeddingsOpenAI, createEmbeddingsAzureOpenAI } from "./ai";
 import { GraphNode, GraphFolder, sql } from "./db";
 
 function splitMarkdownByHeaders(markdown: string, minChars: number = 2000): string[] {
@@ -59,7 +59,7 @@ export async function insertNodesEmbeddings(nodes: GraphNode[], repoId: string) 
     const insertPromises: Promise<any>[] = []
 
     if (otherNodes.length > 0) {
-        const embeddings = await createEmbeddings(otherNodes.map(node => `${node.type} ${node.label}:\n${node.generatedDocumentation as string}`));
+        const embeddings = await createEmbeddingsAzureOpenAI(otherNodes.map(node => `${node.type} ${node.label}:\n${node.generatedDocumentation as string}`));
         const embeddingsWithMetadata = embeddings.map((embedding, index) => {
             const node = otherNodes[index];
             return {
@@ -89,7 +89,7 @@ export async function insertNodesEmbeddings(nodes: GraphNode[], repoId: string) 
     
     for (const node of markdownNodes) {
         const chunks = splitMarkdownByHeaders(node.generatedDocumentation as string);
-        const mdEmbeddings = await createEmbeddings(chunks);
+        const mdEmbeddings = await createEmbeddingsAzureOpenAI(chunks);
         const mdEmbeddingsWithMetadata = mdEmbeddings.map((embedding, index) => {
             return {
                 embedding: JSON.stringify(embedding),
@@ -125,7 +125,7 @@ export async function insertGraphFolderEmbeddings(folders: GraphFolder[], repoId
     
     for (const folder of foldersWithDoc) {
         const chunks = splitMarkdownByHeaders(folder.wiki);
-        const mdEmbeddings = await createEmbeddings(chunks);
+        const mdEmbeddings = await createEmbeddingsAzureOpenAI(chunks);
         const mdEmbeddingsWithMetadata = mdEmbeddings.map((embedding, index) => {
             return {
                 embedding: JSON.stringify(embedding),
