@@ -9,8 +9,9 @@ export async function generateDocumentation(nodes: GraphNode[], links: GraphLink
   const nodesByLevels = bfsLevels(nodes, graph)
 
   await documentNodesByLevels(nodesByLevels, nodes, graph, repoName, model)
-  const documentedFolders = await documentFolders(nodes, repoName, 'gpt-4o')
-
+  
+  // const documentedFolders = await documentFolders(nodes, repoName, 'gpt-4o')
+  const documentedFolders : { [key: number]: string[] } = {}
   return documentedFolders
 }
 
