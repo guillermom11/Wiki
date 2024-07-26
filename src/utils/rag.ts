@@ -70,9 +70,9 @@ export async function insertNodesEmbeddings(nodes: GraphNode[], repoId: string) 
                     origin_file: node.originFile,
                     folder_name: node.originFile?.split('/').slice(0, -1).join('/') || '',
                     label: node.label,
-                    code_no_body: node.codeNoBody,
+                    // code_no_body: node.codeNoBody,
                     language: node.language,
-                    content: node.generatedDocumentation
+                    // content: node.generatedDocumentation
                 }
             }
         });
@@ -101,7 +101,7 @@ export async function insertNodesEmbeddings(nodes: GraphNode[], repoId: string) 
                     chunk_index: index,
                     content: chunks[index],
                     label: node.label,
-                    code_no_body: '',
+                    // code_no_body: '',
                     language: 'markdown',
                 }
             }
