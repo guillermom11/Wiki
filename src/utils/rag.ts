@@ -1,4 +1,4 @@
-import { createEmbeddings } from "./ai";
+import { createEmbeddingsOpenAI, createEmbeddingsAzureOpenAI } from "./ai";
 import { GraphNode, GraphFolder, sql } from "./db";
 
 function splitMarkdownByHeaders(markdown: string, minChars: number = 2000): string[] {
@@ -17,13 +17,13 @@ function splitMarkdownByHeaders(markdown: string, minChars: number = 2000): stri
 
         currentChunk = line + '\n';
         } else {
-        // If it's not a header, add the line to the current chunk
-        if (currentChunk) {
-            currentChunk += line + '\n';
-        } else {
-            // If there's no current chunk, create one for content before any headers
-            currentChunk = line + '\n';
-        }
+            // If it's not a header, add the line to the current chunk
+            if (currentChunk) {
+                currentChunk += line + '\n';
+            } else {
+                // If there's no current chunk, create one for content before any headers
+                currentChunk = line + '\n';
+            }
         }
     }
 
@@ -59,7 +59,7 @@ export async function insertNodesEmbeddings(nodes: GraphNode[], repoId: string) 
     const insertPromises: Promise<any>[] = []
 
     if (otherNodes.length > 0) {
-        const embeddings = await createEmbeddings(otherNodes.map(node => node.generatedDocumentation as string));
+        const embeddings = await createEmbeddingsAzureOpenAI(otherNodes.map(node => `${node.type} ${node.label}:\n${node.generatedDocumentation as string}`));
         const embeddingsWithMetadata = embeddings.map((embedding, index) => {
             const node = otherNodes[index];
             return {
@@ -69,7 +69,10 @@ export async function insertNodesEmbeddings(nodes: GraphNode[], repoId: string) 
                     type: node.type,
                     origin_file: node.originFile,
                     folder_name: node.originFile?.split('/').slice(0, -1).join('/') || '',
-                    content: node.generatedDocumentation
+                    label: node.label,
+                    // code_no_body: node.codeNoBody,
+                    language: node.language,
+                    // content: node.generatedDocumentation
                 }
             }
         });
@@ -86,7 +89,7 @@ export async function insertNodesEmbeddings(nodes: GraphNode[], repoId: string) 
     
     for (const node of markdownNodes) {
         const chunks = splitMarkdownByHeaders(node.generatedDocumentation as string);
-        const mdEmbeddings = await createEmbeddings(chunks);
+        const mdEmbeddings = await createEmbeddingsAzureOpenAI(chunks);
         const mdEmbeddingsWithMetadata = mdEmbeddings.map((embedding, index) => {
             return {
                 embedding: JSON.stringify(embedding),
@@ -96,7 +99,10 @@ export async function insertNodesEmbeddings(nodes: GraphNode[], repoId: string) 
                     origin_file: node.originFile,
                     folder_name: node.originFile?.split('/').slice(0, -1).join('/') || '',
                     chunk_index: index,
-                    content: chunks[index]
+                    content: chunks[index],
+                    label: node.label,
+                    // code_no_body: '',
+                    language: 'markdown',
                 }
             }
             
@@ -119,7 +125,7 @@ export async function insertGraphFolderEmbeddings(folders: GraphFolder[], repoId
     
     for (const folder of foldersWithDoc) {
         const chunks = splitMarkdownByHeaders(folder.wiki);
-        const mdEmbeddings = await createEmbeddings(chunks);
+        const mdEmbeddings = await createEmbeddingsAzureOpenAI(chunks);
         const mdEmbeddingsWithMetadata = mdEmbeddings.map((embedding, index) => {
             return {
                 embedding: JSON.stringify(embedding),

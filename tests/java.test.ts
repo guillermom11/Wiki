@@ -105,8 +105,8 @@ public class FooClass {
             documentation: "/**\n * The FooClass documentation\n */",
             code: "public class FooClass {\n    private int foo = 1;\n\n    public FooClass() {\n        this.foo = 1;\n    }\n\n    public int bar() {\n        return 1;\n    }\n}",
             parent: `${fileNode.id}::file`,
-            inDegree: 2,
-            outDegree: 1,
+            inDegree: 1,
+            outDegree: 2,
             children: [`${fileNode.id}::FooClass.bar`, `${fileNode.id}::FooClass.FooClass`],
         };
 
@@ -119,10 +119,10 @@ public class FooClass {
             language: 'java',
             exportable: true,
             documentation: '',
-            code: "public class FooClass\n    ...\n    public int bar() {\n        return 1;\n    }",
+            code: "public class FooClass {\n    private int foo = 1;\n\n    //...\n\n    public int bar() {\n        return 1;\n    }\n}",
             parent: `${fileNode.id}::FooClass`,
-            inDegree: 0,
-            outDegree: 1
+            inDegree: 1,
+            outDegree: 0
         },
         {
             id: `${fileNode.id}::FooClass.FooClass`,
@@ -132,15 +132,15 @@ public class FooClass {
             language: 'java',
             exportable: true,
             documentation: '',
-            code: "public class FooClass\n    ...\n    public FooClass() {\n        this.foo = 1;\n    }",
+            code: "public class FooClass {\n    private int foo = 1;\n\n    public FooClass() {\n        this.foo = 1;\n    }\n\n}",
             parent: `${fileNode.id}::FooClass`,
-            inDegree: 0,
-            outDegree: 1
+            inDegree: 1,
+            outDegree: 0
         },
 
     ];
     expect(fileNodeChildrenSimplified).toStrictEqual(expectedFileChildren);
-    expect(fileNode.inDegree).toBe(1);
+    expect(fileNode.outDegree).toBe(1);
     expect(classChildrenSimplified).toStrictEqual(expectedClass);
     expect(classNodeMethodsSimplified).toStrictEqual(expectedMethods);
 });
@@ -239,6 +239,6 @@ public class Test {
     const method2Calls = codebase.getNode(`file1::Foo.method2`)?.simplify(['calls']);
     const mainCalls = codebase.getNode(`${rootFolderPath}/file2::Test.main`)?.simplify(['calls']);
 
-    expect(method2Calls?.calls).toStrictEqual([`file1::Foo.method`, `file1::Foo`]);
+    expect(method2Calls?.calls).toStrictEqual([`file1::Foo.method`, `file1::Foo.Foo`]);
     expect(mainCalls?.calls).toStrictEqual([`file1::Foo`, `file1::Foo.method`]);
 });

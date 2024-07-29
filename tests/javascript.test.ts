@@ -47,8 +47,8 @@ bar.get('/', async (c) => {
 export { bar as cbar }
 `;
     const fileNode = new Node(`${rootFolderPath}/file`, fileContent, 'file', 'javascript')
-    fileNode.getChildrenDefinitions()
-    fileNode.parseExportClauses()
+    const nodesMap = fileNode.getChildrenDefinitions()
+    fileNode.parseExportClauses(nodesMap, nodesMap)
     const fileNodeChildrenSimplified = Object.values(fileNode.children).map(n => n.simplify(nodeAttributes))
     const expectedFileChildren = [
         {
@@ -59,10 +59,10 @@ export { bar as cbar }
             language: 'javascript',
             exportable: true,
             documentation: '',
-            code: 'foo = 1',
+            code: 'export const foo = 1',
             parent: fileNode.id,
-            inDegree: 0,
-            outDegree: 1
+            inDegree: 1,
+            outDegree: 0
         },
         {
             id: `${fileNode.id}::cbar`,
@@ -72,14 +72,14 @@ export { bar as cbar }
             language: 'javascript',
             exportable: true,
             documentation: '',
-            code: "bar = new Hono()\nbar.get('/', async (c) => {\n    return c.text('Hello, World!')\n})",
+            code: "const bar = new Hono()\nbar.get('/', async (c) => {\n    return c.text('Hello, World!')\n})\n\nexport { bar as cbar }",
             parent: fileNode.id,
-            inDegree: 0,
-            outDegree: 1
+            inDegree: 1,
+            outDegree: 0
         },
     ]
     expect(fileNodeChildrenSimplified).toStrictEqual(expectedFileChildren)
-    expect(fileNode.inDegree).toBe(2)
+    expect(fileNode.outDegree).toBe(2)
 });
 
 test('Function definition', () => {
@@ -130,13 +130,13 @@ export function bar() {
             documentation: `/**\n * The foo documentation\n */`,
             code: 'function foo() {\n    return bar;\n}',
             parent: fileNode.id,
-            inDegree: 0,
-            outDegree: 1,
+            inDegree: 1,
+            outDegree: 0,
             children: []
         },
     ]
     expect(fileNodeChildrenSimplified).toStrictEqual(expectedChildren);
-    expect(fileNode.inDegree).toBe(2);
+    expect(fileNode.outDegree).toBe(2);
     expect(firstNodeChildren).toStrictEqual({
         id: `${rootFolderPath}/file::baz`,
         parent: `${fileNode.id}::bar`,
@@ -165,8 +165,8 @@ class Foo {
 export { Foo as MyFoo }
 `;
     const fileNode = new Node(`${rootFolderPath}/file`, fileContent, 'file', 'javascript');
-    fileNode.getChildrenDefinitions()
-    fileNode.parseExportClauses()
+    const nodesMap = fileNode.getChildrenDefinitions()
+    fileNode.parseExportClauses(nodesMap, nodesMap)
     const classNodeChildren = Object.values(fileNode.children)[0].children;
     const fileNodeChildrenSimplified = Object.values(fileNode.children).map(n => n.simplify([...nodeAttributes, 'children']));
     const classNodeMethodsSimplified = Object.values(classNodeChildren).map(n => n.simplify(nodeAttributes));
@@ -179,10 +179,10 @@ export { Foo as MyFoo }
             language: 'javascript',
             exportable: true,
             documentation: "/**\n * The foo class\n */",
-            code: "class Foo {\n    foo = 1;\n\n    constructor() {\n        this.foo = 1;\n    }\n\n    bar() {\n        return 1;\n    }\n}",
+            code: "class Foo {\n    foo = 1;\n\n    constructor() {\n        this.foo = 1;\n    }\n\n    bar() {\n        return 1;\n    }\n}\n\nexport { Foo as MyFoo }",
             parent: fileNode.id,
-            inDegree: 2,
-            outDegree: 1,
+            inDegree: 1,
+            outDegree: 2,
             children: [`${fileNode.id}::MyFoo.bar`, `${fileNode.id}::MyFoo.constructor`]
         },
     ];
@@ -196,10 +196,10 @@ export { Foo as MyFoo }
             language: 'javascript',
             exportable: false,
             documentation: '',
-            code: "class Foo\n    ...\n    bar() {\n        return 1;\n    }",
+            code:"class Foo {\n    foo = 1;\n\n    //...\n\n    bar() {\n        return 1;\n    }\n}",
             parent: `${fileNode.id}::MyFoo`,
-            inDegree: 0,
-            outDegree: 1
+            inDegree: 1,
+            outDegree: 0
         },
         {
             id: `${fileNode.id}::MyFoo.constructor`,
@@ -209,15 +209,15 @@ export { Foo as MyFoo }
             language: 'javascript',
             exportable: false,
             documentation: '',
-            code: "class Foo\n    ...\n    constructor() {\n        this.foo = 1;\n    }",
+            code: "class Foo {\n    foo = 1;\n\n    constructor() {\n        this.foo = 1;\n    }\n\n}",
             parent: `${fileNode.id}::MyFoo`,
-            inDegree: 0,
-            outDegree: 1
+            inDegree: 1,
+            outDegree: 0
         },
 
     ];
     expect(fileNodeChildrenSimplified).toStrictEqual(expectedFileChildren);
-    expect(fileNode.inDegree).toBe(1);
+    expect(fileNode.outDegree).toBe(1);
     expect(classNodeMethodsSimplified).toStrictEqual(expectedMethods);
 });
 
@@ -315,6 +315,6 @@ function foo(param: Foo) {
     const fooCalls = codebase.getNode(`${rootFolderPath}/file2::foo`)?.simplify(['calls'])
     expect(file2Calls?.calls).toStrictEqual([`${rootFolderPath}/file1::Foo`, `${rootFolderPath}/file1::Foo.method`])
     expect(fooVarCalls?.calls).toStrictEqual([`${rootFolderPath}/file1::Foo`])
-    expect(method2Calls?.calls).toStrictEqual([`${rootFolderPath}/file1::Foo.method`, `${rootFolderPath}/file1::Foo`])
+    expect(method2Calls?.calls).toStrictEqual([`${rootFolderPath}/file1::Foo.method`, `${rootFolderPath}/file1::Foo.constructor`])
     expect(fooCalls?.calls).toStrictEqual([`${rootFolderPath}/file1::Foo`, `${rootFolderPath}/file1::Foo.method2`])
 });

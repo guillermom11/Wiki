@@ -150,7 +150,14 @@ export async function generateNodeDocumentation(
       totalTokens += tokens ?? 0;
       node.generatedDocumentation = response;
     } else {
-      node.generatedDocumentation = `Code: ${node.code}`;
+      node.generatedDocumentation = "";
+      graph[node.id].forEach((linkedNodeId) => {
+        const linkedNode = nodes.find((n) => n.id === linkedNodeId);
+        if (linkedNode?.generatedDocumentation) {
+          node.generatedDocumentation += `${linkedNode.generatedDocumentation}\n`;
+        }
+      });
+      node.generatedDocumentation += `(${node.type}) ${node.label} Code: ${node.code}`;
     }
     // console.log(`#### ${node.label} ####`)
     // console.log({ systemPrompt, userPrompt } )

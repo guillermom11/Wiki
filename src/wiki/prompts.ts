@@ -38,6 +38,8 @@ export function generateNodePrompts(node: GraphNode,
     
     const code = ['method', 'function', 'interface', 'assignment', 'type', 'enum', 'struct', 'union'].includes(node.type) ? node.code : node.codeNoBody
 
+    userPrompt += node.documentation ? `Documentation:\n${node.documentation}\n\n` : ''
+
     if (originFileNode && graph[node.id].length > 0 && originFileNode.importStatements) {
         userPrompt += `\n\`\`\`${node.language}\n${originFileNode.importStatements}\n\n${code}\n\`\`\`\n\n`
         systemPrompt += ` Don't mention about the imports if "${node.label}" is not using it directly in its implementation.`
@@ -59,6 +61,7 @@ export function generateNodePrompts(node: GraphNode,
         })
         
     }
+    systemPrompt += `\n\nIf the code uses some predefined value or constant, mention the exact value in the documentation.`;
 
     userPrompt += `Remember to not verbose about the extra information, just use them as a reference to explain what "${node.label}" does.`
     if (node.type === 'file') {
@@ -107,12 +110,20 @@ function getMostUsedNodesPerType(nodesPerType: Record<AllowedTypes, GraphNode[]>
             return acc
         }
 
-        if (!['file', 'namespace', 'package', 'mod', 'assignment', 'header'].includes(type)) 
+        if (!['file', 'namespace', 'package', 'mod', 'assignment', 'header'].includes(type))  {
             acc[type as AllowedTypes] = nodesPerType[type as AllowedTypes]
-        .filter(n => n.outDegree > 0)
-        .sort(
-            (a, b) => (b.outDegree + b.inDegree) - (a.outDegree + a.inDegree),
-            ).slice(0, 5).map((n) => `### From ${n.originFile}:\n\`\`\`${n.language}\n${n.codeNoBody}\n\`\`\``)
+                                        .filter(n => n.outDegree > 0)
+                                        .sort(
+                                            (a, b) => (b.outDegree + b.inDegree) - (a.outDegree + a.inDegree),
+                                            ).slice(0, 5).map((n) => {
+                                                let string = `> ${n.type} \`${n.label}\` from ${n.originFile}:\n\`\`\`${n.language}\n${n.codeNoBody}\n\`\`\``
+                                                if (n.generatedDocumentation) {
+                                                    string += `\nDocumentation:\n${n.generatedDocumentation}`
+                                                }
+                                                string += '\n------\n'
+                                                return string
+                                            })
+        }
         return acc
     }, {} as Record<AllowedTypes, (string | number)[]>)
 
@@ -156,14 +167,15 @@ export function generateFolderPrompts(nodes: GraphNode[],
     1. **Introduction**: Brief description of the project, its purpose, and main functionalities
     2. **Getting Started**: List of software, libraries, and tools needed.
     3. **Project Structure**: Description of the main directories and their purposes. Explanation of important files and their roles, mentioning important classes/functions/methods if necessary.
-    4. **Glossary**:  Definitions of key terms and concepts used in the project.`
+    4. **Usage Examples**: Include examples from the most used elements.
+    5. **Glossary**:  Definitions of key terms and concepts used in the project.`
     } else {
         systemPrompt += ` The wiki must describe the main features of the folder and its final purpose, i.e.:\n
         1. **Introduction**: Brief description of the folder, its purpose, and main functionalities.
         2. **Directory structure**:  Explanation of important files/directories and their roles, mentioning important classes/functions/methods if necessary.` 
     }
     
-    systemPrompt += `You can enhance the wiki by adding new sections based on markdown files if you think is necessary.`
+    systemPrompt += `\nYou can enhance the wiki by adding new sections based on markdown files if you think is necessary.`
 
 
     const folderContext = folderName.length > 0 ? `folder "${folderName}"` : `repository ${repoName}`
@@ -178,7 +190,7 @@ export function generateFolderPrompts(nodes: GraphNode[],
 
     for (const fileNode of fileNodesInFolder) {
         if (fileNode.language === 'markdown') {
-            userPrompt += `Use the content of the following markdown file ${fileNode.label} to enhance the publication:\n${fileNode.generatedDocumentation ?? ''}\n`
+            userPrompt += `If necessary, you can use the content of the following markdown file ${fileNode.label} to enhance the publication:\n${fileNode.generatedDocumentation ?? ''}\n`
         } else {
             userPrompt += `Documentation for ${fileNode.language} file ${fileNode.label}:\n${fileNode.generatedDocumentation ?? ''}\n`
         }
@@ -208,5 +220,9 @@ export function generateFolderPrompts(nodes: GraphNode[],
         
     }
 
+    // if (folderName === ''){
+    //     console.log(systemPrompt)
+    //     console.log(userPrompt)
+    // }
     return { systemPrompt, userPrompt }
 }

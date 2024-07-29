@@ -57,8 +57,8 @@ $globalFoo = 'Foo';
             documentation: '',
             code: '$globalFoo = \'Foo\'',
             parent: fileNode.id,
-            inDegree: 0,
-            outDegree: 1
+            inDegree: 1,
+            outDegree: 0
         },
         {
             id: `${fileNode.id}::globalVar`,
@@ -70,14 +70,14 @@ $globalFoo = 'Foo';
             documentation: '',
             code: '$globalVar = \'Hello, World!\'',
             parent: fileNode.id,
-            inDegree: 0,
-            outDegree: 1
+            inDegree: 1,
+            outDegree: 0
         },
     ];
 
     const fileNodeChildrenSimplified = Object.values(fileNode.children).map(n => n.simplify(nodeAttributes));
     expect(fileNodeChildrenSimplified).toStrictEqual(expectedFileChildren);
-    expect(fileNode.inDegree).toBe(2);
+    expect(fileNode.outDegree).toBe(2);
 });
 
 test('Function Definition', () => {
@@ -115,8 +115,8 @@ function bar($x, $y) {
             documentation: '/**\n * The bar function documentation\n * @param int $x\n * @param int $y\n * @return int\n */',
             code: 'function bar($x, $y) {\n    return $x + $y;\n}',
             parent: fileNode.id,
-            inDegree: 0,
-            outDegree: 1,
+            inDegree: 1,
+            outDegree: 0,
             children: []
         },
         {
@@ -129,14 +129,14 @@ function bar($x, $y) {
             documentation: '/**\n * The foo function documentation\n */',
             code: 'function foo() {\n    return "foo";\n}',
             parent: fileNode.id,
-            inDegree: 0,
-            outDegree: 1,
+            inDegree: 1,
+            outDegree: 0,
             children: []
         }
     ];
 
     expect(fileNodeChildrenSimplified).toStrictEqual(expectedChildren);
-    expect(fileNode.inDegree).toBe(2);
+    expect(fileNode.outDegree).toBe(2);
 });
 
 
@@ -180,8 +180,8 @@ class Foo {
             documentation: '/**\n * The Foo class documentation\n */',
             code: "class Foo {\n    public $bar = 1;\n\n    /**\n     * The constructor documentation\n     * @param int $x\n     */\n    public function __construct($x) {\n        $this->bar = $x;\n    }\n\n    public function baz() {\n        return $this->bar;\n    }\n}",
             parent: fileNode.id,
-            inDegree: 2,
-            outDegree: 1,
+            inDegree: 1,
+            outDegree: 2,
             children: [`${fileNode.id}::Foo.baz`, `${fileNode.id}::Foo.__construct`]
         }
     ];
@@ -195,10 +195,10 @@ class Foo {
             language: 'php',
             exportable: true,
             documentation: '',
-            code: "class Foo\n    ...\n    public function baz() {\n        return $this->bar;\n    }",
+            code: "class Foo {\n    public $bar = 1;\n\n    \n    //...\n\n    public function baz() {\n        return $this->bar;\n    }\n}",
             parent: `${fileNode.id}::Foo`,
-            inDegree: 0,
-            outDegree: 1
+            inDegree: 1,
+            outDegree: 0
         },
         {
             id: `${fileNode.id}::Foo.__construct`,
@@ -208,15 +208,15 @@ class Foo {
             language: 'php',
             exportable: true,
             documentation: '/**\n     * The constructor documentation\n     * @param int $x\n     */',
-            code: "class Foo\n    ...\n    public function __construct($x) {\n        $this->bar = $x;\n    }",
+            code: "class Foo {\n    public $bar = 1;\n\n    \n    public function __construct($x) {\n        $this->bar = $x;\n    }\n\n}",
             parent: `${fileNode.id}::Foo`,
-            inDegree: 0,
-            outDegree: 1
+            inDegree: 1,
+            outDegree: 0
         }
     ];
 
     expect(fileNodeChildrenSimplified).toStrictEqual(expectedFileChildren);
-    expect(fileNode.inDegree).toBe(1);
+    expect(fileNode.outDegree).toBe(1);
     expect(classNodeMethodsSimplified).toStrictEqual(expectedMethods);
 });
 
@@ -418,7 +418,7 @@ function foo(Foo $param) {
     const fileCalls = codebase.getNode(`${rootFolderPath}/file2`)?.simplify(['calls']);
     const fooCalls = codebase.getNode(`${rootFolderPath}/file2::foo`)?.simplify(['calls']);
 
-    expect(method2Calls?.calls).toStrictEqual([`MyNamespace::Foo.method`, `MyNamespace::Foo`]);
+    expect(method2Calls?.calls).toStrictEqual([`MyNamespace::Foo.method`, `MyNamespace::Foo.__construct`]);
     expect(fileCalls?.calls).toStrictEqual([`MyNamespace::Foo.method`, `MyNamespace::Foo`]);
     expect(fooCalls?.calls).toStrictEqual([`MyNamespace::Foo`, `MyNamespace::Foo.method2`]);
 });
