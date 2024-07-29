@@ -10,9 +10,9 @@ export async function generateDocumentation(nodes: GraphNode[], links: GraphLink
 
   await documentNodesByLevels(nodesByLevels, nodes, graph, repoName, model)
   
-  // const documentedFolders = await documentFolders(nodes, repoName, 'gpt-4o')
+  const documentedFolders = await documentFolders(nodes, repoName, 'gpt-4o')
   // rembember to set has_autowiki = true again!
-  const documentedFolders : { [key: number]: string[] } = {}
+  // const documentedFolders : { [key: number]: string[] } = {}
   return documentedFolders
 }
 
