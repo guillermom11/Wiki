@@ -24,214 +24,424 @@
     "line": 42
   },
   {
-    "source": "\\src\\communities\\centralities",
-    "target": "\\src\\communities\\centralities::eigenvector",
+    "source": "\\src\\communities\\centrality",
+    "target": "\\src\\communities\\centrality::top_20_files",
+    "label": "defines",
+    "line": 91
+  },
+  {
+    "source": "\\src\\communities\\centrality::top_20_files",
+    "target": "\\src\\communities\\centrality::df2_files",
+    "label": "calls",
+    "line": 1
+  },
+  {
+    "source": "\\src\\communities\\centrality",
+    "target": "\\src\\communities\\centrality::top_20_nodes",
+    "label": "defines",
+    "line": 90
+  },
+  {
+    "source": "\\src\\communities\\centrality::top_20_nodes",
+    "target": "\\src\\communities\\centrality::df2_nodes",
+    "label": "calls",
+    "line": 1
+  },
+  {
+    "source": "\\src\\communities\\centrality",
+    "target": "\\src\\communities\\centrality::df2_files",
     "label": "defines",
     "line": 87
   },
   {
-    "source": "\\src\\communities\\centralities::eigenvector",
-    "target": "\\src\\communities\\centralities::graph",
-    "label": "calls",
-    "line": 1
+    "source": "\\src\\communities\\centrality",
+    "target": "\\src\\communities\\centrality::df2_nodes",
+    "label": "defines",
+    "line": 86
   },
   {
-    "source": "\\src\\communities\\centralities",
-    "target": "\\src\\communities\\centralities::pageranks",
+    "source": "\\src\\communities\\centrality",
+    "target": "\\src\\communities\\centrality::df2",
     "label": "defines",
     "line": 85
   },
   {
-    "source": "\\src\\communities\\centralities::pageranks",
-    "target": "\\src\\communities\\centralities::graph",
+    "source": "\\src\\communities\\centrality::df2",
+    "target": "\\src\\communities\\centrality::eigenvector_centrality",
     "label": "calls",
     "line": 1
   },
   {
-    "source": "\\src\\communities\\centralities",
-    "target": "\\src\\communities\\centralities::closeness",
+    "source": "\\src\\communities\\centrality",
+    "target": "\\src\\communities\\centrality::most_important_files",
     "label": "defines",
-    "line": 84
+    "line": 78
   },
   {
-    "source": "\\src\\communities\\centralities::closeness",
-    "target": "\\src\\communities\\centralities::graph",
+    "source": "\\src\\communities\\centrality::most_important_files",
+    "target": "\\src\\communities\\centrality::df_files",
     "label": "calls",
     "line": 1
   },
   {
-    "source": "\\src\\communities\\centralities",
-    "target": "\\src\\communities\\centralities::betweenness",
-    "label": "defines",
-    "line": 83
+    "source": "\\src\\communities\\centrality::most_important_files",
+    "target": "\\src\\communities\\centrality::projectId",
+    "label": "calls",
+    "line": 2
   },
   {
-    "source": "\\src\\communities\\centralities::betweenness",
-    "target": "\\src\\communities\\centralities::graph",
+    "source": "\\src\\communities\\centrality",
+    "target": "\\src\\communities\\centrality::most_important_nodes",
+    "label": "defines",
+    "line": 77
+  },
+  {
+    "source": "\\src\\communities\\centrality::most_important_nodes",
+    "target": "\\src\\communities\\centrality::df_nodes",
     "label": "calls",
     "line": 1
   },
   {
-    "source": "\\src\\communities\\centralities",
-    "target": "\\src\\communities\\centralities::degree",
-    "label": "defines",
-    "line": 82
+    "source": "\\src\\communities\\centrality::most_important_nodes",
+    "target": "\\src\\communities\\centrality::projectId",
+    "label": "calls",
+    "line": 2
   },
   {
-    "source": "\\src\\communities\\centralities::degree",
-    "target": "\\src\\communities\\centralities::graph",
+    "source": "\\src\\communities\\centrality",
+    "target": "\\src\\communities\\centrality::df_nodes",
+    "label": "defines",
+    "line": 66
+  },
+  {
+    "source": "\\src\\communities\\centrality::df_nodes",
+    "target": "\\src\\communities\\centrality::df",
     "label": "calls",
     "line": 1
   },
   {
-    "source": "\\src\\communities\\centralities",
-    "target": "\\src\\communities\\centralities::graph",
+    "source": "\\src\\communities\\centrality",
+    "target": "\\src\\communities\\centrality::df_files",
     "label": "defines",
-    "line": 72
+    "line": 65
   },
   {
-    "source": "\\src\\communities\\centralities",
-    "target": "\\src\\communities\\centralities::constructGraphFromJson",
-    "label": "defines",
-    "line": 47
+    "source": "\\src\\communities\\centrality::df_files",
+    "target": "\\src\\communities\\centrality::df",
+    "label": "calls",
+    "line": 1
   },
   {
-    "source": "\\src\\communities\\centralities::constructGraphFromJson",
-    "target": "\\src\\communities\\centralities::wikiNode",
+    "source": "\\src\\communities\\centrality",
+    "target": "\\src\\communities\\centrality::df",
+    "label": "defines",
+    "line": 52
+  },
+  {
+    "source": "\\src\\communities\\centrality::df",
+    "target": "\\src\\communities\\centrality::degree_centrality",
+    "label": "calls",
+    "line": 2
+  },
+  {
+    "source": "\\src\\communities\\centrality::df",
+    "target": "\\src\\communities\\centrality::betweenness_centrality",
+    "label": "calls",
+    "line": 3
+  },
+  {
+    "source": "\\src\\communities\\centrality::df",
+    "target": "\\src\\communities\\centrality::closeness_centrality",
+    "label": "calls",
+    "line": 4
+  },
+  {
+    "source": "\\src\\communities\\centrality::df",
+    "target": "\\src\\communities\\centrality::pagerank",
     "label": "calls",
     "line": 5
   },
   {
-    "source": "\\src\\communities\\centralities::constructGraphFromJson",
-    "target": "\\src\\communities\\centralities::readJson",
+    "source": "\\src\\communities\\centrality::df",
+    "target": "\\src\\communities\\centrality::eigenvector_centrality",
     "label": "calls",
-    "line": 5
+    "line": 8
   },
   {
-    "source": "\\src\\communities\\centralities::constructGraphFromJson",
-    "target": "\\src\\communities\\centralities::nodesFilePath",
+    "source": "\\src\\communities\\centrality::df",
+    "target": "\\src\\communities\\centrality::df",
     "label": "calls",
-    "line": 5
+    "line": 11
   },
   {
-    "source": "\\src\\communities\\centralities::constructGraphFromJson",
-    "target": "\\src\\communities\\centralities::wikiLink",
+    "source": "\\src\\communities\\centrality::df",
+    "target": "\\src\\communities\\centrality::projectId",
     "label": "calls",
-    "line": 6
+    "line": 12
   },
   {
-    "source": "\\src\\communities\\centralities::constructGraphFromJson",
-    "target": "\\src\\communities\\centralities::linksFilePath",
-    "label": "calls",
-    "line": 6
-  },
-  {
-    "source": "\\src\\communities\\centralities",
-    "target": "\\src\\communities\\centralities::readJson",
+    "source": "\\src\\communities\\centrality",
+    "target": "\\src\\communities\\centrality::eigenvector_centrality",
     "label": "defines",
-    "line": 41
+    "line": 39
   },
   {
-    "source": "\\src\\communities\\centralities",
-    "target": "\\src\\communities\\centralities::wikiLink",
+    "source": "\\src\\communities\\centrality::eigenvector_centrality",
+    "target": "\\src\\communities\\centrality::G",
+    "label": "calls",
+    "line": 1
+  },
+  {
+    "source": "\\src\\communities\\centrality",
+    "target": "\\src\\communities\\centrality::hits",
+    "label": "defines",
+    "line": 38
+  },
+  {
+    "source": "\\src\\communities\\centrality::hits",
+    "target": "\\src\\communities\\centrality::G",
+    "label": "calls",
+    "line": 1
+  },
+  {
+    "source": "\\src\\communities\\centrality",
+    "target": "\\src\\communities\\centrality::pagerank",
+    "label": "defines",
+    "line": 37
+  },
+  {
+    "source": "\\src\\communities\\centrality::pagerank",
+    "target": "\\src\\communities\\centrality::G",
+    "label": "calls",
+    "line": 1
+  },
+  {
+    "source": "\\src\\communities\\centrality",
+    "target": "\\src\\communities\\centrality::closeness_centrality",
+    "label": "defines",
+    "line": 36
+  },
+  {
+    "source": "\\src\\communities\\centrality::closeness_centrality",
+    "target": "\\src\\communities\\centrality::G",
+    "label": "calls",
+    "line": 1
+  },
+  {
+    "source": "\\src\\communities\\centrality",
+    "target": "\\src\\communities\\centrality::betweenness_centrality",
     "label": "defines",
     "line": 35
   },
   {
-    "source": "\\src\\communities\\centralities::wikiLink",
-    "target": "\\src\\communities\\centralities::wikiLink",
+    "source": "\\src\\communities\\centrality::betweenness_centrality",
+    "target": "\\src\\communities\\centrality::G",
     "label": "calls",
     "line": 1
   },
   {
-    "source": "\\src\\communities\\centralities",
-    "target": "\\src\\communities\\centralities::wikiNode",
+    "source": "\\src\\communities\\centrality",
+    "target": "\\src\\communities\\centrality::degree_centrality",
     "label": "defines",
-    "line": 19
+    "line": 34
   },
   {
-    "source": "\\src\\communities\\centralities::wikiNode",
-    "target": "\\src\\communities\\centralities::wikiNode",
+    "source": "\\src\\communities\\centrality::degree_centrality",
+    "target": "\\src\\communities\\centrality::G",
     "label": "calls",
     "line": 1
   },
   {
-    "source": "\\src\\communities\\centralities",
-    "target": "\\src\\communities\\centralities::linksFilePath",
+    "source": "\\src\\communities\\centrality",
+    "target": "\\src\\communities\\centrality::G",
     "label": "defines",
-    "line": 16
+    "line": 32
   },
   {
-    "source": "\\src\\communities\\centralities::linksFilePath",
-    "target": "\\src\\communities\\centralities::folder_path",
+    "source": "\\src\\communities\\centrality::G",
+    "target": "\\src\\communities\\centrality::construct_graph_from_json",
     "label": "calls",
     "line": 1
   },
   {
-    "source": "\\src\\communities\\centralities::linksFilePath",
-    "target": "\\src\\communities\\centralities::projectId",
+    "source": "\\src\\communities\\centrality::G",
+    "target": "\\src\\communities\\centrality::nodes",
     "label": "calls",
     "line": 1
   },
   {
-    "source": "\\src\\communities\\centralities",
-    "target": "\\src\\communities\\centralities::nodesFilePath",
+    "source": "\\src\\communities\\centrality::G",
+    "target": "\\src\\communities\\centrality::links",
+    "label": "calls",
+    "line": 1
+  },
+  {
+    "source": "\\src\\communities\\centrality",
+    "target": "\\src\\communities\\centrality::links",
     "label": "defines",
-    "line": 15
+    "line": 30
   },
   {
-    "source": "\\src\\communities\\centralities::nodesFilePath",
-    "target": "\\src\\communities\\centralities::folder_path",
+    "source": "\\src\\communities\\centrality::links",
+    "target": "\\src\\communities\\centrality::read_json",
     "label": "calls",
     "line": 1
   },
   {
-    "source": "\\src\\communities\\centralities::nodesFilePath",
-    "target": "\\src\\communities\\centralities::projectId",
+    "source": "\\src\\communities\\centrality::links",
+    "target": "\\src\\communities\\centrality::links_path",
     "label": "calls",
     "line": 1
   },
   {
-    "source": "\\src\\communities\\centralities",
-    "target": "\\src\\communities\\centralities::folder_path",
+    "source": "\\src\\communities\\centrality",
+    "target": "\\src\\communities\\centrality::nodes",
+    "label": "defines",
+    "line": 28
+  },
+  {
+    "source": "\\src\\communities\\centrality::nodes",
+    "target": "\\src\\communities\\centrality::read_json",
+    "label": "calls",
+    "line": 1
+  },
+  {
+    "source": "\\src\\communities\\centrality::nodes",
+    "target": "\\src\\communities\\centrality::nodes_path",
+    "label": "calls",
+    "line": 1
+  },
+  {
+    "source": "\\src\\communities\\centrality",
+    "target": "\\src\\communities\\centrality::construct_graph_from_json",
+    "label": "defines",
+    "line": 18
+  },
+  {
+    "source": "\\src\\communities\\centrality",
+    "target": "\\src\\communities\\centrality::save_json",
     "label": "defines",
     "line": 14
   },
   {
-    "source": "\\src\\communities\\centralities",
-    "target": "\\src\\communities\\centralities::projectId",
+    "source": "\\src\\communities\\centrality",
+    "target": "\\src\\communities\\centrality::read_json",
     "label": "defines",
-    "line": 13
+    "line": 11
   },
   {
-    "source": "\\src\\communities\\centralities",
-    "target": "\\src\\communities\\centralities::degree",
-    "label": "calls",
-    "line": 108
+    "source": "\\src\\communities\\centrality",
+    "target": "\\src\\communities\\centrality::links_path",
+    "label": "defines",
+    "line": 8
   },
   {
-    "source": "\\src\\communities\\centralities",
-    "target": "\\src\\communities\\centralities::betweenness",
+    "source": "\\src\\communities\\centrality::links_path",
+    "target": "\\src\\communities\\centrality::folder_path",
     "label": "calls",
-    "line": 109
+    "line": 1
   },
   {
-    "source": "\\src\\communities\\centralities",
-    "target": "\\src\\communities\\centralities::closeness",
+    "source": "\\src\\communities\\centrality::links_path",
+    "target": "\\src\\communities\\centrality::projectId",
     "label": "calls",
-    "line": 110
+    "line": 1
   },
   {
-    "source": "\\src\\communities\\centralities",
-    "target": "\\src\\communities\\centralities::pageranks",
-    "label": "calls",
-    "line": 111
+    "source": "\\src\\communities\\centrality",
+    "target": "\\src\\communities\\centrality::nodes_path",
+    "label": "defines",
+    "line": 7
   },
   {
-    "source": "\\src\\communities\\centralities",
-    "target": "\\src\\communities\\centralities::eigenvector",
+    "source": "\\src\\communities\\centrality::nodes_path",
+    "target": "\\src\\communities\\centrality::folder_path",
     "label": "calls",
-    "line": 114
+    "line": 1
+  },
+  {
+    "source": "\\src\\communities\\centrality::nodes_path",
+    "target": "\\src\\communities\\centrality::projectId",
+    "label": "calls",
+    "line": 1
+  },
+  {
+    "source": "\\src\\communities\\centrality",
+    "target": "\\src\\communities\\centrality::folder_path",
+    "label": "defines",
+    "line": 6
+  },
+  {
+    "source": "\\src\\communities\\centrality",
+    "target": "\\src\\communities\\centrality::projectId",
+    "label": "defines",
+    "line": 5
+  },
+  {
+    "source": "\\src\\communities\\centrality",
+    "target": "\\src\\communities\\centrality::folder_path",
+    "label": "calls",
+    "line": 7
+  },
+  {
+    "source": "\\src\\communities\\centrality",
+    "target": "\\src\\communities\\centrality::projectId",
+    "label": "calls",
+    "line": 7
+  },
+  {
+    "source": "\\src\\communities\\centrality",
+    "target": "\\src\\communities\\centrality::read_json",
+    "label": "calls",
+    "line": 28
+  },
+  {
+    "source": "\\src\\communities\\centrality",
+    "target": "\\src\\communities\\centrality::nodes_path",
+    "label": "calls",
+    "line": 28
+  },
+  {
+    "source": "\\src\\communities\\centrality",
+    "target": "\\src\\communities\\centrality::links_path",
+    "label": "calls",
+    "line": 30
+  },
+  {
+    "source": "\\src\\communities\\centrality",
+    "target": "\\src\\communities\\centrality::construct_graph_from_json",
+    "label": "calls",
+    "line": 32
+  },
+  {
+    "source": "\\src\\communities\\centrality",
+    "target": "\\src\\communities\\centrality::df",
+    "label": "calls",
+    "line": 63
+  },
+  {
+    "source": "\\src\\communities\\centrality",
+    "target": "\\src\\communities\\centrality::df_files",
+    "label": "calls",
+    "line": 69
+  },
+  {
+    "source": "\\src\\communities\\centrality",
+    "target": "\\src\\communities\\centrality::df_nodes",
+    "label": "calls",
+    "line": 70
+  },
+  {
+    "source": "\\src\\communities\\centrality",
+    "target": "\\src\\communities\\centrality::df2_nodes",
+    "label": "calls",
+    "line": 90
+  },
+  {
+    "source": "\\src\\communities\\centrality",
+    "target": "\\src\\communities\\centrality::df2_files",
+    "label": "calls",
+    "line": 91
   },
   {
     "source": "\\src\\communities\\communities",
@@ -319,27 +529,45 @@
   },
   {
     "source": "\\src\\communities\\communities",
+    "target": "\\src\\communities\\communities::folder_path",
+    "label": "calls",
+    "line": 13
+  },
+  {
+    "source": "\\src\\communities\\communities",
+    "target": "\\src\\communities\\communities::projectId",
+    "label": "calls",
+    "line": 13
+  },
+  {
+    "source": "\\src\\communities\\communities",
     "target": "\\src\\communities\\communities::wikiNode",
     "label": "calls",
-    "line": 77
+    "line": 17
+  },
+  {
+    "source": "\\src\\communities\\communities",
+    "target": "\\src\\communities\\communities::wikiLink",
+    "label": "calls",
+    "line": 33
   },
   {
     "source": "\\src\\communities\\communities",
     "target": "\\src\\communities\\communities::constructGraphFromJson",
     "label": "calls",
-    "line": 78
+    "line": 70
   },
   {
     "source": "\\src\\communities\\communities",
     "target": "\\src\\communities\\communities::nodesFilePath",
     "label": "calls",
-    "line": 78
+    "line": 70
   },
   {
     "source": "\\src\\communities\\communities",
     "target": "\\src\\communities\\communities::linksFilePath",
     "label": "calls",
-    "line": 78
+    "line": 70
   },
   {
     "source": "\\src\\communities\\communities",
@@ -445,19 +673,31 @@
   },
   {
     "source": "\\src\\index",
-    "target": "\\src\\index::const",
+    "target": "\\src\\index::port",
+    "label": "defines",
+    "line": 65
+  },
+  {
+    "source": "\\src\\index",
+    "target": "\\src\\index::app",
     "label": "defines",
     "line": 11
+  },
+  {
+    "source": "\\src\\index",
+    "target": "\\src\\index::port",
+    "label": "calls",
+    "line": 66
   },
   {
     "source": "\\src\\model\\calls::CallsCapturer",
     "target": "\\src\\model\\calls::CallsCapturer.getCallsFromNode",
     "label": "defines",
-    "line": 133
+    "line": 146
   },
   {
     "source": "\\src\\model\\calls::CallsCapturer.getCallsFromNode",
-    "target": "\\src\\model\\calls::CallsCapturer",
+    "target": "\\src\\model\\calls::CallsCapturer.constructor",
     "label": "calls",
     "line": 5
   },
@@ -477,7 +717,7 @@
     "source": "\\src\\model\\calls::CallsCapturer",
     "target": "\\src\\model\\calls::CallsCapturer.captureCalls",
     "label": "defines",
-    "line": 91
+    "line": 99
   },
   {
     "source": "\\src\\model\\calls::CallsCapturer.captureCalls",
@@ -487,15 +727,15 @@
   },
   {
     "source": "\\src\\model\\calls::CallsCapturer.captureCalls",
-    "target": "\\src\\model\\calls::CallsCapturer",
+    "target": "\\src\\model\\calls::CallsCapturer.constructor",
     "label": "calls",
-    "line": 29
+    "line": 34
   },
   {
     "source": "\\src\\model\\calls::CallsCapturer",
     "target": "\\src\\model\\calls::CallsCapturer.captureAssignments",
     "label": "defines",
-    "line": 46
+    "line": 54
   },
   {
     "source": "\\src\\model\\calls::CallsCapturer.captureAssignments",
@@ -507,13 +747,7 @@
     "source": "\\src\\model\\calls::CallsCapturer",
     "target": "\\src\\model\\calls::CallsCapturer.constructor",
     "label": "defines",
-    "line": 27
-  },
-  {
-    "source": "\\src\\model\\calls::CallsCapturer.constructor",
-    "target": "\\src\\model\\calls::CallsCapturer",
-    "label": "calls",
-    "line": 2
+    "line": 28
   },
   {
     "source": "\\src\\model\\calls",
@@ -531,25 +765,19 @@
     "source": "\\src\\model\\calls::CallsCapturer",
     "target": "\\src\\model\\calls::VariableAssignment",
     "label": "calls",
-    "line": 25
+    "line": 33
   },
   {
     "source": "\\src\\model\\calls::CallsCapturer",
     "target": "\\src\\model\\calls::CallIdentifier",
     "label": "calls",
-    "line": 70
+    "line": 78
   },
   {
     "source": "\\src\\model\\calls::CallIdentifier",
     "target": "\\src\\model\\calls::CallIdentifier.constructor",
     "label": "defines",
     "line": 16
-  },
-  {
-    "source": "\\src\\model\\calls::CallIdentifier.constructor",
-    "target": "\\src\\model\\calls::CallIdentifier",
-    "label": "calls",
-    "line": 2
   },
   {
     "source": "\\src\\model\\calls",
@@ -576,28 +804,10 @@
     "line": 1
   },
   {
-    "source": "\\src\\model\\calls",
-    "target": "\\src\\model\\calls::VariableAssignment",
-    "label": "calls",
-    "line": 5
-  },
-  {
-    "source": "\\src\\model\\calls",
-    "target": "\\src\\model\\calls::CallIdentifier",
-    "label": "calls",
-    "line": 12
-  },
-  {
-    "source": "\\src\\model\\calls",
-    "target": "\\src\\model\\calls::CallsCapturer",
-    "label": "calls",
-    "line": 22
-  },
-  {
     "source": "\\src\\model\\codebase::Codebase",
     "target": "\\src\\model\\codebase::Codebase.resolveHeaderC",
     "label": "defines",
-    "line": 884
+    "line": 1077
   },
   {
     "source": "\\src\\model\\codebase::Codebase.resolveHeaderC",
@@ -609,29 +819,29 @@
     "source": "\\src\\model\\codebase::Codebase.resolveHeaderC",
     "target": "\\src\\model\\codebase::Node.getAllChildren",
     "label": "calls",
-    "line": 3
+    "line": 7
   },
   {
     "source": "\\src\\model\\codebase::Codebase.resolveHeaderC",
-    "target": "\\src\\model\\codebase::Codebase",
+    "target": "\\src\\model\\codebase::Codebase.constructor",
     "label": "calls",
-    "line": 9
+    "line": 15
   },
   {
     "source": "\\src\\model\\codebase::Codebase.resolveHeaderC",
     "target": "\\src\\model\\codebase::Node.removeChild",
     "label": "calls",
-    "line": 10
+    "line": 16
   },
   {
     "source": "\\src\\model\\codebase::Codebase",
     "target": "\\src\\model\\codebase::Codebase.resolveImportStatementsNodes",
     "label": "defines",
-    "line": 839
+    "line": 1009
   },
   {
     "source": "\\src\\model\\codebase::Codebase.resolveImportStatementsNodes",
-    "target": "\\src\\model\\codebase::Codebase",
+    "target": "\\src\\model\\codebase::Codebase.constructor",
     "label": "calls",
     "line": 2
   },
@@ -639,37 +849,31 @@
     "source": "\\src\\model\\codebase::Codebase.resolveImportStatementsNodes",
     "target": "\\src\\model\\codebase::ImportName",
     "label": "calls",
-    "line": 14
+    "line": 23
   },
   {
     "source": "\\src\\model\\codebase::Codebase.resolveImportStatementsNodes",
     "target": "\\src\\model\\codebase::Codebase.resolveHeaderC",
     "label": "calls",
-    "line": 22
+    "line": 31
   },
   {
     "source": "\\src\\model\\codebase::Codebase",
     "target": "\\src\\model\\codebase::Codebase.resolvePythonInitImportStatements",
     "label": "defines",
-    "line": 822
+    "line": 987
   },
   {
     "source": "\\src\\model\\codebase::Codebase.resolvePythonInitImportStatements",
-    "target": "\\src\\model\\codebase::Codebase",
+    "target": "\\src\\model\\codebase::Codebase.constructor",
     "label": "calls",
     "line": 4
-  },
-  {
-    "source": "\\src\\model\\codebase::Codebase.resolvePythonInitImportStatements",
-    "target": "\\src\\model\\codebase::ImportStatement",
-    "label": "calls",
-    "line": 7
   },
   {
     "source": "\\src\\model\\codebase::Codebase",
     "target": "\\src\\model\\codebase::Codebase.getLinks",
     "label": "defines",
-    "line": 800
+    "line": 961
   },
   {
     "source": "\\src\\model\\codebase::Codebase.getLinks",
@@ -679,7 +883,7 @@
   },
   {
     "source": "\\src\\model\\codebase::Codebase.getLinks",
-    "target": "\\src\\model\\codebase::Codebase",
+    "target": "\\src\\model\\codebase::Codebase.constructor",
     "label": "calls",
     "line": 3
   },
@@ -687,11 +891,11 @@
     "source": "\\src\\model\\codebase::Codebase",
     "target": "\\src\\model\\codebase::Codebase.simplify",
     "label": "defines",
-    "line": 796
+    "line": 955
   },
   {
     "source": "\\src\\model\\codebase::Codebase.simplify",
-    "target": "\\src\\model\\codebase::Codebase",
+    "target": "\\src\\model\\codebase::Codebase.constructor",
     "label": "calls",
     "line": 2
   },
@@ -699,7 +903,7 @@
     "source": "\\src\\model\\codebase::Codebase",
     "target": "\\src\\model\\codebase::Codebase.getCalls",
     "label": "defines",
-    "line": 761
+    "line": 904
   },
   {
     "source": "\\src\\model\\codebase::Codebase.getCalls",
@@ -709,7 +913,7 @@
   },
   {
     "source": "\\src\\model\\codebase::Codebase.getCalls",
-    "target": "\\src\\model\\codebase::Codebase",
+    "target": "\\src\\model\\codebase::Codebase.constructor",
     "label": "calls",
     "line": 19
   },
@@ -717,7 +921,7 @@
     "source": "\\src\\model\\codebase::Codebase",
     "target": "\\src\\model\\codebase::Codebase.parseFolder",
     "label": "defines",
-    "line": 734
+    "line": 875
   },
   {
     "source": "\\src\\model\\codebase::Codebase.parseFolder",
@@ -727,7 +931,7 @@
   },
   {
     "source": "\\src\\model\\codebase::Codebase.parseFolder",
-    "target": "\\src\\model\\codebase::Codebase",
+    "target": "\\src\\model\\codebase::Codebase.constructor",
     "label": "calls",
     "line": 2
   },
@@ -741,31 +945,31 @@
     "source": "\\src\\model\\codebase::Codebase.parseFolder",
     "target": "\\src\\model\\codebase::Codebase.addNodeMap",
     "label": "calls",
-    "line": 10
+    "line": 12
   },
   {
     "source": "\\src\\model\\codebase::Codebase.parseFolder",
     "target": "\\src\\model\\codebase::Codebase.resolvePythonInitImportStatements",
     "label": "calls",
-    "line": 22
+    "line": 24
   },
   {
     "source": "\\src\\model\\codebase::Codebase.parseFolder",
     "target": "\\src\\model\\codebase::Codebase.resolveSpaces",
     "label": "calls",
-    "line": 23
+    "line": 25
   },
   {
     "source": "\\src\\model\\codebase::Codebase.parseFolder",
     "target": "\\src\\model\\codebase::Codebase.resolveImportStatementsNodes",
     "label": "calls",
-    "line": 24
+    "line": 26
   },
   {
     "source": "\\src\\model\\codebase::Codebase",
     "target": "\\src\\model\\codebase::Codebase.resolveSpaces",
     "label": "defines",
-    "line": 700
+    "line": 829
   },
   {
     "source": "\\src\\model\\codebase::Codebase.resolveSpaces",
@@ -775,7 +979,7 @@
   },
   {
     "source": "\\src\\model\\codebase::Codebase.resolveSpaces",
-    "target": "\\src\\model\\codebase::Codebase",
+    "target": "\\src\\model\\codebase::Codebase.constructor",
     "label": "calls",
     "line": 3
   },
@@ -783,13 +987,13 @@
     "source": "\\src\\model\\codebase::Codebase.resolveSpaces",
     "target": "\\src\\model\\codebase::Node.addChild",
     "label": "calls",
-    "line": 16
+    "line": 28
   },
   {
     "source": "\\src\\model\\codebase::Codebase",
     "target": "\\src\\model\\codebase::Codebase.generateNodesFromFilePath",
     "label": "defines",
-    "line": 653
+    "line": 781
   },
   {
     "source": "\\src\\model\\codebase::Codebase.generateNodesFromFilePath",
@@ -817,21 +1021,27 @@
   },
   {
     "source": "\\src\\model\\codebase::Codebase.generateNodesFromFilePath",
-    "target": "\\src\\model\\codebase::Codebase",
+    "target": "\\src\\model\\codebase::Codebase.constructor",
     "label": "calls",
     "line": 35
   },
   {
     "source": "\\src\\model\\codebase::Codebase.generateNodesFromFilePath",
+    "target": "\\src\\model\\codebase::enc",
+    "label": "calls",
+    "line": 40
+  },
+  {
+    "source": "\\src\\model\\codebase::Codebase.generateNodesFromFilePath",
     "target": "\\src\\model\\codebase::Codebase.addNodeToSpaceMap",
     "label": "calls",
-    "line": 42
+    "line": 43
   },
   {
     "source": "\\src\\model\\codebase::Codebase",
     "target": "\\src\\model\\codebase::Codebase.addNodeToSpaceMap",
     "label": "defines",
-    "line": 648
+    "line": 776
   },
   {
     "source": "\\src\\model\\codebase::Codebase.addNodeToSpaceMap",
@@ -841,7 +1051,7 @@
   },
   {
     "source": "\\src\\model\\codebase::Codebase.addNodeToSpaceMap",
-    "target": "\\src\\model\\codebase::Codebase",
+    "target": "\\src\\model\\codebase::Codebase.constructor",
     "label": "calls",
     "line": 2
   },
@@ -849,7 +1059,7 @@
     "source": "\\src\\model\\codebase::Codebase",
     "target": "\\src\\model\\codebase::Codebase.addNodeMap",
     "label": "defines",
-    "line": 645
+    "line": 773
   },
   {
     "source": "\\src\\model\\codebase::Codebase.addNodeMap",
@@ -859,7 +1069,7 @@
   },
   {
     "source": "\\src\\model\\codebase::Codebase.addNodeMap",
-    "target": "\\src\\model\\codebase::Codebase",
+    "target": "\\src\\model\\codebase::Codebase.constructor",
     "label": "calls",
     "line": 2
   },
@@ -867,7 +1077,7 @@
     "source": "\\src\\model\\codebase::Codebase",
     "target": "\\src\\model\\codebase::Codebase.getNode",
     "label": "defines",
-    "line": 642
+    "line": 770
   },
   {
     "source": "\\src\\model\\codebase::Codebase.getNode",
@@ -877,7 +1087,7 @@
   },
   {
     "source": "\\src\\model\\codebase::Codebase.getNode",
-    "target": "\\src\\model\\codebase::Codebase",
+    "target": "\\src\\model\\codebase::Codebase.constructor",
     "label": "calls",
     "line": 2
   },
@@ -885,7 +1095,7 @@
     "source": "\\src\\model\\codebase::Codebase",
     "target": "\\src\\model\\codebase::Codebase.addNode",
     "label": "defines",
-    "line": 639
+    "line": 767
   },
   {
     "source": "\\src\\model\\codebase::Codebase.addNode",
@@ -895,7 +1105,7 @@
   },
   {
     "source": "\\src\\model\\codebase::Codebase.addNode",
-    "target": "\\src\\model\\codebase::Codebase",
+    "target": "\\src\\model\\codebase::Codebase.constructor",
     "label": "calls",
     "line": 2
   },
@@ -903,19 +1113,13 @@
     "source": "\\src\\model\\codebase::Codebase",
     "target": "\\src\\model\\codebase::Codebase.constructor",
     "label": "defines",
-    "line": 636
-  },
-  {
-    "source": "\\src\\model\\codebase::Codebase.constructor",
-    "target": "\\src\\model\\codebase::Codebase",
-    "label": "calls",
-    "line": 2
+    "line": 764
   },
   {
     "source": "\\src\\model\\codebase",
     "target": "\\src\\model\\codebase::Codebase",
     "label": "defines",
-    "line": 629
+    "line": 757
   },
   {
     "source": "\\src\\model\\codebase::Codebase",
@@ -933,19 +1137,25 @@
     "source": "\\src\\model\\codebase::Codebase",
     "target": "\\src\\model\\codebase::Link",
     "label": "calls",
-    "line": 172
+    "line": 205
   },
   {
     "source": "\\src\\model\\codebase::Node",
     "target": "\\src\\model\\codebase::Node.simplify",
     "label": "defines",
-    "line": 592
+    "line": 718
   },
   {
     "source": "\\src\\model\\codebase::Node.simplify",
-    "target": "\\src\\model\\codebase::Node",
+    "target": "\\src\\model\\codebase::Node.constructor",
     "label": "calls",
     "line": 3
+  },
+  {
+    "source": "\\src\\model\\codebase::Node.simplify",
+    "target": "\\src\\model\\codebase::Node.getClassMethodCode",
+    "label": "calls",
+    "line": 13
   },
   {
     "source": "\\src\\model\\codebase::Node.simplify",
@@ -957,11 +1167,11 @@
     "source": "\\src\\model\\codebase::Node",
     "target": "\\src\\model\\codebase::Node.getChildrenDefinitions",
     "label": "defines",
-    "line": 426
+    "line": 531
   },
   {
     "source": "\\src\\model\\codebase::Node.getChildrenDefinitions",
-    "target": "\\src\\model\\codebase::Node",
+    "target": "\\src\\model\\codebase::Node.constructor",
     "label": "calls",
     "line": 1
   },
@@ -969,17 +1179,17 @@
     "source": "\\src\\model\\codebase::Node.getChildrenDefinitions",
     "target": "\\src\\model\\codebase::Node.addChild",
     "label": "calls",
-    "line": 156
+    "line": 177
   },
   {
     "source": "\\src\\model\\codebase::Node",
     "target": "\\src\\model\\codebase::Node.resolveImportStatementsPath",
     "label": "defines",
-    "line": 387
+    "line": 485
   },
   {
     "source": "\\src\\model\\codebase::Node.resolveImportStatementsPath",
-    "target": "\\src\\model\\codebase::Node",
+    "target": "\\src\\model\\codebase::Node.constructor",
     "label": "calls",
     "line": 2
   },
@@ -987,23 +1197,23 @@
     "source": "\\src\\model\\codebase::Node",
     "target": "\\src\\model\\codebase::Node.parseExportClauses",
     "label": "defines",
-    "line": 312
+    "line": 398
   },
   {
     "source": "\\src\\model\\codebase::Node.parseExportClauses",
-    "target": "\\src\\model\\codebase::Node",
+    "target": "\\src\\model\\codebase::Node.constructor",
     "label": "calls",
-    "line": 1
+    "line": 2
   },
   {
     "source": "\\src\\model\\codebase::Node",
     "target": "\\src\\model\\codebase::Node.generateImports",
     "label": "defines",
-    "line": 261
+    "line": 343
   },
   {
     "source": "\\src\\model\\codebase::Node.generateImports",
-    "target": "\\src\\model\\codebase::Node",
+    "target": "\\src\\model\\codebase::Node.constructor",
     "label": "calls",
     "line": 2
   },
@@ -1023,11 +1233,23 @@
     "source": "\\src\\model\\codebase::Node",
     "target": "\\src\\model\\codebase::Node.getCodeWithoutBody",
     "label": "defines",
-    "line": 173
+    "line": 230
   },
   {
     "source": "\\src\\model\\codebase::Node.getCodeWithoutBody",
-    "target": "\\src\\model\\codebase::Node",
+    "target": "\\src\\model\\codebase::Node.constructor",
+    "label": "calls",
+    "line": 6
+  },
+  {
+    "source": "\\src\\model\\codebase::Node",
+    "target": "\\src\\model\\codebase::Node.getClassMethodCode",
+    "label": "defines",
+    "line": 183
+  },
+  {
+    "source": "\\src\\model\\codebase::Node.getClassMethodCode",
+    "target": "\\src\\model\\codebase::Node.constructor",
     "label": "calls",
     "line": 2
   },
@@ -1035,11 +1257,11 @@
     "source": "\\src\\model\\codebase::Node",
     "target": "\\src\\model\\codebase::Node.addNodeRelationship",
     "label": "defines",
-    "line": 148
+    "line": 152
   },
   {
     "source": "\\src\\model\\codebase::Node.addNodeRelationship",
-    "target": "\\src\\model\\codebase::Node",
+    "target": "\\src\\model\\codebase::Node.constructor",
     "label": "calls",
     "line": 1
   },
@@ -1053,17 +1275,17 @@
     "source": "\\src\\model\\codebase::Node.addNodeRelationship",
     "target": "\\src\\model\\codebase::Node.addChild",
     "label": "calls",
-    "line": 22
+    "line": 25
   },
   {
     "source": "\\src\\model\\codebase::Node",
     "target": "\\src\\model\\codebase::Node.isWithin",
     "label": "defines",
-    "line": 141
+    "line": 145
   },
   {
     "source": "\\src\\model\\codebase::Node.isWithin",
-    "target": "\\src\\model\\codebase::Node",
+    "target": "\\src\\model\\codebase::Node.constructor",
     "label": "calls",
     "line": 1
   },
@@ -1071,7 +1293,7 @@
     "source": "\\src\\model\\codebase::Node",
     "target": "\\src\\model\\codebase::Node.addImportStatement",
     "label": "defines",
-    "line": 136
+    "line": 140
   },
   {
     "source": "\\src\\model\\codebase::Node.addImportStatement",
@@ -1081,7 +1303,7 @@
   },
   {
     "source": "\\src\\model\\codebase::Node.addImportStatement",
-    "target": "\\src\\model\\codebase::Node",
+    "target": "\\src\\model\\codebase::Node.constructor",
     "label": "calls",
     "line": 2
   },
@@ -1089,11 +1311,11 @@
     "source": "\\src\\model\\codebase::Node",
     "target": "\\src\\model\\codebase::Node.addCall",
     "label": "defines",
-    "line": 129
+    "line": 133
   },
   {
     "source": "\\src\\model\\codebase::Node.addCall",
-    "target": "\\src\\model\\codebase::Node",
+    "target": "\\src\\model\\codebase::Node.constructor",
     "label": "calls",
     "line": 1
   },
@@ -1101,11 +1323,11 @@
     "source": "\\src\\model\\codebase::Node",
     "target": "\\src\\model\\codebase::Node.removeChild",
     "label": "defines",
-    "line": 120
+    "line": 124
   },
   {
     "source": "\\src\\model\\codebase::Node.removeChild",
-    "target": "\\src\\model\\codebase::Node",
+    "target": "\\src\\model\\codebase::Node.constructor",
     "label": "calls",
     "line": 1
   },
@@ -1113,11 +1335,11 @@
     "source": "\\src\\model\\codebase::Node",
     "target": "\\src\\model\\codebase::Node.addChild",
     "label": "defines",
-    "line": 112
+    "line": 116
   },
   {
     "source": "\\src\\model\\codebase::Node.addChild",
-    "target": "\\src\\model\\codebase::Node",
+    "target": "\\src\\model\\codebase::Node.constructor",
     "label": "calls",
     "line": 1
   },
@@ -1125,11 +1347,11 @@
     "source": "\\src\\model\\codebase::Node",
     "target": "\\src\\model\\codebase::Node.getAllChildren",
     "label": "defines",
-    "line": 101
+    "line": 105
   },
   {
     "source": "\\src\\model\\codebase::Node.getAllChildren",
-    "target": "\\src\\model\\codebase::Node",
+    "target": "\\src\\model\\codebase::Node.constructor",
     "label": "calls",
     "line": 1
   },
@@ -1137,31 +1359,31 @@
     "source": "\\src\\model\\codebase::Node",
     "target": "\\src\\model\\codebase::Node.getChild",
     "label": "defines",
-    "line": 88
+    "line": 99
   },
   {
     "source": "\\src\\model\\codebase::Node.getChild",
-    "target": "\\src\\model\\codebase::Node",
+    "target": "\\src\\model\\codebase::Node.constructor",
     "label": "calls",
     "line": 1
+  },
+  {
+    "source": "\\src\\model\\codebase::Node.getChild",
+    "target": "\\src\\model\\codebase::Node.getAllChildren",
+    "label": "calls",
+    "line": 3
   },
   {
     "source": "\\src\\model\\codebase::Node",
     "target": "\\src\\model\\codebase::Node.constructor",
     "label": "defines",
-    "line": 81
-  },
-  {
-    "source": "\\src\\model\\codebase::Node.constructor",
-    "target": "\\src\\model\\codebase::Node",
-    "label": "calls",
-    "line": 2
+    "line": 87
   },
   {
     "source": "\\src\\model\\codebase",
     "target": "\\src\\model\\codebase::Node",
     "label": "defines",
-    "line": 59
+    "line": 65
   },
   {
     "source": "\\src\\model\\codebase::Node",
@@ -1185,7 +1407,7 @@
     "source": "\\src\\model\\codebase",
     "target": "\\src\\model\\codebase::NodeCallTuple",
     "label": "defines",
-    "line": 57
+    "line": 63
   },
   {
     "source": "\\src\\model\\codebase::NodeCallTuple",
@@ -1203,7 +1425,7 @@
     "source": "\\src\\model\\codebase",
     "target": "\\src\\model\\codebase::Link",
     "label": "defines",
-    "line": 50
+    "line": 56
   },
   {
     "source": "\\src\\model\\codebase::Link",
@@ -1215,7 +1437,7 @@
     "source": "\\src\\model\\codebase::ImportStatement",
     "target": "\\src\\model\\codebase::ImportStatement.constructor",
     "label": "defines",
-    "line": 35
+    "line": 41
   },
   {
     "source": "\\src\\model\\codebase::ImportStatement.constructor",
@@ -1224,16 +1446,10 @@
     "line": 3
   },
   {
-    "source": "\\src\\model\\codebase::ImportStatement.constructor",
-    "target": "\\src\\model\\codebase::ImportStatement",
-    "label": "calls",
-    "line": 8
-  },
-  {
     "source": "\\src\\model\\codebase",
     "target": "\\src\\model\\codebase::ImportStatement",
     "label": "defines",
-    "line": 28
+    "line": 34
   },
   {
     "source": "\\src\\model\\codebase::ImportStatement",
@@ -1251,19 +1467,13 @@
     "source": "\\src\\model\\codebase::ImportName",
     "target": "\\src\\model\\codebase::ImportName.constructor",
     "label": "defines",
-    "line": 23
-  },
-  {
-    "source": "\\src\\model\\codebase::ImportName.constructor",
-    "target": "\\src\\model\\codebase::ImportName",
-    "label": "calls",
-    "line": 2
+    "line": 29
   },
   {
     "source": "\\src\\model\\codebase",
     "target": "\\src\\model\\codebase::ImportName",
     "label": "defines",
-    "line": 17
+    "line": 23
   },
   {
     "source": "\\src\\model\\codebase::ImportName",
@@ -1279,27 +1489,15 @@
   },
   {
     "source": "\\src\\model\\codebase",
-    "target": "\\src\\model\\codebase::const",
+    "target": "\\src\\model\\codebase::enc",
     "label": "defines",
-    "line": 15
+    "line": 21
   },
   {
     "source": "\\src\\model\\codebase",
-    "target": "\\src\\model\\codebase::ImportName",
+    "target": "\\src\\model\\codebase::NodeCallTuple",
     "label": "calls",
-    "line": 19
-  },
-  {
-    "source": "\\src\\model\\codebase",
-    "target": "\\src\\model\\codebase::ImportStatement",
-    "label": "calls",
-    "line": 30
-  },
-  {
-    "source": "\\src\\model\\codebase",
-    "target": "\\src\\model\\codebase::Link",
-    "label": "calls",
-    "line": 52
+    "line": 63
   },
   {
     "source": "\\src\\model\\codebase",
@@ -1308,34 +1506,28 @@
     "line": 63
   },
   {
-    "source": "\\src\\model\\codebase",
-    "target": "\\src\\model\\codebase::Codebase",
-    "label": "calls",
-    "line": 633
-  },
-  {
     "source": "\\src\\model\\consts",
     "target": "\\src\\model\\consts::treeSitterCommentTypes",
     "label": "defines",
-    "line": 126
+    "line": 127
   },
   {
     "source": "\\src\\model\\consts",
     "target": "\\src\\model\\consts::indexSuffixesMap",
     "label": "defines",
-    "line": 116
+    "line": 117
   },
   {
     "source": "\\src\\model\\consts",
     "target": "\\src\\model\\consts::itselfClassMap",
     "label": "defines",
-    "line": 106
+    "line": 107
   },
   {
     "source": "\\src\\model\\consts",
     "target": "\\src\\model\\consts::newClassMethodsMap",
     "label": "defines",
-    "line": 96
+    "line": 97
   },
   {
     "source": "\\src\\model\\consts",
@@ -1384,6 +1576,12 @@
     "target": "\\src\\model\\consts::AllowedTypes",
     "label": "calls",
     "line": 1
+  },
+  {
+    "source": "\\src\\model\\consts",
+    "target": "\\src\\model\\consts::AllowedTypes",
+    "label": "calls",
+    "line": 15
   },
   {
     "source": "\\src\\model\\utils",
@@ -1465,6 +1663,24 @@
   },
   {
     "source": "\\src\\queries\\c::cQueries",
+    "target": "\\src\\queries\\c::importStatements",
+    "label": "calls",
+    "line": 2
+  },
+  {
+    "source": "\\src\\queries\\c::cQueries",
+    "target": "\\src\\queries\\c::assignments",
+    "label": "calls",
+    "line": 3
+  },
+  {
+    "source": "\\src\\queries\\c::cQueries",
+    "target": "\\src\\queries\\c::constructorDefinitions",
+    "label": "calls",
+    "line": 3
+  },
+  {
+    "source": "\\src\\queries\\c::cQueries",
     "target": "\\src\\queries\\c::definitionTemplate",
     "label": "calls",
     "line": 4
@@ -1507,15 +1723,69 @@
   },
   {
     "source": "\\src\\queries\\c",
+    "target": "\\src\\queries\\c::constructorDefinitions",
+    "label": "defines",
+    "line": 68
+  },
+  {
+    "source": "\\src\\queries\\c",
     "target": "\\src\\queries\\c::definitionTemplate",
     "label": "defines",
     "line": 41
   },
   {
     "source": "\\src\\queries\\c",
-    "target": "\\src\\queries\\c::signments",
+    "target": "\\src\\queries\\c::assignments",
     "label": "defines",
     "line": 26
+  },
+  {
+    "source": "\\src\\queries\\c",
+    "target": "\\src\\queries\\c::importStatements",
+    "label": "defines",
+    "line": 16
+  },
+  {
+    "source": "\\src\\queries\\c",
+    "target": "\\src\\queries\\c::importStatements",
+    "label": "calls",
+    "line": 112
+  },
+  {
+    "source": "\\src\\queries\\c",
+    "target": "\\src\\queries\\c::assignments",
+    "label": "calls",
+    "line": 113
+  },
+  {
+    "source": "\\src\\queries\\c",
+    "target": "\\src\\queries\\c::constructorDefinitions",
+    "label": "calls",
+    "line": 113
+  },
+  {
+    "source": "\\src\\queries\\c",
+    "target": "\\src\\queries\\c::definitionTemplate",
+    "label": "calls",
+    "line": 114
+  },
+  {
+    "source": "\\src\\queries\\c",
+    "target": "\\src\\queries\\c::extraAssignmentCode",
+    "label": "calls",
+    "line": 116
+  },
+  {
+    "source": "\\src\\queries\\c",
+    "target": "\\src\\queries\\c::calls",
+    "label": "calls",
+    "line": 117
+  },
+  {
+    "source": "\\src\\queries\\c",
+    "target": "\\src\\queries\\c::anyAssignments",
+    "label": "calls",
+    "line": 118
   },
   {
     "source": "\\src\\queries\\index",
@@ -1540,6 +1810,24 @@
     "target": "\\src\\queries\\java::javaQueries",
     "label": "defines",
     "line": 87
+  },
+  {
+    "source": "\\src\\queries\\java::javaQueries",
+    "target": "\\src\\queries\\java::importStatements",
+    "label": "calls",
+    "line": 2
+  },
+  {
+    "source": "\\src\\queries\\java::javaQueries",
+    "target": "\\src\\queries\\java::assignments",
+    "label": "calls",
+    "line": 3
+  },
+  {
+    "source": "\\src\\queries\\java::javaQueries",
+    "target": "\\src\\queries\\java::constructorDefinitions",
+    "label": "calls",
+    "line": 3
   },
   {
     "source": "\\src\\queries\\java::javaQueries",
@@ -1597,21 +1885,87 @@
   },
   {
     "source": "\\src\\queries\\java",
+    "target": "\\src\\queries\\java::constructorDefinitions",
+    "label": "defines",
+    "line": 49
+  },
+  {
+    "source": "\\src\\queries\\java",
     "target": "\\src\\queries\\java::definitionTemplate",
     "label": "defines",
     "line": 36
   },
   {
     "source": "\\src\\queries\\java",
-    "target": "\\src\\queries\\java::signments",
+    "target": "\\src\\queries\\java::assignments",
     "label": "defines",
     "line": 30
+  },
+  {
+    "source": "\\src\\queries\\java",
+    "target": "\\src\\queries\\java::importStatements",
+    "label": "defines",
+    "line": 16
+  },
+  {
+    "source": "\\src\\queries\\java",
+    "target": "\\src\\queries\\java::importStatements",
+    "label": "calls",
+    "line": 90
+  },
+  {
+    "source": "\\src\\queries\\java",
+    "target": "\\src\\queries\\java::assignments",
+    "label": "calls",
+    "line": 91
+  },
+  {
+    "source": "\\src\\queries\\java",
+    "target": "\\src\\queries\\java::constructorDefinitions",
+    "label": "calls",
+    "line": 91
+  },
+  {
+    "source": "\\src\\queries\\java",
+    "target": "\\src\\queries\\java::definitionTemplate",
+    "label": "calls",
+    "line": 92
+  },
+  {
+    "source": "\\src\\queries\\java",
+    "target": "\\src\\queries\\java::extraAssignmentCode",
+    "label": "calls",
+    "line": 94
+  },
+  {
+    "source": "\\src\\queries\\java",
+    "target": "\\src\\queries\\java::calls",
+    "label": "calls",
+    "line": 95
+  },
+  {
+    "source": "\\src\\queries\\java",
+    "target": "\\src\\queries\\java::anyAssignments",
+    "label": "calls",
+    "line": 96
+  },
+  {
+    "source": "\\src\\queries\\java",
+    "target": "\\src\\queries\\java::spaceDeclaration",
+    "label": "calls",
+    "line": 97
   },
   {
     "source": "\\src\\queries\\javascript",
     "target": "\\src\\queries\\javascript::jsQueries",
     "label": "defines",
-    "line": 259
+    "line": 282
+  },
+  {
+    "source": "\\src\\queries\\javascript::jsQueries",
+    "target": "\\src\\queries\\javascript::constructorDefinitions",
+    "label": "calls",
+    "line": 3
   },
   {
     "source": "\\src\\queries\\javascript::jsQueries",
@@ -1669,6 +2023,18 @@
   },
   {
     "source": "\\src\\queries\\javascript",
+    "target": "\\src\\queries\\javascript::constructorDefinitions",
+    "label": "defines",
+    "line": 115
+  },
+  {
+    "source": "\\src\\queries\\javascript::constructorDefinitions",
+    "target": "\\src\\queries\\javascript::arrowFunctionConstructor",
+    "label": "calls",
+    "line": 9
+  },
+  {
+    "source": "\\src\\queries\\javascript",
     "target": "\\src\\queries\\javascript::arrowFunctionConstructor",
     "label": "defines",
     "line": 111
@@ -1683,13 +2049,61 @@
     "source": "\\src\\queries\\javascript",
     "target": "\\src\\queries\\javascript::arrowFunctionConstructor",
     "label": "calls",
-    "line": 124
+    "line": 123
+  },
+  {
+    "source": "\\src\\queries\\javascript",
+    "target": "\\src\\queries\\javascript::constructorDefinitions",
+    "label": "calls",
+    "line": 284
+  },
+  {
+    "source": "\\src\\queries\\javascript",
+    "target": "\\src\\queries\\javascript::definitionTemplate",
+    "label": "calls",
+    "line": 285
+  },
+  {
+    "source": "\\src\\queries\\javascript",
+    "target": "\\src\\queries\\javascript::exportClauses",
+    "label": "calls",
+    "line": 286
+  },
+  {
+    "source": "\\src\\queries\\javascript",
+    "target": "\\src\\queries\\javascript::extraAssignmentCode",
+    "label": "calls",
+    "line": 287
+  },
+  {
+    "source": "\\src\\queries\\javascript",
+    "target": "\\src\\queries\\javascript::calls",
+    "label": "calls",
+    "line": 288
+  },
+  {
+    "source": "\\src\\queries\\javascript",
+    "target": "\\src\\queries\\javascript::anyAssignments",
+    "label": "calls",
+    "line": 289
   },
   {
     "source": "\\src\\queries\\php",
     "target": "\\src\\queries\\php::phpQueries",
     "label": "defines",
     "line": 134
+  },
+  {
+    "source": "\\src\\queries\\php::phpQueries",
+    "target": "\\src\\queries\\php::assignments",
+    "label": "calls",
+    "line": 3
+  },
+  {
+    "source": "\\src\\queries\\php::phpQueries",
+    "target": "\\src\\queries\\php::constructorDefinitions",
+    "label": "calls",
+    "line": 3
   },
   {
     "source": "\\src\\queries\\php::phpQueries",
@@ -1747,21 +2161,87 @@
   },
   {
     "source": "\\src\\queries\\php",
+    "target": "\\src\\queries\\php::constructorDefinitions",
+    "label": "defines",
+    "line": 72
+  },
+  {
+    "source": "\\src\\queries\\php",
     "target": "\\src\\queries\\php::definitionTemplate",
     "label": "defines",
     "line": 58
   },
   {
     "source": "\\src\\queries\\php",
-    "target": "\\src\\queries\\php::signments",
+    "target": "\\src\\queries\\php::assignments",
     "label": "defines",
     "line": 44
+  },
+  {
+    "source": "\\src\\queries\\php",
+    "target": "\\src\\queries\\php::assignments",
+    "label": "calls",
+    "line": 136
+  },
+  {
+    "source": "\\src\\queries\\php",
+    "target": "\\src\\queries\\php::constructorDefinitions",
+    "label": "calls",
+    "line": 136
+  },
+  {
+    "source": "\\src\\queries\\php",
+    "target": "\\src\\queries\\php::definitionTemplate",
+    "label": "calls",
+    "line": 137
+  },
+  {
+    "source": "\\src\\queries\\php",
+    "target": "\\src\\queries\\php::extraAssignmentCode",
+    "label": "calls",
+    "line": 139
+  },
+  {
+    "source": "\\src\\queries\\php",
+    "target": "\\src\\queries\\php::calls",
+    "label": "calls",
+    "line": 140
+  },
+  {
+    "source": "\\src\\queries\\php",
+    "target": "\\src\\queries\\php::anyAssignments",
+    "label": "calls",
+    "line": 141
+  },
+  {
+    "source": "\\src\\queries\\php",
+    "target": "\\src\\queries\\php::spaceDeclaration",
+    "label": "calls",
+    "line": 142
   },
   {
     "source": "\\src\\queries\\python",
     "target": "\\src\\queries\\python::pyQueries",
     "label": "defines",
     "line": 183
+  },
+  {
+    "source": "\\src\\queries\\python::pyQueries",
+    "target": "\\src\\queries\\python::importStatements",
+    "label": "calls",
+    "line": 2
+  },
+  {
+    "source": "\\src\\queries\\python::pyQueries",
+    "target": "\\src\\queries\\python::assignments",
+    "label": "calls",
+    "line": 3
+  },
+  {
+    "source": "\\src\\queries\\python::pyQueries",
+    "target": "\\src\\queries\\python::constructorDefinitions",
+    "label": "calls",
+    "line": 3
   },
   {
     "source": "\\src\\queries\\python::pyQueries",
@@ -1807,21 +2287,87 @@
   },
   {
     "source": "\\src\\queries\\python",
+    "target": "\\src\\queries\\python::constructorDefinitions",
+    "label": "defines",
+    "line": 77
+  },
+  {
+    "source": "\\src\\queries\\python",
     "target": "\\src\\queries\\python::definitionTemplate",
     "label": "defines",
     "line": 61
   },
   {
     "source": "\\src\\queries\\python",
-    "target": "\\src\\queries\\python::signments",
+    "target": "\\src\\queries\\python::assignments",
     "label": "defines",
     "line": 49
+  },
+  {
+    "source": "\\src\\queries\\python",
+    "target": "\\src\\queries\\python::importStatements",
+    "label": "defines",
+    "line": 22
+  },
+  {
+    "source": "\\src\\queries\\python",
+    "target": "\\src\\queries\\python::importStatements",
+    "label": "calls",
+    "line": 184
+  },
+  {
+    "source": "\\src\\queries\\python",
+    "target": "\\src\\queries\\python::assignments",
+    "label": "calls",
+    "line": 185
+  },
+  {
+    "source": "\\src\\queries\\python",
+    "target": "\\src\\queries\\python::constructorDefinitions",
+    "label": "calls",
+    "line": 185
+  },
+  {
+    "source": "\\src\\queries\\python",
+    "target": "\\src\\queries\\python::definitionTemplate",
+    "label": "calls",
+    "line": 186
+  },
+  {
+    "source": "\\src\\queries\\python",
+    "target": "\\src\\queries\\python::extraAssignmentCode",
+    "label": "calls",
+    "line": 187
+  },
+  {
+    "source": "\\src\\queries\\python",
+    "target": "\\src\\queries\\python::calls",
+    "label": "calls",
+    "line": 189
+  },
+  {
+    "source": "\\src\\queries\\python",
+    "target": "\\src\\queries\\python::anyAssignments",
+    "label": "calls",
+    "line": 190
   },
   {
     "source": "\\src\\queries\\typescript",
     "target": "\\src\\queries\\typescript::tsQueries",
     "label": "defines",
     "line": 109
+  },
+  {
+    "source": "\\src\\queries\\typescript::tsQueries",
+    "target": "\\src\\queries\\typescript::importStatements",
+    "label": "calls",
+    "line": 2
+  },
+  {
+    "source": "\\src\\queries\\typescript::tsQueries",
+    "target": "\\src\\queries\\typescript::constructorDefinitions",
+    "label": "calls",
+    "line": 3
   },
   {
     "source": "\\src\\queries\\typescript::tsQueries",
@@ -1879,9 +2425,27 @@
   },
   {
     "source": "\\src\\queries\\typescript",
+    "target": "\\src\\queries\\typescript::constructorDefinitions",
+    "label": "defines",
+    "line": 49
+  },
+  {
+    "source": "\\src\\queries\\typescript",
     "target": "\\src\\queries\\typescript::definitionTemplate",
     "label": "defines",
     "line": 25
+  },
+  {
+    "source": "\\src\\queries\\typescript",
+    "target": "\\src\\queries\\typescript::importStatements",
+    "label": "defines",
+    "line": 19
+  },
+  {
+    "source": "\\src\\queries\\typescript",
+    "target": "\\src\\queries\\typescript::anyAssignments",
+    "label": "calls",
+    "line": 116
   },
   {
     "source": "\\src\\routes\\create_graph-test",
@@ -1953,25 +2517,25 @@
     "source": "\\src\\routes\\create_graph",
     "target": "\\src\\routes\\create_graph::repoRequestValidator",
     "label": "calls",
-    "line": 30
+    "line": 28
   },
   {
     "source": "\\src\\routes\\create_graph",
     "target": "\\src\\routes\\create_graph::secret",
     "label": "calls",
-    "line": 53
+    "line": 51
   },
   {
     "source": "\\src\\routes\\create_graph",
     "target": "\\src\\routes\\create_graph::processGraphCreation",
     "label": "calls",
-    "line": 166
+    "line": 164
   },
   {
     "source": "\\src\\routes\\graphs",
     "target": "\\src\\routes\\graphs::updateGraph",
     "label": "defines",
-    "line": 207
+    "line": 241
   },
   {
     "source": "\\src\\routes\\graphs::updateGraph",
@@ -1981,9 +2545,33 @@
   },
   {
     "source": "\\src\\routes\\graphs",
-    "target": "\\src\\routes\\graphs::UpdateGraph",
+    "target": "\\src\\routes\\graphs::updateGraphDocumentation",
+    "label": "defines",
+    "line": 205
+  },
+  {
+    "source": "\\src\\routes\\graphs::updateGraphDocumentation",
+    "target": "\\src\\routes\\graphs::UpdateGraphDocumentation",
+    "label": "calls",
+    "line": 9
+  },
+  {
+    "source": "\\src\\routes\\graphs",
+    "target": "\\src\\routes\\graphs::UpdateGraphDocumentation",
     "label": "defines",
     "line": 195
+  },
+  {
+    "source": "\\src\\routes\\graphs::UpdateGraphDocumentation",
+    "target": "\\src\\routes\\graphs::UpdateGraphDocumentation",
+    "label": "calls",
+    "line": 1
+  },
+  {
+    "source": "\\src\\routes\\graphs",
+    "target": "\\src\\routes\\graphs::UpdateGraph",
+    "label": "defines",
+    "line": 182
   },
   {
     "source": "\\src\\routes\\graphs::UpdateGraph",
@@ -1999,21 +2587,27 @@
   },
   {
     "source": "\\src\\routes\\graphs::graphs",
+    "target": "\\src\\routes\\graphs::updateGraphDocumentation",
+    "label": "calls",
+    "line": 109
+  },
+  {
+    "source": "\\src\\routes\\graphs::graphs",
     "target": "\\src\\routes\\graphs::updateGraph",
     "label": "calls",
-    "line": 166
+    "line": 153
+  },
+  {
+    "source": "\\src\\routes\\graphs",
+    "target": "\\src\\routes\\graphs::updateGraphDocumentation",
+    "label": "calls",
+    "line": 119
   },
   {
     "source": "\\src\\routes\\graphs",
     "target": "\\src\\routes\\graphs::updateGraph",
     "label": "calls",
-    "line": 176
-  },
-  {
-    "source": "\\src\\routes\\graphs",
-    "target": "\\src\\routes\\graphs::UpdateGraph",
-    "label": "calls",
-    "line": 195
+    "line": 163
   },
   {
     "source": "\\src\\tools\\function_tools",
@@ -2214,22 +2808,40 @@
     "line": 7
   },
   {
-    "source": "\\src\\tools\\function_tools",
-    "target": "\\src\\tools\\function_tools::Similarity",
-    "label": "calls",
-    "line": 28
+    "source": "\\src\\utils\\ai",
+    "target": "\\src\\utils\\ai::createEmbeddingsAzureOpenAI",
+    "label": "defines",
+    "line": 84
   },
   {
-    "source": "\\src\\tools\\function_tools",
-    "target": "\\src\\tools\\function_tools::nodeSeen",
+    "source": "\\src\\utils\\ai",
+    "target": "\\src\\utils\\ai::createEmbeddingsOpenAI",
+    "label": "defines",
+    "line": 62
+  },
+  {
+    "source": "\\src\\utils\\ai",
+    "target": "\\src\\utils\\ai::getAzureOpenAIChatCompletion",
+    "label": "defines",
+    "line": 36
+  },
+  {
+    "source": "\\src\\utils\\ai::getAzureOpenAIChatCompletion",
+    "target": "\\src\\utils\\ai::chatCompletionMessages",
     "label": "calls",
-    "line": 228
+    "line": 1
+  },
+  {
+    "source": "\\src\\utils\\ai::getAzureOpenAIChatCompletion",
+    "target": "\\src\\utils\\ai::chatResponse",
+    "label": "calls",
+    "line": 1
   },
   {
     "source": "\\src\\utils\\ai",
     "target": "\\src\\utils\\ai::getOpenAIChatCompletion",
     "label": "defines",
-    "line": 12
+    "line": 13
   },
   {
     "source": "\\src\\utils\\ai::getOpenAIChatCompletion",
@@ -2247,7 +2859,7 @@
     "source": "\\src\\utils\\ai",
     "target": "\\src\\utils\\ai::chatResponse",
     "label": "defines",
-    "line": 7
+    "line": 8
   },
   {
     "source": "\\src\\utils\\ai::chatResponse",
@@ -2259,7 +2871,7 @@
     "source": "\\src\\utils\\ai",
     "target": "\\src\\utils\\ai::chatCompletionMessages",
     "label": "defines",
-    "line": 3
+    "line": 4
   },
   {
     "source": "\\src\\utils\\ai::chatCompletionMessages",
@@ -2269,15 +2881,9 @@
   },
   {
     "source": "\\src\\utils\\ai",
-    "target": "\\src\\utils\\ai::chatResponse",
-    "label": "calls",
-    "line": 9
-  },
-  {
-    "source": "\\src\\utils\\ai",
     "target": "\\src\\utils\\ai::chatCompletionMessages",
     "label": "calls",
-    "line": 14
+    "line": 4
   },
   {
     "source": "\\src\\utils\\bitbucket\\refresh-token",
@@ -2364,24 +2970,6 @@
     "line": 5
   },
   {
-    "source": "\\src\\utils\\db",
-    "target": "\\src\\utils\\db::GraphLink",
-    "label": "calls",
-    "line": 40
-  },
-  {
-    "source": "\\src\\utils\\db",
-    "target": "\\src\\utils\\db::GraphFolder",
-    "label": "calls",
-    "line": 48
-  },
-  {
-    "source": "\\src\\utils\\db",
-    "target": "\\src\\utils\\db::GraphNode",
-    "label": "calls",
-    "line": 60
-  },
-  {
     "source": "\\src\\utils\\git",
     "target": "\\src\\utils\\git::getAccessToken",
     "label": "defines",
@@ -2457,13 +3045,43 @@
     "source": "\\src\\utils\\git",
     "target": "\\src\\utils\\git::GitServiceType",
     "label": "calls",
-    "line": 19
+    "line": 10
   },
   {
     "source": "\\src\\utils\\gitlab\\refresh-token",
     "target": "\\src\\utils\\gitlab\\refresh-token::refreshAccessToken",
     "label": "defines",
     "line": 3
+  },
+  {
+    "source": "\\src\\utils\\rag",
+    "target": "\\src\\utils\\rag::insertGraphFolderEmbeddings",
+    "label": "defines",
+    "line": 122
+  },
+  {
+    "source": "\\src\\utils\\rag::insertGraphFolderEmbeddings",
+    "target": "\\src\\utils\\rag::splitMarkdownByHeaders",
+    "label": "calls",
+    "line": 6
+  },
+  {
+    "source": "\\src\\utils\\rag",
+    "target": "\\src\\utils\\rag::insertNodesEmbeddings",
+    "label": "defines",
+    "line": 54
+  },
+  {
+    "source": "\\src\\utils\\rag::insertNodesEmbeddings",
+    "target": "\\src\\utils\\rag::splitMarkdownByHeaders",
+    "label": "calls",
+    "line": 38
+  },
+  {
+    "source": "\\src\\utils\\rag",
+    "target": "\\src\\utils\\rag::splitMarkdownByHeaders",
+    "label": "defines",
+    "line": 4
   },
   {
     "source": "\\src\\utils\\utils",
@@ -2484,40 +3102,106 @@
     "line": 1
   },
   {
-    "source": "\\src\\wiki\\utils",
-    "target": "\\src\\wiki\\utils::documentFolders",
+    "source": "\\src\\wiki\\prompts",
+    "target": "\\src\\wiki\\prompts::generateFolderPrompts",
     "label": "defines",
-    "line": 332
+    "line": 133
   },
   {
-    "source": "\\src\\wiki\\utils::documentFolders",
-    "target": "\\src\\wiki\\utils::getNodesPerType",
+    "source": "\\src\\wiki\\prompts::generateFolderPrompts",
+    "target": "\\src\\wiki\\prompts::getNodesPerType",
     "label": "calls",
     "line": 7
   },
   {
-    "source": "\\src\\wiki\\utils::documentFolders",
-    "target": "\\src\\wiki\\utils::calculateLanguagePercentages",
+    "source": "\\src\\wiki\\prompts::generateFolderPrompts",
+    "target": "\\src\\wiki\\prompts::calculateLanguagePercentages",
     "label": "calls",
     "line": 8
   },
   {
-    "source": "\\src\\wiki\\utils::documentFolders",
-    "target": "\\src\\wiki\\utils::getMostUsedNodesPerType",
+    "source": "\\src\\wiki\\prompts::generateFolderPrompts",
+    "target": "\\src\\wiki\\prompts::getMostUsedNodesPerType",
     "label": "calls",
-    "line": 38
+    "line": 23
+  },
+  {
+    "source": "\\src\\wiki\\prompts",
+    "target": "\\src\\wiki\\prompts::getMostUsedNodesPerType",
+    "label": "defines",
+    "line": 106
+  },
+  {
+    "source": "\\src\\wiki\\prompts",
+    "target": "\\src\\wiki\\prompts::getNodesPerType",
+    "label": "defines",
+    "line": 94
+  },
+  {
+    "source": "\\src\\wiki\\prompts",
+    "target": "\\src\\wiki\\prompts::calculateLanguagePercentages",
+    "label": "defines",
+    "line": 73
+  },
+  {
+    "source": "\\src\\wiki\\prompts",
+    "target": "\\src\\wiki\\prompts::generateNodePrompts",
+    "label": "defines",
+    "line": 7
+  },
+  {
+    "source": "\\src\\wiki\\prompts::generateNodePrompts",
+    "target": "\\src\\wiki\\prompts::Graph",
+    "label": "calls",
+    "line": 3
+  },
+  {
+    "source": "\\src\\wiki\\prompts",
+    "target": "\\src\\wiki\\prompts::Graph",
+    "label": "defines",
+    "line": 5
+  },
+  {
+    "source": "\\src\\wiki\\prompts::Graph",
+    "target": "\\src\\wiki\\prompts::Graph",
+    "label": "calls",
+    "line": 1
+  },
+  {
+    "source": "\\src\\wiki\\prompts",
+    "target": "\\src\\wiki\\prompts::Graph",
+    "label": "calls",
+    "line": 5
+  },
+  {
+    "source": "\\src\\wiki\\utils",
+    "target": "\\src\\wiki\\utils::documentFolders",
+    "label": "defines",
+    "line": 220
+  },
+  {
+    "source": "\\src\\wiki\\utils::documentFolders",
+    "target": "\\src\\wiki\\utils::generateFolderDocumentation",
+    "label": "calls",
+    "line": 37
   },
   {
     "source": "\\src\\wiki\\utils::documentFolders",
     "target": "\\src\\wiki\\utils::totalTokens",
     "label": "calls",
-    "line": 134
+    "line": 49
+  },
+  {
+    "source": "\\src\\wiki\\utils",
+    "target": "\\src\\wiki\\utils::generateFolderDocumentation",
+    "label": "defines",
+    "line": 197
   },
   {
     "source": "\\src\\wiki\\utils",
     "target": "\\src\\wiki\\utils::documentNodesByLevels",
     "label": "defines",
-    "line": 307
+    "line": 172
   },
   {
     "source": "\\src\\wiki\\utils::documentNodesByLevels",
@@ -2541,43 +3225,19 @@
     "source": "\\src\\wiki\\utils",
     "target": "\\src\\wiki\\utils::generateNodeDocumentation",
     "label": "defines",
-    "line": 264
+    "line": 117
   },
   {
     "source": "\\src\\wiki\\utils::generateNodeDocumentation",
     "target": "\\src\\wiki\\utils::Graph",
     "label": "calls",
     "line": 4
-  },
-  {
-    "source": "\\src\\wiki\\utils::generateNodeDocumentation",
-    "target": "\\src\\wiki\\utils::generateNodePrompts",
-    "label": "calls",
-    "line": 8
-  },
-  {
-    "source": "\\src\\wiki\\utils",
-    "target": "\\src\\wiki\\utils::generateNodePrompts",
-    "label": "defines",
-    "line": 180
-  },
-  {
-    "source": "\\src\\wiki\\utils::generateNodePrompts",
-    "target": "\\src\\wiki\\utils::Graph",
-    "label": "calls",
-    "line": 4
-  },
-  {
-    "source": "\\src\\wiki\\utils::generateNodePrompts",
-    "target": "\\src\\wiki\\utils::findFileParentNode",
-    "label": "calls",
-    "line": 7
   },
   {
     "source": "\\src\\wiki\\utils",
     "target": "\\src\\wiki\\utils::bfsLevels",
     "label": "defines",
-    "line": 112
+    "line": 49
   },
   {
     "source": "\\src\\wiki\\utils::bfsLevels",
@@ -2589,7 +3249,7 @@
     "source": "\\src\\wiki\\utils",
     "target": "\\src\\wiki\\utils::buildGraphs",
     "label": "defines",
-    "line": 90
+    "line": 27
   },
   {
     "source": "\\src\\wiki\\utils::buildGraphs",
@@ -2601,7 +3261,7 @@
     "source": "\\src\\wiki\\utils",
     "target": "\\src\\wiki\\utils::findFileParentNode",
     "label": "defines",
-    "line": 73
+    "line": 10
   },
   {
     "source": "\\src\\wiki\\utils::findFileParentNode",
@@ -2611,27 +3271,9 @@
   },
   {
     "source": "\\src\\wiki\\utils",
-    "target": "\\src\\wiki\\utils::getMostUsedNodesPerType",
-    "label": "defines",
-    "line": 44
-  },
-  {
-    "source": "\\src\\wiki\\utils",
-    "target": "\\src\\wiki\\utils::getNodesPerType",
-    "label": "defines",
-    "line": 32
-  },
-  {
-    "source": "\\src\\wiki\\utils",
-    "target": "\\src\\wiki\\utils::calculateLanguagePercentages",
-    "label": "defines",
-    "line": 9
-  },
-  {
-    "source": "\\src\\wiki\\utils",
     "target": "\\src\\wiki\\utils::Graph",
     "label": "defines",
-    "line": 7
+    "line": 8
   },
   {
     "source": "\\src\\wiki\\utils::Graph",
@@ -2643,31 +3285,31 @@
     "source": "\\src\\wiki\\utils",
     "target": "\\src\\wiki\\utils::totalTokens",
     "label": "defines",
-    "line": 5
+    "line": 6
   },
   {
     "source": "\\src\\wiki\\utils",
     "target": "\\src\\wiki\\utils::Graph",
     "label": "calls",
-    "line": 118
+    "line": 8
   },
   {
     "source": "\\src\\wiki\\wiki",
     "target": "\\src\\wiki\\wiki::generateAndUpdateDocumentation",
     "label": "defines",
-    "line": 16
+    "line": 19
   },
   {
     "source": "\\src\\wiki\\wiki::generateAndUpdateDocumentation",
     "target": "\\src\\wiki\\wiki::generateDocumentation",
     "label": "calls",
-    "line": 9
+    "line": 8
   },
   {
     "source": "\\src\\wiki\\wiki",
     "target": "\\src\\wiki\\wiki::generateDocumentation",
     "label": "defines",
-    "line": 5
+    "line": 6
   },
   {
     "source": "\\src\\wiki\\wikiGuille",
@@ -3045,79 +3687,91 @@
     "source": "\\src\\wiki\\wikiGuille",
     "target": "\\src\\wiki\\wikiGuille::wikiNode",
     "label": "calls",
-    "line": 119
-  },
-  {
-    "source": "\\src\\wiki\\wikiGuille",
-    "target": "\\src\\wiki\\wikiGuille::readJson",
-    "label": "calls",
-    "line": 119
-  },
-  {
-    "source": "\\src\\wiki\\wikiGuille",
-    "target": "\\src\\wiki\\wikiGuille::nodesPath",
-    "label": "calls",
-    "line": 119
+    "line": 17
   },
   {
     "source": "\\src\\wiki\\wikiGuille",
     "target": "\\src\\wiki\\wikiGuille::wikiLink",
     "label": "calls",
-    "line": 123
+    "line": 34
+  },
+  {
+    "source": "\\src\\wiki\\wikiGuille",
+    "target": "\\src\\wiki\\wikiGuille::folder_path",
+    "label": "calls",
+    "line": 60
+  },
+  {
+    "source": "\\src\\wiki\\wikiGuille",
+    "target": "\\src\\wiki\\wikiGuille::projectId",
+    "label": "calls",
+    "line": 60
+  },
+  {
+    "source": "\\src\\wiki\\wikiGuille",
+    "target": "\\src\\wiki\\wikiGuille::readJson",
+    "label": "calls",
+    "line": 99
+  },
+  {
+    "source": "\\src\\wiki\\wikiGuille",
+    "target": "\\src\\wiki\\wikiGuille::nodesPath",
+    "label": "calls",
+    "line": 99
   },
   {
     "source": "\\src\\wiki\\wikiGuille",
     "target": "\\src\\wiki\\wikiGuille::linksPath",
     "label": "calls",
-    "line": 123
+    "line": 103
   },
   {
     "source": "\\src\\wiki\\wikiGuille",
     "target": "\\src\\wiki\\wikiGuille::buildGraphs",
     "label": "calls",
-    "line": 124
+    "line": 104
   },
   {
     "source": "\\src\\wiki\\wikiGuille",
     "target": "\\src\\wiki\\wikiGuille::findStartNodes",
     "label": "calls",
-    "line": 129
+    "line": 109
   },
   {
     "source": "\\src\\wiki\\wikiGuille",
     "target": "\\src\\wiki\\wikiGuille::bfs",
     "label": "calls",
-    "line": 134
+    "line": 114
   },
   {
     "source": "\\src\\wiki\\wikiGuille",
     "target": "\\src\\wiki\\wikiGuille::classifyAndDocumentFiles",
     "label": "calls",
-    "line": 144
+    "line": 124
   },
   {
     "source": "\\src\\wiki\\wikiGuille",
     "target": "\\src\\wiki\\wikiGuille::documentFolders",
     "label": "calls",
-    "line": 154
+    "line": 134
   },
   {
     "source": "\\src\\wiki\\wikiGuille",
     "target": "\\src\\wiki\\wikiGuille::buildWiki",
     "label": "calls",
-    "line": 160
+    "line": 140
   },
   {
     "source": "\\src\\wiki\\wikiGuille",
     "target": "\\src\\wiki\\wikiGuille::totalTokensUsed",
     "label": "calls",
-    "line": 162
+    "line": 142
   },
   {
     "source": "\\src\\wiki\\wikiGuille",
     "target": "\\src\\wiki\\wikiGuille::timeElapsedInSecconds",
     "label": "calls",
-    "line": 164
+    "line": 144
   },
   {
     "source": "\\tests\\c.test",
@@ -3135,13 +3789,13 @@
     "source": "\\tests\\c.test",
     "target": "\\tests\\c.test::rootFolderPath",
     "label": "calls",
-    "line": 17
+    "line": 13
   },
   {
     "source": "\\tests\\c.test",
     "target": "\\tests\\c.test::nodeAttributes",
     "label": "calls",
-    "line": 83
+    "line": 79
   },
   {
     "source": "\\tests\\java.test",
@@ -3159,13 +3813,13 @@
     "source": "\\tests\\java.test",
     "target": "\\tests\\java.test::rootFolderPath",
     "label": "calls",
-    "line": 17
+    "line": 13
   },
   {
     "source": "\\tests\\java.test",
     "target": "\\tests\\java.test::nodeAttributes",
     "label": "calls",
-    "line": 67
+    "line": 63
   },
   {
     "source": "\\tests\\javascript.test",
@@ -3183,13 +3837,13 @@
     "source": "\\tests\\javascript.test",
     "target": "\\tests\\javascript.test::rootFolderPath",
     "label": "calls",
-    "line": 19
+    "line": 15
   },
   {
     "source": "\\tests\\javascript.test",
     "target": "\\tests\\javascript.test::nodeAttributes",
     "label": "calls",
-    "line": 56
+    "line": 52
   },
   {
     "source": "\\tests\\php.test",
@@ -3207,13 +3861,13 @@
     "source": "\\tests\\php.test",
     "target": "\\tests\\php.test::rootFolderPath",
     "label": "calls",
-    "line": 20
+    "line": 16
   },
   {
     "source": "\\tests\\php.test",
     "target": "\\tests\\php.test::nodeAttributes",
     "label": "calls",
-    "line": 82
+    "line": 78
   },
   {
     "source": "\\tests\\python.test",
@@ -3231,12 +3885,12 @@
     "source": "\\tests\\python.test",
     "target": "\\tests\\python.test::rootFolderPath",
     "label": "calls",
-    "line": 17
+    "line": 13
   },
   {
     "source": "\\tests\\python.test",
     "target": "\\tests\\python.test::nodeAttributes",
     "label": "calls",
-    "line": 45
+    "line": 41
   }
 ]

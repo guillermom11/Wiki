@@ -24,8 +24,8 @@ app.get("/", async (c) => {
     "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\danielavila.me-main";
   const codebasePath4 =
     "C:\\Users\\gmasc\\OneDrive\\Documentos\\CodeGPT\\api-vicuna-deno-main";
-  const codebase = new Codebase(codebasePath4); //
-  console.log(`Parsing ${codebasePath4}`);
+  const codebase = new Codebase(codebasePath2); //
+  console.log(`Parsing ${codebasePath}`);
   const fileNodesMap = await codebase.parseFolder();
   console.log(`Found ${Object.keys(codebase.nodesMap).length} nodes`);
   console.log("Getting Calls");
