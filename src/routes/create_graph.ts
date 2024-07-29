@@ -265,7 +265,8 @@ async function processGraphCreation({
             full_name,
             label,
             origin_file,
-            import_statements
+            import_statements,
+            definition_line
           )
           VALUES (
             ${nodeDBIds[node.id]},
@@ -281,7 +282,8 @@ async function processGraphCreation({
             ${fullName},
             ${node.label},
             ${node.originFile},
-            ${node.importStatements.join('\n')}
+            ${node.importStatements.join('\n')},
+          ${node.definitionLine}
           )
         `
     })

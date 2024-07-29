@@ -647,7 +647,8 @@ export class Node {
       calls: this.calls.map((c) => c.node.id),
       inDegree: this.inDegree,
       outDegree: this.outDegree,
-      originFile: rootFolderPath ? this.originFile.replace(rootFolderPath, '') : this.originFile
+      originFile: rootFolderPath ? this.originFile.replace(rootFolderPath, '') : this.originFile,
+      definitionLine: this.startPosition.row + 1
     }
 
     if (attributes.length === 0) {
