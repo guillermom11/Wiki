@@ -56,7 +56,7 @@ export async function downloadAndExtractRepo(
 
     const extractPath = path.join(
       tmpFolderPath,
-      `${commitSha}_${repoOrg}_${repoName}_${branch}_${performance.now()}`
+      `${commitSha}_${repoOrg}_${repoName}_${branch.replaceAll('/', '_')}_${performance.now()}`
     )
 
     // Save zip

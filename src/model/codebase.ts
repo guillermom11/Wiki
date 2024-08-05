@@ -739,6 +739,7 @@ export class Node {
       originFile: rootFolderPath
         ? this.originFile.replace(rootFolderPath, "")
         : this.originFile,
+      definitionLine: this.startPosition.row + 1,
     };
 
     if (attributes.length === 0) {
