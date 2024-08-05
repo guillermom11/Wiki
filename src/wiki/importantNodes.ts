@@ -15,12 +15,13 @@ import pagerank from "graphology-metrics/centrality/pagerank";
 import { plot } from "nodeplotlib";
 
 const projectId = "judini-python-main";
-const folderPath = "../../test_files/";
-const nodesPath = path.join(folderPath, projectId, "nodes.json");
-const linksPath = path.join(folderPath, projectId, "links.json");
+const folderPath = "..\\..\\test_files\\";
+const nodesPath = `./test_files/codebase-index-ts/nodes.json`;
+const linksPath = `./test_files/codebase-index-ts/links.json`;
 
 // Function to read JSON files
 async function readJsonGraph(filePath: string) {
+  console.log("Reading JSON file: ", filePath);
   const data = await fs.readFile(filePath, "utf8");
   return JSON.parse(data);
 }
@@ -29,7 +30,7 @@ async function readJsonGraph(filePath: string) {
 function constructGraphFromJson(nodes: any[], links: any[]): Graph {
   const G = new Graph({
     multi: true,
-    allowSelfLoops: false,
+    allowSelfLoops: true,
     type: "directed",
   });
   nodes.forEach((node) => {
@@ -85,10 +86,6 @@ function createDataFrame(
   label: string
 ): DataFrame {
   const length = Object.keys(centralityMeasures.degree).length;
-  //console.log("length: ", length);
-  //console.log("centralityMeasures: ", centralityMeasures);
-  //console.log("inOutDegreesDefines: ", inOutDegreesDefines);
-  //console.log("inOutDegreesCalls: ", inOutDegreesCalls);
 
   const keys = Object.keys(centralityMeasures.degree);
   const data = [];
@@ -171,7 +168,13 @@ function handleEdge(
   }
 }
 
-(async function getImportantNodes(criteria: string = "degree") {
+export async function getImportantNodes(
+  criteria: string = "degree",
+  top: number = 10
+): Promise<{
+  mostImportantNodesKeys: string[];
+  mostImportantFilesKeys: string[];
+}> {
   // Read nodes and links JSON files
   const nodes = await readJsonGraph(nodesPath);
   const links = await readJsonGraph(linksPath);
@@ -182,32 +185,32 @@ function handleEdge(
   // Subgraphs for "defines" and "calls"
   const G_nodes = new Graph({
     multi: true,
-    allowSelfLoops: false,
+    allowSelfLoops: true,
     type: "directed",
   });
   const G_files = new Graph({
     multi: true,
-    allowSelfLoops: false,
+    allowSelfLoops: true,
     type: "directed",
   });
   const G_node_defines = new Graph({
     multi: true,
-    allowSelfLoops: false,
+    allowSelfLoops: true,
     type: "directed",
   });
   const G_node_calls = new Graph({
     multi: true,
-    allowSelfLoops: false,
+    allowSelfLoops: true,
     type: "directed",
   });
   const G_files_defines = new Graph({
     multi: true,
-    allowSelfLoops: false,
+    allowSelfLoops: true,
     type: "directed",
   });
   const G_files_calls = new Graph({
     multi: true,
-    allowSelfLoops: false,
+    allowSelfLoops: true,
     type: "directed",
   });
 
@@ -270,14 +273,22 @@ function handleEdge(
     "files"
   );
 
-  const mostImportantNodes = dfNodes.orderByDescending(
-    (row: any) => row.degree
-  );
-  const mostImportantFiles = dfFiles.orderByDescending(
-    (row: any) => row.degree
-  );
-  const mostImportantNodesCSV = mostImportantNodes.toCSV();
-  const mostImportantFilesCSV = mostImportantFiles.toCSV();
+  const mostImportantNodesTop = dfNodes
+    .orderByDescending((row: any) => row[criteria])
+    .take(top);
+  const mostImportantFilesTop = dfFiles
+    .orderByDescending((row: any) => row[criteria])
+    .take(top);
+
+  const mostImportantNodesKeys = mostImportantNodesTop
+    .toArray()
+    .map((row) => row.ID);
+  const mostImportantFilesKeys = mostImportantFilesTop
+    .toArray()
+    .map((row) => row.ID);
+
+  const mostImportantNodesCSV = mostImportantNodesTop.toCSV();
+  const mostImportantFilesCSV = mostImportantFilesTop.toCSV();
 
   await fs.writeFile(
     `${projectId}-important-nodes-ts.csv`,
@@ -318,4 +329,5 @@ function handleEdge(
     "eigenvector",
     "combined_score",
   ];
-});
+  return { mostImportantNodesKeys, mostImportantFilesKeys };
+}

@@ -1,19 +1,32 @@
 import { GraphFolder, GraphLink, GraphNode } from "../utils/db";
-import { bfsLevels, buildGraphs, documentFolders, documentNodesByLevels } from "./utils";
+import {
+  bfsLevels,
+  buildGraphs,
+  documentFolders,
+  documentNodesByLevels,
+} from "./utils";
+
 import { sql } from "../utils/db";
-import { insertNodesEmbeddings, insertGraphFolderEmbeddings  } from '../utils/rag'
+import {
+  insertNodesEmbeddings,
+  insertGraphFolderEmbeddings,
+} from "../utils/rag";
 
-export async function generateDocumentation(nodes: GraphNode[], links: GraphLink[],
-                                            repoName: string, model: string = 'gpt-4o-mini') {
-  const { graph } = buildGraphs(nodes, links)
-  const nodesByLevels = bfsLevels(nodes, graph)
+export async function generateDocumentation(
+  nodes: GraphNode[],
+  links: GraphLink[],
+  repoName: string,
+  model: string = "gpt-4o-mini"
+) {
+  const { graph } = buildGraphs(nodes, links);
+  const nodesByLevels = bfsLevels(nodes, graph);
 
-  await documentNodesByLevels(nodesByLevels, nodes, graph, repoName, model)
-  
-  const documentedFolders = await documentFolders(nodes, repoName, 'gpt-4o')
+  await documentNodesByLevels(nodesByLevels, nodes, graph, repoName, model);
+
+  const documentedFolders = await documentFolders(nodes, repoName, "gpt-4o");
   // rembember to set has_autowiki = true again!
   // const documentedFolders : { [key: number]: string[] } = {}
-  return documentedFolders
+  return documentedFolders;
 }
 
 export async function generateAndUpdateDocumentation(
@@ -21,33 +34,40 @@ export async function generateAndUpdateDocumentation(
   repoId: string,
   graphNodes: GraphNode[],
   graphLinks: GraphLink[],
-  model: string = 'gpt-4o-mini') {
-
-  const documentedFolders = await generateDocumentation(graphNodes, graphLinks, repoName, model)
-  const insertFolderPromises = Object.entries(documentedFolders).map(([name, wiki]) => {
+  model: string = "gpt-4o-mini"
+) {
+  const documentedFolders = await generateDocumentation(
+    graphNodes,
+    graphLinks,
+    repoName,
+    model
+  );
+  const insertFolderPromises = Object.entries(documentedFolders).map(
+    ([name, wiki]) => {
       // update
       return sql`
         UPDATE graph_folders
         SET wiki = ${wiki}
         WHERE name = ${name}
         RETURNING id
-      `
-  })
+      `;
+    }
+  );
 
-  const folderRows = await Promise.all(insertFolderPromises)
-  const folderIds = folderRows.map(row => row[0].id)
+  const folderRows = await Promise.all(insertFolderPromises);
+  const folderIds = folderRows.map((row) => row[0].id);
 
-  const updateNodeDocsPromises = graphNodes.map(node => {
+  const updateNodeDocsPromises = graphNodes.map((node) => {
     if (node.generatedDocumentation) {
       return sql`
         UPDATE nodes
         SET generated_documentation = ${node.generatedDocumentation}
         WHERE id = ${node.id}
-      `
+      `;
     }
-  })
+  });
 
-  await Promise.all(updateNodeDocsPromises)
+  await Promise.all(updateNodeDocsPromises);
 
   // const graphFoldersToInsert: GraphFolder[] = Object.entries(documentedFolders).map(([name, wiki], index) => {
   //   return {
@@ -57,16 +77,16 @@ export async function generateAndUpdateDocumentation(
   //   }
   // })
 
-  console.log('Inserting embeddings ..')
+  console.log("Inserting embeddings ..");
   // Delete old embeddings
   await sql`
         DELETE FROM vecs.chunks_graph
         WHERE repo_id = ${repoId}
     `;
   await Promise.all([
-                    insertNodesEmbeddings(graphNodes, repoId),
-                    // insertGraphFolderEmbeddings(graphFoldersToInsert, repoId)
-                  ])
+    insertNodesEmbeddings(graphNodes, repoId),
+    // insertGraphFolderEmbeddings(graphFoldersToInsert, repoId)
+  ]);
 
-  await sql`UPDATE repositories SET has_autowiki = false WHERE id = ${repoId}`
+  await sql`UPDATE repositories SET has_autowiki = false WHERE id = ${repoId}`;
 }

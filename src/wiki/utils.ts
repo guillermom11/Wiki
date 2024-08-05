@@ -2,7 +2,8 @@ import { GraphLink, GraphNode } from "../utils/db";
 import { chatCompletionMessages, getOpenAIChatCompletion } from "../utils/ai";
 import { AllowedTypes } from "../model/consts";
 import { generateFolderPrompts, generateNodePrompts } from "./prompts";
-
+import { getImportantNodes } from "./importantNodes";
+import fs from "fs/promises";
 let totalTokens = 0;
 
 type Graph = { [key: string]: string[] };
@@ -198,14 +199,19 @@ async function generateFolderDocumentation(
   nodes: GraphNode[],
   repoName: string,
   folderName: string,
+  mostImportantFilesKeys: string[],
   documentedFolders: { [key: string]: string },
-  model: string
+  model: string,
+  sampleWiki: string
 ) {
-  const { systemPrompt, userPrompt } = generateFolderPrompts(
+  //CAMBIOO
+  const { systemPrompt, userPrompt } = await generateFolderPrompts(
     nodes,
     repoName,
     folderName,
-    documentedFolders
+    mostImportantFilesKeys,
+    documentedFolders,
+    sampleWiki
   );
   const messages: chatCompletionMessages = [
     { role: "system", content: systemPrompt },
@@ -225,14 +231,14 @@ export async function documentFolders(
   console.log("Generating documentation for each folder ..");
   const fileNodes = nodes.filter((n) => n.type === "file");
   const folderNames = fileNodes.map((n) =>
-    n.fullName.split("/").slice(0, -1).join("/")
+    n.fullName.split("\\").slice(0, -1).join("\\")
   );
   const uniqueFolderNames = [...new Set(folderNames)];
 
   // Group folders by their level
   const foldersByLevel: { [key: number]: string[] } = {};
   uniqueFolderNames.forEach((folder) => {
-    const level = folder.split("/").length;
+    const level = folder.split("\\").length;
     if (!foldersByLevel[level]) {
       foldersByLevel[level] = [];
     }
@@ -249,7 +255,19 @@ export async function documentFolders(
   uniqueFolderNames.forEach(
     (foldername) => (documentedFolders[foldername] = "")
   );
-
+  const top = 10;
+  let { mostImportantNodesKeys, mostImportantFilesKeys } =
+    await getImportantNodes("degree", top);
+  console.log("MOST IMPORTANT NODES", mostImportantNodesKeys);
+  const mostImportantNodesWithCode: { [key: string]: string } = {};
+  mostImportantNodesKeys.forEach((key) => {
+    const node = nodes.find((node) => node.fullName === key);
+    if (node) {
+      mostImportantNodesWithCode[key] = node.codeNoBody;
+    }
+  });
+  const sampleWiki: string = await fs.readFile(`./src/wiki/sample.md`, "utf-8");
+  //console.log("Most important Nodes with Code", mostImportantNodesWithCode);
   for (const level of levels) {
     const foldersAtLevel = foldersByLevel[level];
     const promises = foldersAtLevel.map(async (folderName) => {
@@ -257,8 +275,10 @@ export async function documentFolders(
         nodes,
         repoName,
         folderName,
+        mostImportantFilesKeys,
         documentedFolders,
-        model
+        model,
+        sampleWiki
       );
     });
 

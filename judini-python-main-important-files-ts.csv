@@ -1,0 +1,11 @@
+ID,degree,indegree_files_defines,outdegree_files_defines,indegree_files_calls,outdegree_files_calls,betweenness,closeness,pagerank,eigenvector
+\src\wiki\wikiGuille,1,0,0.09774436090225563,0,0.12605042016806722,NaN,0,0,0
+\src\communities\centrality,0.9,0,0.09774436090225563,0,0.09243697478991597,NaN,0,0,0
+\src\communities\communities,0.65,0,0.07518796992481203,0,0.058823529411764705,NaN,0,0,0
+\src\queries\java,0.4,0,0.03383458646616541,0,0.06722689075630252,NaN,0,0,0
+\src\queries\c,0.35,0,0.03007518796992481,0,0.058823529411764705,NaN,0,0,0
+\src\queries\javascript,0.35,0,0.03007518796992481,0,0.058823529411764705,NaN,0,0,0
+\src\queries\php,0.35,0,0.03007518796992481,0,0.058823529411764705,NaN,0,0,0
+\src\queries\python,0.35,0,0.03007518796992481,0,0.058823529411764705,NaN,0,0,0
+\src\tools\function_tools,0.275,0,0.045112781954887216,,,NaN,0,0,0
+\src\model\consts,0.25,0,0.03759398496240601,0,0.008403361344537815,NaN,0,0,0

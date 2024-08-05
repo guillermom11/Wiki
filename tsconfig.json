@@ -12,6 +12,6 @@
     "jsx": "react-jsx",
     "jsxImportSource": "hono/jsx"
   },
-  "include": ["src/**/*.ts", "test/**/*.ts", "__tests__/**/*.ts", "llamaindex.ts"],
+  "include": ["src/**/*.ts", "test/**/*.ts", "__tests__/**/*.ts", "src/communities/llamaindex.ts"],
   "exclude": ["node_modules", "dist"]
 }
